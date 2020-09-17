@@ -5,4 +5,4 @@ Contributions to Specifications are made under the
 [W3C CLA](https://www.w3.org/community/about/agreements/cla/).
 
 Contributions to Software, including sample implementations, are under the
-[Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0).```
+[Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0).
