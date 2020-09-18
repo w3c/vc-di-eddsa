@@ -2,4 +2,4 @@
 
 🚧 This linked data suite specification is under development DO NOT use this in production.
 
-Breaking changes will be push regularly.
+Breaking changes will be pushed regularly.
