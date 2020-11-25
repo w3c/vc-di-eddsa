@@ -456,7 +456,7 @@
             the verification method <code>controller</code>.
           </p>
           <p>
-            The <code>signature</code> property of the proof MUST be a detached
+            The <code>proofValue</code> property of the proof MUST be a detached
             EdDSA produced according to [[RFC8032]], encoded according to
             [[MULTIBASE]].
           </p>
@@ -560,7 +560,7 @@
             "proof": {
               "type": "Ed25519Signature2020",
               "created": "2019-12-11T03:50:55Z",
-              "signature": "z5LgmVhjjPTEzGL31k2eEde8bdr4MAzxQv87AmdHt5Usd1uGK1Ae88NoZ5jgTLKS6sJCZnQNthR3qAbyRMxvkqSkss2WtyKLa9rqhJmR6YEBkiuUtxawhrscWXm",
+              "proofValue": "z5LgmVhjjPTEzGL31k2eEde8bdr4MAzxQv87AmdHt5Usd1uGK1Ae88NoZ5jgTLKS6sJCZnQNthR3qAbyRMxvkqSkss2WtyKLa9rqhJmR6YEBkiuUtxawhrscWXm",
               "proofPurpose": "assertionMethod",
               "verificationMethod": "https://example.com/issuer/123#key-0"
             }
@@ -592,7 +592,7 @@
                 "proof": {
                   "type": "Ed25519Signature2020",
                   "created": "2019-12-11T03:50:55Z",
-                  "signature": "z5LgmVhjjPTEzGL31k2eEde8bdr4MAzxQv87AmdHt5Usd1uGK1Ae88NoZ5jgTLKS6sJCZnQNthR3qAbyRMxvkqSkss2WtyKLa9rqhJmR6YEBkiuUtxawhrscWXm",
+                  "proofValue": "z5LgmVhjjPTEzGL31k2eEde8bdr4MAzxQv87AmdHt5Usd1uGK1Ae88NoZ5jgTLKS6sJCZnQNthR3qAbyRMxvkqSkss2WtyKLa9rqhJmR6YEBkiuUtxawhrscWXm",
                   "proofPurpose": "assertionMethod",
                   "verificationMethod": "https://example.com/issuer/123#key-0"
                 }
@@ -606,7 +606,7 @@
               "verificationMethod": "https://example.com/issuer/123#key-0",
               "proofPurpose": "authentication",
               "challenge": "123",
-              "signature": "z5LgJQhEvrLoNqXSbBzFR6mqmBnUefxX6dBjn2A4FYmmtB3EcWC41RmvHARgHwZyuMkR9xMbMCY7Ch4iRr9R8o1JffWY63FRfX3em8f3avb1CU6FaxiMjZdNegc"
+              "proofValue": "z5LgJQhEvrLoNqXSbBzFR6mqmBnUefxX6dBjn2A4FYmmtB3EcWC41RmvHARgHwZyuMkR9xMbMCY7Ch4iRr9R8o1JffWY63FRfX3em8f3avb1CU6FaxiMjZdNegc"
             }
           }
         }
