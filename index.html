@@ -383,7 +383,7 @@
               "id": "https://example.com/issuer/123#key-0",
               "type": "Ed25519VerificationKey2020",
               "controller": "https://example.com/issuer/123",
-              "publicKeyMultibase": "zgo4sNiXwJTbeJDWZLXVn9uTnRwgFHFxcgDePvEC9TiTYgRpG7q1p5s7yRAic"
+              "publicKeyMultibase": "zdbDmZLTWuEYYZNHFLKLoRkEX4sZykkSLNQLXvMUyMB1"
             }
           </pre>
 
@@ -401,7 +401,7 @@
                   "id": "#key-0",
                   "type": "Ed25519VerificationKey2020",
                   "controller": "did:example:123",
-                  "publicKeyMultibase": "zgo4sNiXwJTbeJDWZLXVn9uTnRwgFHFxcgDePvEC9TiTYgRpG7q1p5s7yRAic"
+                  "publicKeyMultibase": "zdbDmZLTWuEYYZNHFLKLoRkEX4sZykkSLNQLXvMUyMB1"
                 }
               ],
               "authentication": [
@@ -488,8 +488,8 @@
             "id": "https://example.com/issuer/123#key-0",
             "type": "Ed25519KeyPair2020",
             "controller": "https://example.com/issuer/123",
-            "publicKeyMultibase": "zgo4sNiXwJTbeJDWZLXVn9uTnRwgFHFxcgDePvEC9TiTYgRpG7q1p5s7yRAic",
-            "privateKeyMultibase": "z5LgFTdoZ3hjXbijBYC8qBEEZ1oibq1AKVeSeuw84zgYzUNY2rXKT8xLU41XpMN124wVr26axAPBPiNnR9dvyY7KA9QCmTrxT6yCCJxfS6U5iEBhzfbWqPSazGJ"
+            "publicKeyMultibase": "zdbDmZLTWuEYYZNHFLKLoRkEX4sZykkSLNQLXvMUyMB1",
+            "privateKeyMultibase": "z47QbyJEDqmHTzsdg8xzqXD8gqKuLufYRrKWTmB7eAaWHG2EAsQ2GUyqRqWWYT15dGuag52Sf3j4hs2mu7w52mgps"
           }
         }              
       </pre>
@@ -499,18 +499,18 @@
           "issuer_0": {
             "@context": [
               "https://www.w3.org/ns/did/v1",
-              "https://example.com/credentials/latest",
+              "https://w3c-ccg.github.io/lds-jws2020/contexts/lds-jws2020-v1.json",
               {
                 "@base": "https://example.com/issuer/123"
               }
             ],
             "id": "https://example.com/issuer/123",
-            "publicKey": [
+            "verificationMethod": [
               {
                 "id": "#key-0",
                 "type": "Ed25519VerificationKey2020",
                 "controller": "https://example.com/issuer/123",
-                "publicKeyMultibase": "zgo4sNiXwJTbeJDWZLXVn9uTnRwgFHFxcgDePvEC9TiTYgRpG7q1p5s7yRAic"
+                "publicKeyMultibase": "zdbDmZLTWuEYYZNHFLKLoRkEX4sZykkSLNQLXvMUyMB1"
               }
             ],
             "assertionMethod": ["#key-0"],
@@ -544,7 +544,7 @@
             "@context": [
               "https://www.w3.org/2018/credentials/v1",
               "https://www.w3.org/2018/credentials/examples/v1",
-              "https://example.com/credentials/latest"
+              "https://w3c-ccg.github.io/lds-ed25519-2020/contexts/lds-ed25519-2020-v1.json"
             ],
             "id": "http://example.gov/credentials/3732",
             "type": ["VerifiableCredential", "UniversityDegreeCredential"],
@@ -560,7 +560,7 @@
             "proof": {
               "type": "Ed25519Signature2020",
               "created": "2019-12-11T03:50:55Z",
-              "proofValue": "z5LgmVhjjPTEzGL31k2eEde8bdr4MAzxQv87AmdHt5Usd1uGK1Ae88NoZ5jgTLKS6sJCZnQNthR3qAbyRMxvkqSkss2WtyKLa9rqhJmR6YEBkiuUtxawhrscWXm",
+              "proofValue": "z5SpZtDGGz5a89PJbQT2sgbRUiyyAGhhgjcf86aJHfYcfvPjxn6vej5na6kUzmw1jMAR9PJU9mowshQFFdGmDN14D",
               "proofPurpose": "assertionMethod",
               "verificationMethod": "https://example.com/issuer/123#key-0"
             }
@@ -568,7 +568,7 @@
           "vp_0": {
             "@context": [
               "https://www.w3.org/2018/credentials/v1",
-              "https://example.com/credentials/latest"
+              "https://w3c-ccg.github.io/lds-ed25519-2020/contexts/lds-ed25519-2020-v1.json"
             ],
             "type": ["VerifiablePresentation"],
             "verifiableCredential": [
@@ -576,7 +576,7 @@
                 "@context": [
                   "https://www.w3.org/2018/credentials/v1",
                   "https://www.w3.org/2018/credentials/examples/v1",
-                  "https://example.com/credentials/latest"
+                  "https://w3c-ccg.github.io/lds-ed25519-2020/contexts/lds-ed25519-2020-v1.json"
                 ],
                 "id": "http://example.gov/credentials/3732",
                 "type": ["VerifiableCredential", "UniversityDegreeCredential"],
@@ -592,21 +592,21 @@
                 "proof": {
                   "type": "Ed25519Signature2020",
                   "created": "2019-12-11T03:50:55Z",
-                  "proofValue": "z5LgmVhjjPTEzGL31k2eEde8bdr4MAzxQv87AmdHt5Usd1uGK1Ae88NoZ5jgTLKS6sJCZnQNthR3qAbyRMxvkqSkss2WtyKLa9rqhJmR6YEBkiuUtxawhrscWXm",
+                  "proofValue": "z5SpZtDGGz5a89PJbQT2sgbRUiyyAGhhgjcf86aJHfYcfvPjxn6vej5na6kUzmw1jMAR9PJU9mowshQFFdGmDN14D",
                   "proofPurpose": "assertionMethod",
                   "verificationMethod": "https://example.com/issuer/123#key-0"
                 }
               }
             ],
-            "id": "ebc6f1c2",
+            "id": "urn:uuid:83895ddf-52ee-4408-8796-51a1856dbbec",
             "holder": "did:ex:12345",
             "proof": {
               "type": "Ed25519Signature2020",
-              "created": "2019-12-11T03:50:55Z",
+              "created": "2021-06-04T20:50:09Z",
               "verificationMethod": "https://example.com/issuer/123#key-0",
               "proofPurpose": "authentication",
               "challenge": "123",
-              "proofValue": "z5LgJQhEvrLoNqXSbBzFR6mqmBnUefxX6dBjn2A4FYmmtB3EcWC41RmvHARgHwZyuMkR9xMbMCY7Ch4iRr9R8o1JffWY63FRfX3em8f3avb1CU6FaxiMjZdNegc"
+              "proofValue": "z2y3UBXAiToXLzQqeMnHiMozJ3hKxcMgLm7p8GRQA92F6JSYu49RxHQf6k1CMKnMdpj3BLRSH69b9qA9cfjE3oS7q"
             }
           }
         }
