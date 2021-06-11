@@ -138,6 +138,10 @@
             title: "Multibase",
             href: "https://tools.ietf.org/html/draft-multiformats-multibase-01",
           },
+          MULTICODEC: {
+            title: "Multicodec",
+            href: "https://github.com/multiformats/multicodec/",
+          },
         },
       };
     </script>
@@ -334,7 +338,7 @@
 
         <p>
           This suite relies on public key material represented using
-          [[MULTIBASE]].
+          [[MULTIBASE]] and [[MULTICODEC]].
         </p>
 
         <p>
@@ -370,7 +374,10 @@
 
           <p>
             The <code>publicKeyMultibase</code> property of the verification
-            method SHOULD be a public key formatted according to [[MULTIBASE]].
+            method MUST be a public key encoded according to [[MULTICODEC]] and
+            formatted according to [[MULTIBASE]]. The multicodec encoding of
+            a Ed25519 public key is the two-byte prefix <code>0xed01</code>
+            followed by the 32-byte public key data.
           </p>
 
           <p class="advisement">
@@ -383,7 +390,7 @@
               "id": "https://example.com/issuer/123#key-0",
               "type": "Ed25519VerificationKey2020",
               "controller": "https://example.com/issuer/123",
-              "publicKeyMultibase": "zdbDmZLTWuEYYZNHFLKLoRkEX4sZykkSLNQLXvMUyMB1"
+              "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
             }
           </pre>
 
@@ -401,7 +408,7 @@
                   "id": "#key-0",
                   "type": "Ed25519VerificationKey2020",
                   "controller": "did:example:123",
-                  "publicKeyMultibase": "zdbDmZLTWuEYYZNHFLKLoRkEX4sZykkSLNQLXvMUyMB1"
+                  "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
                 }
               ],
               "authentication": [
@@ -430,7 +437,7 @@
 
         <p>
           This suite relies on detached digital signatures represented using
-          [[MULTIBASE]].
+          [[MULTIBASE]] and [[MULTICODEC]].
         </p>
 
         <section>
@@ -488,8 +495,8 @@
             "id": "https://example.com/issuer/123#key-0",
             "type": "Ed25519KeyPair2020",
             "controller": "https://example.com/issuer/123",
-            "publicKeyMultibase": "zdbDmZLTWuEYYZNHFLKLoRkEX4sZykkSLNQLXvMUyMB1",
-            "privateKeyMultibase": "z47QbyJEDqmHTzsdg8xzqXD8gqKuLufYRrKWTmB7eAaWHG2EAsQ2GUyqRqWWYT15dGuag52Sf3j4hs2mu7w52mgps"
+            "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP",
+            "privateKeyMultibase": "zrv3kJcnBP1RpYmvNZ9jcYpKBZg41iSobWxSg3ix2U7Cp59kjwQFCT4SZTgLSL3HP8iGMdJs3nedjqYgNn6ZJmsmjRm"
           }
         }              
       </pre>
@@ -510,7 +517,7 @@
                 "id": "#key-0",
                 "type": "Ed25519VerificationKey2020",
                 "controller": "https://example.com/issuer/123",
-                "publicKeyMultibase": "zdbDmZLTWuEYYZNHFLKLoRkEX4sZykkSLNQLXvMUyMB1"
+                "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
               }
             ],
             "assertionMethod": ["#key-0"],
@@ -653,7 +660,8 @@
       </p>
 
       <p class="note">
-        This specification relies on [[MULTIBASE]] and [[RFC8032]].
+        This specification relies on [[MULTIBASE]], [[MULTICODEC]] and
+        [[RFC8032]].
       </p>
 
       <div class="issue">
