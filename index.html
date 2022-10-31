@@ -442,6 +442,45 @@
 
       <section>
         <h3>Transformation</h3>
+
+        <p>
+The following algorithm specifies how to transform an unsecured input document
+into a transformed document that is ready to be provided as input to the hashing
+algorithm (see Section <a>Hashing</a>). This algorithm is designed to be used in
+conjunction with the algorithms defined in the Data Integrity
+[[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Algorithms</a>. Required inputs are an
+<a>unsecured data document</a> (<var>unsecuredDocument</var>) and
+<a>transformation options</a> (<var>options</var>). The
+<a>transformation options</a> MUST contain a type identifier for the
+<a>cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A <dfn>transformed document</dfn> is
+produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
+encoding.
+        </p>
+
+        <ol class="algorithm">
+          <li>
+If <var>options</var>.<var>type</var> is not set to the string
+`DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
+set to the string `ed25519-2020`, or <var>options</var>.<var>type</var> is
+not set to the string `Ed25519Signature2020`, then a
+`PROOF_TRANSFORMATION_ERROR` MUST be raised.
+          </li>
+          <li>
+Let <var>canonicalDocument</var> be the result of applying the
+Universal RDF Dataset Canonicalization Algorithm [[URDCA2015]] to the
+<var>unsecuredDocument</var>.
+          </li>
+          <li>
+Set <var>output</var> to the value of <var>canonicalDocument</var>.
+          </li>
+          <li>
+Return <var>canonicalDocument</var> as the <a>transformed data document</a>.
+          </li>
+        </ol>
+
       </section>
 
       <section>
