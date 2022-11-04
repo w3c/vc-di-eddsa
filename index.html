@@ -507,6 +507,38 @@ Return <var>canonicalDocument</var> as the <a>transformed data document</a>.
 
       <section>
         <h3>Hashing</h3>
+
+        <p>
+The following algorithm specifies how to cryptographically hash an
+<a>transformed data document</a>
+into a cryptographic hash that is ready to be provided as input to either the
+<a href="#proof-generation">proof generation algorithm</a> or
+<a href="#proof-verification">proof verification algorithm</a>. This
+algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Algorithms</a>. Required inputs are an
+<a>transformed data document</a> (<var>transformedDocument</var>) and
+<dfn>transformation options</dfn> (<var>options</var>). The
+<a>transformation options</a> MUST contain a type identifier for the
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A single <dfn>cryptographic hash</dfn>
+represented as series of bytes is produced as output.
+        </p>
+
+        <ol class="algorithm">
+          <li>
+Let <var>cryptographicHash</var> be the result of applying the
+SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
+to the <var>transformedDocument</var>. <var>cryptographicHash</var> will be
+exactly 32 bytes in size.
+          </li>
+          <li>
+Return <var>cryptographicHash</var> as the <a>cryptographic hash</a>.
+          </li>
+        </ol>
+
       </section>
 
       <section>
