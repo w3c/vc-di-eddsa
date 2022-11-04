@@ -132,7 +132,25 @@
             title: "Multicodec",
             href: "https://github.com/multiformats/multicodec/",
           },
-        },
+          "VC-DATA-INTEGRITY": {
+            title: "Verifiable Credential Data Integrity",
+            href: "https://w3c.github.io/vc-data-integrity/",
+            authors: [
+              "Manu Sporny",
+              "Dave Longley",
+              "Mike Prorock"
+            ],
+            status: "ED",
+            publisher: "Verifiable Credentials Working Group"
+          },
+          "RDF-DATASET-CANONICALIZATION": {
+            title: 'RDF Dataset Canonicalization',
+            href: 'https://github.com/w3c/rch-rdc/',
+            authors: ['Gregg Kellogg', 'Dave Longley', 'Manu Sporny'],
+            status:   'ED',
+            publisher:  'W3C RDF Dataset Canonicalization and Hash Working Group'
+          }
+        }
       };
     </script>
     <style>
@@ -445,17 +463,21 @@
 
         <p>
 The following algorithm specifies how to transform an unsecured input document
-into a transformed document that is ready to be provided as input to the hashing
-algorithm (see Section <a>Hashing</a>). This algorithm is designed to be used in
-conjunction with the algorithms defined in the Data Integrity
-[[VC-DATA-INTEGRITY]] specification,
+into a transformed document that is ready to be provided as input to the
+<a href="#hashing">hashing algorithm</a>. This
+algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a href="https://w3c.github.io/vc-data-integrity/#algorithms">
 Section 4: Algorithms</a>. Required inputs are an
-<a>unsecured data document</a> (<var>unsecuredDocument</var>) and
-<a>transformation options</a> (<var>options</var>). The
-<a>transformation options</a> MUST contain a type identifier for the
-<a>cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-identifier (<var>cryptosuite</var>). A <dfn>transformed document</dfn> is
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
+unsecured data document</a> (<var>unsecuredDocument</var>) and
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-transformation-options">
+transformation options</a> (<var>options</var>). The
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
+transformation options</a> MUST contain a type identifier for the
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A <dfn>transformed data document</dfn> is
 produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
 encoding.
         </p>
@@ -470,8 +492,8 @@ not set to the string `Ed25519Signature2020`, then a
           </li>
           <li>
 Let <var>canonicalDocument</var> be the result of applying the
-Universal RDF Dataset Canonicalization Algorithm [[URDCA2015]] to the
-<var>unsecuredDocument</var>.
+Universal RDF Dataset Canonicalization Algorithm
+[[RDF-DATASET-CANONICALIZATION]] to the <var>unsecuredDocument</var>.
           </li>
           <li>
 Set <var>output</var> to the value of <var>canonicalDocument</var>.
