@@ -543,6 +543,44 @@ Return <var>cryptographicHash</var> as the <a>cryptographic hash</a>.
 
       <section>
         <h3>Proof Generation</h3>
+
+        <p>
+The following algorithm specifies how to generate a digital signature from
+a set of cryptographic hash data. This
+algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Algorithms</a>. Required inputs are
+<a>cryptographic hash data</a> (<var>hashData</var>) and
+<dfn>proof options</dfn> (<var>options</var>). The
+<a>proof options</a> MUST contain a type identifier for the
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A single <dfn>digital proof</dfn> value
+represented as series of bytes is produced as output.
+        </p>
+
+        <ol class="algorithm">
+          <li>
+Let <var>privateKeyBytes</var> be the result of retrieving the
+private key bytes associated with the
+<var>options</var>.<var>verificationMethod</var> value as described in the
+Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Retrieving Cryptographic Material</a>.
+          </li>
+          <li>
+Let <var>proofBytes</var> be the result of applying the Edwards-Curve Digital
+Signature Algorithm (EdDSA) [[RFC8032]], using the `Ed25519` variant
+(Pure EdDSA), with <var>hashData</var> as the data to be signed using
+the private key specified by <var>privateKeyBytes</var>.
+<var>proofBytes</var> will be exactly 64 bytes in size.
+          </li>
+          <li>
+Return <var>proofBytes</var> as the <a>digital proof</a>.
+          </li>
+        </ol>
+
       </section>
 
       <section>
