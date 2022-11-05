@@ -551,7 +551,7 @@ algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a href="https://w3c.github.io/vc-data-integrity/#algorithms">
 Section 4: Algorithms</a>. Required inputs are
-<a>cryptographic hash data</a> (<var>hashData</var>) and
+cryptographic hash data (<var>hashData</var>) and
 <dfn>proof options</dfn> (<var>options</var>). The
 <a>proof options</a> MUST contain a type identifier for the
 <a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
@@ -585,6 +585,42 @@ Return <var>proofBytes</var> as the <a>digital proof</a>.
 
       <section>
         <h3>Proof Verification</h3>
+
+        <p>
+The following algorithm specifies how to verify a digital signature from
+a set of cryptographic hash data. This
+algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Algorithms</a>. Required inputs are
+a <a>cryptographic hash</a> (<var>hashData</var>),
+a digital signature (<var>proofBytes</var>) and
+proof options (<var>options</var>). A <dfn>verification result</dfn>
+represented as a boolean value is produced as output.
+        </p>
+
+        <ol class="algorithm">
+          <li>
+Let <var>publicKeyBytes</var> be the result of retrieving the
+public key bytes associated with the
+<var>options</var>.<var>verificationMethod</var> value as described in the
+Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Retrieving Cryptographic Material</a>.
+          </li>
+          <li>
+Let <var>verificationResult</var> be the result of applying the verification
+algorithm for the Edwards-Curve Digital Signature Algorithm (EdDSA)
+[[RFC8032]], using the `Ed25519` variant (Pure EdDSA),
+with <var>hashData</var> as the data to be verified against the
+<var>proofBytes</var> using the public key specified by
+<var>publicKeyBytes</var>.
+          </li>
+          <li>
+Return <var>verificationResult</var> as the <a>verification result</a>.
+          </li>
+        </ol>
+
       </section>
     </section>
 
