@@ -278,43 +278,16 @@
       </dl>
     </section>
 
-    <section id="suite-definition">
-      <h2>Suite Definition</h2>
+    <section>
+      <h2>Data Model</h2>
 
       <p>
-        The Ed25519 <a>signature suite</a> 2020 MUST be used in conjunction with
-        the signing and verification algorithms in the Linked Data Proofs
-        [[LD-PROOFS]] specification. The suite consists of the following
-        algorithms:
+The following sections outline the data model that is used by this
+specification for verification methods and signature formats.
       </p>
 
-      <table class="simple">
-        <thead>
-          <th>Parameter</th>
-          <th>Value</th>
-          <th>Specification</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td><a>canonicalization algorithm</a></td>
-            <td>https://w3id.org/security#URDNA2015</td>
-            <td>[[RDF-DATASET-NORMALIZATION]]</td>
-          </tr>
-          <tr>
-            <td><a>message digest algorithm</a></td>
-            <td>SHA-256</td>
-            <td>[[RFC6234]]</td>
-          </tr>
-          <tr>
-            <td><a>signature algorithm</a></td>
-            <td>Edwards-Curve Digital Signature Algorithm (EdDSA)</td>
-            <td>[[RFC8032]]</td>
-          </tr>
-        </tbody>
-      </table>
-
       <section>
-        <h2>Verification Method</h2>
+        <h2>Verification Methods</h2>
         <p>
           The cryptographic material used to verify a linked data proof is
           called the verification method.
