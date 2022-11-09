@@ -296,15 +296,87 @@ digital signature generation and verification, according to [[RFC8032]].
         </p>
 
         <p>
-This suite MAY be used to verify Data Integrity Proofs [[VC- DATA-INTEGRITY]]
+This suite MAY be used to verify Data Integrity Proofs [[VC-DATA-INTEGRITY]]
 produced by Ed25519 public key material encoded as either a
-<a>Ed25519VerificationKey2020</a> or <a>Multikey</a>. Loss-less key
-transformation processes that result in equivalent cryptographic material MAY
-be utilized.
+<a>Ed25519VerificationKey2020</a> or <a href="#multikey">Multikey</a>. Loss-less
+key transformation processes that result in equivalent cryptographic material
+MAY be utilized.
         </p>
 
         <section>
+          <h3>Multikey</h3>
+
+          <p class="issue">
+This definition should go in the Data Integrity specification and referenced
+from here.
+          </p>
+
+          <p>
+The <code>type</code> of the verification method MUST be `Multikey`.
+          </p>
+          <p>
+The <code>controller</code> of the verification method MUST be a URL.
+          </p>
+
+          <p>
+The <code>publicKeyMultibase</code> property of the verification method MUST be
+a public key encoded according to [[MULTICODEC]] and formatted according to
+[[MULTIBASE]]. The multicodec encoding of a Ed25519 public key is the two-byte
+prefix <code>0xed01</code> followed by the 32-byte public key data encoded
+using base58-btc (`z`) as the prefix. Any other encoding MUST NOT be allowed.
+          </p>
+
+          <p class="advisement">
+Developers are advised to not accidentally publish a representation of a
+private key. It is expected that implementations will raise errors in the
+event of a [[MULTICODEC]] value other than <code>0xed01</code> being used.
+          </p>
+
+          <pre class="example">
+{
+  "id": "https://example.com/issuer/123#key-0",
+  "type": "Ed25519VerificationKey2020",
+  "controller": "https://example.com/issuer/123",
+  "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
+}
+          </pre>
+
+          <pre class="example" title="Example in controller document.">
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/ed25519-2020/v1"
+  ],
+  "id": "did:example:123",
+  "verificationMethod": [{
+    "id": "did:example:123#key-0",
+    "type": "Ed25519VerificationKey2020",
+    "controller": "did:example:123",
+    "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
+  }],
+  "authentication": [
+    "did:example:123#key-0"
+  ],
+  "assertionMethod": [
+    "did:example:123#key-0"
+  ],
+  "capabilityDelegation": [
+    "did:example:123#key-0"
+  ],
+  "capabilityInvocation": [
+    "did:example:123#key-0"
+  ]
+}
+          </pre>
+        </section>
+
+        <section>
           <h3>Ed25519VerificationKey2020</h3>
+
+          <p class="issue">
+This key format is deployed and widely used, but is deprecated. `Multikey`
+and `JsonWebKey2020` supersede it.
+          </p>
 
           <p>
 The <code>type</code> of the verification method MUST be
@@ -365,6 +437,7 @@ event of a [[MULTICODEC]] value other than <code>0xed01</code> being used.
 }
           </pre>
         </section>
+
       </section>
 
       <section>
