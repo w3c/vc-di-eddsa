@@ -219,51 +219,11 @@
       <h2>Terminology</h2>
       <p>
         The following terms are used to describe concepts involved in the
-        generation and verification of the Linked Data Proof
-        <a>signature suite</a>.
+        generation and verification of the Data Integrity
+        cryptographic suite.
       </p>
 
       <dl>
-        <dt><dfn>signature suite</dfn></dt>
-        <dd>
-          A specified set of cryptographic primitives typically consisting of a
-          canonicalization algorithm, a message digest algorithm, and a
-          signature algorithm that are bundled together by cryptographers for
-          developers for the purposes of safety and convenience.
-        </dd>
-        <dt><dfn>canonicalization algorithm</dfn></dt>
-        <dd>
-          An algorithm that takes an input document that has more than one
-          possible representation and always transforms it into a
-          <a>canonical form</a>. This process is sometimes also called
-          normalization.
-        </dd>
-        <dt>
-          <dfn data-lt="message digest algorithm | message digest algorithms"
-            >message digest algorithm</dfn
-          >
-        </dt>
-        <dd>
-          An algorithm that takes a message, prefferably in some
-          <a>canonical form</a> and produces a cryptographic output called a
-          digest that is often many orders of magnitude smaller than the input
-          message. These algorithms are often 1) very fast, 2) non-reversible,
-          3) cause the output to change significantly when even one bit of the
-          input message changes, and 4) make it infeasible to find two different
-          inputs for the same output.
-        </dd>
-        <dt><dfn>canonical form</dfn></dt>
-        <dd>
-          The output of applying a <a>canonicalization algorithm</a> to an input
-          document.
-        </dd>
-        <dt><dfn>signature algorithm</dfn></dt>
-        <dd>
-          An algorithm that takes an input message and produces an output value
-          where the receiver of the message can mathematically verify that the
-          message has not been modified in transit and came from someone
-          possessing a particular secret.
-        </dd>
         <dt><dfn>Ed25519VerificationKey2020</dfn></dt>
         <dd>
           The <code>type</code> of the verification method for the signature
@@ -374,8 +334,9 @@ event of a [[MULTICODEC]] value other than <code>0xed01</code> being used.
           <h3>Ed25519VerificationKey2020</h3>
 
           <p class="issue">
-This key format is deployed and widely used, but is deprecated. `Multikey`
-and `JsonWebKey2020` supersede it.
+We need to add documentation to note that this key format is deployed and
+widely used in production, but is deprecated. `Multikey` and `JsonWebKey2020`
+supersede it.
           </p>
 
           <p>
