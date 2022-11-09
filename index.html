@@ -289,26 +289,18 @@ specification for verification methods and signature formats.
       <section>
         <h2>Verification Methods</h2>
         <p>
-          The cryptographic material used to verify a linked data proof is
-          called the verification method.
+The cryptographic material used to verify a linked data proof is called the
+verification method. This suite relies on public key material represented using
+[[MULTIBASE]] and [[MULTICODEC]]. This suite supports public key use for both
+digital signature generation and verification, according to [[RFC8032]].
         </p>
 
         <p>
-          This suite relies on public key material represented using
-          [[MULTIBASE]] and [[MULTICODEC]].
-        </p>
-
-        <p>
-          This suite supports public key use for both digital signature
-          verification, according to [[RFC8032]].
-        </p>
-
-        <p>
-          This suite MAY be used to verify linked data proofs produced by key
-          material in any representation that can be converted to
-          <code>publicKeyMultibase</code>>, however it is RECOMMENDED that this
-          suite be used with verification method's of type
-          <a>Ed25519VerificationKey2020</a>.
+This suite MAY be used to verify Data Integrity Proofs [[VC- DATA-INTEGRITY]]
+produced by Ed25519 public key material encoded as either a
+<a>Ed25519VerificationKey2020</a> or <a>Multikey</a>. Loss-less key
+transformation processes that result in equivalent cryptographic material MAY
+be utilized.
         </p>
 
         <section>
