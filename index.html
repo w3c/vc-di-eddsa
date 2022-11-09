@@ -307,72 +307,62 @@ be utilized.
           <h3>Ed25519VerificationKey2020</h3>
 
           <p>
-            The <code>id</code> of the verification method SHOULD be the JWK
-            thumbprint calculated from the
-            <code>publicKeyMultibase</code> property value according to
-            [[MULTIBASE]].
+The <code>type</code> of the verification method MUST be
+<a>Ed25519VerificationKey2020</a>.
           </p>
           <p>
-            The <code>type</code> of the verification method SHOULD be
-            <a>Ed25519VerificationKey2020</a>.
-          </p>
-          <p>
-            The <code>controller</code> of the verification method SHOULD be a
-            URI.
+The <code>controller</code> of the verification method MUST be a URL.
           </p>
 
           <p>
-            The <code>publicKeyMultibase</code> property of the verification
-            method MUST be a public key encoded according to [[MULTICODEC]] and
-            formatted according to [[MULTIBASE]]. The multicodec encoding of
-            a Ed25519 public key is the two-byte prefix <code>0xed01</code>
-            followed by the 32-byte public key data.
+The <code>publicKeyMultibase</code> property of the verification method MUST be
+a public key encoded according to [[MULTICODEC]] and formatted according to
+[[MULTIBASE]]. The multicodec encoding of a Ed25519 public key is the two-byte
+prefix <code>0xed01</code> followed by the 32-byte public key data encoded
+using base58-btc (`z`) as the prefix. Any other encoding MUST NOT be allowed.
           </p>
 
           <p class="advisement">
-            Be careful not to accidentally publish a representation of a private
-            key.
+Developers are advised to not accidentally publish a representation of a
+private key. It is expected that implementations will raise errors in the
+event of a [[MULTICODEC]] value other than <code>0xed01</code> being used.
           </p>
 
           <pre class="example">
-            {
-              "id": "https://example.com/issuer/123#key-0",
-              "type": "Ed25519VerificationKey2020",
-              "controller": "https://example.com/issuer/123",
-              "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
-            }
+{
+  "id": "https://example.com/issuer/123#key-0",
+  "type": "Ed25519VerificationKey2020",
+  "controller": "https://example.com/issuer/123",
+  "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
+}
           </pre>
 
-          <pre class="example" title="Example in DID Document.">
-            {
-              "@context": [
-                "https://www.w3.org/ns/did/v1",
-                {
-                  "@base": "did:example:123"
-                }
-              ],
-              "id": "did:example:123",
-              "verificationMethod": [
-                {
-                  "id": "#key-0",
-                  "type": "Ed25519VerificationKey2020",
-                  "controller": "did:example:123",
-                  "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
-                }
-              ],
-              "authentication": [
-                "#key-0"
-              ],
-              "assertionMethod": [
-                "#key-0"
-              ],
-              "capabilityDelegation": [
-                "#key-0"
-              ],
-              "capabilityInvocation": [
-                "#key-0"
-              ]
-            }
+          <pre class="example" title="Example in controller document.">
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/ed25519-2020/v1"
+  ],
+  "id": "did:example:123",
+  "verificationMethod": [{
+    "id": "did:example:123#key-0",
+    "type": "Ed25519VerificationKey2020",
+    "controller": "did:example:123",
+    "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
+  }],
+  "authentication": [
+    "did:example:123#key-0"
+  ],
+  "assertionMethod": [
+    "did:example:123#key-0"
+  ],
+  "capabilityDelegation": [
+    "did:example:123#key-0"
+  ],
+  "capabilityInvocation": [
+    "did:example:123#key-0"
+  ]
+}
           </pre>
         </section>
       </section>
