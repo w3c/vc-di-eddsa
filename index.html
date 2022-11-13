@@ -293,7 +293,8 @@ key. Implementations of this specification will raise errors in the event of a
 `publicKeyMultibase` value.
           </p>
 
-          <pre class="example">
+          <pre class="example"
+            title="An Ed25519 public key encoded as a Multikey">
 {
   "id": "https://example.com/issuer/123#key-0",
   "type": "Multikey",
@@ -302,7 +303,8 @@ key. Implementations of this specification will raise errors in the event of a
 }
           </pre>
 
-          <pre class="example" title="Example in controller document.">
+          <pre class="example" title="An Ed25519 public key encoded as a
+            Multikey in a controller document">
 {
   "@context": [
     "https://www.w3.org/ns/did/v1",
@@ -365,7 +367,8 @@ key. Implementations of this specification will raise errors in the event of a
 `publicKeyMultibase` value.
           </p>
 
-          <pre class="example">
+          <pre class="example" title="An Ed25519 public key encoded as an
+            Ed25519VerificationKey2020">
 {
   "id": "https://example.com/issuer/123#key-0",
   "type": "Ed25519VerificationKey2020",
@@ -374,7 +377,8 @@ key. Implementations of this specification will raise errors in the event of a
 }
           </pre>
 
-          <pre class="example" title="Example in controller document.">
+          <pre class="example" title="An Ed25519 public key encoded as an
+          Ed25519VerificationKey2020 in a controller document.">
 {
   "@context": [
     "https://www.w3.org/ns/did/v1",
@@ -414,7 +418,7 @@ and [[MULTICODEC]].
         </p>
 
         <section>
-          <h3>Ed25519Signature2020</h3>
+          <h3>DataIntegrityProof</h3>
 
           <p>
 The <code>verificationMethod</code> property of the proof MUST be a URL.
@@ -446,7 +450,8 @@ the base58-btc base encoding.
 
           <pre class="example highlight" style="overflow-x:
             auto; white-space: pre-wrap; word-wrap: break-word;"
-            title="A simple example of a DataIntegrityProof encoding">
+            title="An Ed25519 digital signature expressed as a
+              DataIntegrityProof">
 {
   "@context": [
     {"title": "https://schema.org/title"},
@@ -498,7 +503,8 @@ the base58-btc base encoding.
 
           <pre class="example highlight" style="overflow-x:
             auto; white-space: pre-wrap; word-wrap: break-word;"
-            title="A simple example of a Ed25519Signature2020 encoding">
+            title="An Ed25519 digital signature expressed as a
+            Ed25519Signature2020">
 {
   "@context": [
     {"title": "https://schema.org/title"},
