@@ -406,11 +406,7 @@ key. Implementations of this specification will raise errors in the event of a
       </section>
 
       <section>
-        <h2>Proof Representation</h2>
-        <p>
-The cryptographic material used to represent a linked data proof is called the
-proof type.
-        </p>
+        <h2>Proof Representations</h2>
 
         <p>
 This suite relies on detached digital signatures represented using [[MULTIBASE]]
@@ -418,29 +414,31 @@ and [[MULTICODEC]].
         </p>
 
         <section>
-          <h3>Ed25519 Signature 2020</h3>
+          <h3>Ed25519Signature2020</h3>
 
           <p>
-The <code>verificationMethod</code> property of the proof SHOULD be a URI.
-Dereferencing the <code>verificationMethod</code> SHOULD result in an object of
-<code>type</code> <a>Ed25519VerificationKey2020</a>.
+The <code>verificationMethod</code> property of the proof MUST be a URL.
+Dereferencing the <code>verificationMethod</code> MUST result in an object
+containing a <code>type</code> property with the value set to
+`Ed25519VerificationKey2020`.
           </p>
 
           <p>
-The <code>type</code> property of the proof MUST be <a>Ed25519Signature2020</a>.
+The <code>type</code> property of the proof MUST be `Ed25519Signature2020`.
           </p>
           <p>
-The <code>created</code> property of the proof MUST be an [[ISO_8601]] formated
-date string.
+The <code>created</code> property of the proof MUST be an [[XML-SCHEMA11-2]]
+formated date string.
           </p>
           <p>
-The <code>proofPurpose</code> property of the proof MUST be a string, and SHOULD
+The <code>proofPurpose</code> property of the proof MUST be a string, and MUST
 match the verification relationship expressed by the verification method
 <code>controller</code>.
           </p>
           <p>
 The <code>proofValue</code> property of the proof MUST be a detached EdDSA
-produced according to [[RFC8032]], encoded according to [[MULTIBASE]].
+produced according to [[RFC8032]], encoded according to [[MULTIBASE]] using
+the base58-btc base encoding.
           </p>
         </section>
       </section>
