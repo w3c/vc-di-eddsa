@@ -268,12 +268,13 @@ MAY be utilized.
 
           <p class="issue">
 This definition should go in the Data Integrity specification and referenced
-from here.
+from there.
           </p>
 
           <p>
 The <code>type</code> of the verification method MUST be `Multikey`.
           </p>
+
           <p>
 The <code>controller</code> of the verification method MUST be a URL.
           </p>
@@ -282,20 +283,22 @@ The <code>controller</code> of the verification method MUST be a URL.
 The <code>publicKeyMultibase</code> property of the verification method MUST be
 a public key encoded according to [[MULTICODEC]] and formatted according to
 [[MULTIBASE]]. The multicodec encoding of a Ed25519 public key is the two-byte
-prefix <code>0xed01</code> followed by the 32-byte public key data encoded
-using base58-btc (`z`) as the prefix. Any other encoding MUST NOT be allowed.
+prefix <code>0xed01</code> followed by the 32-byte public key data. The 34 byte
+value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
+MUST NOT be allowed.
           </p>
 
           <p class="advisement">
-Developers are advised to not accidentally publish a representation of a
-private key. It is expected that implementations will raise errors in the
-event of a [[MULTICODEC]] value other than <code>0xed01</code> being used.
+Developers are advised to not accidentally publish a representation of a private
+key. Implementations of this specification will raise errors in the event of a
+[[MULTICODEC]] value other than <code>0xed01</code> being used in a
+`publicKeyMultibase` value.
           </p>
 
           <pre class="example">
 {
   "id": "https://example.com/issuer/123#key-0",
-  "type": "Ed25519VerificationKey2020",
+  "type": "Multikey",
   "controller": "https://example.com/issuer/123",
   "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
 }
@@ -305,12 +308,12 @@ event of a [[MULTICODEC]] value other than <code>0xed01</code> being used.
 {
   "@context": [
     "https://www.w3.org/ns/did/v1",
-    "https://w3id.org/security/suites/ed25519-2020/v1"
+    "https://w3id.org/security/data-integrity/v1"
   ],
   "id": "did:example:123",
   "verificationMethod": [{
     "id": "did:example:123#key-0",
-    "type": "Ed25519VerificationKey2020",
+    "type": "Multikey",
     "controller": "did:example:123",
     "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
   }],
@@ -343,6 +346,7 @@ supersede it.
 The <code>type</code> of the verification method MUST be
 <a>Ed25519VerificationKey2020</a>.
           </p>
+
           <p>
 The <code>controller</code> of the verification method MUST be a URL.
           </p>
@@ -351,14 +355,16 @@ The <code>controller</code> of the verification method MUST be a URL.
 The <code>publicKeyMultibase</code> property of the verification method MUST be
 a public key encoded according to [[MULTICODEC]] and formatted according to
 [[MULTIBASE]]. The multicodec encoding of a Ed25519 public key is the two-byte
-prefix <code>0xed01</code> followed by the 32-byte public key data encoded
-using base58-btc (`z`) as the prefix. Any other encoding MUST NOT be allowed.
+prefix <code>0xed01</code> followed by the 32-byte public key data. The 34 byte
+value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
+MUST NOT be allowed.
           </p>
 
           <p class="advisement">
-Developers are advised to not accidentally publish a representation of a
-private key. It is expected that implementations will raise errors in the
-event of a [[MULTICODEC]] value other than <code>0xed01</code> being used.
+Developers are advised to not accidentally publish a representation of a private
+key. Implementations of this specification will raise errors in the event of a
+[[MULTICODEC]] value other than <code>0xed01</code> being used in a
+`publicKeyMultibase` value.
           </p>
 
           <pre class="example">
