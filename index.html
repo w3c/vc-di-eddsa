@@ -223,17 +223,17 @@ The `type` of the linked data proof for the signature suite
 
       <section id="conformance">
         <p>
-A <dfn>conforming document</dfn> is any concrete expression of the data model
+A <dfn>conforming proof</dfn> is any concrete expression of the data model
 that complies with the normative statements in this specification. Specifically,
 all relevant normative statements in Sections
-<a href="#terminology"></a> and <a href="#suite-definition"></a>
+<a href="#data-model"></a> and <a href="#algorithms"></a>
 of this document MUST be enforced.
         </p>
 
         <p>
 A <dfn class="lint-ignore">conforming processor</dfn> is any algorithm realized
 as software and/or hardware that generates or consumes a
-<a>conforming document</a>. Conforming processors MUST produce errors when
+<a>conforming proof</a>. Conforming processors MUST produce errors when
 non-conforming documents are consumed.
         </p>
         <p>
@@ -539,7 +539,7 @@ the base58-btc base encoding.
       </section>
     </section>
 
-    <section id="suite-definition">
+    <section>
       <h2>Algorithms</h2>
 
       <section>
@@ -593,33 +593,102 @@ Return <var>canonicalDocument</var> as the <a>transformed data document</a>.
         <h3>Hashing</h3>
 
         <p>
-The following algorithm specifies how to cryptographically hash an
-<a>transformed data document</a>
-into a cryptographic hash that is ready to be provided as input to either the
+The following algorithm specifies how to cryptographically hash a
+<a>transformed data document</a> and <a>proof configuration</a>
+into cryptographic hash data that is ready to be provided as input to either the
 <a href="#proof-generation">proof generation algorithm</a> or
 <a href="#proof-verification">proof verification algorithm</a>. This
 algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a href="https://w3c.github.io/vc-data-integrity/#algorithms">
-Section 4: Algorithms</a>. Required inputs are an
+Section 4: Algorithms</a>. Required inputs are a
 <a>transformed data document</a> (<var>transformedDocument</var>) and
-<dfn>transformation options</dfn> (<var>options</var>). The
-<a>transformation options</a> MUST contain a type identifier for the
+<a>proof configuration</a> (<var>proofConfig</var>). The
+<a>proof configuration</a> MUST contain a type identifier for the
 <a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
 cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-identifier (<var>cryptosuite</var>). A single <dfn>cryptographic hash</dfn>
+identifier (<var>cryptosuite</var>). A single <dfn>hash data</dfn> value
 represented as series of bytes is produced as output.
         </p>
 
         <ol class="algorithm">
           <li>
-Let <var>cryptographicHash</var> be the result of applying the
+Let <var>transformedDocumentHash</var> be the result of applying the
 SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the <var>transformedDocument</var>. <var>cryptographicHash</var> will be
-exactly 32 bytes in size.
+to the <var>transformedDocument</var>. <var>transformedDocumentHash</var> will
+be exactly 32 bytes in size.
           </li>
           <li>
-Return <var>cryptographicHash</var> as the <a>cryptographic hash</a>.
+Let <var>proofConfigHash</var> be the result of applying the
+SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
+to the <var>proofConfig</var>. <var>proofConfigHash</var> will be
+exactly 32 bytes in size.
+          </li>
+
+          <li>
+Let <var>hashData</var> be the result of concatenating
+<var>transformedDocumentHash</var> and <var>proofConfigHash</var>.
+          </li>
+          <li>
+Return <var>hashData</var> as the <a>hash data</a>.
+          </li>
+        </ol>
+
+      </section>
+
+      <section>
+        <h3>Proof Configuration</h3>
+
+        <p>
+The following algorithm specifies how to generate a
+<dfn>proof configuration</dfn> from a set of <dfn>proof options</dfn>
+that is used as input to the <a href="#hashing">proof hashing algorithm</a>.
+This algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Algorithms</a>. Required inputs are <a>proof options</a>
+(<var>options</var>). The <a>proof options</a> MUST contain a type identifier
+for the
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A <a>proof configuration</a>
+object is produced as output.
+        </p>
+
+        <ol class="algorithm">
+          <li>
+Let <var>proofConfig</var> be an empty object.
+          </li>
+          <li>
+Set <var>proofConfig</var>.<var>type</var> to
+<var>options</var>.<var>type</var>.
+          </li>
+          <li>
+If <var>options</var>.<var>cryptosuite</var> is set, set
+<var>proofConfig</var>.<var>cryptosuite</var> to its value.
+          </li>
+          <li>
+If <var>options</var>.<var>type</var> is set to `DataIntegrityProof` and
+<var>proofConfig</var>.<var>cryptosuite</var> is not set to `eddsa-2020`, an
+`INVALID_PROOF_CONFIGURATION` error MUST be raised. Otherwise, if
+<var>options</var>.<var>type</var> is not set to `Ed25519Signature2020`, an
+`INVALID_PROOF_CONFIGURATION` error MUST be raised.
+          </li>
+          <li>
+Set <var>proofConfig</var>.<var>created</var> to
+<var>options</var>.<var>created</var>. If the value is not a valid
+[[XMLSCHEMA11-2]] datetime, an `INVALID_PROOF_DATETIME` error MUST be raised.
+          </li>
+          <li>
+Set <var>proofConfig</var>.<var>verificationMethod</var> to
+<var>options</var>.<var>verificationMethod</var>.
+          </li>
+          <li>
+Set <var>proofConfig</var>.<var>proofPurpose</var> to
+<var>options</var>.<var>proofPurpose</var>.
+          </li>
+          <li>
+Return <var>proofConfig</var>.
           </li>
         </ol>
 
@@ -636,7 +705,7 @@ in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a href="https://w3c.github.io/vc-data-integrity/#algorithms">
 Section 4: Algorithms</a>. Required inputs are
 cryptographic hash data (<var>hashData</var>) and
-<dfn>proof options</dfn> (<var>options</var>). The
+<a>proof options</a> (<var>options</var>). The
 <a>proof options</a> MUST contain a type identifier for the
 <a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
 cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
