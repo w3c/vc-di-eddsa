@@ -86,13 +86,6 @@
         alternateFormats: [ {uri: "diff-20111214.html", label: "diff to previous version"} ],
         */
         localBiblio: {
-          "RDF-DATASET-NORMALIZATION": {
-            title: "RDF Dataset Normalization 1.0",
-            href: "http://json-ld.github.io/normalization/spec/",
-            authors: ["David Longley", "Manu Sporny"],
-            status: "CGDRAFT",
-            publisher: "JSON-LD Community Group",
-          },
           "RDF-CONCEPTS": {
             title: "RDF 1.1 Concepts and Abstract Syntax",
             href: "https://www.w3.org/TR/rdf11-concepts/",
@@ -110,13 +103,6 @@
             title: "Security Linked Data Vocabulary",
             href: "https://w3id.org/security",
             authors: ["Manu Sporny", "David Longley"],
-            status: "CGDRAFT",
-            publisher: "Web Payments Community Group",
-          },
-          "LD-PROOFS": {
-            title: "Linked Data Proofs 1.0",
-            href: "https://w3c-ccg.github.io/ld-proofs",
-            authors: ["David Longley", "Manu Sporny"],
             status: "CGDRAFT",
             publisher: "Web Payments Community Group",
           },
@@ -143,9 +129,9 @@
             status: "ED",
             publisher: "Verifiable Credentials Working Group"
           },
-          "RDF-DATASET-CANONICALIZATION": {
+          "RDF-CANON": {
             title: 'RDF Dataset Canonicalization',
-            href: 'https://github.com/w3c/rch-rdc/',
+            href: 'https://w3c.github.com/rdf-canon/',
             authors: ['Gregg Kellogg', 'Dave Longley', 'Manu Sporny'],
             status:   'ED',
             publisher:  'W3C RDF Dataset Canonicalization and Hash Working Group'
@@ -203,12 +189,12 @@ not fit for production deployment.
       <h2>Introduction</h2>
       <p>
 This specification defines a cryptographic suite for the purpose of creating,
-verifying proofs for Ed25519 EdDSA signatures in conformance with the Linked
-Data Proofs [[LD-PROOFS]] specification.
+verifying proofs for Ed25519 EdDSA signatures in conformance with the
+Data Integrity [[VC-DATA-INTEGRITY]] specification.
       </p>
       <p>
 In general the suites uses the RDF Dataset Normalization Algorithm
-[[RDF-DATASET-NORMALIZATION]] to transform an input document into its canonical
+[[RDF-CANON]] to transform an input document into its canonical
 form. The cannonical representation is then hashed and signed with a detached
 signature algorithm.
       </p>
@@ -591,7 +577,7 @@ not set to the string `Ed25519Signature2020`, then a
           <li>
 Let <var>canonicalDocument</var> be the result of applying the
 Universal RDF Dataset Canonicalization Algorithm
-[[RDF-DATASET-CANONICALIZATION]] to the <var>unsecuredDocument</var>.
+[[RDF-CANON]] to the <var>unsecuredDocument</var>.
           </li>
           <li>
 Set <var>output</var> to the value of <var>canonicalDocument</var>.
@@ -732,7 +718,7 @@ software.
 
       <p class="note">
 This specification relies on URDNA2015, please review
-[[RDF-DATASET-NORMALIZATION]].
+[[RDF-CANON]].
       </p>
 
       <p class="note">
