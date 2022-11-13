@@ -424,10 +424,13 @@ containing a <code>type</code> property with the value set to
           </p>
 
           <p>
-The <code>type</code> property of the proof MUST be `Ed25519Signature2020`.
+The <code>type</code> property of the proof MUST be `DataIntegrityProof`.
           </p>
           <p>
-The <code>created</code> property of the proof MUST be an [[XML-SCHEMA11-2]]
+The <code>cryptosuite</code> property of the proof MUST be `eddsa-2022`.
+          </p>
+          <p>
+The <code>created</code> property of the proof MUST be an [[XMLSCHEMA11-2]]
 formated date string.
           </p>
           <p>
@@ -440,6 +443,80 @@ The <code>proofValue</code> property of the proof MUST be a detached EdDSA
 produced according to [[RFC8032]], encoded according to [[MULTIBASE]] using
 the base58-btc base encoding.
           </p>
+
+          <pre class="example highlight" style="overflow-x:
+            auto; white-space: pre-wrap; word-wrap: break-word;"
+            title="A simple example of a DataIntegrityProof encoding">
+{
+  "@context": [
+    {"title": "https://schema.org/title"},
+    "https://w3id.org/security/data-integrity/v1"
+  ],
+  "title": "Hello world!",
+  "proof": {
+    "type": "DataIntegrityProof",
+    "cryptosuite": "eddsa-2022",
+    "created": "2020-11-05T19:23:24Z",
+    "verificationMethod": "https://ldi.example/issuer#z6MkjLrk3gKS2nnkeWcmcxi
+      ZPGskmesDpuwRBorgHxUXfxnG",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z4oey5q2M3XKaxup3tmzN4DRFTLVqpLMweBrSxMY2xHX5XTYVQeVbY8nQA
+      VHMrXFkXJpmEcqdoDwLWxaqA3Q1geV6"
+  }
+}
+          </pre>
+
+        </section>
+
+        <section>
+          <h3>Ed25519Signature2020</h3>
+
+          <p>
+The <code>verificationMethod</code> property of the proof MUST be a URL.
+Dereferencing the <code>verificationMethod</code> MUST result in an object
+containing a <code>type</code> property with the value set to
+`Ed25519VerificationKey2020`.
+          </p>
+
+          <p>
+The <code>type</code> property of the proof MUST be `Ed25519Signature2020`.
+          </p>
+          <p>
+The <code>created</code> property of the proof MUST be an [[XMLSCHEMA11-2]]
+formated date string.
+          </p>
+          <p>
+The <code>proofPurpose</code> property of the proof MUST be a string, and MUST
+match the verification relationship expressed by the verification method
+<code>controller</code>.
+          </p>
+          <p>
+The <code>proofValue</code> property of the proof MUST be a detached EdDSA
+produced according to [[RFC8032]], encoded according to [[MULTIBASE]] using
+the base58-btc base encoding.
+          </p>
+
+          <pre class="example highlight" style="overflow-x:
+            auto; white-space: pre-wrap; word-wrap: break-word;"
+            title="A simple example of a Ed25519Signature2020 encoding">
+{
+  "@context": [
+    {"title": "https://schema.org/title"},
+    "https://w3id.org/security/data-integrity/v1"
+  ],
+  "title": "Hello world!",
+  "proof": {
+    "type": "Ed25519Signature2020",
+    "created": "2020-11-05T19:23:24Z",
+    "verificationMethod": "https://di.example/issuer#z6MkjLrk3gKS2nnkeWcmcxi
+      ZPGskmesDpuwRBorgHxUXfxnG",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z4oey5q2M3XKaxup3tmzN4DRFTLVqpLMweBrSxMY2xHX5XTYVQeVbY8nQA
+      VHMrXFkXJpmEcqdoDwLWxaqA3Q1geV6"
+  }
+}
+          </pre>
+
         </section>
       </section>
     </section>
