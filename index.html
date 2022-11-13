@@ -183,57 +183,55 @@
   <body>
     <section id="abstract">
       <p>
-        This specification describes a Data Integrity Cryptosuite for use when
-        creating or verifying a digital signature using the twisted Edwards
-        Curve Digital Signature Algorithm (EdDSA) and Curve25519 (ed25519). The
-        approach is accepted by the U.S. National Institute of Standards in the
-        latest FIPS 186-5 draft and, after ratification, is expected to meet
-        U.S. Federal Information Processing requirements when using cryptography
-        to secure digital information.
+This specification describes a Data Integrity Cryptosuite for use when creating
+or verifying a digital signature using the twisted Edwards Curve Digital
+Signature Algorithm (EdDSA) and Curve25519 (ed25519). The approach is accepted
+by the U.S. National Institute of Standards in the latest FIPS 186-5 draft and,
+after ratification, is expected to meet U.S. Federal Information Processing
+requirements when using cryptography to secure digital information.
       </p>
     </section>
 
     <section id="sotd">
       <p>
-        This is an experimental specification and is undergoing regular
-        revisions. It is not fit for production deployment.
+This is an experimental specification and is undergoing regular revisions. It is
+not fit for production deployment.
       </p>
     </section>
 
     <section>
       <h2>Introduction</h2>
       <p>
-        This specification defines a cryptographic suite for the purpose of
-        creating, verifying proofs for Ed25519 EdDSA signatures in conformance
-        with the Linked Data Proofs [[LD-PROOFS]] specification.
+This specification defines a cryptographic suite for the purpose of creating,
+verifying proofs for Ed25519 EdDSA signatures in conformance with the Linked
+Data Proofs [[LD-PROOFS]] specification.
       </p>
       <p>
-        In general the suites uses the RDF Dataset Normalization Algorithm
-        [[RDF-DATASET-NORMALIZATION]] to transform an input document into its
-        canonical form. The cannonical representation is then hashed and signed
-        with a detached signature algorithm.
+In general the suites uses the RDF Dataset Normalization Algorithm
+[[RDF-DATASET-NORMALIZATION]] to transform an input document into its canonical
+form. The cannonical representation is then hashed and signed with a detached
+signature algorithm.
       </p>
     </section>
 
     <section id="terminology">
       <h2>Terminology</h2>
       <p>
-        The following terms are used to describe concepts involved in the
-        generation and verification of the Data Integrity
-        cryptographic suite.
+The following terms are used to describe concepts involved in the generation and
+verification of the Data Integrity cryptographic suite.
       </p>
 
       <dl>
         <dt><dfn>Ed25519VerificationKey2020</dfn></dt>
         <dd>
-          The <code>type</code> of the verification method for the signature
-          suite <a>Ed25519Signature2020</a>.
+The <code>type</code> of the verification method for the signature suite
+<a>Ed25519Signature2020</a>.
         </dd>
 
         <dt><dfn>Ed25519Signature2020</dfn></dt>
         <dd>
-          The <code>type</code> of the linked data proof for the signature suite
-          <a>Ed25519Signature2020</a>.
+The <code>type</code> of the linked data proof for the signature suite
+<a>Ed25519Signature2020</a>.
         </dd>
       </dl>
     </section>
@@ -242,8 +240,8 @@
       <h2>Data Model</h2>
 
       <p>
-The following sections outline the data model that is used by this
-specification for verification methods and signature formats.
+The following sections outline the data model that is used by this specification
+for verification methods and signature formats.
       </p>
 
       <section>
@@ -410,41 +408,39 @@ key. Implementations of this specification will raise errors in the event of a
       <section>
         <h2>Proof Representation</h2>
         <p>
-          The cryptographic material used to represent a linked data proof is
-          called the proof type.
+The cryptographic material used to represent a linked data proof is called the
+proof type.
         </p>
 
         <p>
-          This suite relies on detached digital signatures represented using
-          [[MULTIBASE]] and [[MULTICODEC]].
+This suite relies on detached digital signatures represented using [[MULTIBASE]]
+and [[MULTICODEC]].
         </p>
 
         <section>
           <h3>Ed25519 Signature 2020</h3>
 
           <p>
-            The <code>verificationMethod</code> property of the proof SHOULD be
-            a URI. Dereferencing the <code>verificationMethod</code> SHOULD
-            result in an object of <code>type</code>
-            <a>Ed25519VerificationKey2020</a>.
+The <code>verificationMethod</code> property of the proof SHOULD be a URI.
+Dereferencing the <code>verificationMethod</code> SHOULD result in an object of
+<code>type</code> <a>Ed25519VerificationKey2020</a>.
+          </p>
+
+          <p>
+The <code>type</code> property of the proof MUST be <a>Ed25519Signature2020</a>.
           </p>
           <p>
-            The <code>type</code> property of the proof MUST be
-            <a>Ed25519Signature2020</a>.
+The <code>created</code> property of the proof MUST be an [[ISO_8601]] formated
+date string.
           </p>
           <p>
-            The <code>created</code> property of the proof MUST be an
-            [[ISO_8601]] formated date string.
+The <code>proofPurpose</code> property of the proof MUST be a string, and SHOULD
+match the verification relationship expressed by the verification method
+<code>controller</code>.
           </p>
           <p>
-            The <code>proofPurpose</code> property of the proof MUST be a
-            string, and SHOULD match the verification relationship expressed by
-            the verification method <code>controller</code>.
-          </p>
-          <p>
-            The <code>proofValue</code> property of the proof MUST be a detached
-            EdDSA produced according to [[RFC8032]], encoded according to
-            [[MULTIBASE]].
+The <code>proofValue</code> property of the proof MUST be a detached EdDSA
+produced according to [[RFC8032]], encoded according to [[MULTIBASE]].
           </p>
         </section>
       </section>
@@ -622,175 +618,173 @@ Return <var>verificationResult</var> as the <a>verification result</a>.
     <section>
       <h2>Test Vectors</h2>
       <p>
-        The following test vectors are provided to assist with implementers.
+The following test vectors are provided to assist with implementers.
       </p>
 
       <pre class="example">
-        {
-          "seed_0": "9b937b81322d816cfab9d5a3baacc9b2a5febe4b149f126b3630f93a29527017"
-        }
+{
+  "seed_0": "9b937b81322d816cfab9d5a3baacc9b2a5febe4b149f126b3630f93a29527017"
+}
       </pre>
       <pre class="example">
-        {
-          "keypair_0": {
-            "id": "https://example.com/issuer/123#key-0",
-            "type": "Ed25519VerificationKey2018",
-            "controller": "https://example.com/issuer/123",
-            "publicKeyBase58": "dbDmZLTWuEYYZNHFLKLoRkEX4sZykkSLNQLXvMUyMB1",
-            "privateKeyBase58": "47QbyJEDqmHTzsdg8xzqXD8gqKuLufYRrKWTmB7eAaWHG2EAsQ2GUyqRqWWYT15dGuag52Sf3j4hs2mu7w52mgps"
-          },
-          "keypair_1": {
-            "id": "https://example.com/issuer/123#key-0",
-            "type": "Ed25519KeyPair2020",
-            "controller": "https://example.com/issuer/123",
-            "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP",
-            "privateKeyMultibase": "zrv3kJcnBP1RpYmvNZ9jcYpKBZg41iSobWxSg3ix2U7Cp59kjwQFCT4SZTgLSL3HP8iGMdJs3nedjqYgNn6ZJmsmjRm"
-          }
-        }
-      </pre>
-
-      <pre class="example">
-        {
-          "issuer_0": {
-            "@context": [
-              "https://www.w3.org/ns/did/v1",
-              "https://w3id.org/security/suites/ed25519-2020/v1",
-              {
-                "@base": "https://example.com/issuer/123"
-              }
-            ],
-            "id": "https://example.com/issuer/123",
-            "verificationMethod": [
-              {
-                "id": "#key-0",
-                "type": "Ed25519VerificationKey2020",
-                "controller": "https://example.com/issuer/123",
-                "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
-              }
-            ],
-            "assertionMethod": ["#key-0"],
-            "authentication": ["#key-0"]
-          }
-        }
-
+{
+  "keypair_0": {
+    "id": "https://example.com/issuer/123#key-0",
+    "type": "Ed25519VerificationKey2018",
+    "controller": "https://example.com/issuer/123",
+    "publicKeyBase58": "dbDmZLTWuEYYZNHFLKLoRkEX4sZykkSLNQLXvMUyMB1",
+    "privateKeyBase58": "47QbyJEDqmHTzsdg8xzqXD8gqKuLufYRrKWTmB7eAaWHG2EAsQ2GUyqRqWWYT15dGuag52Sf3j4hs2mu7w52mgps"
+  },
+  "keypair_1": {
+    "id": "https://example.com/issuer/123#key-0",
+    "type": "Ed25519KeyPair2020",
+    "controller": "https://example.com/issuer/123",
+    "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP",
+    "privateKeyMultibase": "zrv3kJcnBP1RpYmvNZ9jcYpKBZg41iSobWxSg3ix2U7Cp59kjwQFCT4SZTgLSL3HP8iGMdJs3nedjqYgNn6ZJmsmjRm"
+  }
+}
       </pre>
 
       <pre class="example">
-        {
-          "vc_template_0": {
-            "@context": [
-              "https://www.w3.org/2018/credentials/v1",
-              "https://www.w3.org/2018/credentials/examples/v1",
-              "https://w3id.org/security/suites/ed25519-2020/v1",
-            ],
-            "id": "http://example.gov/credentials/3732",
-            "type": ["VerifiableCredential", "UniversityDegreeCredential"],
-            "issuer": "https://example.com/issuer/123",
-            "issuanceDate": "2020-03-10T04:24:12.164Z",
-            "credentialSubject": {
-              "id": "did:example:456",
-              "degree": {
-                "type": "BachelorDegree",
-                "name": "Bachelor of Science and Arts"
-              }
-            }
-          },
-          "vc_0": {
-            "@context": [
-              "https://www.w3.org/2018/credentials/v1",
-              "https://www.w3.org/2018/credentials/examples/v1",
-              "https://w3id.org/security/suites/ed25519-2020/v1"
-            ],
-            "id": "http://example.gov/credentials/3732",
-            "type": ["VerifiableCredential", "UniversityDegreeCredential"],
-            "issuer": "https://example.com/issuer/123",
-            "issuanceDate": "2020-03-10T04:24:12.164Z",
-            "credentialSubject": {
-              "id": "did:example:456",
-              "degree": {
-                "type": "BachelorDegree",
-                "name": "Bachelor of Science and Arts"
-              }
-            },
-            "proof": {
-              "type": "Ed25519Signature2020",
-              "created": "2019-12-11T03:50:55Z",
-              "proofValue": "z5SpZtDGGz5a89PJbQT2sgbRUiyyAGhhgjcf86aJHfYcfvPjxn6vej5na6kUzmw1jMAR9PJU9mowshQFFdGmDN14D",
-              "proofPurpose": "assertionMethod",
-              "verificationMethod": "https://example.com/issuer/123#key-0"
-            }
-          },
-          "vp_0": {
-            "@context": [
-              "https://www.w3.org/2018/credentials/v1",
-              "https://w3id.org/security/suites/ed25519-2020/v1"
-            ],
-            "type": ["VerifiablePresentation"],
-            "verifiableCredential": [
-              {
-                "@context": [
-                  "https://www.w3.org/2018/credentials/v1",
-                  "https://www.w3.org/2018/credentials/examples/v1",
-                  "https://w3id.org/security/suites/ed25519-2020/v1"
-                ],
-                "id": "http://example.gov/credentials/3732",
-                "type": ["VerifiableCredential", "UniversityDegreeCredential"],
-                "issuer": "https://example.com/issuer/123",
-                "issuanceDate": "2020-03-10T04:24:12.164Z",
-                "credentialSubject": {
-                  "id": "did:example:456",
-                  "degree": {
-                    "type": "BachelorDegree",
-                    "name": "Bachelor of Science and Arts"
-                  }
-                },
-                "proof": {
-                  "type": "Ed25519Signature2020",
-                  "created": "2019-12-11T03:50:55Z",
-                  "proofValue": "z5SpZtDGGz5a89PJbQT2sgbRUiyyAGhhgjcf86aJHfYcfvPjxn6vej5na6kUzmw1jMAR9PJU9mowshQFFdGmDN14D",
-                  "proofPurpose": "assertionMethod",
-                  "verificationMethod": "https://example.com/issuer/123#key-0"
-                }
-              }
-            ],
-            "id": "urn:uuid:83895ddf-52ee-4408-8796-51a1856dbbec",
-            "holder": "did:ex:12345",
-            "proof": {
-              "type": "Ed25519Signature2020",
-              "created": "2021-06-04T20:50:09Z",
-              "verificationMethod": "https://example.com/issuer/123#key-0",
-              "proofPurpose": "authentication",
-              "challenge": "123",
-              "proofValue": "z2y3UBXAiToXLzQqeMnHiMozJ3hKxcMgLm7p8GRQA92F6JSYu49RxHQf6k1CMKnMdpj3BLRSH69b9qA9cfjE3oS7q"
-            }
-          }
-        }
+{
+  "issuer_0": {
+    "@context": [
+      "https://www.w3.org/ns/did/v1",
+      "https://w3id.org/security/suites/ed25519-2020/v1",
+      {
+        "@base": "https://example.com/issuer/123"
+      }
+    ],
+    "id": "https://example.com/issuer/123",
+    "verificationMethod": [
+      {
+        "id": "#key-0",
+        "type": "Ed25519VerificationKey2020",
+        "controller": "https://example.com/issuer/123",
+        "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
+      }
+    ],
+    "assertionMethod": ["#key-0"],
+    "authentication": ["#key-0"]
+  }
+}
+      </pre>
 
+      <pre class="example">
+{
+  "vc_template_0": {
+    "@context": [
+      "https://www.w3.org/2018/credentials/v1",
+      "https://www.w3.org/2018/credentials/examples/v1",
+      "https://w3id.org/security/suites/ed25519-2020/v1",
+    ],
+    "id": "http://example.gov/credentials/3732",
+    "type": ["VerifiableCredential", "UniversityDegreeCredential"],
+    "issuer": "https://example.com/issuer/123",
+    "issuanceDate": "2020-03-10T04:24:12.164Z",
+    "credentialSubject": {
+      "id": "did:example:456",
+      "degree": {
+        "type": "BachelorDegree",
+        "name": "Bachelor of Science and Arts"
+      }
+    }
+  },
+  "vc_0": {
+    "@context": [
+      "https://www.w3.org/2018/credentials/v1",
+      "https://www.w3.org/2018/credentials/examples/v1",
+      "https://w3id.org/security/suites/ed25519-2020/v1"
+    ],
+    "id": "http://example.gov/credentials/3732",
+    "type": ["VerifiableCredential", "UniversityDegreeCredential"],
+    "issuer": "https://example.com/issuer/123",
+    "issuanceDate": "2020-03-10T04:24:12.164Z",
+    "credentialSubject": {
+      "id": "did:example:456",
+      "degree": {
+        "type": "BachelorDegree",
+        "name": "Bachelor of Science and Arts"
+      }
+    },
+    "proof": {
+      "type": "Ed25519Signature2020",
+      "created": "2019-12-11T03:50:55Z",
+      "proofValue": "z5SpZtDGGz5a89PJbQT2sgbRUiyyAGhhgjcf86aJHfYcfvPjxn6vej5na6kUzmw1jMAR9PJU9mowshQFFdGmDN14D",
+      "proofPurpose": "assertionMethod",
+      "verificationMethod": "https://example.com/issuer/123#key-0"
+    }
+  },
+  "vp_0": {
+    "@context": [
+      "https://www.w3.org/2018/credentials/v1",
+      "https://w3id.org/security/suites/ed25519-2020/v1"
+    ],
+    "type": ["VerifiablePresentation"],
+    "verifiableCredential": [
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://www.w3.org/2018/credentials/examples/v1",
+          "https://w3id.org/security/suites/ed25519-2020/v1"
+        ],
+        "id": "http://example.gov/credentials/3732",
+        "type": ["VerifiableCredential", "UniversityDegreeCredential"],
+        "issuer": "https://example.com/issuer/123",
+        "issuanceDate": "2020-03-10T04:24:12.164Z",
+        "credentialSubject": {
+          "id": "did:example:456",
+          "degree": {
+            "type": "BachelorDegree",
+            "name": "Bachelor of Science and Arts"
+          }
+        },
+        "proof": {
+          "type": "Ed25519Signature2020",
+          "created": "2019-12-11T03:50:55Z",
+          "proofValue": "z5SpZtDGGz5a89PJbQT2sgbRUiyyAGhhgjcf86aJHfYcfvPjxn6vej5na6kUzmw1jMAR9PJU9mowshQFFdGmDN14D",
+          "proofPurpose": "assertionMethod",
+          "verificationMethod": "https://example.com/issuer/123#key-0"
+        }
+      }
+    ],
+    "id": "urn:uuid:83895ddf-52ee-4408-8796-51a1856dbbec",
+    "holder": "did:ex:12345",
+    "proof": {
+      "type": "Ed25519Signature2020",
+      "created": "2021-06-04T20:50:09Z",
+      "verificationMethod": "https://example.com/issuer/123#key-0",
+      "proofPurpose": "authentication",
+      "challenge": "123",
+      "proofValue": "z2y3UBXAiToXLzQqeMnHiMozJ3hKxcMgLm7p8GRQA92F6JSYu49RxHQf6k1CMKnMdpj3BLRSH69b9qA9cfjE3oS7q"
+    }
+  }
+}
       </pre>
     </section>
 
     <section id="conformance">
       <p>
-        A <dfn>conforming document</dfn> is any concrete expression of the data
-        model that complies with the normative statements in this specification.
-        Specifically, all relevant normative statements in Sections
-        <a href="#terminology"></a> and <a href="#suite-definition"></a>
-        of this document MUST be enforced.
+A <dfn>conforming document</dfn> is any concrete expression of the data model
+that complies with the normative statements in this specification. Specifically,
+all relevant normative statements in Sections
+<a href="#terminology"></a> and <a href="#suite-definition"></a>
+of this document MUST be enforced.
       </p>
 
       <p>
-        A <dfn class="lint-ignore">conforming processor</dfn> is any algorithm
-        realized as software and/or hardware that generates or consumes a
-        <a>conforming document</a>. Conforming processors MUST produce errors
-        when non-conforming documents are consumed.
+A <dfn class="lint-ignore">conforming processor</dfn> is any algorithm realized
+as software and/or hardware that generates or consumes a
+<a>conforming document</a>. Conforming processors MUST produce errors when
+non-conforming documents are consumed.
       </p>
       <p>
-        This document also contains examples that contain JSON and JSON-LD
-        content. Some of these examples contain characters that are invalid
-        JSON, such as inline comments (<code>//</code>) and the use of ellipsis
-        (<code>...</code>) to denote information that adds little value to the
-        example. Implementers are cautioned to remove this content if they
-        desire to use the information as valid JSON or JSON-LD.
+This document also contains examples that contain JSON and JSON-LD content. Some
+of these examples contain characters that are invalid JSON, such as inline
+comments (<code>//</code>) and the use of ellipsis (<code>...</code>) to denote
+information that adds little value to the example. Implementers are cautioned to
+remove this content if they desire to use the information as valid JSON or
+JSON-LD.
       </p>
     </section>
 
