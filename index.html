@@ -224,13 +224,13 @@ verification of the Data Integrity cryptographic suite.
       <dl>
         <dt><dfn>Ed25519VerificationKey2020</dfn></dt>
         <dd>
-The <code>type</code> of the verification method for the signature suite
+The `type` of the verification method for the signature suite
 <a>Ed25519Signature2020</a>.
         </dd>
 
         <dt><dfn>Ed25519Signature2020</dfn></dt>
         <dd>
-The <code>type</code> of the linked data proof for the signature suite
+The `type` of the linked data proof for the signature suite
 <a>Ed25519Signature2020</a>.
         </dd>
       </dl>
@@ -270,18 +270,18 @@ from there.
           </p>
 
           <p>
-The <code>type</code> of the verification method MUST be `Multikey`.
+The `type` of the verification method MUST be `Multikey`.
           </p>
 
           <p>
-The <code>controller</code> of the verification method MUST be a URL.
+The `controller` of the verification method MUST be a URL.
           </p>
 
           <p>
-The <code>publicKeyMultibase</code> property of the verification method MUST be
+The `publicKeyMultibase` property of the verification method MUST be
 a public key encoded according to [[MULTICODEC]] and formatted according to
 [[MULTIBASE]]. The multicodec encoding of a Ed25519 public key is the two-byte
-prefix <code>0xed01</code> followed by the 32-byte public key data. The 34 byte
+prefix `0xed01` followed by the 32-byte public key data. The 34 byte
 value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
 MUST NOT be allowed.
           </p>
@@ -289,7 +289,7 @@ MUST NOT be allowed.
           <p class="advisement">
 Developers are advised to not accidentally publish a representation of a private
 key. Implementations of this specification will raise errors in the event of a
-[[MULTICODEC]] value other than <code>0xed01</code> being used in a
+[[MULTICODEC]] value other than `0xed01` being used in a
 `publicKeyMultibase` value.
           </p>
 
@@ -343,19 +343,19 @@ supersede it.
           </p>
 
           <p>
-The <code>type</code> of the verification method MUST be
+The `type` of the verification method MUST be
 <a>Ed25519VerificationKey2020</a>.
           </p>
 
           <p>
-The <code>controller</code> of the verification method MUST be a URL.
+The `controller` of the verification method MUST be a URL.
           </p>
 
           <p>
-The <code>publicKeyMultibase</code> property of the verification method MUST be
+The `publicKeyMultibase` property of the verification method MUST be
 a public key encoded according to [[MULTICODEC]] and formatted according to
 [[MULTIBASE]]. The multicodec encoding of a Ed25519 public key is the two-byte
-prefix <code>0xed01</code> followed by the 32-byte public key data. The 34 byte
+prefix `0xed01` followed by the 32-byte public key data. The 34 byte
 value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
 MUST NOT be allowed.
           </p>
@@ -363,7 +363,7 @@ MUST NOT be allowed.
           <p class="advisement">
 Developers are advised to not accidentally publish a representation of a private
 key. Implementations of this specification will raise errors in the event of a
-[[MULTICODEC]] value other than <code>0xed01</code> being used in a
+[[MULTICODEC]] value other than `0xed01` being used in a
 `publicKeyMultibase` value.
           </p>
 
@@ -421,29 +421,29 @@ and [[MULTICODEC]].
           <h3>DataIntegrityProof</h3>
 
           <p>
-The <code>verificationMethod</code> property of the proof MUST be a URL.
-Dereferencing the <code>verificationMethod</code> MUST result in an object
-containing a <code>type</code> property with the value set to
+The `verificationMethod` property of the proof MUST be a URL.
+Dereferencing the `verificationMethod` MUST result in an object
+containing a `type` property with the value set to
 `Ed25519VerificationKey2020`.
           </p>
 
           <p>
-The <code>type</code> property of the proof MUST be `DataIntegrityProof`.
+The `type` property of the proof MUST be `DataIntegrityProof`.
           </p>
           <p>
-The <code>cryptosuite</code> property of the proof MUST be `eddsa-2022`.
+The `cryptosuite` property of the proof MUST be `eddsa-2022`.
           </p>
           <p>
-The <code>created</code> property of the proof MUST be an [[XMLSCHEMA11-2]]
+The `created` property of the proof MUST be an [[XMLSCHEMA11-2]]
 formated date string.
           </p>
           <p>
-The <code>proofPurpose</code> property of the proof MUST be a string, and MUST
+The `proofPurpose` property of the proof MUST be a string, and MUST
 match the verification relationship expressed by the verification method
-<code>controller</code>.
+`controller`.
           </p>
           <p>
-The <code>proofValue</code> property of the proof MUST be a detached EdDSA
+The `proofValue` property of the proof MUST be a detached EdDSA
 produced according to [[RFC8032]], encoded according to [[MULTIBASE]] using
 the base58-btc base encoding.
           </p>
@@ -477,26 +477,26 @@ the base58-btc base encoding.
           <h3>Ed25519Signature2020</h3>
 
           <p>
-The <code>verificationMethod</code> property of the proof MUST be a URL.
-Dereferencing the <code>verificationMethod</code> MUST result in an object
-containing a <code>type</code> property with the value set to
+The `verificationMethod` property of the proof MUST be a URL.
+Dereferencing the `verificationMethod` MUST result in an object
+containing a `type` property with the value set to
 `Ed25519VerificationKey2020`.
           </p>
 
           <p>
-The <code>type</code> property of the proof MUST be `Ed25519Signature2020`.
+The `type` property of the proof MUST be `Ed25519Signature2020`.
           </p>
           <p>
-The <code>created</code> property of the proof MUST be an [[XMLSCHEMA11-2]]
+The `created` property of the proof MUST be an [[XMLSCHEMA11-2]]
 formated date string.
           </p>
           <p>
-The <code>proofPurpose</code> property of the proof MUST be a string, and MUST
+The `proofPurpose` property of the proof MUST be a string, and MUST
 match the verification relationship expressed by the verification method
-<code>controller</code>.
+`controller`.
           </p>
           <p>
-The <code>proofValue</code> property of the proof MUST be a detached EdDSA
+The `proofValue` property of the proof MUST be a detached EdDSA
 produced according to [[RFC8032]], encoded according to [[MULTIBASE]] using
 the base58-btc base encoding.
           </p>
@@ -862,7 +862,7 @@ non-conforming documents are consumed.
       <p>
 This document also contains examples that contain JSON and JSON-LD content. Some
 of these examples contain characters that are invalid JSON, such as inline
-comments (<code>//</code>) and the use of ellipsis (<code>...</code>) to denote
+comments (`//`) and the use of ellipsis (`...`) to denote
 information that adds little value to the example. Implementers are cautioned to
 remove this content if they desire to use the information as valid JSON or
 JSON-LD.
