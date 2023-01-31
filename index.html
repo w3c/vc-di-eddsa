@@ -830,7 +830,7 @@ and the representation for the private key, <code>ed25519-priv</code>, are shown
         </pre>
 
         <p>
-The signing begins with a credential without an attached proof which is then converted 
+Signing begins with a credential without an attached proof which is then converted 
 to canonical form and then hashed as shown in the following three examples.
         </p>
 
@@ -906,7 +906,6 @@ _:c14n0 &lt;https://w3id.org/security#verificationMethod&gt; &lt;https://example
       <p>
 Finally we combine the two hashes, use the private key with the combined hash to
 compute the Ed25519 signature, and then base58-btc encode the signature.
-to obtain  
       </p>
 
       <pre class="example" title="Combine hashes of Proof Options and Credential (hex)">
@@ -965,10 +964,6 @@ option document.
       </pre>
 
     </section>
-      <section>
-        <h3>Representation: DataIntegrityProof</h3>
-        <p>To be written...</p>
-      </section>
     </section>
 
   </body>
