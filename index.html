@@ -15,7 +15,7 @@
     <script type="text/javascript" class="remove">
       var respecConfig = {
         // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
-        specStatus: "CG-FINAL",
+        specStatus: "CG-DRAFT",
 
         // the specification's short name, as in http://www.w3.org/TR/short-name/
         shortName: "di-eddsa-2020",
@@ -43,20 +43,15 @@
         // editors, add as many as you like
         // only "name" is required
         editors: [{
-          name: "Orie Steele",
-          url: "https://transmute.industries",
-          company: "Transmute",
-          companyURL: "https://transmute.industries",
-        }, {
           name: "Manu Sporny",
           url: "https://www.linkedin.com/in/manusporny/",
           company: "Digital Bazaar",
           companyURL: "https://digitalbazaar.com/"
         }, {
-          name: "Tobias Looker",
-          url: "https://www.linkedin.com/in/tplooker/",
-          company: "MATTR",
-          companyURL: "https://mattr.global/"
+          name: "Dmitri Zagidulin",
+          url: "https://www.linkedin.com/in/dzagidulin/",
+          company: "DCC (MIT Digital Credentials Consortium)",
+          companyURL: "https://digitalcredentials.mit.edu/"
         }],
 
         // extend the bibliography entries
@@ -86,13 +81,6 @@
         alternateFormats: [ {uri: "diff-20111214.html", label: "diff to previous version"} ],
         */
         localBiblio: {
-          "RDF-DATASET-NORMALIZATION": {
-            title: "RDF Dataset Normalization 1.0",
-            href: "http://json-ld.github.io/normalization/spec/",
-            authors: ["David Longley", "Manu Sporny"],
-            status: "CGDRAFT",
-            publisher: "JSON-LD Community Group",
-          },
           "RDF-CONCEPTS": {
             title: "RDF 1.1 Concepts and Abstract Syntax",
             href: "https://www.w3.org/TR/rdf11-concepts/",
@@ -113,13 +101,6 @@
             status: "CGDRAFT",
             publisher: "Web Payments Community Group",
           },
-          "LD-PROOFS": {
-            title: "Linked Data Proofs 1.0",
-            href: "https://w3c-ccg.github.io/ld-proofs",
-            authors: ["David Longley", "Manu Sporny"],
-            status: "CGDRAFT",
-            publisher: "Web Payments Community Group",
-          },
           ISO_8601: {
             title: "ISO_8601",
             href: "https://en.wikipedia.org/wiki/ISO_8601",
@@ -132,7 +113,25 @@
             title: "Multicodec",
             href: "https://github.com/multiformats/multicodec/",
           },
-        },
+          "VC-DATA-INTEGRITY": {
+            title: "Verifiable Credential Data Integrity",
+            href: "https://w3c.github.io/vc-data-integrity/",
+            authors: [
+              "Manu Sporny",
+              "Dave Longley",
+              "Mike Prorock"
+            ],
+            status: "ED",
+            publisher: "Verifiable Credentials Working Group"
+          },
+          "RDF-CANON": {
+            title: 'RDF Dataset Canonicalization',
+            href: 'https://w3c.github.com/rdf-canon/',
+            authors: ['Gregg Kellogg', 'Dave Longley', 'Manu Sporny'],
+            status:   'ED',
+            publisher:  'W3C RDF Dataset Canonicalization and Hash Working Group'
+          }
+        }
       };
     </script>
     <style>
@@ -165,475 +164,803 @@
   <body>
     <section id="abstract">
       <p>
-        This specification describes a Data Integrity Cryptosuite for use when
-        creating or verifying a digital signature using the twisted Edwards
-        Curve Digital Signature Algorithm (EdDSA) and Curve25519 (ed25519). The
-        approach is accepted by the U.S. National Institute of Standards in the
-        latest FIPS 186-5 draft and, after ratification, is expected to meet
-        U.S. Federal Information Processing requirements when using cryptography
-        to secure digital information.
+This specification describes a Data Integrity cryptographic suite for use when
+creating or verifying a digital signature using the twisted Edwards Curve
+Digital Signature Algorithm (EdDSA) and Curve25519 (ed25519). The approach is
+accepted by the U.S. National Institute of Standards in the latest FIPS 186-5
+draft and, after ratification, is expected to meet U.S. Federal Information
+Processing requirements when using cryptography to secure digital information.
       </p>
     </section>
 
     <section id="sotd">
       <p>
-        This is an experimental specification and is undergoing regular
-        revisions. It is not fit for production deployment.
+This is an experimental specification and is undergoing regular revisions. It is
+not fit for production deployment.
       </p>
     </section>
 
     <section>
       <h2>Introduction</h2>
       <p>
-        This specification defines a cryptographic suite for the purpose of
-        creating, verifying proofs for Ed25519 EdDSA signatures in conformance
-        with the Linked Data Proofs [[LD-PROOFS]] specification.
+This specification defines a cryptographic suite for the purpose of creating,
+verifying proofs for Ed25519 EdDSA signatures in conformance with the
+Data Integrity [[VC-DATA-INTEGRITY]] specification.
       </p>
       <p>
-        In general the suites uses the RDF Dataset Normalization Algorithm
-        [[RDF-DATASET-NORMALIZATION]] to transform an input document into its
-        canonical form. The cannonical representation is then hashed and signed
-        with a detached signature algorithm.
+In general the suites uses the RDF Dataset Normalization Algorithm
+[[RDF-CANON]] to transform an input document into its canonical
+form. The cannonical representation is then hashed and signed with a detached
+signature algorithm.
       </p>
+
+      <section id="terminology">
+        <h2>Terminology</h2>
+        <p>
+The following terms are used to describe concepts involved in the generation and
+verification of the Data Integrity cryptographic suite.
+        </p>
+
+        <dl>
+          <dt><dfn>Ed25519VerificationKey2020</dfn></dt>
+          <dd>
+The `type` of the verification method for the signature suite
+<a>Ed25519Signature2020</a>.
+          </dd>
+
+          <dt><dfn>Ed25519Signature2020</dfn></dt>
+          <dd>
+The `type` of the linked data proof for the signature suite
+<a>Ed25519Signature2020</a>.
+          </dd>
+        </dl>
+      </section>
+
+      <section id="conformance">
+        <p>
+A <dfn>conforming proof</dfn> is any concrete expression of the data model
+that complies with the normative statements in this specification. Specifically,
+all relevant normative statements in Sections
+<a href="#data-model"></a> and <a href="#algorithms"></a>
+of this document MUST be enforced.
+        </p>
+
+        <p>
+A <dfn class="lint-ignore">conforming processor</dfn> is any algorithm realized
+as software and/or hardware that generates or consumes a
+<a>conforming proof</a>. Conforming processors MUST produce errors when
+non-conforming documents are consumed.
+        </p>
+        <p>
+This document also contains examples that contain JSON and JSON-LD content. Some
+of these examples contain characters that are invalid JSON, such as inline
+comments (`//`) and the use of ellipsis (`...`) to denote
+information that adds little value to the example. Implementers are cautioned to
+remove this content if they desire to use the information as valid JSON or
+JSON-LD.
+        </p>
+      </section>
+
     </section>
 
-    <section id="terminology">
-      <h2>Terminology</h2>
-      <p>
-        The following terms are used to describe concepts involved in the
-        generation and verification of the Linked Data Proof
-        <a>signature suite</a>.
-      </p>
-
-      <dl>
-        <dt><dfn>signature suite</dfn></dt>
-        <dd>
-          A specified set of cryptographic primitives typically consisting of a
-          canonicalization algorithm, a message digest algorithm, and a
-          signature algorithm that are bundled together by cryptographers for
-          developers for the purposes of safety and convenience.
-        </dd>
-        <dt><dfn>canonicalization algorithm</dfn></dt>
-        <dd>
-          An algorithm that takes an input document that has more than one
-          possible representation and always transforms it into a
-          <a>canonical form</a>. This process is sometimes also called
-          normalization.
-        </dd>
-        <dt>
-          <dfn data-lt="message digest algorithm | message digest algorithms"
-            >message digest algorithm</dfn
-          >
-        </dt>
-        <dd>
-          An algorithm that takes a message, prefferably in some
-          <a>canonical form</a> and produces a cryptographic output called a
-          digest that is often many orders of magnitude smaller than the input
-          message. These algorithms are often 1) very fast, 2) non-reversible,
-          3) cause the output to change significantly when even one bit of the
-          input message changes, and 4) make it infeasible to find two different
-          inputs for the same output.
-        </dd>
-        <dt><dfn>canonical form</dfn></dt>
-        <dd>
-          The output of applying a <a>canonicalization algorithm</a> to an input
-          document.
-        </dd>
-        <dt><dfn>signature algorithm</dfn></dt>
-        <dd>
-          An algorithm that takes an input message and produces an output value
-          where the receiver of the message can mathematically verify that the
-          message has not been modified in transit and came from someone
-          possessing a particular secret.
-        </dd>
-        <dt><dfn>Ed25519VerificationKey2020</dfn></dt>
-        <dd>
-          The <code>type</code> of the verification method for the signature
-          suite <a>Ed25519Signature2020</a>.
-        </dd>
-
-        <dt><dfn>Ed25519Signature2020</dfn></dt>
-        <dd>
-          The <code>type</code> of the linked data proof for the signature suite
-          <a>Ed25519Signature2020</a>.
-        </dd>
-      </dl>
-    </section>
-
-    <section id="suite-definition">
-      <h2>Suite Definition</h2>
+    <section>
+      <h2>Data Model</h2>
 
       <p>
-        The Ed25519 <a>signature suite</a> 2020 MUST be used in conjunction with
-        the signing and verification algorithms in the Linked Data Proofs
-        [[LD-PROOFS]] specification. The suite consists of the following
-        algorithms:
+The following sections outline the data model that is used by this specification
+for verification methods and signature formats.
       </p>
-
-      <table class="simple">
-        <thead>
-          <th>Parameter</th>
-          <th>Value</th>
-          <th>Specification</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td><a>canonicalization algorithm</a></td>
-            <td>https://w3id.org/security#URDNA2015</td>
-            <td>[[RDF-DATASET-NORMALIZATION]]</td>
-          </tr>
-          <tr>
-            <td><a>message digest algorithm</a></td>
-            <td>SHA-256</td>
-            <td>[[RFC6234]]</td>
-          </tr>
-          <tr>
-            <td><a>signature algorithm</a></td>
-            <td>Edwards-Curve Digital Signature Algorithm (EdDSA)</td>
-            <td>[[RFC8032]]</td>
-          </tr>
-        </tbody>
-      </table>
 
       <section>
-        <h2>Verification Method</h2>
+        <h2>Verification Methods</h2>
         <p>
-          The cryptographic material used to verify a linked data proof is
-          called the verification method.
+The cryptographic material used to verify a linked data proof is called the
+verification method. This suite relies on public key material represented using
+[[MULTIBASE]] and [[MULTICODEC]]. This suite supports public key use for both
+digital signature generation and verification, according to [[RFC8032]].
         </p>
 
         <p>
-          This suite relies on public key material represented using
-          [[MULTIBASE]] and [[MULTICODEC]].
+This suite MAY be used to verify Data Integrity Proofs [[VC-DATA-INTEGRITY]]
+produced by Ed25519 public key material encoded as either a
+<a>Ed25519VerificationKey2020</a> or <a href="#multikey">Multikey</a>. Loss-less
+key transformation processes that result in equivalent cryptographic material
+MAY be utilized.
         </p>
 
-        <p>
-          This suite supports public key use for both digital signature
-          verification, according to [[RFC8032]].
-        </p>
+        <section>
+          <h3>Multikey</h3>
 
-        <p>
-          This suite MAY be used to verify linked data proofs produced by key
-          material in any representation that can be converted to
-          <code>publicKeyMultibase</code>>, however it is RECOMMENDED that this
-          suite be used with verification method's of type
-          <a>Ed25519VerificationKey2020</a>.
-        </p>
+          <p class="issue">
+This definition should go in the Data Integrity specification and referenced
+from there.
+          </p>
+
+          <p>
+The `type` of the verification method MUST be `Multikey`.
+          </p>
+
+          <p>
+The `controller` of the verification method MUST be a URL.
+          </p>
+
+          <p>
+The `publicKeyMultibase` property of the verification method MUST be
+a public key encoded according to [[MULTICODEC]] and formatted according to
+[[MULTIBASE]]. The multicodec encoding of a Ed25519 public key is the two-byte
+prefix `0xed01` followed by the 32-byte public key data. The 34 byte
+value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
+MUST NOT be allowed.
+          </p>
+
+          <p class="advisement">
+Developers are advised to not accidentally publish a representation of a private
+key. Implementations of this specification will raise errors in the event of a
+[[MULTICODEC]] value other than `0xed01` being used in a
+`publicKeyMultibase` value.
+          </p>
+
+          <pre class="example"
+            title="An Ed25519 public key encoded as a Multikey">
+{
+  "id": "https://example.com/issuer/123#key-0",
+  "type": "Multikey",
+  "controller": "https://example.com/issuer/123",
+  "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
+}
+          </pre>
+
+          <pre class="example" title="An Ed25519 public key encoded as a
+            Multikey in a controller document">
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/data-integrity/v1"
+  ],
+  "id": "did:example:123",
+  "verificationMethod": [{
+    "id": "did:example:123#key-0",
+    "type": "Multikey",
+    "controller": "did:example:123",
+    "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
+  }],
+  "authentication": [
+    "did:example:123#key-0"
+  ],
+  "assertionMethod": [
+    "did:example:123#key-0"
+  ],
+  "capabilityDelegation": [
+    "did:example:123#key-0"
+  ],
+  "capabilityInvocation": [
+    "did:example:123#key-0"
+  ]
+}
+          </pre>
+        </section>
 
         <section>
           <h3>Ed25519VerificationKey2020</h3>
 
-          <p>
-            The <code>id</code> of the verification method SHOULD be the JWK
-            thumbprint calculated from the
-            <code>publicKeyMultibase</code> property value according to
-            [[MULTIBASE]].
-          </p>
-          <p>
-            The <code>type</code> of the verification method SHOULD be
-            <a>Ed25519VerificationKey2020</a>.
-          </p>
-          <p>
-            The <code>controller</code> of the verification method SHOULD be a
-            URI.
+          <p class="issue">
+We need to add documentation to note that this key format is deployed and
+widely used in production, but is deprecated. `Multikey` and `JsonWebKey2020`
+supersede it.
           </p>
 
           <p>
-            The <code>publicKeyMultibase</code> property of the verification
-            method MUST be a public key encoded according to [[MULTICODEC]] and
-            formatted according to [[MULTIBASE]]. The multicodec encoding of
-            a Ed25519 public key is the two-byte prefix <code>0xed01</code>
-            followed by the 32-byte public key data.
+The `type` of the verification method MUST be
+<a>Ed25519VerificationKey2020</a>.
+          </p>
+
+          <p>
+The `controller` of the verification method MUST be a URL.
+          </p>
+
+          <p>
+The `publicKeyMultibase` property of the verification method MUST be
+a public key encoded according to [[MULTICODEC]] and formatted according to
+[[MULTIBASE]]. The multicodec encoding of a Ed25519 public key is the two-byte
+prefix `0xed01` followed by the 32-byte public key data. The 34 byte
+value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
+MUST NOT be allowed.
           </p>
 
           <p class="advisement">
-            Be careful not to accidentally publish a representation of a private
-            key.
+Developers are advised to not accidentally publish a representation of a private
+key. Implementations of this specification will raise errors in the event of a
+[[MULTICODEC]] value other than `0xed01` being used in a
+`publicKeyMultibase` value.
           </p>
 
-          <pre class="example" title="Ed25519VerificationKey2020 as JSON.">
-            {
-              "id": "https://example.com/issuer/123#key-0",
-              "type": "Ed25519VerificationKey2020",
-              "controller": "https://example.com/issuer/123",
-              "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
-            }
+          <pre class="example" title="An Ed25519 public key encoded as an
+            Ed25519VerificationKey2020">
+{
+  "id": "https://example.com/issuer/123#key-0",
+  "type": "Ed25519VerificationKey2020",
+  "controller": "https://example.com/issuer/123",
+  "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
+}
           </pre>
 
-          <pre class="example" title="Ed25519VerificationKey2020 in a DID Document.">
-            {
-              "@context": [
-                "https://www.w3.org/ns/did/v1",
-                "https://w3id.org/security/suites/ed25519-2020/v1",
-                {
-                  "@base": "did:example:123"
-                }
-              ],
-              "id": "did:example:123",
-              "verificationMethod": [
-                {
-                  "id": "#key-0",
-                  "type": "Ed25519VerificationKey2020",
-                  "controller": "did:example:123",
-                  "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
-                }
-              ],
-              "authentication": [
-                "#key-0"
-              ],
-              "assertionMethod": [
-                "#key-0"
-              ],
-              "capabilityDelegation": [
-                "#key-0"
-              ],
-              "capabilityInvocation": [
-                "#key-0"
-              ]
-            }
+          <pre class="example" title="An Ed25519 public key encoded as an
+            Ed25519VerificationKey2020 in a controller document.">
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/ed25519-2020/v1"
+  ],
+  "id": "did:example:123",
+  "verificationMethod": [
+    {
+      "id": "did:example:123#key-0",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:example:123",
+      "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
+    }
+  ],
+  "authentication": [
+    "did:example:123#key-0"
+  ],
+  "assertionMethod": [
+    "did:example:123#key-0"
+  ],
+  "capabilityDelegation": [
+    "did:example:123#key-0"
+  ],
+  "capabilityInvocation": [
+    "did:example:123#key-0"
+  ]
+}
           </pre>
         </section>
+
       </section>
 
       <section>
-        <h2>Proof Representation</h2>
-        <p>
-          The cryptographic material used to represent a linked data proof is
-          called the proof type.
-        </p>
+        <h2>Proof Representations</h2>
 
         <p>
-          This suite relies on detached digital signatures represented using
-          [[MULTIBASE]] and [[MULTICODEC]].
+This suite relies on detached digital signatures represented using [[MULTIBASE]]
+and [[MULTICODEC]].
         </p>
 
         <section>
-          <h3>Ed25519 Signature 2020</h3>
+          <h3>DataIntegrityProof</h3>
 
           <p>
-            The <code>verificationMethod</code> property of the proof SHOULD be
-            a URI. Dereferencing the <code>verificationMethod</code> SHOULD
-            result in an object of <code>type</code>
-            <a>Ed25519VerificationKey2020</a>.
+The `verificationMethod` property of the proof MUST be a URL.
+Dereferencing the `verificationMethod` MUST result in an object
+containing a `type` property with the value set to
+`Ed25519VerificationKey2020`.
+          </p>
+
+          <p>
+The `type` property of the proof MUST be `DataIntegrityProof`.
           </p>
           <p>
-            The <code>type</code> property of the proof MUST be
-            <a>Ed25519Signature2020</a>.
+The `cryptosuite` property of the proof MUST be `eddsa-2022`.
           </p>
           <p>
-            The <code>created</code> property of the proof MUST be an
-            [[ISO_8601]] formated date string.
+The `created` property of the proof MUST be an [[XMLSCHEMA11-2]]
+formated date string.
           </p>
           <p>
-            The <code>proofPurpose</code> property of the proof MUST be a
-            string, and SHOULD match the verification relationship expressed by
-            the verification method <code>controller</code>.
+The `proofPurpose` property of the proof MUST be a string, and MUST
+match the verification relationship expressed by the verification method
+`controller`.
           </p>
           <p>
-            The <code>proofValue</code> property of the proof MUST be a detached
-            EdDSA produced according to [[RFC8032]], encoded according to
-            [[MULTIBASE]].
+The `proofValue` property of the proof MUST be a detached EdDSA
+produced according to [[RFC8032]], encoded according to [[MULTIBASE]] using
+the base58-btc base encoding.
           </p>
+
+          <pre class="example highlight" style="overflow-x:
+            auto; white-space: pre-wrap; word-wrap: break-word;"
+            title="An Ed25519 digital signature expressed as a
+              DataIntegrityProof">
+{
+  "@context": [
+    {"title": "https://schema.org/title"},
+    "https://w3id.org/security/data-integrity/v1"
+  ],
+  "title": "Hello world!",
+  "proof": {
+    "type": "DataIntegrityProof",
+    "cryptosuite": "eddsa-2022",
+    "created": "2020-11-05T19:23:24Z",
+    "verificationMethod": "https://ldi.example/issuer#z6MkjLrk3gKS2nnkeWcmcxi
+      ZPGskmesDpuwRBorgHxUXfxnG",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z4oey5q2M3XKaxup3tmzN4DRFTLVqpLMweBrSxMY2xHX5XTYVQeVbY8nQA
+      VHMrXFkXJpmEcqdoDwLWxaqA3Q1geV6"
+  }
+}
+          </pre>
+
+        </section>
+
+        <section>
+          <h3>Ed25519Signature2020</h3>
+
+          <p>
+The `verificationMethod` property of the proof MUST be a URL.
+Dereferencing the `verificationMethod` MUST result in an object
+containing a `type` property with the value set to
+`Ed25519VerificationKey2020`.
+          </p>
+
+          <p>
+The `type` property of the proof MUST be `Ed25519Signature2020`.
+          </p>
+          <p>
+The `created` property of the proof MUST be an [[XMLSCHEMA11-2]]
+formated date string.
+          </p>
+          <p>
+The `proofPurpose` property of the proof MUST be a string, and MUST
+match the verification relationship expressed by the verification method
+`controller`.
+          </p>
+          <p>
+The `proofValue` property of the proof MUST be a detached EdDSA
+produced according to [[RFC8032]], encoded according to [[MULTIBASE]] using
+the base58-btc base encoding.
+          </p>
+
+          <pre class="example highlight" style="overflow-x:
+            auto; white-space: pre-wrap; word-wrap: break-word;"
+            title="An Ed25519 digital signature expressed as a
+            Ed25519Signature2020">
+{
+  "@context": [
+    {"title": "https://schema.org/title"},
+    "https://w3id.org/security/data-integrity/v1"
+  ],
+  "title": "Hello world!",
+  "proof": {
+    "type": "Ed25519Signature2020",
+    "created": "2020-11-05T19:23:24Z",
+    "verificationMethod": "https://di.example/issuer#z6MkjLrk3gKS2nnkeWcmcxi
+      ZPGskmesDpuwRBorgHxUXfxnG",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z4oey5q2M3XKaxup3tmzN4DRFTLVqpLMweBrSxMY2xHX5XTYVQeVbY8nQA
+      VHMrXFkXJpmEcqdoDwLWxaqA3Q1geV6"
+  }
+}
+          </pre>
+
         </section>
       </section>
     </section>
 
     <section>
-      <h2>Test Vectors</h2>
-      <p>
-        The following test vectors are provided to assist with implementers.
-      </p>
+      <h2>Algorithms</h2>
 
-      <pre class="example">
-        {
-          "seed_0": "9b937b81322d816cfab9d5a3baacc9b2a5febe4b149f126b3630f93a29527017"
-        }
-      </pre>
-      <pre class="example">
-        {
-          "keypair_0": {
-            "id": "https://example.com/issuer/123#key-0",
-            "type": "Ed25519VerificationKey2018",
-            "controller": "https://example.com/issuer/123",
-            "publicKeyBase58": "dbDmZLTWuEYYZNHFLKLoRkEX4sZykkSLNQLXvMUyMB1",
-            "privateKeyBase58": "47QbyJEDqmHTzsdg8xzqXD8gqKuLufYRrKWTmB7eAaWHG2EAsQ2GUyqRqWWYT15dGuag52Sf3j4hs2mu7w52mgps"
-          },
-          "keypair_1": {
-            "id": "https://example.com/issuer/123#key-0",
-            "type": "Ed25519KeyPair2020",
-            "controller": "https://example.com/issuer/123",
-            "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP",
-            "privateKeyMultibase": "zrv3kJcnBP1RpYmvNZ9jcYpKBZg41iSobWxSg3ix2U7Cp59kjwQFCT4SZTgLSL3HP8iGMdJs3nedjqYgNn6ZJmsmjRm"
-          }
-        }
-      </pre>
+      <section>
+        <h3>Transformation</h3>
 
-      <pre class="example">
-        {
-          "issuer_0": {
-            "@context": [
-              "https://www.w3.org/ns/did/v1",
-              "https://w3id.org/security/suites/ed25519-2020/v1",
-              {
-                "@base": "https://example.com/issuer/123"
-              }
-            ],
-            "id": "https://example.com/issuer/123",
-            "verificationMethod": [
-              {
-                "id": "#key-0",
-                "type": "Ed25519VerificationKey2020",
-                "controller": "https://example.com/issuer/123",
-                "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
-              }
-            ],
-            "assertionMethod": ["#key-0"],
-            "authentication": ["#key-0"]
-          }
-        }
+        <p>
+The following algorithm specifies how to transform an unsecured input document
+into a transformed document that is ready to be provided as input to the
+<a href="#hashing">hashing algorithm</a>. This
+algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Algorithms</a>. Required inputs are an
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
+unsecured data document</a> (<var>unsecuredDocument</var>) and
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-transformation-options">
+transformation options</a> (<var>options</var>). The
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
+transformation options</a> MUST contain a type identifier for the
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A <dfn>transformed data document</dfn> is
+produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
+encoding.
+        </p>
 
-      </pre>
+        <ol class="algorithm">
+          <li>
+If <var>options</var>.<var>type</var> is not set to the string
+`DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
+set to the string `ed25519-2020`, or <var>options</var>.<var>type</var> is
+not set to the string `Ed25519Signature2020`, then a
+`PROOF_TRANSFORMATION_ERROR` MUST be raised.
+          </li>
+          <li>
+Let <var>canonicalDocument</var> be the result of applying the
+Universal RDF Dataset Canonicalization Algorithm
+[[RDF-CANON]] to the <var>unsecuredDocument</var>.
+          </li>
+          <li>
+Set <var>output</var> to the value of <var>canonicalDocument</var>.
+          </li>
+          <li>
+Return <var>canonicalDocument</var> as the <a>transformed data document</a>.
+          </li>
+        </ol>
 
-      <pre class="example">
-        {
-          "vc_template_0": {
-            "@context": [
-              "https://www.w3.org/2018/credentials/v1",
-              "https://www.w3.org/2018/credentials/examples/v1",
-              "https://w3id.org/security/suites/ed25519-2020/v1",
-            ],
-            "id": "http://example.gov/credentials/3732",
-            "type": ["VerifiableCredential", "UniversityDegreeCredential"],
-            "issuer": "https://example.com/issuer/123",
-            "issuanceDate": "2020-03-10T04:24:12.164Z",
-            "credentialSubject": {
-              "id": "did:example:456",
-              "degree": {
-                "type": "BachelorDegree",
-                "name": "Bachelor of Science and Arts"
-              }
-            }
-          },
-          "vc_0": {
-            "@context": [
-              "https://www.w3.org/2018/credentials/v1",
-              "https://www.w3.org/2018/credentials/examples/v1",
-              "https://w3id.org/security/suites/ed25519-2020/v1"
-            ],
-            "id": "http://example.gov/credentials/3732",
-            "type": ["VerifiableCredential", "UniversityDegreeCredential"],
-            "issuer": "https://example.com/issuer/123",
-            "issuanceDate": "2020-03-10T04:24:12.164Z",
-            "credentialSubject": {
-              "id": "did:example:456",
-              "degree": {
-                "type": "BachelorDegree",
-                "name": "Bachelor of Science and Arts"
-              }
-            },
-            "proof": {
-              "type": "Ed25519Signature2020",
-              "created": "2019-12-11T03:50:55Z",
-              "proofValue": "z5SpZtDGGz5a89PJbQT2sgbRUiyyAGhhgjcf86aJHfYcfvPjxn6vej5na6kUzmw1jMAR9PJU9mowshQFFdGmDN14D",
-              "proofPurpose": "assertionMethod",
-              "verificationMethod": "https://example.com/issuer/123#key-0"
-            }
-          },
-          "vp_0": {
-            "@context": [
-              "https://www.w3.org/2018/credentials/v1",
-              "https://w3id.org/security/suites/ed25519-2020/v1"
-            ],
-            "type": ["VerifiablePresentation"],
-            "verifiableCredential": [
-              {
-                "@context": [
-                  "https://www.w3.org/2018/credentials/v1",
-                  "https://www.w3.org/2018/credentials/examples/v1",
-                  "https://w3id.org/security/suites/ed25519-2020/v1"
-                ],
-                "id": "http://example.gov/credentials/3732",
-                "type": ["VerifiableCredential", "UniversityDegreeCredential"],
-                "issuer": "https://example.com/issuer/123",
-                "issuanceDate": "2020-03-10T04:24:12.164Z",
-                "credentialSubject": {
-                  "id": "did:example:456",
-                  "degree": {
-                    "type": "BachelorDegree",
-                    "name": "Bachelor of Science and Arts"
-                  }
-                },
-                "proof": {
-                  "type": "Ed25519Signature2020",
-                  "created": "2019-12-11T03:50:55Z",
-                  "proofValue": "z5SpZtDGGz5a89PJbQT2sgbRUiyyAGhhgjcf86aJHfYcfvPjxn6vej5na6kUzmw1jMAR9PJU9mowshQFFdGmDN14D",
-                  "proofPurpose": "assertionMethod",
-                  "verificationMethod": "https://example.com/issuer/123#key-0"
-                }
-              }
-            ],
-            "id": "urn:uuid:83895ddf-52ee-4408-8796-51a1856dbbec",
-            "holder": "did:ex:12345",
-            "proof": {
-              "type": "Ed25519Signature2020",
-              "created": "2021-06-04T20:50:09Z",
-              "verificationMethod": "https://example.com/issuer/123#key-0",
-              "proofPurpose": "authentication",
-              "challenge": "123",
-              "proofValue": "z2y3UBXAiToXLzQqeMnHiMozJ3hKxcMgLm7p8GRQA92F6JSYu49RxHQf6k1CMKnMdpj3BLRSH69b9qA9cfjE3oS7q"
-            }
-          }
-        }
+      </section>
 
-      </pre>
-    </section>
+      <section>
+        <h3>Hashing</h3>
 
-    <section id="conformance">
-      <p>
-        A <dfn>conforming document</dfn> is any concrete expression of the data
-        model that complies with the normative statements in this specification.
-        Specifically, all relevant normative statements in Sections
-        <a href="#terminology"></a> and <a href="#suite-definition"></a>
-        of this document MUST be enforced.
-      </p>
+        <p>
+The following algorithm specifies how to cryptographically hash a
+<a>transformed data document</a> and <a>proof configuration</a>
+into cryptographic hash data that is ready to be provided as input to either the
+<a href="#proof-generation">proof generation algorithm</a> or
+<a href="#proof-verification">proof verification algorithm</a>. This
+algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Algorithms</a>. Required inputs are a
+<a>transformed data document</a> (<var>transformedDocument</var>) and
+<a>proof configuration</a> (<var>proofConfig</var>). The
+<a>proof configuration</a> MUST contain a type identifier for the
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A single <dfn>hash data</dfn> value
+represented as series of bytes is produced as output.
+        </p>
 
-      <p>
-        A <dfn class="lint-ignore">conforming processor</dfn> is any algorithm
-        realized as software and/or hardware that generates or consumes a
-        <a>conforming document</a>. Conforming processors MUST produce errors
-        when non-conforming documents are consumed.
-      </p>
-      <p>
-        This document also contains examples that contain JSON and JSON-LD
-        content. Some of these examples contain characters that are invalid
-        JSON, such as inline comments (<code>//</code>) and the use of ellipsis
-        (<code>...</code>) to denote information that adds little value to the
-        example. Implementers are cautioned to remove this content if they
-        desire to use the information as valid JSON or JSON-LD.
-      </p>
+        <ol class="algorithm">
+          <li>
+Let <var>transformedDocumentHash</var> be the result of applying the
+SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
+to the <var>transformedDocument</var>. <var>transformedDocumentHash</var> will
+be exactly 32 bytes in size.
+          </li>
+          <li>
+Let <var>proofConfigHash</var> be the result of applying the
+SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
+to the <var>proofConfig</var>. <var>proofConfigHash</var> will be
+exactly 32 bytes in size.
+          </li>
+
+          <li>
+Let <var>hashData</var> be the result of concatenating
+<var>transformedDocumentHash</var> and <var>proofConfigHash</var>.
+          </li>
+          <li>
+Return <var>hashData</var> as the <a>hash data</a>.
+          </li>
+        </ol>
+
+      </section>
+
+      <section>
+        <h3>Proof Configuration</h3>
+
+        <p>
+The following algorithm specifies how to generate a
+<dfn>proof configuration</dfn> from a set of <dfn>proof options</dfn>
+that is used as input to the <a href="#hashing">proof hashing algorithm</a>.
+This algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Algorithms</a>. Required inputs are <a>proof options</a>
+(<var>options</var>). The <a>proof options</a> MUST contain a type identifier
+for the
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A <a>proof configuration</a>
+object is produced as output.
+        </p>
+
+        <ol class="algorithm">
+          <li>
+Let <var>proofConfig</var> be an empty object.
+          </li>
+          <li>
+Set <var>proofConfig</var>.<var>type</var> to
+<var>options</var>.<var>type</var>.
+          </li>
+          <li>
+If <var>options</var>.<var>cryptosuite</var> is set, set
+<var>proofConfig</var>.<var>cryptosuite</var> to its value.
+          </li>
+          <li>
+If <var>options</var>.<var>type</var> is set to `DataIntegrityProof` and
+<var>proofConfig</var>.<var>cryptosuite</var> is not set to `eddsa-2020`, an
+`INVALID_PROOF_CONFIGURATION` error MUST be raised. Otherwise, if
+<var>options</var>.<var>type</var> is not set to `Ed25519Signature2020`, an
+`INVALID_PROOF_CONFIGURATION` error MUST be raised.
+          </li>
+          <li>
+Set <var>proofConfig</var>.<var>created</var> to
+<var>options</var>.<var>created</var>. If the value is not a valid
+[[XMLSCHEMA11-2]] datetime, an `INVALID_PROOF_DATETIME` error MUST be raised.
+          </li>
+          <li>
+Set <var>proofConfig</var>.<var>verificationMethod</var> to
+<var>options</var>.<var>verificationMethod</var>.
+          </li>
+          <li>
+Set <var>proofConfig</var>.<var>proofPurpose</var> to
+<var>options</var>.<var>proofPurpose</var>.
+          </li>
+          <li>
+Return <var>proofConfig</var>.
+          </li>
+        </ol>
+
+      </section>
+
+      <section>
+        <h3>Proof Generation</h3>
+
+        <p>
+The following algorithm specifies how to generate a digital signature from
+a set of cryptographic hash data. This
+algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Algorithms</a>. Required inputs are
+cryptographic hash data (<var>hashData</var>) and
+<a>proof options</a> (<var>options</var>). The
+<a>proof options</a> MUST contain a type identifier for the
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A single <dfn>digital proof</dfn> value
+represented as series of bytes is produced as output.
+        </p>
+
+        <ol class="algorithm">
+          <li>
+Let <var>privateKeyBytes</var> be the result of retrieving the
+private key bytes associated with the
+<var>options</var>.<var>verificationMethod</var> value as described in the
+Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Retrieving Cryptographic Material</a>.
+          </li>
+          <li>
+Let <var>proofBytes</var> be the result of applying the Edwards-Curve Digital
+Signature Algorithm (EdDSA) [[RFC8032]], using the `Ed25519` variant
+(Pure EdDSA), with <var>hashData</var> as the data to be signed using
+the private key specified by <var>privateKeyBytes</var>.
+<var>proofBytes</var> will be exactly 64 bytes in size.
+          </li>
+          <li>
+Return <var>proofBytes</var> as the <a>digital proof</a>.
+          </li>
+        </ol>
+
+      </section>
+
+      <section>
+        <h3>Proof Verification</h3>
+
+        <p>
+The following algorithm specifies how to verify a digital signature from
+a set of cryptographic hash data. This
+algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Algorithms</a>. Required inputs are
+cryptographic hash data (<var>hashData</var>),
+a digital signature (<var>proofBytes</var>) and
+proof options (<var>options</var>). A <dfn>verification result</dfn>
+represented as a boolean value is produced as output.
+        </p>
+
+        <ol class="algorithm">
+          <li>
+Let <var>publicKeyBytes</var> be the result of retrieving the
+public key bytes associated with the
+<var>options</var>.<var>verificationMethod</var> value as described in the
+Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Retrieving Cryptographic Material</a>.
+          </li>
+          <li>
+Let <var>verificationResult</var> be the result of applying the verification
+algorithm for the Edwards-Curve Digital Signature Algorithm (EdDSA)
+[[RFC8032]], using the `Ed25519` variant (Pure EdDSA),
+with <var>hashData</var> as the data to be verified against the
+<var>proofBytes</var> using the public key specified by
+<var>publicKeyBytes</var>.
+          </li>
+          <li>
+Return <var>verificationResult</var> as the <a>verification result</a>.
+          </li>
+        </ol>
+
+      </section>
     </section>
 
     <section>
       <h2>Security Considerations</h2>
       <p>
-        The following section describes security considerations that developers
-        implementing this specification should be aware of in order to create
-        secure software.
+The following section describes security considerations that developers
+implementing this specification should be aware of in order to create secure
+software.
       </p>
 
       <p class="note">
-        This specification relies on URDNA2015, please review
-        [[RDF-DATASET-NORMALIZATION]].
+This specification relies on URDNA2015, please review
+[[RDF-CANON]].
       </p>
 
       <p class="note">
-        This specification relies on [[MULTIBASE]], [[MULTICODEC]] and
-        [[RFC8032]].
+This specification relies on [[MULTIBASE]], [[MULTICODEC]] and [[RFC8032]].
       </p>
 
-      <div class="issue">
-        TODO: We need to add a complete list of security considerations.
-      </div>
+      <p class="issue">
+There are <a href="https://eprint.iacr.org/2020/1244.pdf">
+known mis-implementation attacks against multiple flavors of EdDSA</a>
+implementations. We might want to warn about what to look out for and how to
+mitigate the attacks.
+      </p>
+
     </section>
+
+    <section>
+      <h2>Privacy Considerations</h2>
+      <p>
+The following section describes privacy considerations that developers
+implementing this specification should be aware of in order to avoid violating
+privacy assumptions.
+      </p>
+
+      <p class="issue">
+This cryptography suite does not provide for selective disclosure or
+unlinkability. If signatures are re-used, they can be used as correlatable data.
+      </p>
+    </section>
+
+    <section class="appendix">
+      <h2>Test Vectors</h2>
+      <p>
+The following test vectors are provided to assist with implementers.
+      </p>
+
+      <pre class="example">
+{
+  "seed_0": "9b937b81322d816cfab9d5a3baacc9b2a5febe4b149f126b3630f93a29527017"
+}
+      </pre>
+      <pre class="example">
+{
+  "keypair_0": {
+    "id": "https://example.com/issuer/123#key-0",
+    "type": "Ed25519VerificationKey2018",
+    "controller": "https://example.com/issuer/123",
+    "publicKeyBase58": "dbDmZLTWuEYYZNHFLKLoRkEX4sZykkSLNQLXvMUyMB1",
+    "privateKeyBase58": "47QbyJEDqmHTzsdg8xzqXD8gqKuLufYRrKWTmB7eAaWHG2EAsQ2GUyqRqWWYT15dGuag52Sf3j4hs2mu7w52mgps"
+  },
+  "keypair_1": {
+    "id": "https://example.com/issuer/123#key-0",
+    "type": "Ed25519KeyPair2020",
+    "controller": "https://example.com/issuer/123",
+    "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP",
+    "privateKeyMultibase": "zrv3kJcnBP1RpYmvNZ9jcYpKBZg41iSobWxSg3ix2U7Cp59kjwQFCT4SZTgLSL3HP8iGMdJs3nedjqYgNn6ZJmsmjRm"
+  }
+}
+      </pre>
+
+      <pre class="example">
+{
+  "issuer_0": {
+    "@context": [
+      "https://www.w3.org/ns/did/v1",
+      "https://w3id.org/security/suites/ed25519-2020/v1",
+      {
+        "@base": "https://example.com/issuer/123"
+      }
+    ],
+    "id": "https://example.com/issuer/123",
+    "verificationMethod": [
+      {
+        "id": "#key-0",
+        "type": "Ed25519VerificationKey2020",
+        "controller": "https://example.com/issuer/123",
+        "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
+      }
+    ],
+    "assertionMethod": ["#key-0"],
+    "authentication": ["#key-0"]
+  }
+}
+      </pre>
+
+      <pre class="example">
+{
+  "vc_template_0": {
+    "@context": [
+      "https://www.w3.org/2018/credentials/v1",
+      "https://www.w3.org/2018/credentials/examples/v1",
+      "https://w3id.org/security/suites/ed25519-2020/v1",
+    ],
+    "id": "http://example.gov/credentials/3732",
+    "type": ["VerifiableCredential", "UniversityDegreeCredential"],
+    "issuer": "https://example.com/issuer/123",
+    "issuanceDate": "2020-03-10T04:24:12.164Z",
+    "credentialSubject": {
+      "id": "did:example:456",
+      "degree": {
+        "type": "BachelorDegree",
+        "name": "Bachelor of Science and Arts"
+      }
+    }
+  },
+  "vc_0": {
+    "@context": [
+      "https://www.w3.org/2018/credentials/v1",
+      "https://www.w3.org/2018/credentials/examples/v1",
+      "https://w3id.org/security/suites/ed25519-2020/v1"
+    ],
+    "id": "http://example.gov/credentials/3732",
+    "type": ["VerifiableCredential", "UniversityDegreeCredential"],
+    "issuer": "https://example.com/issuer/123",
+    "issuanceDate": "2020-03-10T04:24:12.164Z",
+    "credentialSubject": {
+      "id": "did:example:456",
+      "degree": {
+        "type": "BachelorDegree",
+        "name": "Bachelor of Science and Arts"
+      }
+    },
+    "proof": {
+      "type": "Ed25519Signature2020",
+      "created": "2019-12-11T03:50:55Z",
+      "proofValue": "z5SpZtDGGz5a89PJbQT2sgbRUiyyAGhhgjcf86aJHfYcfvPjxn6vej5na6kUzmw1jMAR9PJU9mowshQFFdGmDN14D",
+      "proofPurpose": "assertionMethod",
+      "verificationMethod": "https://example.com/issuer/123#key-0"
+    }
+  },
+  "vp_0": {
+    "@context": [
+      "https://www.w3.org/2018/credentials/v1",
+      "https://w3id.org/security/suites/ed25519-2020/v1"
+    ],
+    "type": ["VerifiablePresentation"],
+    "verifiableCredential": [
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://www.w3.org/2018/credentials/examples/v1",
+          "https://w3id.org/security/suites/ed25519-2020/v1"
+        ],
+        "id": "http://example.gov/credentials/3732",
+        "type": ["VerifiableCredential", "UniversityDegreeCredential"],
+        "issuer": "https://example.com/issuer/123",
+        "issuanceDate": "2020-03-10T04:24:12.164Z",
+        "credentialSubject": {
+          "id": "did:example:456",
+          "degree": {
+            "type": "BachelorDegree",
+            "name": "Bachelor of Science and Arts"
+          }
+        },
+        "proof": {
+          "type": "Ed25519Signature2020",
+          "created": "2019-12-11T03:50:55Z",
+          "proofValue": "z5SpZtDGGz5a89PJbQT2sgbRUiyyAGhhgjcf86aJHfYcfvPjxn6vej5na6kUzmw1jMAR9PJU9mowshQFFdGmDN14D",
+          "proofPurpose": "assertionMethod",
+          "verificationMethod": "https://example.com/issuer/123#key-0"
+        }
+      }
+    ],
+    "id": "urn:uuid:83895ddf-52ee-4408-8796-51a1856dbbec",
+    "holder": "did:ex:12345",
+    "proof": {
+      "type": "Ed25519Signature2020",
+      "created": "2021-06-04T20:50:09Z",
+      "verificationMethod": "https://example.com/issuer/123#key-0",
+      "proofPurpose": "authentication",
+      "challenge": "123",
+      "proofValue": "z2y3UBXAiToXLzQqeMnHiMozJ3hKxcMgLm7p8GRQA92F6JSYu49RxHQf6k1CMKnMdpj3BLRSH69b9qA9cfjE3oS7q"
+    }
+  }
+}
+      </pre>
+    </section>
+
   </body>
 </html>
