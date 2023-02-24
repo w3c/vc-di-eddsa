@@ -920,14 +920,14 @@ compute the Ed25519 signature, and then base58-btc encode the signature.
 z2RczMj342tVhAjgjEPV4TeHbi2ggnTRKTc5BFQCgaWJ3nhcg5HgCeC2eV4Lc1fYdhfoLyPjxoq4BtqrsyNvxZ8nE
       </pre>
 
-      <p>Assemble the signed credential by:</p>
+      <p>Assemble the signed credential with the following two steps:</p>
       <ol>
         <li>
-Adding the <code>proofValue</code> field with the previously computed base58-btc 
+Add the <code>proofValue</code> field with the previously computed base58-btc 
 value to the proof options document.
         </li>
         <li>
-Setting the <code>proof</code> field of the credential to the augmented proof 
+Set the <code>proof</code> field of the credential to the augmented proof 
 option document.
         </li>
       </ol>
