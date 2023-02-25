@@ -610,9 +610,8 @@ encoding.
             <li>
 If <var>options</var>.<var>type</var> is not set to the string
 `DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
-set to the string `ed25519-2020`, or <var>options</var>.<var>type</var> is
-not set to the string `Ed25519Signature2020`, then a
-`PROOF_TRANSFORMATION_ERROR` MUST be raised.
+set to the string `ed25519-2020` then a `PROOF_TRANSFORMATION_ERROR` MUST be
+raised.
             </li>
             <li>
 Let <var>canonicalDocument</var> be the result of applying the
@@ -626,7 +625,6 @@ Set <var>output</var> to the value of <var>canonicalDocument</var>.
 Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
             </li>
           </ol>
-
         </section>
 
         <section>
@@ -641,14 +639,10 @@ Section <a href="#proof-verification-eddsa-2022"></a>.
           </p>
 
           <p>
-The required inputs to this algorithm are a
-<em>transformed data document</em> (<var>transformedDocument</var>) and
-<em>proof configuration</em> (<var>proofConfig</var>). The
-<em>proof configuration</em> MUST contain a type identifier for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
-cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-identifier (<var>cryptosuite</var>). A single <em>hash data</em> value
-represented as series of bytes is produced as output.
+The required inputs to this algorithm are a <em>transformed data document</em>
+(<var>transformedDocument</var>) and <em>proof configuration</em>
+(<var>proofConfig</var>). A single <em>hash data</em> value represented as
+series of bytes is produced as output.
           </p>
 
           <ol class="algorithm">
@@ -689,7 +683,7 @@ The required inputs to this algorithm are <em>proof options</em>
 (<var>options</var>). The <em>proof options</em> MUST contain a type identifier
 for the
 <a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
-cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+cryptographic suite</a> (<var>type</var>) and MUST contain a cryptosuite
 identifier (<var>cryptosuite</var>). A <em>proof configuration</em>
 object is produced as output.
           </p>
@@ -707,10 +701,8 @@ If <var>options</var>.<var>cryptosuite</var> is set, set
 <var>proofConfig</var>.<var>cryptosuite</var> to its value.
             </li>
             <li>
-If <var>options</var>.<var>type</var> is set to `DataIntegrityProof` and
+If <var>options</var>.<var>type</var> is not set to `DataIntegrityProof` and
 <var>proofConfig</var>.<var>cryptosuite</var> is not set to `eddsa-2020`, an
-`INVALID_PROOF_CONFIGURATION` error MUST be raised. Otherwise, if
-<var>options</var>.<var>type</var> is not set to `Ed25519Signature2020`, an
 `INVALID_PROOF_CONFIGURATION` error MUST be raised.
             </li>
             <li>
@@ -888,10 +880,7 @@ encoding.
           <ol class="algorithm">
             <li>
 If <var>options</var>.<var>type</var> is not set to the string
-`DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
-set to the string `ed25519-2020`, or <var>options</var>.<var>type</var> is
-not set to the string `Ed25519Signature2020`, then a
-`PROOF_TRANSFORMATION_ERROR` MUST be raised.
+`Ed25519Signature2020`, then a `PROOF_TRANSFORMATION_ERROR` MUST be raised.
             </li>
             <li>
 Let <var>canonicalDocument</var> be the result of applying the
@@ -987,10 +976,7 @@ If <var>options</var>.<var>cryptosuite</var> is set, set
 <var>proofConfig</var>.<var>cryptosuite</var> to its value.
             </li>
             <li>
-If <var>options</var>.<var>type</var> is set to `DataIntegrityProof` and
-<var>proofConfig</var>.<var>cryptosuite</var> is not set to `eddsa-2020`, an
-`INVALID_PROOF_CONFIGURATION` error MUST be raised. Otherwise, if
-<var>options</var>.<var>type</var> is not set to `Ed25519Signature2020`, an
+If <var>options</var>.<var>type</var> is not set to `Ed25519Signature2020`, an
 `INVALID_PROOF_CONFIGURATION` error MUST be raised.
             </li>
             <li>
