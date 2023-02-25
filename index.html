@@ -595,7 +595,7 @@ into a transformed document that is ready to be provided as input to the
 hashing algorithm in Section <a href="#hashing-eddsa-2022"></a>.
           </p>
 
-
+          <p>
 Required inputs to this algorithm are an
 <a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
 unsecured data document</a> (<var>unsecuredDocument</var>) and
@@ -810,6 +810,48 @@ Return <var>verificationResult</var> as the <em>verification result</em>.
           </ol>
 
         </section>
+      </section>
+
+      <section>
+        <h3>json-eddsa-2022</h3>
+
+          <p>
+The `json-eddsa-2022` cryptographic suite takes an input document, canonicalizes
+the document using the JSON Canonicalization Scheme [[RFC8785]], and then
+cryptographically hashes and signs the output resulting in the production of a
+data integrity proof. The algorithms for this cryptographic suite are the
+same as the ones in Section <a href="#eddsa-2022"></a> except for the following
+modifications:
+          </p>
+
+          <p>
+In Section <a href="#transformation-eddsa-2022"></a>, step <strong>1)</strong>
+and step <strong>2)</strong> are replaced by the following text:
+          </p>
+
+          <ol class="algorithm">
+            <li>
+If <var>options</var>.<var>type</var> is not set to the string
+`DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
+set to the string `json-eddsa-2022` then a `PROOF_TRANSFORMATION_ERROR` MUST be
+raised.
+            </li>
+            <li>
+Let <var>canonicalDocument</var> be the result of applying the
+JSON Canonicalization Scheme [[RFC8785]] to the <var>unsecuredDocument</var>.
+            </li>
+          </ol>
+
+          <p>
+In Section <a href="#proof-configuration-eddsa-2022"></a>, step
+<strong>4)</strong> is replaced by the following text:
+          </p>
+
+          <p style="padding-left: 2em;">
+<strong>4)</strong> If <var>options</var>.<var>type</var> is not set to
+`DataIntegrityProof` and <var>proofConfig</var>.<var>cryptosuite</var> is not
+set to `json-eddsa-2020`, an `INVALID_PROOF_CONFIGURATION` error MUST be raised.
+          </p>
       </section>
 
       <section>
