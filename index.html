@@ -601,7 +601,7 @@ transformation options</a> (<var>options</var>). The
 transformation options</a> MUST contain a type identifier for the
 <a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
 cryptographic suite</a> (<var>type</var>) and a cryptosuite
-identifier (<var>cryptosuite</var>). A <dfn>transformed data document</dfn> is
+identifier (<var>cryptosuite</var>). A <em>transformed data document</em> is
 produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
 encoding.
           </p>
@@ -623,7 +623,7 @@ Universal RDF Dataset Canonicalization Algorithm
 Set <var>output</var> to the value of <var>canonicalDocument</var>.
             </li>
             <li>
-Return <var>canonicalDocument</var> as the <a>transformed data document</a>.
+Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
             </li>
           </ol>
 
@@ -634,7 +634,7 @@ Return <var>canonicalDocument</var> as the <a>transformed data document</a>.
 
           <p>
 The following algorithm specifies how to cryptographically hash a
-<a>transformed data document</a> and <a>proof configuration</a>
+<em>transformed data document</em> and <em>proof configuration</em>
 into cryptographic hash data that is ready to be provided as input to the
 algorithms in Section <a href="#proof-serialization-eddsa-2022"></a> or
 Section <a href="#proof-verification-eddsa-2022"></a>.
@@ -642,12 +642,12 @@ Section <a href="#proof-verification-eddsa-2022"></a>.
 
           <p>
 The required inputs to this algorithm are a
-<a>transformed data document</a> (<var>transformedDocument</var>) and
-<a>proof configuration</a> (<var>proofConfig</var>). The
-<a>proof configuration</a> MUST contain a type identifier for the
+<em>transformed data document</em> (<var>transformedDocument</var>) and
+<em>proof configuration</em> (<var>proofConfig</var>). The
+<em>proof configuration</em> MUST contain a type identifier for the
 <a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
 cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-identifier (<var>cryptosuite</var>). A single <dfn>hash data</dfn> value
+identifier (<var>cryptosuite</var>). A single <em>hash data</em> value
 represented as series of bytes is produced as output.
           </p>
 
@@ -664,13 +664,12 @@ SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
 to the <var>proofConfig</var>. <var>proofConfigHash</var> will be
 exactly 32 bytes in size.
             </li>
-
             <li>
-Let <var>hashData</var> be the result of concatenating
-<var>transformedDocumentHash</var> and <var>proofConfigHash</var>.
+Let <var>hashData</var> be the result of joining <var>proofConfigHash</var> (the
+first hash) with <var>transformedDocumentHash</var> (the second hash).
             </li>
             <li>
-Return <var>hashData</var> as the <a>hash data</a>.
+Return <var>hashData</var> as the <em>hash data</em>.
             </li>
           </ol>
 
@@ -681,17 +680,17 @@ Return <var>hashData</var> as the <a>hash data</a>.
 
           <p>
 The following algorithm specifies how to generate a
-<dfn>proof configuration</dfn> from a set of <dfn>proof options</dfn>
+<em>proof configuration</em> from a set of <em>proof options</em>
 that is used as input to the <a href="#hashing-eddsa-2022">proof hashing algorithm</a>.
           </p>
 
           <p>
-The required inputs to this algorithm are <a>proof options</a>
-(<var>options</var>). The <a>proof options</a> MUST contain a type identifier
+The required inputs to this algorithm are <em>proof options</em>
+(<var>options</var>). The <em>proof options</em> MUST contain a type identifier
 for the
 <a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
 cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-identifier (<var>cryptosuite</var>). A <a>proof configuration</a>
+identifier (<var>cryptosuite</var>). A <em>proof configuration</em>
 object is produced as output.
           </p>
 
@@ -745,11 +744,11 @@ in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a href="https://w3c.github.io/vc-data-integrity/#algorithms">
 Section 4: Algorithms</a>. Required inputs are
 cryptographic hash data (<var>hashData</var>) and
-<a>proof options</a> (<var>options</var>). The
-<a>proof options</a> MUST contain a type identifier for the
+<em>proof options</em> (<var>options</var>). The
+<em>proof options</em> MUST contain a type identifier for the
 <a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
 cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-identifier (<var>cryptosuite</var>). A single <dfn>digital proof</dfn> value
+identifier (<var>cryptosuite</var>). A single <em>digital proof</em> value
 represented as series of bytes is produced as output.
           </p>
 
@@ -770,7 +769,7 @@ the private key specified by <var>privateKeyBytes</var>.
 <var>proofBytes</var> will be exactly 64 bytes in size.
             </li>
             <li>
-Return <var>proofBytes</var> as the <a>digital proof</a>.
+Return <var>proofBytes</var> as the <em>digital proof</em>.
             </li>
           </ol>
 
@@ -788,7 +787,7 @@ in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
 Section 4: Algorithms</a>. Required inputs are
 cryptographic hash data (<var>hashData</var>),
 a digital signature (<var>proofBytes</var>) and
-proof options (<var>options</var>). A <dfn>verification result</dfn>
+proof options (<var>options</var>). A <em>verification result</em>
 represented as a boolean value is produced as output.
           </p>
 
@@ -810,7 +809,287 @@ with <var>hashData</var> as the data to be verified against the
 <var>publicKeyBytes</var>.
             </li>
             <li>
-Return <var>verificationResult</var> as the <a>verification result</a>.
+Return <var>verificationResult</var> as the <em>verification result</em>.
+            </li>
+          </ol>
+
+        </section>
+      </section>
+
+      <section>
+      <h3>Ed25519Signature2020</h3>
+
+        <section>
+          <h2>Generate Proof (Ed25519Signature2020)</h2>
+
+          <p>
+To generate a proof, the algorithm in
+<a href="https://www.w3.org/TR/vc-data-integrity/#generate-proof">
+Section 4.1: Generate Proof</a> in the Data Integrity
+[[VC-DATA-INTEGRITY]] specification MUST be executed.
+For that algorithm, the cryptographic suite specific
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-transformation-algorithm">
+transformation algorithm</a> is defined in Section
+<a href="#transformation-ed25519signature2020"></a>, the
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-hashing-algorithm">
+hashing algorithm</a> is defined in Section <a href="hashing-ed25519signature2020"></a>,
+and the
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-proof-serialization-algorithm">
+proof serialization algorithm</a> is defined in Section
+<a href="#proof-serialization-ed25519signature2020"></a>.
+          </p>
+        </section>
+
+        <section>
+          <h2>Verify Proof (Ed25519Signature2020)</h2>
+
+          <p>
+To verify a proof, the algorithm in
+<a href="https://www.w3.org/TR/vc-data-integrity/#verify-proof">
+Section 4.2: Verify Proof</a> in the Data Integrity
+[[VC-DATA-INTEGRITY]] specification MUST be executed.
+For that algorithm, the cryptographic suite specific
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-transformation-algorithm">
+transformation algorithm</a> is defined in Section
+<a href="#transformation-ed25519signature2020"></a>, the
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-hashing-algorithm">
+hashing algorithm</a> is defined in Section <a href="#hashing-ed25519signature2020"></a>,
+and the
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-proof-serialization-algorithm">
+proof verification algorithm</a> is defined in Section
+<a href="#proof-verification-ed25519signature2020"></a>.
+          </p>
+        </section>
+
+        <section>
+          <h3>Transformation (Ed25519Signature2020)</h3>
+
+          <p>
+The following algorithm specifies how to transform an unsecured input document
+into a transformed document that is ready to be provided as input to the
+hashing algorithm in Section <a href="#hashing-ed25519signature2020"></a>.
+          </p>
+
+
+Required inputs to this algorithm are an
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
+unsecured data document</a> (<var>unsecuredDocument</var>) and
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-transformation-options">
+transformation options</a> (<var>options</var>). The
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
+transformation options</a> MUST contain a type identifier for the
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+cryptographic suite</a> (<var>type</var>) and a cryptosuite
+identifier (<var>cryptosuite</var>). A <em>transformed data document</em> is
+produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
+encoding.
+          </p>
+
+          <ol class="algorithm">
+            <li>
+If <var>options</var>.<var>type</var> is not set to the string
+`DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
+set to the string `ed25519-2020`, or <var>options</var>.<var>type</var> is
+not set to the string `Ed25519Signature2020`, then a
+`PROOF_TRANSFORMATION_ERROR` MUST be raised.
+            </li>
+            <li>
+Let <var>canonicalDocument</var> be the result of applying the
+Universal RDF Dataset Canonicalization Algorithm
+[[RDF-CANON]] to the <var>unsecuredDocument</var>.
+            </li>
+            <li>
+Set <var>output</var> to the value of <var>canonicalDocument</var>.
+            </li>
+            <li>
+Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
+            </li>
+          </ol>
+
+        </section>
+
+        <section>
+          <h3>Hashing (Ed25519Signature2020)</h3>
+
+          <p>
+The following algorithm specifies how to cryptographically hash a
+<em>transformed data document</em> and <em>proof configuration</em>
+into cryptographic hash data that is ready to be provided as input to the
+algorithms in Section <a href="#proof-serialization-ed25519signature2020"></a> or
+Section <a href="#proof-verification-ed25519signature2020"></a>.
+          </p>
+
+          <p>
+The required inputs to this algorithm are a
+<em>transformed data document</em> (<var>transformedDocument</var>) and
+<em>proof configuration</em> (<var>proofConfig</var>). The
+<em>proof configuration</em> MUST contain a type identifier for the
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A single <em>hash data</em> value
+represented as series of bytes is produced as output.
+          </p>
+
+          <ol class="algorithm">
+            <li>
+Let <var>transformedDocumentHash</var> be the result of applying the
+SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
+to the <var>transformedDocument</var>. <var>transformedDocumentHash</var> will
+be exactly 32 bytes in size.
+            </li>
+            <li>
+Let <var>proofConfigHash</var> be the result of applying the
+SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
+to the <var>proofConfig</var>. <var>proofConfigHash</var> will be
+exactly 32 bytes in size.
+            </li>
+
+            <li>
+Let <var>hashData</var> be the result of joining <var>proofConfigHash</var> (the
+first hash) with <var>transformedDocumentHash</var> (the second hash).
+            </li>
+            <li>
+Return <var>hashData</var> as the <em>hash data</em>.
+            </li>
+          </ol>
+
+        </section>
+
+        <section>
+          <h3>Proof Configuration (Ed25519Signature2020)</h3>
+
+          <p>
+The following algorithm specifies how to generate a
+<em>proof configuration</em> from a set of <em>proof options</em>
+that is used as input to the <a href="#hashing-ed25519signature2020">proof hashing algorithm</a>.
+          </p>
+
+          <p>
+The required inputs to this algorithm are <em>proof options</em>
+(<var>options</var>). The <em>proof options</em> MUST contain a type identifier
+for the
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A <em>proof configuration</em>
+object is produced as output.
+          </p>
+
+          <ol class="algorithm">
+            <li>
+Let <var>proofConfig</var> be an empty object.
+            </li>
+            <li>
+Set <var>proofConfig</var>.<var>type</var> to
+<var>options</var>.<var>type</var>.
+            </li>
+            <li>
+If <var>options</var>.<var>cryptosuite</var> is set, set
+<var>proofConfig</var>.<var>cryptosuite</var> to its value.
+            </li>
+            <li>
+If <var>options</var>.<var>type</var> is set to `DataIntegrityProof` and
+<var>proofConfig</var>.<var>cryptosuite</var> is not set to `eddsa-2020`, an
+`INVALID_PROOF_CONFIGURATION` error MUST be raised. Otherwise, if
+<var>options</var>.<var>type</var> is not set to `Ed25519Signature2020`, an
+`INVALID_PROOF_CONFIGURATION` error MUST be raised.
+            </li>
+            <li>
+Set <var>proofConfig</var>.<var>created</var> to
+<var>options</var>.<var>created</var>. If the value is not a valid
+[[XMLSCHEMA11-2]] datetime, an `INVALID_PROOF_DATETIME` error MUST be raised.
+            </li>
+            <li>
+Set <var>proofConfig</var>.<var>verificationMethod</var> to
+<var>options</var>.<var>verificationMethod</var>.
+            </li>
+            <li>
+Set <var>proofConfig</var>.<var>proofPurpose</var> to
+<var>options</var>.<var>proofPurpose</var>.
+            </li>
+            <li>
+Return <var>proofConfig</var>.
+            </li>
+          </ol>
+
+        </section>
+
+        <section>
+          <h3>Proof Serialization (Ed25519Signature2020)</h3>
+
+          <p>
+The following algorithm specifies how to serialize a digital signature from
+a set of cryptographic hash data. This
+algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Algorithms</a>. Required inputs are
+cryptographic hash data (<var>hashData</var>) and
+<em>proof options</em> (<var>options</var>). The
+<em>proof options</em> MUST contain a type identifier for the
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A single <em>digital proof</em> value
+represented as series of bytes is produced as output.
+          </p>
+
+          <ol class="algorithm">
+            <li>
+Let <var>privateKeyBytes</var> be the result of retrieving the
+private key bytes associated with the
+<var>options</var>.<var>verificationMethod</var> value as described in the
+Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Retrieving Cryptographic Material</a>.
+            </li>
+            <li>
+Let <var>proofBytes</var> be the result of applying the Edwards-Curve Digital
+Signature Algorithm (EdDSA) [[RFC8032]], using the `Ed25519` variant
+(Pure EdDSA), with <var>hashData</var> as the data to be signed using
+the private key specified by <var>privateKeyBytes</var>.
+<var>proofBytes</var> will be exactly 64 bytes in size.
+            </li>
+            <li>
+Return <var>proofBytes</var> as the <em>digital proof</em>.
+            </li>
+          </ol>
+
+        </section>
+
+        <section>
+          <h3>Proof Verification (Ed25519Signature2020)</h3>
+
+          <p>
+The following algorithm specifies how to verify a digital signature from
+a set of cryptographic hash data. This
+algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Algorithms</a>. Required inputs are
+cryptographic hash data (<var>hashData</var>),
+a digital signature (<var>proofBytes</var>) and
+proof options (<var>options</var>). A <em>verification result</em>
+represented as a boolean value is produced as output.
+          </p>
+
+          <ol class="algorithm">
+            <li>
+Let <var>publicKeyBytes</var> be the result of retrieving the
+public key bytes associated with the
+<var>options</var>.<var>verificationMethod</var> value as described in the
+Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Retrieving Cryptographic Material</a>.
+            </li>
+            <li>
+Let <var>verificationResult</var> be the result of applying the verification
+algorithm for the Edwards-Curve Digital Signature Algorithm (EdDSA)
+[[RFC8032]], using the `Ed25519` variant (Pure EdDSA),
+with <var>hashData</var> as the data to be verified against the
+<var>proofBytes</var> using the public key specified by
+<var>publicKeyBytes</var>.
+            </li>
+            <li>
+Return <var>verificationResult</var> as the <em>verification result</em>.
             </li>
           </ol>
 
