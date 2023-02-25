@@ -523,8 +523,21 @@ the base58-btc base encoding.
     <section>
       <h2>Algorithms</h2>
 
+      <p>
+The following section describes multiple Data Integrity cryptographic suites
+that utilize the twisted Edwards Curve Digital Signature Algorithm.
+      </p>
+
       <section>
       <h3>eddsa-2022</h3>
+
+        <p>
+The `eddsa-2022` cryptographic suite takes an input document, canonicalizes
+the document using the Universal RDF Dataset Canonicalization Algorithm
+[[RDF-CANON]], and then cryptographically hashes and signs the output
+resulting in the production of a data integrity proof. The algorithms in this
+section also include the verification of such a data integrity proof.
+        </p>
 
         <section>
           <h2>Generate Proof (eddsa-2022)</h2>
@@ -796,6 +809,14 @@ Return <var>verificationResult</var> as the <em>verification result</em>.
 
       <section>
       <h3>Ed25519Signature2020</h3>
+
+        <p>
+The `Ed25519Signature2020` cryptographic suite takes an input document,
+canonicalizes the document using the Universal RDF Dataset Canonicalization
+Algorithm [[RDF-CANON]], and then cryptographically hashes and signs the output
+resulting in the production of a data integrity proof. The algorithms in this
+section also include the verification of such a data integrity proof.
+        </p>
 
         <section>
           <h2>Generate Proof (Ed25519Signature2020)</h2>
