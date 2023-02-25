@@ -544,44 +544,44 @@ the base58-btc base encoding.
           <h3>Transformation</h3>
 
           <p>
-  The following algorithm specifies how to transform an unsecured input document
-  into a transformed document that is ready to be provided as input to the
-  <a href="#hashing">hashing algorithm</a>. This
-  algorithm is designed to be used in conjunction with the algorithms defined
-  in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-  <a href="https://w3c.github.io/vc-data-integrity/#algorithms">
-  Section 4: Algorithms</a>. Required inputs are an
-  <a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
-  unsecured data document</a> (<var>unsecuredDocument</var>) and
-  <a href="https://w3c.github.io/vc-data-integrity/#dfn-transformation-options">
-  transformation options</a> (<var>options</var>). The
-  <a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
-  transformation options</a> MUST contain a type identifier for the
-  <a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
-  cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-  identifier (<var>cryptosuite</var>). A <dfn>transformed data document</dfn> is
-  produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
-  encoding.
+The following algorithm specifies how to transform an unsecured input document
+into a transformed document that is ready to be provided as input to the
+<a href="#hashing">hashing algorithm</a>. This
+algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Algorithms</a>. Required inputs are an
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
+unsecured data document</a> (<var>unsecuredDocument</var>) and
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-transformation-options">
+transformation options</a> (<var>options</var>). The
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
+transformation options</a> MUST contain a type identifier for the
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A <dfn>transformed data document</dfn> is
+produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
+encoding.
           </p>
 
           <ol class="algorithm">
             <li>
-  If <var>options</var>.<var>type</var> is not set to the string
-  `DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
-  set to the string `ed25519-2020`, or <var>options</var>.<var>type</var> is
-  not set to the string `Ed25519Signature2020`, then a
-  `PROOF_TRANSFORMATION_ERROR` MUST be raised.
+If <var>options</var>.<var>type</var> is not set to the string
+`DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
+set to the string `ed25519-2020`, or <var>options</var>.<var>type</var> is
+not set to the string `Ed25519Signature2020`, then a
+`PROOF_TRANSFORMATION_ERROR` MUST be raised.
             </li>
             <li>
-  Let <var>canonicalDocument</var> be the result of applying the
-  Universal RDF Dataset Canonicalization Algorithm
-  [[RDF-CANON]] to the <var>unsecuredDocument</var>.
+Let <var>canonicalDocument</var> be the result of applying the
+Universal RDF Dataset Canonicalization Algorithm
+[[RDF-CANON]] to the <var>unsecuredDocument</var>.
             </li>
             <li>
-  Set <var>output</var> to the value of <var>canonicalDocument</var>.
+Set <var>output</var> to the value of <var>canonicalDocument</var>.
             </li>
             <li>
-  Return <var>canonicalDocument</var> as the <a>transformed data document</a>.
+Return <var>canonicalDocument</var> as the <a>transformed data document</a>.
             </li>
           </ol>
 
@@ -591,44 +591,44 @@ the base58-btc base encoding.
           <h3>Hashing</h3>
 
           <p>
-  The following algorithm specifies how to cryptographically hash a
-  <a>transformed data document</a> and <a>proof configuration</a>
-  into cryptographic hash data that is ready to be provided as input to either the
-  <a href="#proof-generation">proof generation algorithm</a> or
-  <a href="#proof-verification">proof verification algorithm</a>. This
-  algorithm is designed to be used in conjunction with the algorithms defined
-  in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-  <a href="https://w3c.github.io/vc-data-integrity/#algorithms">
-  Section 4: Algorithms</a>. Required inputs are a
-  <a>transformed data document</a> (<var>transformedDocument</var>) and
-  <a>proof configuration</a> (<var>proofConfig</var>). The
-  <a>proof configuration</a> MUST contain a type identifier for the
-  <a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
-  cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-  identifier (<var>cryptosuite</var>). A single <dfn>hash data</dfn> value
-  represented as series of bytes is produced as output.
+The following algorithm specifies how to cryptographically hash a
+<a>transformed data document</a> and <a>proof configuration</a>
+into cryptographic hash data that is ready to be provided as input to either the
+<a href="#proof-generation">proof generation algorithm</a> or
+<a href="#proof-verification">proof verification algorithm</a>. This
+algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+Section 4: Algorithms</a>. Required inputs are a
+<a>transformed data document</a> (<var>transformedDocument</var>) and
+<a>proof configuration</a> (<var>proofConfig</var>). The
+<a>proof configuration</a> MUST contain a type identifier for the
+<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A single <dfn>hash data</dfn> value
+represented as series of bytes is produced as output.
           </p>
 
           <ol class="algorithm">
             <li>
-  Let <var>transformedDocumentHash</var> be the result of applying the
-  SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-  to the <var>transformedDocument</var>. <var>transformedDocumentHash</var> will
-  be exactly 32 bytes in size.
+Let <var>transformedDocumentHash</var> be the result of applying the
+SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
+to the <var>transformedDocument</var>. <var>transformedDocumentHash</var> will
+be exactly 32 bytes in size.
             </li>
             <li>
-  Let <var>proofConfigHash</var> be the result of applying the
-  SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-  to the <var>proofConfig</var>. <var>proofConfigHash</var> will be
-  exactly 32 bytes in size.
+Let <var>proofConfigHash</var> be the result of applying the
+SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
+to the <var>proofConfig</var>. <var>proofConfigHash</var> will be
+exactly 32 bytes in size.
             </li>
 
             <li>
-  Let <var>hashData</var> be the result of concatenating
-  <var>transformedDocumentHash</var> and <var>proofConfigHash</var>.
+Let <var>hashData</var> be the result of concatenating
+<var>transformedDocumentHash</var> and <var>proofConfigHash</var>.
             </li>
             <li>
-  Return <var>hashData</var> as the <a>hash data</a>.
+Return <var>hashData</var> as the <a>hash data</a>.
             </li>
           </ol>
 
