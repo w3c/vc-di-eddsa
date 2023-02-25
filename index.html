@@ -541,16 +541,58 @@ the base58-btc base encoding.
       <h3>eddsa-2022</h3>
 
         <section>
-          <h3>Transformation</h3>
+          <h2>Generate Proof (eddsa-2022)</h2>
+
+          <p>
+To generate a proof, the algorithm in
+<a href="https://www.w3.org/TR/vc-data-integrity/#generate-proof">
+Section 4.1: Generate Proof</a> in the Data Integrity
+[[VC-DATA-INTEGRITY]] specification MUST be executed.
+For that algorithm, the cryptographic suite specific
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-transformation-algorithm">
+transformation algorithm</a> is defined in Section
+<a href="#transformation-eddsa-2022"></a>, the
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-hashing-algorithm">
+hashing algorithm</a> is defined in Section <a href="hashing-eddsa-2022"></a>,
+and the
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-proof-serialization-algorithm">
+proof serialization algorithm</a> is defined in Section
+<a href="#proof-serialization-eddsa-2022"></a>.
+          </p>
+        </section>
+
+        <section>
+          <h2>Verify Proof (eddsa-2022)</h2>
+
+          <p>
+To verify a proof, the algorithm in
+<a href="https://www.w3.org/TR/vc-data-integrity/#verify-proof">
+Section 4.2: Verify Proof</a> in the Data Integrity
+[[VC-DATA-INTEGRITY]] specification MUST be executed.
+For that algorithm, the cryptographic suite specific
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-transformation-algorithm">
+transformation algorithm</a> is defined in Section
+<a href="#transformation-eddsa-2022"></a>, the
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-hashing-algorithm">
+hashing algorithm</a> is defined in Section <a href="#hashing-eddsa-2022"></a>,
+and the
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-proof-serialization-algorithm">
+proof verification algorithm</a> is defined in Section
+<a href="#proof-verification-eddsa-2022"></a>.
+          </p>
+        </section>
+
+        <section>
+          <h3>Transformation (eddsa-2022)</h3>
 
           <p>
 The following algorithm specifies how to transform an unsecured input document
 into a transformed document that is ready to be provided as input to the
-<a href="#hashing">hashing algorithm</a>. This
-algorithm is designed to be used in conjunction with the algorithms defined
-in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
-Section 4: Algorithms</a>. Required inputs are an
+hashing algorithm in Section <a href="#hashing-eddsa-2022"></a>.
+          </p>
+
+
+Required inputs to this algorithm are an
 <a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
 unsecured data document</a> (<var>unsecuredDocument</var>) and
 <a href="https://w3c.github.io/vc-data-integrity/#dfn-transformation-options">
@@ -558,7 +600,7 @@ transformation options</a> (<var>options</var>). The
 <a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
 transformation options</a> MUST contain a type identifier for the
 <a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
-cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+cryptographic suite</a> (<var>type</var>) and a cryptosuite
 identifier (<var>cryptosuite</var>). A <dfn>transformed data document</dfn> is
 produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
 encoding.
@@ -588,18 +630,18 @@ Return <var>canonicalDocument</var> as the <a>transformed data document</a>.
         </section>
 
         <section>
-          <h3>Hashing</h3>
+          <h3>Hashing (eddsa-2022)</h3>
 
           <p>
 The following algorithm specifies how to cryptographically hash a
 <a>transformed data document</a> and <a>proof configuration</a>
-into cryptographic hash data that is ready to be provided as input to either the
-<a href="#proof-generation">proof generation algorithm</a> or
-<a href="#proof-verification">proof verification algorithm</a>. This
-algorithm is designed to be used in conjunction with the algorithms defined
-in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
-Section 4: Algorithms</a>. Required inputs are a
+into cryptographic hash data that is ready to be provided as input to the
+algorithms in Section <a href="#proof-serialization-eddsa-2022"></a> or
+Section <a href="#proof-verification-eddsa-2022"></a>.
+          </p>
+
+          <p>
+The required inputs to this algorithm are a
 <a>transformed data document</a> (<var>transformedDocument</var>) and
 <a>proof configuration</a> (<var>proofConfig</var>). The
 <a>proof configuration</a> MUST contain a type identifier for the
@@ -635,19 +677,16 @@ Return <var>hashData</var> as the <a>hash data</a>.
         </section>
 
         <section>
-          <h3>Proof Configuration</h3>
+          <h3>Proof Configuration (eddsa-2022)</h3>
 
           <p>
 The following algorithm specifies how to generate a
 <dfn>proof configuration</dfn> from a set of <dfn>proof options</dfn>
-that is used as input to the <a href="#hashing">proof hashing algorithm</a>.
+that is used as input to the <a href="#hashing-eddsa-2022">proof hashing algorithm</a>.
           </p>
 
           <p>
-This algorithm is designed to be used in conjunction with the algorithms defined
-in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
-Section 4: Algorithms</a>. Required inputs are <a>proof options</a>
+The required inputs to this algorithm are <a>proof options</a>
 (<var>options</var>). The <a>proof options</a> MUST contain a type identifier
 for the
 <a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
@@ -696,10 +735,10 @@ Return <var>proofConfig</var>.
         </section>
 
         <section>
-          <h3>Proof Generation</h3>
+          <h3>Proof Serialization (eddsa-2022)</h3>
 
           <p>
-The following algorithm specifies how to generate a digital signature from
+The following algorithm specifies how to serialize a digital signature from
 a set of cryptographic hash data. This
 algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
@@ -738,7 +777,7 @@ Return <var>proofBytes</var> as the <a>digital proof</a>.
         </section>
 
         <section>
-          <h3>Proof Verification</h3>
+          <h3>Proof Verification (eddsa-2022)</h3>
 
           <p>
 The following algorithm specifies how to verify a digital signature from
