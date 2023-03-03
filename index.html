@@ -1130,152 +1130,200 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
       </p>
     </section>
 
-    <section class="appendix">
+    <section class="appendix" id="TestVectors">
       <h2>Test Vectors</h2>
       <p>
-The following test vectors are provided to assist with implementers.
+        For all representations the signer needs to generate a private/public key pair with the private key used 
+        for signing and the public key made available for verification. The 
+        [[MULTIBASE]]/[[MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
+        and the representation for the private key, <code>ed25519-priv</code>, are shown below.
+      </p>
+      <pre class="example" title="Private and Public keys for Signature"
+          data-include="TestVectors/keyPair.json" data-include-format="text"></pre>
+      
+      <section id="VectDataIntegrity">
+            <h3>Representation: DataIntegrityProof, cryptosuite: "eddsa-2022"</h3>
+            <p>
+    Signing begins with a credential without an attached proof, which is converted 
+    to canonical form, and then hashed, as shown in the following three examples.
+            </p>
+    
+            <pre class="example" title="Credential without Proof" data-include="TestVectors/unsigned.json" 
+            data-include-format="text"></pre>
+    
+            <pre class="example" title="Canonical Credential without Proof" data-include="TestVectors/DataInt/canonDocDataInt.txt"
+            data-include-format="text"></pre>
+    
+    
+          <pre class="example" title="Hash of Canonical Credential without Proof (hex)"
+          data-include="TestVectors/DataInt/docHashDataInt.txt" data-include-format="text"></pre>
+    
+          <p>
+    The next step is to take the proof options document, convert it to canonical form,
+    and obtain its hash, as shown in the next three examples.
+          </p>
+    
+          <pre class="example" title="Proof Options Document" 
+          data-include="TestVectors/DataInt/proofConfigDataInt.json" data-include-format="text"></pre>
+    
+          <pre class="example" title="Canonical Proof Options Document"
+          data-include="TestVectors/DataInt/proofCanonDataInt.txt" data-include-format="text"></pre>
+    
+          <pre class="example" title="Hash of Canonical Proof Options Document (hex)"
+          data-include="TestVectors/DataInt/proofHashDataInt.txt" data-include-format="text"></pre>
+    
+          <p>
+    Finally, we combine the two hashes, use the private key with the combined hash to
+    compute the Ed25519 signature, and then base58-btc encode the signature.
+          </p>
+    
+          <pre class="example" title="Combine hashes of Proof Options and Credential (hex)"
+          data-include="TestVectors/DataInt/combinedHashDataInt.txt" data-include-format="text"></pre>
+    
+          <pre class="example" title="Signature of Combined Hashes (hex)"
+          data-include="TestVectors/DataInt/sigHexDataInt.txt" data-include-format="text"></pre>
+    
+          <pre class="example" title="Signature of Combined Hashes base58-btc"
+          data-include="TestVectors/DataInt/sigBTC58DataInt.txt" data-include-format="text"></pre>
+    
+          <p>Assemble the signed credential with the following two steps:</p>
+          <ol>
+            <li>
+    Add the <code>proofValue</code> field with the previously computed base58-btc 
+    value to the proof options document.
+            </li>
+            <li>
+    Set the <code>proof</code> field of the credential to the augmented proof 
+    option document.
+            </li>
+          </ol>
+    
+          <pre class="example" title="Signed Credential"
+          data-include="TestVectors/DataInt/signedDataInt.json" data-include-format="text"></pre>
+        </section>
+
+        <section id="VectJCSDataIntegrity">
+          <h3>Representation: DataIntegrityProof, cryptosuite: "json-eddsa-2022"</h3>
+          <p>
+  Signing begins with a credential without an attached proof, which is converted 
+  to canonical form, and then hashed, as shown in the following three examples.
+          </p>
+  
+          <pre class="example" title="Credential without Proof" data-include="TestVectors/unsigned.json" 
+          data-include-format="text"></pre>
+  
+          <pre class="example" title="Canonical Credential without Proof" 
+          data-include="TestVectors/JCS/canonDocJCS.txt"
+          data-include-format="text"></pre>
+  
+  
+        <pre class="example" title="Hash of Canonical Credential without Proof (hex)"
+        data-include="TestVectors/JCS/docHashJCS.txt" data-include-format="text"></pre>
+  
+        <p>
+  The next step is to take the proof options document, convert it to canonical form,
+  and obtain its hash, as shown in the next three examples.
+        </p>
+  
+        <pre class="example" title="Proof Options Document" 
+        data-include="TestVectors/JCS/proofConfigJCS.json" data-include-format="text"></pre>
+  
+        <pre class="example" title="Canonical Proof Options Document"
+        data-include="TestVectors/JCS/proofCanonJCS.txt" data-include-format="text"></pre>
+  
+        <pre class="example" title="Hash of Canonical Proof Options Document (hex)"
+        data-include="TestVectors/JCS/proofHashJCS.txt" data-include-format="text"></pre>
+  
+        <p>
+  Finally, we combine the two hashes, use the private key with the combined hash to
+  compute the Ed25519 signature, and then base58-btc encode the signature.
+        </p>
+  
+        <pre class="example" title="Combine hashes of Proof Options and Credential (hex)"
+        data-include="TestVectors/JCS/combinedHashJCS.txt" data-include-format="text"></pre>
+  
+        <pre class="example" title="Signature of Combined Hashes (hex)"
+        data-include="TestVectors/JCS/sigHexJCS.txt" data-include-format="text"></pre>
+  
+        <pre class="example" title="Signature of Combined Hashes base58-btc"
+        data-include="TestVectors/JCS/sigBTC58JCS.txt" data-include-format="text"></pre>
+  
+        <p>Assemble the signed credential with the following two steps:</p>
+        <ol>
+          <li>
+  Add the <code>proofValue</code> field with the previously computed base58-btc 
+  value to the proof options document.
+          </li>
+          <li>
+  Set the <code>proof</code> field of the credential to the augmented proof 
+  option document.
+          </li>
+        </ol>
+  
+        <pre class="example" title="Signed Credential"
+        data-include="TestVectors/JCS/signedJCS.json" data-include-format="text"></pre>
+      </section>
+
+      <section id="VectEdSig2020">
+        <h3>Representation: Ed25519Signature2020</h3>
+        <p>
+Signing begins with a credential without an attached proof, which is converted 
+to canonical form, and then hashed, as shown in the following three examples.
+        </p>
+
+        <pre class="example" title="Credential without Proof" data-include="TestVectors/unsigned.json" 
+        data-include-format="text"></pre>
+
+        <pre class="example" title="Canonical Credential without Proof" data-include="TestVectors/EdSig/canonDocEdSig.txt"
+        data-include-format="text"></pre>
+
+
+      <pre class="example" title="Hash of Canonical Credential without Proof (hex)"
+      data-include="TestVectors/EdSig/docHashEdSig.txt" data-include-format="text"></pre>
+
+      <p>
+The next step is to take the proof options document, convert it to canonical form,
+and obtain its hash, as shown in the next three examples.
       </p>
 
-      <pre class="example">
-{
-  "seed_0": "9b937b81322d816cfab9d5a3baacc9b2a5febe4b149f126b3630f93a29527017"
-}
-      </pre>
-      <pre class="example">
-{
-  "keypair_0": {
-    "id": "https://example.com/issuer/123#key-0",
-    "type": "Ed25519VerificationKey2018",
-    "controller": "https://example.com/issuer/123",
-    "publicKeyBase58": "dbDmZLTWuEYYZNHFLKLoRkEX4sZykkSLNQLXvMUyMB1",
-    "privateKeyBase58": "47QbyJEDqmHTzsdg8xzqXD8gqKuLufYRrKWTmB7eAaWHG2EAsQ2GUyqRqWWYT15dGuag52Sf3j4hs2mu7w52mgps"
-  },
-  "keypair_1": {
-    "id": "https://example.com/issuer/123#key-0",
-    "type": "Ed25519KeyPair2020",
-    "controller": "https://example.com/issuer/123",
-    "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP",
-    "privateKeyMultibase": "zrv3kJcnBP1RpYmvNZ9jcYpKBZg41iSobWxSg3ix2U7Cp59kjwQFCT4SZTgLSL3HP8iGMdJs3nedjqYgNn6ZJmsmjRm"
-  }
-}
-      </pre>
+      <pre class="example" title="Proof Options Document" 
+      data-include="TestVectors/EdSig/proofConfigEdSig.json" data-include-format="text"></pre>
 
-      <pre class="example">
-{
-  "issuer_0": {
-    "@context": [
-      "https://www.w3.org/ns/did/v1",
-      "https://w3id.org/security/suites/ed25519-2020/v1",
-      {
-        "@base": "https://example.com/issuer/123"
-      }
-    ],
-    "id": "https://example.com/issuer/123",
-    "verificationMethod": [
-      {
-        "id": "#key-0",
-        "type": "Ed25519VerificationKey2020",
-        "controller": "https://example.com/issuer/123",
-        "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
-      }
-    ],
-    "assertionMethod": ["#key-0"],
-    "authentication": ["#key-0"]
-  }
-}
-      </pre>
+      <pre class="example" title="Canonical Proof Options Document"
+      data-include="TestVectors/EdSig/proofCanonEdSig.txt" data-include-format="text"></pre>
 
-      <pre class="example">
-{
-  "vc_template_0": {
-    "@context": [
-      "https://www.w3.org/2018/credentials/v1",
-      "https://www.w3.org/2018/credentials/examples/v1",
-      "https://w3id.org/security/suites/ed25519-2020/v1",
-    ],
-    "id": "http://example.gov/credentials/3732",
-    "type": ["VerifiableCredential", "UniversityDegreeCredential"],
-    "issuer": "https://example.com/issuer/123",
-    "issuanceDate": "2020-03-10T04:24:12.164Z",
-    "credentialSubject": {
-      "id": "did:example:456",
-      "degree": {
-        "type": "BachelorDegree",
-        "name": "Bachelor of Science and Arts"
-      }
-    }
-  },
-  "vc_0": {
-    "@context": [
-      "https://www.w3.org/2018/credentials/v1",
-      "https://www.w3.org/2018/credentials/examples/v1",
-      "https://w3id.org/security/suites/ed25519-2020/v1"
-    ],
-    "id": "http://example.gov/credentials/3732",
-    "type": ["VerifiableCredential", "UniversityDegreeCredential"],
-    "issuer": "https://example.com/issuer/123",
-    "issuanceDate": "2020-03-10T04:24:12.164Z",
-    "credentialSubject": {
-      "id": "did:example:456",
-      "degree": {
-        "type": "BachelorDegree",
-        "name": "Bachelor of Science and Arts"
-      }
-    },
-    "proof": {
-      "type": "Ed25519Signature2020",
-      "created": "2019-12-11T03:50:55Z",
-      "proofValue": "z5SpZtDGGz5a89PJbQT2sgbRUiyyAGhhgjcf86aJHfYcfvPjxn6vej5na6kUzmw1jMAR9PJU9mowshQFFdGmDN14D",
-      "proofPurpose": "assertionMethod",
-      "verificationMethod": "https://example.com/issuer/123#key-0"
-    }
-  },
-  "vp_0": {
-    "@context": [
-      "https://www.w3.org/2018/credentials/v1",
-      "https://w3id.org/security/suites/ed25519-2020/v1"
-    ],
-    "type": ["VerifiablePresentation"],
-    "verifiableCredential": [
-      {
-        "@context": [
-          "https://www.w3.org/2018/credentials/v1",
-          "https://www.w3.org/2018/credentials/examples/v1",
-          "https://w3id.org/security/suites/ed25519-2020/v1"
-        ],
-        "id": "http://example.gov/credentials/3732",
-        "type": ["VerifiableCredential", "UniversityDegreeCredential"],
-        "issuer": "https://example.com/issuer/123",
-        "issuanceDate": "2020-03-10T04:24:12.164Z",
-        "credentialSubject": {
-          "id": "did:example:456",
-          "degree": {
-            "type": "BachelorDegree",
-            "name": "Bachelor of Science and Arts"
-          }
-        },
-        "proof": {
-          "type": "Ed25519Signature2020",
-          "created": "2019-12-11T03:50:55Z",
-          "proofValue": "z5SpZtDGGz5a89PJbQT2sgbRUiyyAGhhgjcf86aJHfYcfvPjxn6vej5na6kUzmw1jMAR9PJU9mowshQFFdGmDN14D",
-          "proofPurpose": "assertionMethod",
-          "verificationMethod": "https://example.com/issuer/123#key-0"
-        }
-      }
-    ],
-    "id": "urn:uuid:83895ddf-52ee-4408-8796-51a1856dbbec",
-    "holder": "did:ex:12345",
-    "proof": {
-      "type": "Ed25519Signature2020",
-      "created": "2021-06-04T20:50:09Z",
-      "verificationMethod": "https://example.com/issuer/123#key-0",
-      "proofPurpose": "authentication",
-      "challenge": "123",
-      "proofValue": "z2y3UBXAiToXLzQqeMnHiMozJ3hKxcMgLm7p8GRQA92F6JSYu49RxHQf6k1CMKnMdpj3BLRSH69b9qA9cfjE3oS7q"
-    }
-  }
-}
-      </pre>
+      <pre class="example" title="Hash of Canonical Proof Options Document (hex)"
+      data-include="TestVectors/EdSig/proofHashEdSig.txt" data-include-format="text"></pre>
+
+      <p>
+Finally, we combine the two hashes, use the private key with the combined hash to
+compute the Ed25519 signature, and then base58-btc encode the signature.
+      </p>
+
+      <pre class="example" title="Combine hashes of Proof Options and Credential (hex)"
+      data-include="TestVectors/EdSig/combinedHashEdSig.txt" data-include-format="text"></pre>
+
+      <pre class="example" title="Signature of Combined Hashes (hex)"
+      data-include="TestVectors/EdSig/sigHexEdSig.txt" data-include-format="text"></pre>
+
+      <pre class="example" title="Signature of Combined Hashes base58-btc"
+      data-include="TestVectors/EdSig/sigBTC58EdSig.txt" data-include-format="text"></pre>
+
+      <p>Assemble the signed credential with the following two steps:</p>
+      <ol>
+        <li>
+Add the <code>proofValue</code> field with the previously computed base58-btc 
+value to the proof options document.
+        </li>
+        <li>
+Set the <code>proof</code> field of the credential to the augmented proof 
+option document.
+        </li>
+      </ol>
+
+      <pre class="example" title="Signed Credential"
+      data-include="TestVectors/EdSig/signedEdSig.json" data-include-format="text"></pre>
+    </section>
     </section>
 
   </body>
