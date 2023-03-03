@@ -1,0 +1,8 @@
+<did:example:ebfeb1f712ebc6f1c276e12ec21> <https://www.w3.org/ns/credentials/issuer-dependent#degree> _:c14n0 .
+<http://example.edu/credentials/3732> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://example.org/examples#UniversityDegreeCredential> .
+<http://example.edu/credentials/3732> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.w3.org/2018/credentials#VerifiableCredential> .
+<http://example.edu/credentials/3732> <https://www.w3.org/2018/credentials#credentialSubject> <did:example:ebfeb1f712ebc6f1c276e12ec21> .
+<http://example.edu/credentials/3732> <https://www.w3.org/2018/credentials#issuer> <https://example.edu/issuers/565049> .
+<http://example.edu/credentials/3732> <https://www.w3.org/ns/credentials/issuer-dependent#issuanceDate> "2010-01-01T00:00:00Z" .
+_:c14n0 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.w3.org/ns/credentials/issuer-dependent#BachelorDegree> .
+_:c14n0 <https://www.w3.org/ns/credentials/issuer-dependent#name> "Bachelor of Science and Arts" .
