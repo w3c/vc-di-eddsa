@@ -8,17 +8,16 @@
       For the three scripts below, if your spec resides on dev.w3 you can check them
       out in the same tree and use relative links so that they'll work offline,
      -->
-    <script
-      src="https://www.w3.org/Tools/respec/respec-w3c"
-      class="remove"
-    ></script>
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
+    <script class='remove' src="https://w3c.github.io/vc-data-integrity/common.js"></script>
+
     <script type="text/javascript" class="remove">
       var respecConfig = {
         // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
         specStatus: "ED",
 
         // the specification's short name, as in http://www.w3.org/TR/short-name/
-        shortName: "vc-di-eddsa-2020",
+        shortName: "vc-di-eddsa",
         group: "vc",
 
         // if you wish the publication date to be other than today, set this
@@ -99,6 +98,17 @@
             title: "Multicodec",
             href: "https://github.com/multiformats/multicodec/",
           },
+          "VC-DATA-MODEL-2": {
+            title: "Verifiable Credentials Data Model v2.0",
+            href: "https://www.w3.org/TR/vc-data-model-2.0/",
+            authors: [
+              "Manu Sporny", "Dave Longley", "Grant Noble", "Dan Burnett",
+              "Ted Thibodeau", "Brent Zundel", "David Chadwick",
+              "Kyle Den Hartog"
+            ],
+            status: "Working Draft",
+            publisher: "W3C Verifiable Credentials Working Group"
+          },
           "VC-DATA-INTEGRITY": {
             title: "Verifiable Credential Data Integrity",
             href: "https://w3c.github.io/vc-data-integrity/",
@@ -117,7 +127,9 @@
             status:   'ED',
             publisher:  'W3C RDF Dataset Canonicalization and Hash Working Group'
           }
-        }
+        },
+        lint: {"no-unused-dfns": false},
+        postProcess: [restrictRefs]
       };
     </script>
     <style>
@@ -152,10 +164,7 @@
       <p>
 This specification describes a Data Integrity cryptographic suite for use when
 creating or verifying a digital signature using the twisted Edwards Curve
-Digital Signature Algorithm (EdDSA) and Curve25519 (ed25519). The approach is
-accepted by the U.S. National Institute of Standards in the latest FIPS 186-5
-draft and, after ratification, is expected to meet U.S. Federal Information
-Processing requirements when using cryptography to secure digital information.
+Digital Signature Algorithm (EdDSA) and Curve25519 (ed25519).
       </p>
     </section>
 
@@ -171,35 +180,23 @@ not fit for production deployment.
       <p>
 This specification defines a cryptographic suite for the purpose of creating,
 verifying proofs for Ed25519 EdDSA signatures in conformance with the
-Data Integrity [[VC-DATA-INTEGRITY]] specification.
+Data Integrity [[VC-DATA-INTEGRITY]] specification. The approach is
+accepted by the U.S. National Institute of Standards in the latest FIPS 186-5
+publication and meets U.S. Federal Information Processing requirements when
+using cryptography to secure digital information.
       </p>
       <p>
-In general the suites uses the RDF Dataset Normalization Algorithm
-[[RDF-CANON]] to transform an input document into its canonical
-form. The cannonical representation is then hashed and signed with a detached
-signature algorithm.
+The suites described in this specification use the RDF Dataset Normalization
+Algorithm [[RDF-CANON]] or the JSON Canonicalization Scheme [[RFC8785]] to
+transform an input document into its canonical form. The canonical
+representation is then hashed and signed with a detached signature algorithm.
       </p>
 
       <section id="terminology">
         <h2>Terminology</h2>
-        <p>
-The following terms are used to describe concepts involved in the generation and
-verification of the Data Integrity cryptographic suite.
-        </p>
 
-        <dl>
-          <dt><dfn>Ed25519VerificationKey2020</dfn></dt>
-          <dd>
-The `type` of the verification method for the signature suite
-<a>Ed25519Signature2020</a>.
-          </dd>
+        <div data-include="https://w3c.github.io/vc-data-integrity/terms.html"></div>
 
-          <dt><dfn>Ed25519Signature2020</dfn></dt>
-          <dd>
-The `type` of the linked data proof for the signature suite
-<a>Ed25519Signature2020</a>.
-          </dd>
-        </dl>
       </section>
 
       <section id="conformance">
@@ -249,9 +246,9 @@ digital signature generation and verification, according to [[RFC8032]].
         <p>
 This suite MAY be used to verify Data Integrity Proofs [[VC-DATA-INTEGRITY]]
 produced by Ed25519 public key material encoded as either a
-<a>Ed25519VerificationKey2020</a> or <a href="#multikey">Multikey</a>. Loss-less
-key transformation processes that result in equivalent cryptographic material
-MAY be utilized.
+<a href="#ed25519verificationkey2020">Ed25519VerificationKey2020</a> or
+<a href="#multikey">Multikey</a>. Loss-less key transformation processes that
+result in equivalent cryptographic material MAY be utilized.
         </p>
 
         <section>
@@ -337,7 +334,7 @@ supersede it.
 
           <p>
 The `type` of the verification method MUST be
-<a>Ed25519VerificationKey2020</a>.
+<a href="#ed25519verificationkey2020">Ed25519VerificationKey2020</a>.
           </p>
 
           <p>
@@ -1135,20 +1132,20 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
       <section>
         <h3>Representation: Ed25519Signature2020</h3>
         <p>
-The signer needs to generate a private/public key pair with the private key used 
-for signing and the public key made available for verification. The 
+The signer needs to generate a private/public key pair with the private key used
+for signing and the public key made available for verification. The
 [[MULTIBASE]]/[[MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
 and the representation for the private key, <code>ed25519-priv</code>, are shown below.
         </p>
         <pre class="example" title="Private and Public keys for Signature">
 {
-    publicKeyMultibase: "z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2", 
-    privateKeyMultibase: "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq" 
+    publicKeyMultibase: "z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+    privateKeyMultibase: "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq"
 }
         </pre>
 
         <p>
-Signing begins with a credential without an attached proof, which is converted 
+Signing begins with a credential without an attached proof, which is converted
 to canonical form, and then hashed, as shown in the following three examples.
         </p>
 
@@ -1175,7 +1172,7 @@ to canonical form, and then hashed, as shown in the following three examples.
   }
 }
         </pre>
-      
+
         <pre class="example" title="Canonical Credential without Proof">
           &lt;did:example:ebfeb1f712ebc6f1c276e12ec21&gt; &lt;https://example.org/examples#degree&gt; _:c14n0 .
           &lt;http://example.edu/credentials/3732&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;https://example.org/examples#UniversityDegreeCredential&gt; .
@@ -1241,11 +1238,11 @@ z2RczMj342tVhAjgjEPV4TeHbi2ggnTRKTc5BFQCgaWJ3nhcg5HgCeC2eV4Lc1fYdhfoLyPjxoq4Btqr
       <p>Assemble the signed credential with the following two steps:</p>
       <ol>
         <li>
-Add the <code>proofValue</code> field with the previously computed base58-btc 
+Add the <code>proofValue</code> field with the previously computed base58-btc
 value to the proof options document.
         </li>
         <li>
-Set the <code>proof</code> field of the credential to the augmented proof 
+Set the <code>proof</code> field of the credential to the augmented proof
 option document.
         </li>
       </ol>
