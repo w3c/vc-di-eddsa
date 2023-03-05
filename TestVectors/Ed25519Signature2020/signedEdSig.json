@@ -19,8 +19,8 @@
   "proof": {
     "type": "Ed25519Signature2020",
     "created": "2023-02-24T23:36:38Z",
-    "verificationMethod": "https://example.edu/issuers/565049#z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+    "verificationMethod": "https://vc.example/issuers/5678#z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     "proofPurpose": "assertionMethod",
-    "proofValue": "zzsRzrfuKxymmm2TW5HxHtDGt2LsHZE5uvvuxDDT4waXTTTFGgaQ3ZyomrVn2ckRA4ncaMfiLfYRy4wxSd7dVGA8"
+    "proofValue": "z2fa386qEULLhQvuusYwE1wfjb7i6p9Ba15m83CpZne9ZgsiZgX8bUV3Ucdx8atbUgyskBkeouMHA9ay2G8Yqeu6n"
   }
 }

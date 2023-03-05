@@ -20,8 +20,8 @@
     "type": "DataIntegrityProof",
     "cryptosuite": "json-eddsa-2022",
     "created": "2023-02-24T23:36:38Z",
-    "verificationMethod": "https://example.edu/issuers/565049#z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+    "verificationMethod": "https://vc.example/issuers/5678#z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     "proofPurpose": "assertionMethod",
-    "proofValue": "z2mWkBHTpfMbEUVgeM4w7HyU6XWzg6YoitVH7YHytYUUdTPDtmb6azzxhGeiFFDpC6Q6H6ryDtTpBqzBsACLyQXof"
+    "proofValue": "z4J5StJRP9nWYuCGaxgeCWXmmMJvVtLuVKvYv7z9pkGP1nYpaVk5hUaA8cvS37ncvbKWZgUTaSyGcavnVvb1at9kZ"
   }
 }
