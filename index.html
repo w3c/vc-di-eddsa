@@ -625,9 +625,6 @@ Universal RDF Dataset Canonicalization Algorithm
 [[RDF-CANON]] to the <var>unsecuredDocument</var>.
             </li>
             <li>
-Set <var>output</var> to the value of <var>canonicalDocument</var>.
-            </li>
-            <li>
 Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
             </li>
           </ol>
@@ -646,8 +643,8 @@ Section <a href="#proof-verification-eddsa-2022"></a>.
 
           <p>
 The required inputs to this algorithm are a <em>transformed data document</em>
-(<var>transformedDocument</var>) and <em>proof configuration</em>
-(<var>proofConfig</var>). A single <em>hash data</em> value represented as
+(<var>transformedDocument</var>) and <em>canonical proof configuration</em>
+(<var>canonicalProofConfig</var>). A single <em>hash data</em> value represented as
 series of bytes is produced as output.
           </p>
 
@@ -661,7 +658,7 @@ be exactly 32 bytes in size.
             <li>
 Let <var>proofConfigHash</var> be the result of applying the
 SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the <var>proofConfig</var>. <var>proofConfigHash</var> will be
+to the <var>canonicalProofConfig</var>. <var>proofConfigHash</var> will be
 exactly 32 bytes in size.
             </li>
             <li>
@@ -725,7 +722,16 @@ Set <var>proofConfig</var>.<var>proofPurpose</var> to
 <var>options</var>.<var>proofPurpose</var>.
             </li>
             <li>
-Return <var>proofConfig</var>.
+Set <var>proofConfig</var>.<var>@context</var> to
+<var>unsecuredDocument</var>.<var>@context</var>
+            </li>
+            <li>
+Let <var>canonicalProofConfig</var> be the result of applying the
+Universal RDF Dataset Canonicalization Algorithm
+[[RDF-CANON]] to the <var>proofConfig</var>.
+            </li>
+            <li>
+Return <var>canonicalProofConfig</var>.
             </li>
           </ol>
 
