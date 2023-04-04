@@ -813,10 +813,24 @@ Return <var>verificationResult</var> as the <em>verification result</em>.
       </section>
 
       <section>
-        <h3>json-eddsa-2022</h3>
+        <h3>jcs-eddsa-2022</h3>
+
+          <p class="issue" title="Cryptosuite naming convention is disputed">
+The naming convention utilized by this cryptosuite is disputed. An alternative
+of `json-eddsa-2022` was originally suggested for this cryptography suite to
+convey that it is a cryptography suite for securing JSON data utilizing the
+Twisted Edwards Curve Digital Signature Algorithm. The counter-argument to
+the original proposal was that expressing the canonicalization mechanism in
+the cryptosuite string clearly conveys to a developer that the thing that
+differentiates this cryptosuite from the `eddsa-2022` one is the use of
+JSON Canonicalization Scheme [[RFC8785]]. Other options include
+`"cryptosuite": "json-sign-2022"`, and `"cryptosuite": "json-2022"`. This
+topic is <a href="https://github.com/w3c/vc-data-integrity/issues/38">
+currently being debated in the Data Integrity work item.</a>.
+          </p>
 
           <p>
-The `json-eddsa-2022` cryptographic suite takes an input document, canonicalizes
+The `jcs-eddsa-2022` cryptographic suite takes an input document, canonicalizes
 the document using the JSON Canonicalization Scheme [[RFC8785]], and then
 cryptographically hashes and signs the output resulting in the production of a
 data integrity proof. The algorithms for this cryptographic suite are the
@@ -833,7 +847,7 @@ and step <strong>2)</strong> are replaced by the following text:
             <li>
 If <var>options</var>.<var>type</var> is not set to the string
 `DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
-set to the string `json-eddsa-2022` then a `PROOF_TRANSFORMATION_ERROR` MUST be
+set to the string `jcs-eddsa-2022` then a `PROOF_TRANSFORMATION_ERROR` MUST be
 raised.
             </li>
             <li>
