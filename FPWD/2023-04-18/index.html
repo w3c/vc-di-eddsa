@@ -967,13 +967,11 @@ hashing algorithm in Section <a href="#hashing-eddsa-2022" class="sec-ref"><bdi 
 
           <p>
 Required inputs to this algorithm are an
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-unsecured-data-document">
 unsecured data document</a> (<var>unsecuredDocument</var>) and
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-transformation-options">
-transformation options</a> (<var>options</var>). The
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
-transformation options</a> <em class="rfc2119">MUST</em> contain a type identifier for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+transformation options (<var>options</var>). The
+transformation options <em class="rfc2119">MUST</em> contain a type identifier for the
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-cryptosuite">
 cryptographic suite</a> (<var>type</var>) and a cryptosuite
 identifier (<var>cryptosuite</var>). A <em>transformed data document</em> is
 produced as output. Whenever this algorithm encodes strings, it <em class="rfc2119">MUST</em> use UTF-8
@@ -1056,7 +1054,7 @@ that is used as input to the <a href="#hashing-eddsa-2022">proof hashing algorit
 The required inputs to this algorithm are <em>proof options</em>
 (<var>options</var>). The <em>proof options</em> <em class="rfc2119">MUST</em> contain a type identifier
 for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-cryptosuite">
 cryptographic suite</a> (<var>type</var>) and <em class="rfc2119">MUST</em> contain a cryptosuite
 identifier (<var>cryptosuite</var>). A <em>proof configuration</em>
 object is produced as output.
@@ -1107,12 +1105,12 @@ The following algorithm specifies how to serialize a digital signature from
 a set of cryptographic hash data. This
 algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-integrity" title="Verifiable Credential Data Integrity">VC-DATA-INTEGRITY</a></cite>] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a href="https://www.w3.org/TR/vc-data-integrity/#algorithms">
 Section 4: Algorithms</a>. Required inputs are
 cryptographic hash data (<var>hashData</var>) and
 <em>proof options</em> (<var>options</var>). The
 <em>proof options</em> <em class="rfc2119">MUST</em> contain a type identifier for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-cryptosuite">
 cryptographic suite</a> (<var>type</var>) and <em class="rfc2119">MAY</em> contain a cryptosuite
 identifier (<var>cryptosuite</var>). A single <em>digital proof</em> value
 represented as series of bytes is produced as output.
@@ -1124,7 +1122,7 @@ Let <var>privateKeyBytes</var> be the result of retrieving the
 private key bytes associated with the
 <var>options</var>.<var>verificationMethod</var> value as described in the
 Data Integrity [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-integrity" title="Verifiable Credential Data Integrity">VC-DATA-INTEGRITY</a></cite>] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a href="https://www.w3.org/TR/vc-data-integrity/#algorithms">
 Section 4: Retrieving Cryptographic Material</a>.
             </li>
             <li>
@@ -1149,7 +1147,7 @@ The following algorithm specifies how to verify a digital signature from
 a set of cryptographic hash data. This
 algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-integrity" title="Verifiable Credential Data Integrity">VC-DATA-INTEGRITY</a></cite>] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a href="https://www.w3.org/TR/vc-data-integrity/#algorithms">
 Section 4: Algorithms</a>. Required inputs are
 cryptographic hash data (<var>hashData</var>),
 a digital signature (<var>proofBytes</var>) and
@@ -1163,7 +1161,7 @@ Let <var>publicKeyBytes</var> be the result of retrieving the
 public key bytes associated with the
 <var>options</var>.<var>verificationMethod</var> value as described in the
 Data Integrity [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-integrity" title="Verifiable Credential Data Integrity">VC-DATA-INTEGRITY</a></cite>] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a href="https://www.w3.org/TR/vc-data-integrity/#algorithms">
 Section 4: Retrieving Cryptographic Material</a>.
             </li>
             <li>
@@ -1302,13 +1300,11 @@ hashing algorithm in Section <a href="#hashing-ed25519signature2020" class="sec-
 
 
 Required inputs to this algorithm are an
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-unsecured-data-document">
 unsecured data document</a> (<var>unsecuredDocument</var>) and
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-transformation-options">
-transformation options</a> (<var>options</var>). The
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
-transformation options</a> <em class="rfc2119">MUST</em> contain a type identifier for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+transformation options (<var>options</var>). The
+transformation options <em class="rfc2119">MUST</em> contain a type identifier for the
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-cryptosuite">
 cryptographic suite</a> (<var>type</var>) and a cryptosuite
 identifier (<var>cryptosuite</var>). A <em>transformed data document</em> is
 produced as output. Whenever this algorithm encodes strings, it <em class="rfc2119">MUST</em> use UTF-8
@@ -1351,7 +1347,7 @@ The required inputs to this algorithm are a
 <em>transformed data document</em> (<var>transformedDocument</var>) and
 <em>proof configuration</em> (<var>proofConfig</var>). The
 <em>proof configuration</em> <em class="rfc2119">MUST</em> contain a type identifier for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-cryptosuite">
 cryptographic suite</a> (<var>type</var>) and <em class="rfc2119">MAY</em> contain a cryptosuite
 identifier (<var>cryptosuite</var>). A single <em>hash data</em> value
 represented as series of bytes is produced as output.
@@ -1395,7 +1391,7 @@ that is used as input to the <a href="#hashing-ed25519signature2020">proof hashi
 The required inputs to this algorithm are <em>proof options</em>
 (<var>options</var>). The <em>proof options</em> <em class="rfc2119">MUST</em> contain a type identifier
 for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-cryptosuite">
 cryptographic suite</a> (<var>type</var>) and <em class="rfc2119">MAY</em> contain a cryptosuite
 identifier (<var>cryptosuite</var>). A <em>proof configuration</em>
 object is produced as output.
@@ -1445,12 +1441,12 @@ The following algorithm specifies how to serialize a digital signature from
 a set of cryptographic hash data. This
 algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-integrity" title="Verifiable Credential Data Integrity">VC-DATA-INTEGRITY</a></cite>] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a href="https://www.w3.org/TR/vc-data-integrity/#algorithms">
 Section 4: Algorithms</a>. Required inputs are
 cryptographic hash data (<var>hashData</var>) and
 <em>proof options</em> (<var>options</var>). The
 <em>proof options</em> <em class="rfc2119">MUST</em> contain a type identifier for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-cryptosuite">
 cryptographic suite</a> (<var>type</var>) and <em class="rfc2119">MAY</em> contain a cryptosuite
 identifier (<var>cryptosuite</var>). A single <em>digital proof</em> value
 represented as series of bytes is produced as output.
@@ -1462,7 +1458,7 @@ Let <var>privateKeyBytes</var> be the result of retrieving the
 private key bytes associated with the
 <var>options</var>.<var>verificationMethod</var> value as described in the
 Data Integrity [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-integrity" title="Verifiable Credential Data Integrity">VC-DATA-INTEGRITY</a></cite>] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a href="https://www.w3.org/TR/vc-data-integrity/#algorithms">
 Section 4: Retrieving Cryptographic Material</a>.
             </li>
             <li>
@@ -1487,7 +1483,7 @@ The following algorithm specifies how to verify a digital signature from
 a set of cryptographic hash data. This
 algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-integrity" title="Verifiable Credential Data Integrity">VC-DATA-INTEGRITY</a></cite>] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a href="https://www.w3.org/TR/vc-data-integrity/#algorithms">
 Section 4: Algorithms</a>. Required inputs are
 cryptographic hash data (<var>hashData</var>),
 a digital signature (<var>proofBytes</var>) and
@@ -1501,7 +1497,7 @@ Let <var>publicKeyBytes</var> be the result of retrieving the
 public key bytes associated with the
 <var>options</var>.<var>verificationMethod</var> value as described in the
 Data Integrity [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-integrity" title="Verifiable Credential Data Integrity">VC-DATA-INTEGRITY</a></cite>] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a href="https://www.w3.org/TR/vc-data-integrity/#algorithms">
 Section 4: Retrieving Cryptographic Material</a>.
             </li>
             <li>
