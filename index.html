@@ -56,11 +56,13 @@
         }],
 
         authors: [{
-          name: "Dave Longley", url: "http://digitalbazaar.com/",
-          company: "Digital Bazaar", companyURL: "http://digitalbazaar.com/"
+          name: "Dave Longley", url: "https://digitalbazaar.com/",
+          company: "Digital Bazaar", companyURL: "https://digitalbazaar.com/",
+          w3cid: 48025
         }, {
           name: "Manu Sporny", url: "https://www.linkedin.com/in/manusporny/",
-          company: "Digital Bazaar", companyURL: "https://digitalbazaar.com/"
+          company: "Digital Bazaar", companyURL: "https://digitalbazaar.com/",
+          w3cid: 41758
         }],
 
         github: "https://github.com/w3c/vc-di-eddsa/",
@@ -102,7 +104,7 @@
           },
           MULTIBASE: {
             title: "Multibase",
-            href: "https://tools.ietf.org/html/draft-multiformats-multibase-01",
+            href: "https://datatracker.ietf.org/doc/html/draft-multiformats-multibase-01",
           },
           MULTICODEC: {
             title: "Multicodec",
@@ -132,7 +134,7 @@
           },
           "RDF-CANON": {
             title: 'RDF Dataset Canonicalization',
-            href: 'https://w3c.github.com/rdf-canon/',
+            href: 'https://www.w3.org/TR/rdf-canon/',
             authors: ['Gregg Kellogg', 'Dave Longley', 'Manu Sporny'],
             status:   'ED',
             publisher:  'W3C RDF Dataset Canonicalization and Hash Working Group'
@@ -551,17 +553,17 @@ section also include the verification of such a data integrity proof.
 
           <p>
 To generate a proof, the algorithm in
-<a href="https://www.w3.org/TR/vc-data-integrity/#add-proof">
+<a data-cite="vc-data-integrity#add-proof">
 Section 4.1: Add Proof</a> in the Data Integrity
 [[VC-DATA-INTEGRITY]] specification MUST be executed.
 For that algorithm, the cryptographic suite specific
-<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-transformation-algorithm">
+<a data-cite="vc-data-integrity#dfn-transformation-algorithm">
 transformation algorithm</a> is defined in Section
 <a href="#transformation-eddsa-2022"></a>, the
-<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-hashing-algorithm">
-hashing algorithm</a> is defined in Section <a href="hashing-eddsa-2022"></a>,
+<a data-cite="vc-data-integrity#dfn-hashing-algorithm">
+hashing algorithm</a> is defined in Section <a href="#hashing-eddsa-2022"></a>,
 and the
-<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-proof-serialization-algorithm">
+<a data-cite="vc-data-integrity#dfn-proof-serialization-algorithm">
 proof serialization algorithm</a> is defined in Section
 <a href="#proof-serialization-eddsa-2022"></a>.
           </p>
@@ -572,17 +574,17 @@ proof serialization algorithm</a> is defined in Section
 
           <p>
 To verify a proof, the algorithm in
-<a href="https://www.w3.org/TR/vc-data-integrity/#verify-proof">
+<a data-cite="vc-data-integrity#verify-proof">
 Section 4.2: Verify Proof</a> in the Data Integrity
 [[VC-DATA-INTEGRITY]] specification MUST be executed.
 For that algorithm, the cryptographic suite specific
-<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-transformation-algorithm">
+<a data-cite="vc-data-integrity#dfn-transformation-algorithm">
 transformation algorithm</a> is defined in Section
 <a href="#transformation-eddsa-2022"></a>, the
-<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-hashing-algorithm">
+<a data-cite="vc-data-integrity#dfn-hashing-algorithm">
 hashing algorithm</a> is defined in Section <a href="#hashing-eddsa-2022"></a>,
 and the
-<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-proof-serialization-algorithm">
+<a data-cite="vc-data-integrity#dfn-proof-serialization-algorithm">
 proof verification algorithm</a> is defined in Section
 <a href="#proof-verification-eddsa-2022"></a>.
           </p>
@@ -599,13 +601,11 @@ hashing algorithm in Section <a href="#hashing-eddsa-2022"></a>.
 
           <p>
 Required inputs to this algorithm are an
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
+<a data-cite="vc-data-integrity#dfn-unsecured-data-document">
 unsecured data document</a> (<var>unsecuredDocument</var>) and
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-transformation-options">
-transformation options</a> (<var>options</var>). The
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
-transformation options</a> MUST contain a type identifier for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+transformation options (<var>options</var>). The
+transformation options MUST contain a type identifier for the
+<a data-cite="vc-data-integrity#dfn-cryptosuite">
 cryptographic suite</a> (<var>type</var>) and a cryptosuite
 identifier (<var>cryptosuite</var>). A <em>transformed data document</em> is
 produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
@@ -688,7 +688,7 @@ that is used as input to the <a href="#hashing-eddsa-2022">proof hashing algorit
 The required inputs to this algorithm are <em>proof options</em>
 (<var>options</var>). The <em>proof options</em> MUST contain a type identifier
 for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+<a data-cite="vc-data-integrity#dfn-cryptosuite">
 cryptographic suite</a> (<var>type</var>) and MUST contain a cryptosuite
 identifier (<var>cryptosuite</var>). A <em>proof configuration</em>
 object is produced as output.
@@ -739,12 +739,12 @@ The following algorithm specifies how to serialize a digital signature from
 a set of cryptographic hash data. This
 algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a data-cite="vc-data-integrity#algorithms">
 Section 4: Algorithms</a>. Required inputs are
 cryptographic hash data (<var>hashData</var>) and
 <em>proof options</em> (<var>options</var>). The
 <em>proof options</em> MUST contain a type identifier for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+<a data-cite="vc-data-integrity#dfn-cryptosuite">
 cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
 identifier (<var>cryptosuite</var>). A single <em>digital proof</em> value
 represented as series of bytes is produced as output.
@@ -756,7 +756,7 @@ Let <var>privateKeyBytes</var> be the result of retrieving the
 private key bytes associated with the
 <var>options</var>.<var>verificationMethod</var> value as described in the
 Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a data-cite="vc-data-integrity#algorithms">
 Section 4: Retrieving Cryptographic Material</a>.
             </li>
             <li>
@@ -781,7 +781,7 @@ The following algorithm specifies how to verify a digital signature from
 a set of cryptographic hash data. This
 algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a data-cite="vc-data-integrity#algorithms">
 Section 4: Algorithms</a>. Required inputs are
 cryptographic hash data (<var>hashData</var>),
 a digital signature (<var>proofBytes</var>) and
@@ -795,7 +795,7 @@ Let <var>publicKeyBytes</var> be the result of retrieving the
 public key bytes associated with the
 <var>options</var>.<var>verificationMethod</var> value as described in the
 Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a data-cite="vc-data-integrity#algorithms">
 Section 4: Retrieving Cryptographic Material</a>.
             </li>
             <li>
@@ -886,17 +886,17 @@ section also include the verification of such a data integrity proof.
 
           <p>
 To generate a proof, the algorithm in
-<a href="https://www.w3.org/TR/vc-data-integrity/#add-proof">
+<a data-cite="vc-data-integrity#add-proof">
 Section 4.1: Add Proof</a> in the Data Integrity
 [[VC-DATA-INTEGRITY]] specification MUST be executed.
 For that algorithm, the cryptographic suite specific
-<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-transformation-algorithm">
+<a data-cite="vc-data-integrity#dfn-transformation-algorithm">
 transformation algorithm</a> is defined in Section
 <a href="#transformation-ed25519signature2020"></a>, the
-<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-hashing-algorithm">
+<a data-cite="vc-data-integrity#dfn-hashing-algorithm">
 hashing algorithm</a> is defined in Section <a href="hashing-ed25519signature2020"></a>,
 and the
-<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-proof-serialization-algorithm">
+<a data-cite="vc-data-integrity#dfn-proof-serialization-algorithm">
 proof serialization algorithm</a> is defined in Section
 <a href="#proof-serialization-ed25519signature2020"></a>.
           </p>
@@ -907,17 +907,17 @@ proof serialization algorithm</a> is defined in Section
 
           <p>
 To verify a proof, the algorithm in
-<a href="https://www.w3.org/TR/vc-data-integrity/#verify-proof">
+<a data-cite="vc-data-integrity#verify-proof">
 Section 4.2: Verify Proof</a> in the Data Integrity
 [[VC-DATA-INTEGRITY]] specification MUST be executed.
 For that algorithm, the cryptographic suite specific
-<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-transformation-algorithm">
+<a data-cite="vc-data-integrity#dfn-transformation-algorithm">
 transformation algorithm</a> is defined in Section
 <a href="#transformation-ed25519signature2020"></a>, the
-<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-hashing-algorithm">
+<a data-cite="vc-data-integrity#dfn-hashing-algorithm">
 hashing algorithm</a> is defined in Section <a href="#hashing-ed25519signature2020"></a>,
 and the
-<a href="https://www.w3.org/TR/vc-data-integrity/#dfn-proof-serialization-algorithm">
+<a data-cite="vc-data-integrity#dfn-proof-serialization-algorithm">
 proof verification algorithm</a> is defined in Section
 <a href="#proof-verification-ed25519signature2020"></a>.
           </p>
@@ -934,13 +934,11 @@ hashing algorithm in Section <a href="#hashing-ed25519signature2020"></a>.
 
 
 Required inputs to this algorithm are an
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
+<a data-cite="vc-data-integrity#dfn-unsecured-data-document">
 unsecured data document</a> (<var>unsecuredDocument</var>) and
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-transformation-options">
-transformation options</a> (<var>options</var>). The
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-unsecured-data-document">
-transformation options</a> MUST contain a type identifier for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+transformation options (<var>options</var>). The
+transformation options MUST contain a type identifier for the
+<a data-cite="vc-data-integrity#dfn-cryptosuite">
 cryptographic suite</a> (<var>type</var>) and a cryptosuite
 identifier (<var>cryptosuite</var>). A <em>transformed data document</em> is
 produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
@@ -983,7 +981,7 @@ The required inputs to this algorithm are a
 <em>transformed data document</em> (<var>transformedDocument</var>) and
 <em>proof configuration</em> (<var>proofConfig</var>). The
 <em>proof configuration</em> MUST contain a type identifier for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+<a data-cite="vc-data-integrity#dfn-cryptosuite">
 cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
 identifier (<var>cryptosuite</var>). A single <em>hash data</em> value
 represented as series of bytes is produced as output.
@@ -1027,7 +1025,7 @@ that is used as input to the <a href="#hashing-ed25519signature2020">proof hashi
 The required inputs to this algorithm are <em>proof options</em>
 (<var>options</var>). The <em>proof options</em> MUST contain a type identifier
 for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+<a data-cite="vc-data-integrity#dfn-cryptosuite">
 cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
 identifier (<var>cryptosuite</var>). A <em>proof configuration</em>
 object is produced as output.
@@ -1077,12 +1075,12 @@ The following algorithm specifies how to serialize a digital signature from
 a set of cryptographic hash data. This
 algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a data-cite="vc-data-integrity#algorithms">
 Section 4: Algorithms</a>. Required inputs are
 cryptographic hash data (<var>hashData</var>) and
 <em>proof options</em> (<var>options</var>). The
 <em>proof options</em> MUST contain a type identifier for the
-<a href="https://w3c.github.io/vc-data-integrity/#dfn-cryptographic-suite">
+<a data-cite="vc-data-integrity#dfn-cryptosuite">
 cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
 identifier (<var>cryptosuite</var>). A single <em>digital proof</em> value
 represented as series of bytes is produced as output.
@@ -1094,7 +1092,7 @@ Let <var>privateKeyBytes</var> be the result of retrieving the
 private key bytes associated with the
 <var>options</var>.<var>verificationMethod</var> value as described in the
 Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a data-cite="vc-data-integrity#algorithms">
 Section 4: Retrieving Cryptographic Material</a>.
             </li>
             <li>
@@ -1119,7 +1117,7 @@ The following algorithm specifies how to verify a digital signature from
 a set of cryptographic hash data. This
 algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a data-cite="vc-data-integrity#algorithms">
 Section 4: Algorithms</a>. Required inputs are
 cryptographic hash data (<var>hashData</var>),
 a digital signature (<var>proofBytes</var>) and
@@ -1133,7 +1131,7 @@ Let <var>publicKeyBytes</var> be the result of retrieving the
 public key bytes associated with the
 <var>options</var>.<var>verificationMethod</var> value as described in the
 Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a href="https://w3c.github.io/vc-data-integrity/#algorithms">
+<a data-cite="vc-data-integrity#algorithms">
 Section 4: Retrieving Cryptographic Material</a>.
             </li>
             <li>
