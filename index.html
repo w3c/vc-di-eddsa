@@ -538,7 +538,7 @@ that utilize the twisted Edwards Curve Digital Signature Algorithm.
       </p>
 
       <section>
-      <h3>eddsa-2022</h3>
+        <h3>eddsa-2022</h3>
 
         <p>
 The `eddsa-2022` cryptographic suite takes an input document, canonicalizes
@@ -871,7 +871,7 @@ set to `json-eddsa-2020`, an `INVALID_PROOF_CONFIGURATION` error MUST be raised.
       </section>
 
       <section>
-      <h3>Ed25519Signature2020</h3>
+        <h3>Ed25519Signature2020</h3>
 
         <p>
 The `Ed25519Signature2020` cryptographic suite takes an input document,
@@ -1246,18 +1246,18 @@ to canonical form, and then hashed, as shown in the following three examples.
           &lt;http://example.edu/credentials/3732&gt; &lt;https://www.w3.org/2018/credentials#issuer&gt; &lt;https://example.edu/issuers/565049&gt; .
           _:c14n0 &lt;http://schema.org/name&gt; &quot;Bachelor of Science and Arts&quot;^^&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML&gt; .
           _:c14n0 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;https://example.org/examples#BachelorDegree&gt; .
-      </pre>
+        </pre>
 
-      <pre class="example" title="Hash of Canonical Credential without Proof (hex)">
+        <pre class="example" title="Hash of Canonical Credential without Proof (hex)">
 6c6b2795e7fa33a9fb28062527142b3c6edf7ba239942439b6f0bb0851b3cce3
-      </pre>
+        </pre>
 
-      <p>
+        <p>
 The next step is to take the proof options document, convert it to canonical form,
 and obtain its hash, as shown in the next three examples.
-      </p>
+        </p>
 
-      <pre class="example" title="Proof Options Document">
+        <pre class="example" title="Proof Options Document">
 {
   "type": "Ed25519Signature2020",
   "created": "2022-12-07T21:31:08Z",
@@ -1269,49 +1269,49 @@ and obtain its hash, as shown in the next three examples.
     "https://w3id.org/security/suites/ed25519-2020/v1"
   ]
 }
-      </pre>
+        </pre>
 
-      <pre class="example" title="Canonical Proof Options Document">
+        <pre class="example" title="Canonical Proof Options Document">
 _:c14n0 &lt;http://purl.org/dc/terms/created&gt; &quot;2022-12-07T21:31:08Z&quot;^^&lt;http://www.w3.org/2001/XMLSchema#dateTime&gt; .
 _:c14n0 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;https://w3id.org/security#Ed25519Signature2020&gt; .
 _:c14n0 &lt;https://w3id.org/security#proofPurpose&gt; &lt;https://w3id.org/security#assertionMethod&gt; .
 _:c14n0 &lt;https://w3id.org/security#verificationMethod&gt; &lt;https://example.edu/issuers/565049#key-1&gt; .
-      </pre>
+        </pre>
 
-      <pre class="example" title="Hash of Canonical Proof Options Document (hex)">
+        <pre class="example" title="Hash of Canonical Proof Options Document (hex)">
 565a2884ebb2d38aa34871108074ab51631ec812d33eb2473178bce19937ad09
-      </pre>
+        </pre>
 
-      <p>
+        <p>
 Finally, we combine the two hashes, use the private key with the combined hash to
 compute the Ed25519 signature, and then base58-btc encode the signature.
-      </p>
+        </p>
 
-      <pre class="example" title="Combine hashes of Proof Options and Credential (hex)">
+        <pre class="example" title="Combine hashes of Proof Options and Credential (hex)">
 565a2884ebb2d38aa34871108074ab51631ec812d33eb2473178bce19937ad096c6b2795e7fa33a9fb28062527142b3c6edf7ba239942439b6f0bb0851b3cce3
-      </pre>
+        </pre>
 
-      <pre class="example" title="Signature of Combined Hashes (hex)">
+        <pre class="example" title="Signature of Combined Hashes (hex)">
 473fb02a4aaf5863a2ef33f104bd55617e40907bc311e29e87278d15d7596f201639f41ec0e00db11159e9139f673d9257558e1f0134e1f67ac73f91ed89670b
-      </pre>
+        </pre>
 
-      <pre class="example" title="Signature of Combined Hashes base58-btc">
+        <pre class="example" title="Signature of Combined Hashes base58-btc">
 z2RczMj342tVhAjgjEPV4TeHbi2ggnTRKTc5BFQCgaWJ3nhcg5HgCeC2eV4Lc1fYdhfoLyPjxoq4BtqrsyNvxZ8nE
-      </pre>
+        </pre>
 
-      <p>Assemble the signed credential with the following two steps:</p>
-      <ol>
-        <li>
+        <p>Assemble the signed credential with the following two steps:</p>
+        <ol>
+          <li>
 Add the <code>proofValue</code> field with the previously computed base58-btc
 value to the proof options document.
-        </li>
-        <li>
+          </li>
+          <li>
 Set the <code>proof</code> field of the credential to the augmented proof
 option document.
-        </li>
-      </ol>
+          </li>
+        </ol>
 
-      <pre class="example" title="Signed Credential">
+        <pre class="example" title="Signed Credential">
 {
   "@context": [
     "https://www.w3.org/2018/credentials/v1",
@@ -1340,9 +1340,9 @@ option document.
     "proofValue": "z2RczMj342tVhAjgjEPV4TeHbi2ggnTRKTc5BFQCgaWJ3nhcg5HgCeC2eV4Lc1fYdhfoLyPjxoq4BtqrsyNvxZ8nE"
   }
 }
-      </pre>
+        </pre>
 
-    </section>
+      </section>
     </section>
 
   </body>
