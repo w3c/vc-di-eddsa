@@ -205,7 +205,7 @@ representation is then hashed and signed with a detached signature algorithm.
       </p>
 
       <section id="terminology">
-        <h2>Terminology</h2>
+        <h3>Terminology</h3>
 
         <div data-include="https://w3c.github.io/vc-data-integrity/terms.html"></div>
 
@@ -247,7 +247,7 @@ for verification methods and signature formats.
       </p>
 
       <section>
-        <h2>Verification Methods</h2>
+        <h3>Verification Methods</h3>
         <p>
 The cryptographic material used to verify a linked data proof is called the
 verification method. This suite relies on public key material represented using
@@ -264,7 +264,7 @@ result in equivalent cryptographic material MAY be utilized.
         </p>
 
         <section>
-          <h3>Multikey</h3>
+          <h4>Multikey</h4>
 
           <p class="issue">
 This definition should go in the Data Integrity specification and referenced
@@ -336,7 +336,7 @@ key. Implementations of this specification will raise errors in the event of a
         </section>
 
         <section>
-          <h3>Ed25519VerificationKey2020</h3>
+          <h4>Ed25519VerificationKey2020</h4>
 
           <p class="issue">
 We need to add documentation to note that this key format is deployed and
@@ -412,7 +412,7 @@ key. Implementations of this specification will raise errors in the event of a
       </section>
 
       <section>
-        <h2>Proof Representations</h2>
+        <h3>Proof Representations</h3>
 
         <p>
 This suite relies on detached digital signatures represented using [[MULTIBASE]]
@@ -420,7 +420,7 @@ and [[MULTICODEC]].
         </p>
 
         <section>
-          <h3>DataIntegrityProof</h3>
+          <h4>DataIntegrityProof</h4>
 
           <p>
 The `verificationMethod` property of the proof MUST be a URL.
@@ -476,7 +476,7 @@ the base58-btc base encoding.
         </section>
 
         <section>
-          <h3>Ed25519Signature2020</h3>
+          <h4>Ed25519Signature2020</h4>
 
           <p>
 The `verificationMethod` property of the proof MUST be a URL.
@@ -549,7 +549,7 @@ section also include the verification of such a data integrity proof.
         </p>
 
         <section>
-          <h2>Add Proof (eddsa-2022)</h2>
+          <h4>Add Proof (eddsa-2022)</h4>
 
           <p>
 To generate a proof, the algorithm in
@@ -570,7 +570,7 @@ proof serialization algorithm</a> is defined in Section
         </section>
 
         <section>
-          <h2>Verify Proof (eddsa-2022)</h2>
+          <h4>Verify Proof (eddsa-2022)</h4>
 
           <p>
 To verify a proof, the algorithm in
@@ -591,7 +591,7 @@ proof verification algorithm</a> is defined in Section
         </section>
 
         <section>
-          <h3>Transformation (eddsa-2022)</h3>
+          <h4>Transformation (eddsa-2022)</h4>
 
           <p>
 The following algorithm specifies how to transform an unsecured input document
@@ -634,7 +634,7 @@ Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
         </section>
 
         <section>
-          <h3>Hashing (eddsa-2022)</h3>
+          <h4>Hashing (eddsa-2022)</h4>
 
           <p>
 The following algorithm specifies how to cryptographically hash a
@@ -676,7 +676,7 @@ Return <var>hashData</var> as the <em>hash data</em>.
         </section>
 
         <section>
-          <h3>Proof Configuration (eddsa-2022)</h3>
+          <h4>Proof Configuration (eddsa-2022)</h4>
 
           <p>
 The following algorithm specifies how to generate a
@@ -732,7 +732,7 @@ Return <var>proofConfig</var>.
         </section>
 
         <section>
-          <h3>Proof Serialization (eddsa-2022)</h3>
+          <h4>Proof Serialization (eddsa-2022)</h4>
 
           <p>
 The following algorithm specifies how to serialize a digital signature from
@@ -774,7 +774,7 @@ Return <var>proofBytes</var> as the <em>digital proof</em>.
         </section>
 
         <section>
-          <h3>Proof Verification (eddsa-2022)</h3>
+          <h4>Proof Verification (eddsa-2022)</h4>
 
           <p>
 The following algorithm specifies how to verify a digital signature from
@@ -882,7 +882,7 @@ section also include the verification of such a data integrity proof.
         </p>
 
         <section>
-          <h2>Add Proof (Ed25519Signature2020)</h2>
+          <h4>Add Proof (Ed25519Signature2020)</h4>
 
           <p>
 To generate a proof, the algorithm in
@@ -903,7 +903,7 @@ proof serialization algorithm</a> is defined in Section
         </section>
 
         <section>
-          <h2>Verify Proof (Ed25519Signature2020)</h2>
+          <h4>Verify Proof (Ed25519Signature2020)</h4>
 
           <p>
 To verify a proof, the algorithm in
@@ -924,7 +924,7 @@ proof verification algorithm</a> is defined in Section
         </section>
 
         <section>
-          <h3>Transformation (Ed25519Signature2020)</h3>
+          <h4>Transformation (Ed25519Signature2020)</h4>
 
           <p>
 The following algorithm specifies how to transform an unsecured input document
@@ -966,7 +966,7 @@ Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
         </section>
 
         <section>
-          <h3>Hashing (Ed25519Signature2020)</h3>
+          <h4>Hashing (Ed25519Signature2020)</h4>
 
           <p>
 The following algorithm specifies how to cryptographically hash a
@@ -1013,7 +1013,7 @@ Return <var>hashData</var> as the <em>hash data</em>.
         </section>
 
         <section>
-          <h3>Proof Configuration (Ed25519Signature2020)</h3>
+          <h4>Proof Configuration (Ed25519Signature2020)</h4>
 
           <p>
 The following algorithm specifies how to generate a
@@ -1068,7 +1068,7 @@ Return <var>proofConfig</var>.
         </section>
 
         <section>
-          <h3>Proof Serialization (Ed25519Signature2020)</h3>
+          <h4>Proof Serialization (Ed25519Signature2020)</h4>
 
           <p>
 The following algorithm specifies how to serialize a digital signature from
@@ -1110,7 +1110,7 @@ Return <var>proofBytes</var> as the <em>digital proof</em>.
         </section>
 
         <section>
-          <h3>Proof Verification (Ed25519Signature2020)</h3>
+          <h4>Proof Verification (Ed25519Signature2020)</h4>
 
           <p>
 The following algorithm specifies how to verify a digital signature from
