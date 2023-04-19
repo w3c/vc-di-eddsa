@@ -14,7 +14,7 @@
     <script type="text/javascript" class="remove">
       var respecConfig = {
         // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
-        specStatus: "FPWD",
+        specStatus: "ED",
 
         // the specification's short name, as in http://www.w3.org/TR/short-name/
         shortName: "vc-di-eddsa",
@@ -538,7 +538,7 @@ that utilize the twisted Edwards Curve Digital Signature Algorithm.
       </p>
 
       <section>
-      <h3>eddsa-2022</h3>
+      <h3 id="eddsa-2022">eddsa-2022</h3>
 
         <p>
 The `eddsa-2022` cryptographic suite takes an input document, canonicalizes
@@ -870,8 +870,57 @@ set to `json-eddsa-2020`, an `INVALID_PROOF_CONFIGURATION` error MUST be raised.
           </p>
       </section>
 
-      <section>
+    </section>
+
+    <section>
+      <h2>Security Considerations</h2>
+      <p>
+The following section describes security considerations that developers
+implementing this specification should be aware of in order to create secure
+software.
+      </p>
+
+      <p class="note">
+This specification relies on URDNA2015, please review
+[[RDF-CANON]].
+      </p>
+
+      <p class="note">
+This specification relies on [[MULTIBASE]], [[MULTICODEC]] and [[RFC8032]].
+      </p>
+
+      <p class="issue">
+There are <a href="https://eprint.iacr.org/2020/1244.pdf">
+known mis-implementation attacks against multiple flavors of EdDSA</a>
+implementations. We might want to warn about what to look out for and how to
+mitigate the attacks.
+      </p>
+
+    </section>
+
+    <section>
+      <h2>Privacy Considerations</h2>
+      <p>
+The following section describes privacy considerations that developers
+implementing this specification should be aware of in order to avoid violating
+privacy assumptions.
+      </p>
+
+      <p class="issue">
+This cryptography suite does not provide for selective disclosure or
+unlinkability. If signatures are re-used, they can be used as correlatable data.
+      </p>
+    </section>
+
+    <section class="appendix">
       <h3>Ed25519Signature2020</h3>
+
+      <p>
+        `Ed25519Signature2020` is an earlier version of a cryptographic suite
+        for the usage of the EdDSA algorithm and Curve25519. While it has 
+        been used in production systems, new implementations should use <a href="#eddsa-2022">`edssa-2022`</a>
+        instead. It has been kept in this specification to provide a stable reference.
+      </p>
 
         <p>
 The `Ed25519Signature2020` cryptographic suite takes an input document,
@@ -880,6 +929,7 @@ Algorithm [[RDF-CANON]], and then cryptographically hashes and signs the output
 resulting in the production of a data integrity proof. The algorithms in this
 section also include the verification of such a data integrity proof.
         </p>
+
 
         <section>
           <h2>Add Proof (Ed25519Signature2020)</h2>
@@ -1149,49 +1199,11 @@ Return <var>verificationResult</var> as the <em>verification result</em>.
 
         </section>
       </section>
-    </section>
 
-    <section>
-      <h2>Security Considerations</h2>
-      <p>
-The following section describes security considerations that developers
-implementing this specification should be aware of in order to create secure
-software.
-      </p>
 
-      <p class="note">
-This specification relies on URDNA2015, please review
-[[RDF-CANON]].
-      </p>
 
-      <p class="note">
-This specification relies on [[MULTIBASE]], [[MULTICODEC]] and [[RFC8032]].
-      </p>
 
-      <p class="issue">
-There are <a href="https://eprint.iacr.org/2020/1244.pdf">
-known mis-implementation attacks against multiple flavors of EdDSA</a>
-implementations. We might want to warn about what to look out for and how to
-mitigate the attacks.
-      </p>
-
-    </section>
-
-    <section>
-      <h2>Privacy Considerations</h2>
-      <p>
-The following section describes privacy considerations that developers
-implementing this specification should be aware of in order to avoid violating
-privacy assumptions.
-      </p>
-
-      <p class="issue">
-This cryptography suite does not provide for selective disclosure or
-unlinkability. If signatures are re-used, they can be used as correlatable data.
-      </p>
-    </section>
-
-    <section class="appendix">
+    <section class="appendix informative">
       <h2>Test Vectors</h2>
       <section>
         <h3>Representation: Ed25519Signature2020</h3>
