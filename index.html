@@ -229,7 +229,7 @@ The `controller` of the verification method MUST be a URL.
           <p>
 The `publicKeyMultibase` property of the verification method MUST be
 a public key encoded according to [[MULTICODEC]] and formatted according to
-[[MULTIBASE]]. The multicodec encoding of a Ed25519 public key is the two-byte
+[[MULTIBASE]]. The multicodec encoding of an Ed25519 public key is the two-byte
 prefix `0xed01` followed by the 32-byte public key data. The 34 byte
 value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
 MUST NOT be allowed.
@@ -776,7 +776,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
             <p>
   The `publicKeyMultibase` property of the verification method MUST be
   a public key encoded according to [[MULTICODEC]] and formatted according to
-  [[MULTIBASE]]. The multicodec encoding of a Ed25519 public key is the two-byte
+  [[MULTIBASE]]. The multicodec encoding of an Ed25519 public key is the two-byte
   prefix `0xed01` followed by the 32-byte public key data. The 34 byte
   value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
   MUST NOT be allowed.
