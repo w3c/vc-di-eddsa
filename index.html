@@ -282,79 +282,6 @@ key. Implementations of this specification will raise errors in the event of a
           </pre>
         </section>
 
-        <section>
-          <h4>Ed25519VerificationKey2020</h4>
-
-          <p class="issue">
-We need to add documentation to note that this key format is deployed and
-widely used in production, but is deprecated. `Multikey` and `JsonWebKey2020`
-supersede it.
-          </p>
-
-          <p>
-The `type` of the verification method MUST be
-<a href="#ed25519verificationkey2020">Ed25519VerificationKey2020</a>.
-          </p>
-
-          <p>
-The `controller` of the verification method MUST be a URL.
-          </p>
-
-          <p>
-The `publicKeyMultibase` property of the verification method MUST be
-a public key encoded according to [[MULTICODEC]] and formatted according to
-[[MULTIBASE]]. The multicodec encoding of a Ed25519 public key is the two-byte
-prefix `0xed01` followed by the 32-byte public key data. The 34 byte
-value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
-MUST NOT be allowed.
-          </p>
-
-          <p class="advisement">
-Developers are advised to not accidentally publish a representation of a private
-key. Implementations of this specification will raise errors in the event of a
-[[MULTICODEC]] value other than `0xed01` being used in a
-`publicKeyMultibase` value.
-          </p>
-
-          <pre class="example" title="An Ed25519 public key encoded as an
-            Ed25519VerificationKey2020">
-{
-  "id": "https://example.com/issuer/123#key-0",
-  "type": "Ed25519VerificationKey2020",
-  "controller": "https://example.com/issuer/123",
-  "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
-}
-          </pre>
-
-          <pre class="example" title="An Ed25519 public key encoded as an
-            Ed25519VerificationKey2020 in a controller document.">
-{
-  "@context": [
-    "https://www.w3.org/ns/did/v1",
-    "https://w3id.org/security/suites/ed25519-2020/v1"
-  ],
-  "id": "did:example:123",
-  "verificationMethod": [{
-    "id": "did:example:123#key-0",
-    "type": "Ed25519VerificationKey2020",
-    "controller": "did:example:123",
-    "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
-  }],
-  "authentication": [
-    "did:example:123#key-0"
-  ],
-  "assertionMethod": [
-    "did:example:123#key-0"
-  ],
-  "capabilityDelegation": [
-    "did:example:123#key-0"
-  ],
-  "capabilityInvocation": [
-    "did:example:123#key-0"
-  ]
-}
-          </pre>
-        </section>
 
       </section>
 
@@ -373,7 +300,7 @@ and [[MULTICODEC]].
 The `verificationMethod` property of the proof MUST be a URL.
 Dereferencing the `verificationMethod` MUST result in an object
 containing a `type` property with the value set to
-`Ed25519VerificationKey2020`.
+`Multikey`.
           </p>
 
           <p>
@@ -422,57 +349,6 @@ the base58-btc base encoding.
 
         </section>
 
-        <section>
-          <h4>Ed25519Signature2020</h4>
-
-          <p>
-The `verificationMethod` property of the proof MUST be a URL.
-Dereferencing the `verificationMethod` MUST result in an object
-containing a `type` property with the value set to
-`Ed25519VerificationKey2020`.
-          </p>
-
-          <p>
-The `type` property of the proof MUST be `Ed25519Signature2020`.
-          </p>
-          <p>
-The `created` property of the proof MUST be an [[XMLSCHEMA11-2]]
-formatted date string.
-          </p>
-          <p>
-The `proofPurpose` property of the proof MUST be a string, and MUST
-match the verification relationship expressed by the verification method
-`controller`.
-          </p>
-          <p>
-The `proofValue` property of the proof MUST be a detached EdDSA
-produced according to [[RFC8032]], encoded according to [[MULTIBASE]] using
-the base58-btc base encoding.
-          </p>
-
-          <pre class="example highlight" style="overflow-x:
-            auto; white-space: pre-wrap; word-wrap: break-word;"
-            title="An Ed25519 digital signature expressed as a
-            Ed25519Signature2020">
-{
-  "@context": [
-    {"title": "https://schema.org/title"},
-    "https://w3id.org/security/data-integrity/v1"
-  ],
-  "title": "Hello world!",
-  "proof": {
-    "type": "Ed25519Signature2020",
-    "created": "2020-11-05T19:23:24Z",
-    "verificationMethod": "https://di.example/issuer#z6MkjLrk3gKS2nnkeWcmcxi
-      ZPGskmesDpuwRBorgHxUXfxnG",
-    "proofPurpose": "assertionMethod",
-    "proofValue": "z4oey5q2M3XKaxup3tmzN4DRFTLVqpLMweBrSxMY2xHX5XTYVQeVbY8nQA
-      VHMrXFkXJpmEcqdoDwLWxaqA3Q1geV6"
-  }
-}
-          </pre>
-
-        </section>
       </section>
     </section>
 
@@ -823,285 +699,6 @@ set to `json-eddsa-2020`, an `INVALID_PROOF_CONFIGURATION` error MUST be raised.
           </p>
       </section>
 
-      <section>
-        <h3>Ed25519Signature2020</h3>
-
-        <p>
-The `Ed25519Signature2020` cryptographic suite takes an input document,
-canonicalizes the document using the Universal RDF Dataset Canonicalization
-Algorithm [[RDF-CANON]], and then cryptographically hashes and signs the output
-resulting in the production of a data integrity proof. The algorithms in this
-section also include the verification of such a data integrity proof.
-        </p>
-
-        <section>
-          <h4>Add Proof (Ed25519Signature2020)</h4>
-
-          <p>
-To generate a proof, the algorithm in
-<a data-cite="vc-data-integrity#add-proof">
-Section 4.1: Add Proof</a> in the Data Integrity
-[[VC-DATA-INTEGRITY]] specification MUST be executed.
-For that algorithm, the cryptographic suite specific
-<a data-cite="vc-data-integrity#dfn-transformation-algorithm">
-transformation algorithm</a> is defined in Section
-<a href="#transformation-ed25519signature2020"></a>, the
-<a data-cite="vc-data-integrity#dfn-hashing-algorithm">
-hashing algorithm</a> is defined in Section <a href="hashing-ed25519signature2020"></a>,
-and the
-<a data-cite="vc-data-integrity#dfn-proof-serialization-algorithm">
-proof serialization algorithm</a> is defined in Section
-<a href="#proof-serialization-ed25519signature2020"></a>.
-          </p>
-        </section>
-
-        <section>
-          <h4>Verify Proof (Ed25519Signature2020)</h4>
-
-          <p>
-To verify a proof, the algorithm in
-<a data-cite="vc-data-integrity#verify-proof">
-Section 4.2: Verify Proof</a> in the Data Integrity
-[[VC-DATA-INTEGRITY]] specification MUST be executed.
-For that algorithm, the cryptographic suite specific
-<a data-cite="vc-data-integrity#dfn-transformation-algorithm">
-transformation algorithm</a> is defined in Section
-<a href="#transformation-ed25519signature2020"></a>, the
-<a data-cite="vc-data-integrity#dfn-hashing-algorithm">
-hashing algorithm</a> is defined in Section <a href="#hashing-ed25519signature2020"></a>,
-and the
-<a data-cite="vc-data-integrity#dfn-proof-serialization-algorithm">
-proof verification algorithm</a> is defined in Section
-<a href="#proof-verification-ed25519signature2020"></a>.
-          </p>
-        </section>
-
-        <section>
-          <h4>Transformation (Ed25519Signature2020)</h4>
-
-          <p>
-The following algorithm specifies how to transform an unsecured input document
-into a transformed document that is ready to be provided as input to the
-hashing algorithm in Section <a href="#hashing-ed25519signature2020"></a>.
-          </p>
-
-          <p>
-Required inputs to this algorithm are an
-<a data-cite="vc-data-integrity#dfn-unsecured-data-document">
-unsecured data document</a> (<var>unsecuredDocument</var>) and
-transformation options (<var>options</var>). The
-transformation options MUST contain a type identifier for the
-<a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (<var>type</var>) and a cryptosuite
-identifier (<var>cryptosuite</var>). A <em>transformed data document</em> is
-produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
-encoding.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-If <var>options</var>.<var>type</var> is not set to the string
-`Ed25519Signature2020`, then a `PROOF_TRANSFORMATION_ERROR` MUST be raised.
-            </li>
-            <li>
-Let <var>canonicalDocument</var> be the result of applying the
-Universal RDF Dataset Canonicalization Algorithm
-[[RDF-CANON]] to the <var>unsecuredDocument</var>.
-            </li>
-            <li>
-Set <var>output</var> to the value of <var>canonicalDocument</var>.
-            </li>
-            <li>
-Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
-            </li>
-          </ol>
-
-        </section>
-
-        <section>
-          <h4>Hashing (Ed25519Signature2020)</h4>
-
-          <p>
-The following algorithm specifies how to cryptographically hash a
-<em>transformed data document</em> and <em>proof configuration</em>
-into cryptographic hash data that is ready to be provided as input to the
-algorithms in Section <a href="#proof-serialization-ed25519signature2020"></a> or
-Section <a href="#proof-verification-ed25519signature2020"></a>.
-          </p>
-
-          <p>
-The required inputs to this algorithm are a
-<em>transformed data document</em> (<var>transformedDocument</var>) and
-<em>proof configuration</em> (<var>proofConfig</var>). The
-<em>proof configuration</em> MUST contain a type identifier for the
-<a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-identifier (<var>cryptosuite</var>). A single <em>hash data</em> value
-represented as series of bytes is produced as output.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-Let <var>transformedDocumentHash</var> be the result of applying the
-SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the <var>transformedDocument</var>. <var>transformedDocumentHash</var> will
-be exactly 32 bytes in size.
-            </li>
-            <li>
-Let <var>proofConfigHash</var> be the result of applying the
-SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the <var>proofConfig</var>. <var>proofConfigHash</var> will be
-exactly 32 bytes in size.
-            </li>
-
-            <li>
-Let <var>hashData</var> be the result of joining <var>proofConfigHash</var> (the
-first hash) with <var>transformedDocumentHash</var> (the second hash).
-            </li>
-            <li>
-Return <var>hashData</var> as the <em>hash data</em>.
-            </li>
-          </ol>
-
-        </section>
-
-        <section>
-          <h4>Proof Configuration (Ed25519Signature2020)</h4>
-
-          <p>
-The following algorithm specifies how to generate a
-<em>proof configuration</em> from a set of <em>proof options</em>
-that is used as input to the <a href="#hashing-ed25519signature2020">proof hashing algorithm</a>.
-          </p>
-
-          <p>
-The required inputs to this algorithm are <em>proof options</em>
-(<var>options</var>). The <em>proof options</em> MUST contain a type identifier
-for the
-<a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-identifier (<var>cryptosuite</var>). A <em>proof configuration</em>
-object is produced as output.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-Let <var>proofConfig</var> be an empty object.
-            </li>
-            <li>
-Set <var>proofConfig</var>.<var>type</var> to
-<var>options</var>.<var>type</var>.
-            </li>
-            <li>
-If <var>options</var>.<var>cryptosuite</var> is set, set
-<var>proofConfig</var>.<var>cryptosuite</var> to its value.
-            </li>
-            <li>
-If <var>options</var>.<var>type</var> is not set to `Ed25519Signature2020`, an
-`INVALID_PROOF_CONFIGURATION` error MUST be raised.
-            </li>
-            <li>
-Set <var>proofConfig</var>.<var>created</var> to
-<var>options</var>.<var>created</var>. If the value is not a valid
-[[XMLSCHEMA11-2]] datetime, an `INVALID_PROOF_DATETIME` error MUST be raised.
-            </li>
-            <li>
-Set <var>proofConfig</var>.<var>verificationMethod</var> to
-<var>options</var>.<var>verificationMethod</var>.
-            </li>
-            <li>
-Set <var>proofConfig</var>.<var>proofPurpose</var> to
-<var>options</var>.<var>proofPurpose</var>.
-            </li>
-            <li>
-Return <var>proofConfig</var>.
-            </li>
-          </ol>
-
-        </section>
-
-        <section>
-          <h4>Proof Serialization (Ed25519Signature2020)</h4>
-
-          <p>
-The following algorithm specifies how to serialize a digital signature from
-a set of cryptographic hash data. This
-algorithm is designed to be used in conjunction with the algorithms defined
-in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a data-cite="vc-data-integrity#algorithms">
-Section 4: Algorithms</a>. Required inputs are
-cryptographic hash data (<var>hashData</var>) and
-<em>proof options</em> (<var>options</var>). The
-<em>proof options</em> MUST contain a type identifier for the
-<a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-identifier (<var>cryptosuite</var>). A single <em>digital proof</em> value
-represented as series of bytes is produced as output.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-Let <var>privateKeyBytes</var> be the result of retrieving the
-private key bytes associated with the
-<var>options</var>.<var>verificationMethod</var> value as described in the
-Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a data-cite="vc-data-integrity#algorithms">
-Section 4: Retrieving Cryptographic Material</a>.
-            </li>
-            <li>
-Let <var>proofBytes</var> be the result of applying the Edwards-Curve Digital
-Signature Algorithm (EdDSA) [[RFC8032]], using the `Ed25519` variant
-(Pure EdDSA), with <var>hashData</var> as the data to be signed using
-the private key specified by <var>privateKeyBytes</var>.
-<var>proofBytes</var> will be exactly 64 bytes in size.
-            </li>
-            <li>
-Return <var>proofBytes</var> as the <em>digital proof</em>.
-            </li>
-          </ol>
-
-        </section>
-
-        <section>
-          <h4>Proof Verification (Ed25519Signature2020)</h4>
-
-          <p>
-The following algorithm specifies how to verify a digital signature from
-a set of cryptographic hash data. This
-algorithm is designed to be used in conjunction with the algorithms defined
-in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a data-cite="vc-data-integrity#algorithms">
-Section 4: Algorithms</a>. Required inputs are
-cryptographic hash data (<var>hashData</var>),
-a digital signature (<var>proofBytes</var>) and
-proof options (<var>options</var>). A <em>verification result</em>
-represented as a boolean value is produced as output.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-Let <var>publicKeyBytes</var> be the result of retrieving the
-public key bytes associated with the
-<var>options</var>.<var>verificationMethod</var> value as described in the
-Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a data-cite="vc-data-integrity#algorithms">
-Section 4: Retrieving Cryptographic Material</a>.
-            </li>
-            <li>
-Let <var>verificationResult</var> be the result of applying the verification
-algorithm for the Edwards-Curve Digital Signature Algorithm (EdDSA)
-[[RFC8032]], using the `Ed25519` variant (Pure EdDSA),
-with <var>hashData</var> as the data to be verified against the
-<var>proofBytes</var> using the public key specified by
-<var>publicKeyBytes</var>.
-            </li>
-            <li>
-Return <var>verificationResult</var> as the <em>verification result</em>.
-            </li>
-          </ol>
-
-        </section>
-      </section>
     </section>
 
     <section>
@@ -1145,6 +742,437 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
     </section>
 
     <section class="appendix">
+      <h2>The Ed25519Signature2020 Suite</h2>
+
+      <p>
+        `Ed25519Signature2020` is an earlier version of a cryptographic suite
+        for the usage of the EdDSA algorithm and Curve25519. While it has 
+        been used in production systems, new implementations should use <a href="#eddsa-2022">`edssa-2022`</a>
+        instead. It has been kept in this specification to provide a stable reference.
+      </p>
+
+      <section>
+        <h3>Data Model</h3>
+        <section>
+          <h3>Verification Methods</h3>
+          <section>
+            <h4>Ed25519VerificationKey2020</h4>
+  
+            <p class="issue">
+  We need to add documentation to note that this key format is deployed and
+  widely used in production, but is deprecated. `Multikey` and `JsonWebKey2020`
+  supersede it.
+            </p>
+  
+            <p>
+  The `type` of the verification method MUST be
+  <a href="#ed25519verificationkey2020">Ed25519VerificationKey2020</a>.
+            </p>
+  
+            <p>
+  The `controller` of the verification method MUST be a URL.
+            </p>
+  
+            <p>
+  The `publicKeyMultibase` property of the verification method MUST be
+  a public key encoded according to [[MULTICODEC]] and formatted according to
+  [[MULTIBASE]]. The multicodec encoding of a Ed25519 public key is the two-byte
+  prefix `0xed01` followed by the 32-byte public key data. The 34 byte
+  value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
+  MUST NOT be allowed.
+            </p>
+  
+            <p class="advisement">
+  Developers are advised to not accidentally publish a representation of a private
+  key. Implementations of this specification will raise errors in the event of a
+  [[MULTICODEC]] value other than `0xed01` being used in a
+  `publicKeyMultibase` value.
+            </p>
+  
+            <pre class="example" title="An Ed25519 public key encoded as an
+              Ed25519VerificationKey2020">
+  {
+    "id": "https://example.com/issuer/123#key-0",
+    "type": "Ed25519VerificationKey2020",
+    "controller": "https://example.com/issuer/123",
+    "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
+  }
+            </pre>
+  
+            <pre class="example" title="An Ed25519 public key encoded as an
+              Ed25519VerificationKey2020 in a controller document.">
+  {
+    "@context": [
+      "https://www.w3.org/ns/did/v1",
+      "https://w3id.org/security/suites/ed25519-2020/v1"
+    ],
+    "id": "did:example:123",
+    "verificationMethod": [{
+      "id": "did:example:123#key-0",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:example:123",
+      "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
+    }],
+    "authentication": [
+      "did:example:123#key-0"
+    ],
+    "assertionMethod": [
+      "did:example:123#key-0"
+    ],
+    "capabilityDelegation": [
+      "did:example:123#key-0"
+    ],
+    "capabilityInvocation": [
+      "did:example:123#key-0"
+    ]
+  }
+            </pre>
+          </section>
+  
+        </section>
+        <section>
+          <h3>Proof representations</h3>
+          <section>
+            <h4>Ed25519Signature2020</h4>
+  
+            <p>
+  The `verificationMethod` property of the proof MUST be a URL.
+  Dereferencing the `verificationMethod` MUST result in an object
+  containing a `type` property with the value set to
+  `Ed25519VerificationKey2020`.
+            </p>
+  
+            <p>
+  The `type` property of the proof MUST be `Ed25519Signature2020`.
+            </p>
+            <p>
+  The `created` property of the proof MUST be an [[XMLSCHEMA11-2]]
+  formatted date string.
+            </p>
+            <p>
+  The `proofPurpose` property of the proof MUST be a string, and MUST
+  match the verification relationship expressed by the verification method
+  `controller`.
+            </p>
+            <p>
+  The `proofValue` property of the proof MUST be a detached EdDSA
+  produced according to [[RFC8032]], encoded according to [[MULTIBASE]] using
+  the base58-btc base encoding.
+            </p>
+  
+            <pre class="example highlight" style="overflow-x:
+              auto; white-space: pre-wrap; word-wrap: break-word;"
+              title="An Ed25519 digital signature expressed as a
+              Ed25519Signature2020">
+  {
+    "@context": [
+      {"title": "https://schema.org/title"},
+      "https://w3id.org/security/data-integrity/v1"
+    ],
+    "title": "Hello world!",
+    "proof": {
+      "type": "Ed25519Signature2020",
+      "created": "2020-11-05T19:23:24Z",
+      "verificationMethod": "https://di.example/issuer#z6MkjLrk3gKS2nnkeWcmcxi
+        ZPGskmesDpuwRBorgHxUXfxnG",
+      "proofPurpose": "assertionMethod",
+      "proofValue": "z4oey5q2M3XKaxup3tmzN4DRFTLVqpLMweBrSxMY2xHX5XTYVQeVbY8nQA
+        VHMrXFkXJpmEcqdoDwLWxaqA3Q1geV6"
+    }
+  }
+            </pre>
+  
+          </section>
+  
+        </section>
+      </section>
+
+      <section>
+        <h3>Algorithms</h3>
+        <section>
+          <h3>Ed25519Signature2020</h3>
+  
+          <p>
+  The `Ed25519Signature2020` cryptographic suite takes an input document,
+  canonicalizes the document using the Universal RDF Dataset Canonicalization
+  Algorithm [[RDF-CANON]], and then cryptographically hashes and signs the output
+  resulting in the production of a data integrity proof. The algorithms in this
+  section also include the verification of such a data integrity proof.
+          </p>
+  
+          <section>
+            <h4>Add Proof (Ed25519Signature2020)</h4>
+  
+            <p>
+  To generate a proof, the algorithm in
+  <a data-cite="vc-data-integrity#add-proof">
+  Section 4.1: Add Proof</a> in the Data Integrity
+  [[VC-DATA-INTEGRITY]] specification MUST be executed.
+  For that algorithm, the cryptographic suite specific
+  <a data-cite="vc-data-integrity#dfn-transformation-algorithm">
+  transformation algorithm</a> is defined in Section
+  <a href="#transformation-ed25519signature2020"></a>, the
+  <a data-cite="vc-data-integrity#dfn-hashing-algorithm">
+  hashing algorithm</a> is defined in Section <a href="hashing-ed25519signature2020"></a>,
+  and the
+  <a data-cite="vc-data-integrity#dfn-proof-serialization-algorithm">
+  proof serialization algorithm</a> is defined in Section
+  <a href="#proof-serialization-ed25519signature2020"></a>.
+            </p>
+          </section>
+  
+          <section>
+            <h4>Verify Proof (Ed25519Signature2020)</h4>
+  
+            <p>
+  To verify a proof, the algorithm in
+  <a data-cite="vc-data-integrity#verify-proof">
+  Section 4.2: Verify Proof</a> in the Data Integrity
+  [[VC-DATA-INTEGRITY]] specification MUST be executed.
+  For that algorithm, the cryptographic suite specific
+  <a data-cite="vc-data-integrity#dfn-transformation-algorithm">
+  transformation algorithm</a> is defined in Section
+  <a href="#transformation-ed25519signature2020"></a>, the
+  <a data-cite="vc-data-integrity#dfn-hashing-algorithm">
+  hashing algorithm</a> is defined in Section <a href="#hashing-ed25519signature2020"></a>,
+  and the
+  <a data-cite="vc-data-integrity#dfn-proof-serialization-algorithm">
+  proof verification algorithm</a> is defined in Section
+  <a href="#proof-verification-ed25519signature2020"></a>.
+            </p>
+          </section>
+  
+          <section>
+            <h4>Transformation (Ed25519Signature2020)</h4>
+  
+            <p>
+  The following algorithm specifies how to transform an unsecured input document
+  into a transformed document that is ready to be provided as input to the
+  hashing algorithm in Section <a href="#hashing-ed25519signature2020"></a>.
+            </p>
+  
+            <p>
+  Required inputs to this algorithm are an
+  <a data-cite="vc-data-integrity#dfn-unsecured-data-document">
+  unsecured data document</a> (<var>unsecuredDocument</var>) and
+  transformation options (<var>options</var>). The
+  transformation options MUST contain a type identifier for the
+  <a data-cite="vc-data-integrity#dfn-cryptosuite">
+  cryptographic suite</a> (<var>type</var>) and a cryptosuite
+  identifier (<var>cryptosuite</var>). A <em>transformed data document</em> is
+  produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
+  encoding.
+            </p>
+  
+            <ol class="algorithm">
+              <li>
+  If <var>options</var>.<var>type</var> is not set to the string
+  `Ed25519Signature2020`, then a `PROOF_TRANSFORMATION_ERROR` MUST be raised.
+              </li>
+              <li>
+  Let <var>canonicalDocument</var> be the result of applying the
+  Universal RDF Dataset Canonicalization Algorithm
+  [[RDF-CANON]] to the <var>unsecuredDocument</var>.
+              </li>
+              <li>
+  Set <var>output</var> to the value of <var>canonicalDocument</var>.
+              </li>
+              <li>
+  Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
+              </li>
+            </ol>
+  
+          </section>
+  
+          <section>
+            <h4>Hashing (Ed25519Signature2020)</h4>
+  
+            <p>
+  The following algorithm specifies how to cryptographically hash a
+  <em>transformed data document</em> and <em>proof configuration</em>
+  into cryptographic hash data that is ready to be provided as input to the
+  algorithms in Section <a href="#proof-serialization-ed25519signature2020"></a> or
+  Section <a href="#proof-verification-ed25519signature2020"></a>.
+            </p>
+  
+            <p>
+  The required inputs to this algorithm are a
+  <em>transformed data document</em> (<var>transformedDocument</var>) and
+  <em>proof configuration</em> (<var>proofConfig</var>). The
+  <em>proof configuration</em> MUST contain a type identifier for the
+  <a data-cite="vc-data-integrity#dfn-cryptosuite">
+  cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+  identifier (<var>cryptosuite</var>). A single <em>hash data</em> value
+  represented as series of bytes is produced as output.
+            </p>
+  
+            <ol class="algorithm">
+              <li>
+  Let <var>transformedDocumentHash</var> be the result of applying the
+  SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
+  to the <var>transformedDocument</var>. <var>transformedDocumentHash</var> will
+  be exactly 32 bytes in size.
+              </li>
+              <li>
+  Let <var>proofConfigHash</var> be the result of applying the
+  SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
+  to the <var>proofConfig</var>. <var>proofConfigHash</var> will be
+  exactly 32 bytes in size.
+              </li>
+  
+              <li>
+  Let <var>hashData</var> be the result of joining <var>proofConfigHash</var> (the
+  first hash) with <var>transformedDocumentHash</var> (the second hash).
+              </li>
+              <li>
+  Return <var>hashData</var> as the <em>hash data</em>.
+              </li>
+            </ol>
+  
+          </section>
+  
+          <section>
+            <h4>Proof Configuration (Ed25519Signature2020)</h4>
+  
+            <p>
+  The following algorithm specifies how to generate a
+  <em>proof configuration</em> from a set of <em>proof options</em>
+  that is used as input to the <a href="#hashing-ed25519signature2020">proof hashing algorithm</a>.
+            </p>
+  
+            <p>
+  The required inputs to this algorithm are <em>proof options</em>
+  (<var>options</var>). The <em>proof options</em> MUST contain a type identifier
+  for the
+  <a data-cite="vc-data-integrity#dfn-cryptosuite">
+  cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+  identifier (<var>cryptosuite</var>). A <em>proof configuration</em>
+  object is produced as output.
+            </p>
+  
+            <ol class="algorithm">
+              <li>
+  Let <var>proofConfig</var> be an empty object.
+              </li>
+              <li>
+  Set <var>proofConfig</var>.<var>type</var> to
+  <var>options</var>.<var>type</var>.
+              </li>
+              <li>
+  If <var>options</var>.<var>cryptosuite</var> is set, set
+  <var>proofConfig</var>.<var>cryptosuite</var> to its value.
+              </li>
+              <li>
+  If <var>options</var>.<var>type</var> is not set to `Ed25519Signature2020`, an
+  `INVALID_PROOF_CONFIGURATION` error MUST be raised.
+              </li>
+              <li>
+  Set <var>proofConfig</var>.<var>created</var> to
+  <var>options</var>.<var>created</var>. If the value is not a valid
+  [[XMLSCHEMA11-2]] datetime, an `INVALID_PROOF_DATETIME` error MUST be raised.
+              </li>
+              <li>
+  Set <var>proofConfig</var>.<var>verificationMethod</var> to
+  <var>options</var>.<var>verificationMethod</var>.
+              </li>
+              <li>
+  Set <var>proofConfig</var>.<var>proofPurpose</var> to
+  <var>options</var>.<var>proofPurpose</var>.
+              </li>
+              <li>
+  Return <var>proofConfig</var>.
+              </li>
+            </ol>
+  
+          </section>
+  
+          <section>
+            <h4>Proof Serialization (Ed25519Signature2020)</h4>
+  
+            <p>
+  The following algorithm specifies how to serialize a digital signature from
+  a set of cryptographic hash data. This
+  algorithm is designed to be used in conjunction with the algorithms defined
+  in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+  <a data-cite="vc-data-integrity#algorithms">
+  Section 4: Algorithms</a>. Required inputs are
+  cryptographic hash data (<var>hashData</var>) and
+  <em>proof options</em> (<var>options</var>). The
+  <em>proof options</em> MUST contain a type identifier for the
+  <a data-cite="vc-data-integrity#dfn-cryptosuite">
+  cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+  identifier (<var>cryptosuite</var>). A single <em>digital proof</em> value
+  represented as series of bytes is produced as output.
+            </p>
+  
+            <ol class="algorithm">
+              <li>
+  Let <var>privateKeyBytes</var> be the result of retrieving the
+  private key bytes associated with the
+  <var>options</var>.<var>verificationMethod</var> value as described in the
+  Data Integrity [[VC-DATA-INTEGRITY]] specification,
+  <a data-cite="vc-data-integrity#algorithms">
+  Section 4: Retrieving Cryptographic Material</a>.
+              </li>
+              <li>
+  Let <var>proofBytes</var> be the result of applying the Edwards-Curve Digital
+  Signature Algorithm (EdDSA) [[RFC8032]], using the `Ed25519` variant
+  (Pure EdDSA), with <var>hashData</var> as the data to be signed using
+  the private key specified by <var>privateKeyBytes</var>.
+  <var>proofBytes</var> will be exactly 64 bytes in size.
+              </li>
+              <li>
+  Return <var>proofBytes</var> as the <em>digital proof</em>.
+              </li>
+            </ol>
+  
+          </section>
+  
+          <section>
+            <h4>Proof Verification (Ed25519Signature2020)</h4>
+  
+            <p>
+  The following algorithm specifies how to verify a digital signature from
+  a set of cryptographic hash data. This
+  algorithm is designed to be used in conjunction with the algorithms defined
+  in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+  <a data-cite="vc-data-integrity#algorithms">
+  Section 4: Algorithms</a>. Required inputs are
+  cryptographic hash data (<var>hashData</var>),
+  a digital signature (<var>proofBytes</var>) and
+  proof options (<var>options</var>). A <em>verification result</em>
+  represented as a boolean value is produced as output.
+            </p>
+  
+            <ol class="algorithm">
+              <li>
+  Let <var>publicKeyBytes</var> be the result of retrieving the
+  public key bytes associated with the
+  <var>options</var>.<var>verificationMethod</var> value as described in the
+  Data Integrity [[VC-DATA-INTEGRITY]] specification,
+  <a data-cite="vc-data-integrity#algorithms">
+  Section 4: Retrieving Cryptographic Material</a>.
+              </li>
+              <li>
+  Let <var>verificationResult</var> be the result of applying the verification
+  algorithm for the Edwards-Curve Digital Signature Algorithm (EdDSA)
+  [[RFC8032]], using the `Ed25519` variant (Pure EdDSA),
+  with <var>hashData</var> as the data to be verified against the
+  <var>proofBytes</var> using the public key specified by
+  <var>publicKeyBytes</var>.
+              </li>
+              <li>
+  Return <var>verificationResult</var> as the <em>verification result</em>.
+              </li>
+            </ol>
+  
+          </section>
+        </section>
+      </section>
+    </section>
+
+
+    <section class="appendix informative">
       <h2>Test Vectors</h2>
       <section>
         <h3>Representation: Ed25519Signature2020</h3>
