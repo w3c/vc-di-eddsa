@@ -1016,7 +1016,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
               <li>
   Let <var>proofConfigHash</var> be the result of applying the
   SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-  to the <var>proofConfig</var>. <var>proofConfigHash</var> will be
+  to the <var>canonicalProofConfig</var>. <var>proofConfigHash</var> will be
   exactly 32 bytes in size.
               </li>
   
@@ -1080,8 +1080,17 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   <var>options</var>.<var>proofPurpose</var>.
               </li>
               <li>
-  Return <var>proofConfig</var>.
+  Set <var>proofConfig</var>.<var>@context</var> to
+  <var>unsecuredDocument</var>.<var>@context</var>
               </li>
+              <li>
+  Let <var>canonicalProofConfig</var> be the result of applying the
+  Universal RDF Dataset Canonicalization Algorithm
+  [[RDF-CANON]] to the <var>proofConfig</var>.
+              </li>
+              <li>
+  Return <var>canonicalProofConfig</var>.
+              </li>  
             </ol>
   
           </section>
