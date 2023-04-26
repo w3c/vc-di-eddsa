@@ -688,14 +688,18 @@ JSON Canonicalization Scheme [[RFC8785]] to the <var>unsecuredDocument</var>.
           </ol>
 
           <p>
-In Section <a href="#proof-configuration-eddsa-2022"></a>, step
-<strong>4)</strong> is replaced by the following text:
+In Section <a href="#proof-configuration-eddsa-2022"></a>, step <strong>8)</strong> is not performed, step
+<strong>4)</strong> and step <strong>9)</strong> are replaced by the following text:
           </p>
 
           <p style="padding-left: 2em;">
 <strong>4)</strong> If <var>options</var>.<var>type</var> is not set to
 `DataIntegrityProof` and <var>proofConfig</var>.<var>cryptosuite</var> is not
-set to `json-eddsa-2020`, an `INVALID_PROOF_CONFIGURATION` error MUST be raised.
+set to `jcs-eddsa-2020`, an `INVALID_PROOF_CONFIGURATION` error MUST be raised.
+          </p>
+          <p style="padding-left: 2em;">
+<strong>9)</strong> Let <var>canonicalProofConfig</var> be the result of applying the
+JSON Canonicalization Scheme [[RFC8785]] to the <var>proofConfig</var>.
           </p>
       </section>
 
