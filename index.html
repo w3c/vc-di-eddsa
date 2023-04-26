@@ -1185,6 +1185,152 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
     <section class="appendix informative">
       <h2>Test Vectors</h2>
       <section>
+        <h3>Representation: eddsa-2022</h3>
+        <p>
+The signer needs to generate a private/public key pair with the private key used
+for signing and the public key made available for verification. The
+[[MULTIBASE]]/[[MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
+and the representation for the private key, <code>ed25519-priv</code>, are shown below.
+        </p>
+        <pre class="example" title="Private and Public keys for Signature">
+{
+    publicKeyMultibase: "z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+    privateKeyMultibase: "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq"
+}
+        </pre>
+
+        <p>
+Signing begins with a credential without an attached proof, which is converted
+to canonical form, and then hashed, as shown in the following three examples.
+        </p>
+
+        <pre class="example" title="Credential without Proof" data-include="TestVectors/unsigned.json" 
+        data-include-format="text"></pre>
+
+        <pre class="example" title="Canonical Credential without Proof" data-include="TestVectors/eddsa-2022/canonDocDataInt.txt"
+        data-include-format="text"></pre>
+
+
+      <pre class="example" title="Hash of Canonical Credential without Proof (hex)"
+      data-include="TestVectors/eddsa-2022/docHashDataInt.txt" data-include-format="text"></pre>
+
+        <p>
+The next step is to take the proof options document, convert it to canonical form,
+and obtain its hash, as shown in the next three examples.
+        </p>
+
+      <pre class="example" title="Proof Options Document" 
+      data-include="TestVectors/eddsa-2022/proofConfigDataInt.json" data-include-format="text"></pre>
+
+      <pre class="example" title="Canonical Proof Options Document"
+      data-include="TestVectors/eddsa-2022/proofCanonDataInt.txt" data-include-format="text"></pre>
+
+      <pre class="example" title="Hash of Canonical Proof Options Document (hex)"
+      data-include="TestVectors/eddsa-2022/proofHashDataInt.txt" data-include-format="text"></pre>
+
+        <p>
+Finally, we combine the two hashes, use the private key with the combined hash to
+compute the Ed25519 signature, and then base58-btc encode the signature.
+        </p>
+
+      <pre class="example" title="Combine hashes of Proof Options and Credential (hex)"
+      data-include="TestVectors/eddsa-2022/combinedHashDataInt.txt" data-include-format="text"></pre>
+
+      <pre class="example" title="Signature of Combined Hashes (hex)"
+      data-include="TestVectors/eddsa-2022/sigHexDataInt.txt" data-include-format="text"></pre>
+
+      <pre class="example" title="Signature of Combined Hashes base58-btc"
+      data-include="TestVectors/eddsa-2022/sigBTC58DataInt.txt" data-include-format="text"></pre>
+
+        <p>Assemble the signed credential with the following two steps:</p>
+        <ol>
+          <li>
+Add the <code>proofValue</code> field with the previously computed base58-btc
+value to the proof options document.
+          </li>
+          <li>
+Set the <code>proof</code> field of the credential to the augmented proof
+option document.
+          </li>
+        </ol>
+
+      <pre class="example" title="Signed Credential"
+      data-include="TestVectors/eddsa-2022/signedDataInt.json" data-include-format="text"></pre>
+    </section>
+    <section>
+      <h3>Representation: jcs-eddsa-2022</h3>
+      <p>
+The signer needs to generate a private/public key pair with the private key used
+for signing and the public key made available for verification. The
+[[MULTIBASE]]/[[MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
+and the representation for the private key, <code>ed25519-priv</code>, are shown below.
+      </p>
+      <pre class="example" title="Private and Public keys for Signature">
+{
+  publicKeyMultibase: "z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+  privateKeyMultibase: "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq"
+}
+      </pre>
+
+      <p>
+Signing begins with a credential without an attached proof, which is converted
+to canonical form, and then hashed, as shown in the following three examples.
+      </p>
+
+      <pre class="example" title="Credential without Proof" data-include="TestVectors/unsigned.json" 
+      data-include-format="text"></pre>
+
+      <pre class="example" title="Canonical Credential without Proof" data-include="TestVectors/json-eddsa-2022/canonDocJCS.txt"
+      data-include-format="text"></pre>
+
+
+    <pre class="example" title="Hash of Canonical Credential without Proof (hex)"
+    data-include="TestVectors/json-eddsa-2022/docHashJCS.txt" data-include-format="text"></pre>
+
+      <p>
+The next step is to take the proof options document, convert it to canonical form,
+and obtain its hash, as shown in the next three examples.
+      </p>
+
+    <pre class="example" title="Proof Options Document" 
+    data-include="TestVectors/json-eddsa-2022/proofConfigJCS.json" data-include-format="text"></pre>
+
+    <pre class="example" title="Canonical Proof Options Document"
+    data-include="TestVectors/json-eddsa-2022/proofCanonJCS.txt" data-include-format="text"></pre>
+
+    <pre class="example" title="Hash of Canonical Proof Options Document (hex)"
+    data-include="TestVectors/json-eddsa-2022/proofHashJCS.txt" data-include-format="text"></pre>
+
+      <p>
+Finally, we combine the two hashes, use the private key with the combined hash to
+compute the Ed25519 signature, and then base58-btc encode the signature.
+      </p>
+
+    <pre class="example" title="Combine hashes of Proof Options and Credential (hex)"
+    data-include="TestVectors/json-eddsa-2022/combinedHashJCS.txt" data-include-format="text"></pre>
+
+    <pre class="example" title="Signature of Combined Hashes (hex)"
+    data-include="TestVectors/json-eddsa-2022/sigHexJCS.txt" data-include-format="text"></pre>
+
+    <pre class="example" title="Signature of Combined Hashes base58-btc"
+    data-include="TestVectors/json-eddsa-2022/sigBTC58JCS.txt" data-include-format="text"></pre>
+
+      <p>Assemble the signed credential with the following two steps:</p>
+      <ol>
+        <li>
+Add the <code>proofValue</code> field with the previously computed base58-btc
+value to the proof options document.
+        </li>
+        <li>
+Set the <code>proof</code> field of the credential to the augmented proof
+option document.
+        </li>
+      </ol>
+
+    <pre class="example" title="Signed Credential"
+    data-include="TestVectors/json-eddsa-2022/signedJCS.json" data-include-format="text"></pre>
+  </section>    
+      <section>
         <h3>Representation: Ed25519Signature2020</h3>
         <p>
 The signer needs to generate a private/public key pair with the private key used
@@ -1257,6 +1403,7 @@ option document.
       <pre class="example" title="Signed Credential"
       data-include="TestVectors/Ed25519Signature2020/signedEdSig.json" data-include-format="text"></pre>
     </section>
+
     </section>
 
   </body>
