@@ -1228,7 +1228,7 @@ and obtain its hash, as shown in the next three examples.
         data-include="TestVectors/eddsa-2022/proofHashDataInt.txt" data-include-format="text"></pre>
 
         <p>
-Finally, we combine the two hashes, use the private key with the combined hash to
+Finally, we concatenate the hash of the proof options followed by the hash of the credential without proof, use the private key with the combined hash to
 compute the Ed25519 signature, and then base58-btc encode the signature.
         </p>
 
@@ -1301,7 +1301,7 @@ and obtain its hash, as shown in the next three examples.
         data-include="TestVectors/jcs-eddsa-2022/proofHashJCS.txt" data-include-format="text"></pre>
 
         <p>
-Finally, we combine the two hashes, use the private key with the combined hash to
+Finally, we concatenate the hash of the proof options followed by the hash of the credential without proof, use the private key with the combined hash to
 compute the Ed25519 signature, and then base58-btc encode the signature.
         </p>
 
@@ -1374,7 +1374,7 @@ and obtain its hash, as shown in the next three examples.
         data-include="TestVectors/Ed25519Signature2020/proofHashEdSig.txt" data-include-format="text"></pre>
 
         <p>
-Finally, we combine the two hashes, use the private key with the combined hash to
+Finally, we concatenate the hash of the proof options followed by the hash of the credential without proof, use the private key with the combined hash to
 compute the Ed25519 signature, and then base58-btc encode the signature.
         </p>
 
