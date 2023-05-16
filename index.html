@@ -1279,12 +1279,12 @@ to canonical form, and then hashed, as shown in the following three examples.
         <pre class="example" title="Credential without Proof" data-include="TestVectors/unsigned.json" 
         data-include-format="text"></pre>
 
-        <pre class="example" title="Canonical Credential without Proof" data-include="TestVectors/json-eddsa-2022/canonDocJCS.txt"
+        <pre class="example" title="Canonical Credential without Proof" data-include="TestVectors/jcs-eddsa-2022/canonDocJCS.txt"
         data-include-format="text"></pre>
 
 
         <pre class="example" title="Hash of Canonical Credential without Proof (hex)"
-        data-include="TestVectors/json-eddsa-2022/docHashJCS.txt" data-include-format="text"></pre>
+        data-include="TestVectors/jcs-eddsa-2022/docHashJCS.txt" data-include-format="text"></pre>
 
         <p>
 The next step is to take the proof options document, convert it to canonical form,
@@ -1292,13 +1292,13 @@ and obtain its hash, as shown in the next three examples.
         </p>
 
         <pre class="example" title="Proof Options Document" 
-        data-include="TestVectors/json-eddsa-2022/proofConfigJCS.json" data-include-format="text"></pre>
+        data-include="TestVectors/jcs-eddsa-2022/proofConfigJCS.json" data-include-format="text"></pre>
 
         <pre class="example" title="Canonical Proof Options Document"
-        data-include="TestVectors/json-eddsa-2022/proofCanonJCS.txt" data-include-format="text"></pre>
+        data-include="TestVectors/jcs-eddsa-2022/proofCanonJCS.txt" data-include-format="text"></pre>
 
         <pre class="example" title="Hash of Canonical Proof Options Document (hex)"
-        data-include="TestVectors/json-eddsa-2022/proofHashJCS.txt" data-include-format="text"></pre>
+        data-include="TestVectors/jcs-eddsa-2022/proofHashJCS.txt" data-include-format="text"></pre>
 
         <p>
 Finally, we combine the two hashes, use the private key with the combined hash to
@@ -1306,13 +1306,13 @@ compute the Ed25519 signature, and then base58-btc encode the signature.
         </p>
 
         <pre class="example" title="Combine hashes of Proof Options and Credential (hex)"
-        data-include="TestVectors/json-eddsa-2022/combinedHashJCS.txt" data-include-format="text"></pre>
+        data-include="TestVectors/jcs-eddsa-2022/combinedHashJCS.txt" data-include-format="text"></pre>
 
         <pre class="example" title="Signature of Combined Hashes (hex)"
-        data-include="TestVectors/json-eddsa-2022/sigHexJCS.txt" data-include-format="text"></pre>
+        data-include="TestVectors/jcs-eddsa-2022/sigHexJCS.txt" data-include-format="text"></pre>
 
         <pre class="example" title="Signature of Combined Hashes base58-btc"
-        data-include="TestVectors/json-eddsa-2022/sigBTC58JCS.txt" data-include-format="text"></pre>
+        data-include="TestVectors/jcs-eddsa-2022/sigBTC58JCS.txt" data-include-format="text"></pre>
 
         <p>Assemble the signed credential with the following two steps:</p>
         <ol>
@@ -1327,7 +1327,7 @@ option document.
         </ol>
 
         <pre class="example" title="Signed Credential"
-        data-include="TestVectors/json-eddsa-2022/signedJCS.json" data-include-format="text"></pre>
+        data-include="TestVectors/jcs-eddsa-2022/signedJCS.json" data-include-format="text"></pre>
       </section>    
       <section>
         <h3>Representation: Ed25519Signature2020</h3>

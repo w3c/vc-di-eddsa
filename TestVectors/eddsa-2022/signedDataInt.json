@@ -9,7 +9,7 @@
     "AlumniCredential"
   ],
   "name": "Alumni Credential",
-  "description": "An minimum viable example of an Alumni Credential.",
+  "description": "A minimum viable example of an Alumni Credential.",
   "issuer": "https://vc.example/issuers/5678",
   "validFrom": "2023-01-01T00:00:00Z",
   "credentialSubject": {
@@ -22,6 +22,6 @@
     "created": "2023-02-24T23:36:38Z",
     "verificationMethod": "https://vc.example/issuers/5678#z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     "proofPurpose": "assertionMethod",
-    "proofValue": "zytcLynZ8bVqCNnfw9zrGQonkmMgwRVsNiQs5WFUnUxpQsUzjT1tG27Tz9A7x8M4rGgA3nzqdQi3xjvAVhet1vFP"
+    "proofValue": "zyeY9JgpLbUxobcHXWAtNVZ6DPtgqyvoogXL9qf9r9iiY4sF8X215kYWYSxKi2YdH1h3jN3kM1F6vBiY8kGgJQA6"
   }
 }
