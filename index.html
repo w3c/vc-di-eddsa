@@ -214,56 +214,42 @@ JSON-LD.
 
       <p>
 The following sections outline the data model that is used by this specification
-for verification methods and signature formats.
+to express verification methods, such as cryptographic public keys, and
+data integrity proofs, such as digital signatures.
       </p>
 
       <section>
         <h3>Verification Methods</h3>
-        <p>
-The cryptographic material used to verify a linked data proof is called the
-verification method. This suite relies on public key material represented using
-[[MULTIBASE]] and [[MULTICODEC]]. This suite supports public key use for both
-digital signature generation and verification, according to [[RFC8032]].
-        </p>
 
         <p>
-This suite MAY be used to verify Data Integrity Proofs [[VC-DATA-INTEGRITY]]
-produced by Ed25519 public key material encoded as either a
-<a href="#ed25519verificationkey2020">Ed25519VerificationKey2020</a> or
-<a href="#multikey">Multikey</a>. Loss-less key transformation processes that
-result in equivalent cryptographic material MAY be utilized.
+This cryptographic suite is used to verify Data Integrity Proofs
+[[VC-DATA-INTEGRITY]] produced using Edwards Curve cryptographic key material.
+The encoding formats for those key types are provided in this section. Lossless
+cryptographic key transformation processes that result in equivalent
+cryptographic key material MAY be utilized during the processing of digital
+signatures.
         </p>
 
         <section>
           <h4>Multikey</h4>
 
-          <p class="issue">
-This definition should go in the Data Integrity specification and referenced
-from there.
+          <p>
+The <a data-cite="VC-DATA-INTEGRITY#multikey">Multikey format</a>, as defined in
+[[VC-DATA-INTEGRITY]], is used to express public keys for the cryptographic
+suites defined in this specification.
           </p>
 
           <p>
-The `type` of the verification method MUST be `Multikey`.
-          </p>
-
-          <p>
-The `controller` of the verification method MUST be a URL.
-          </p>
-
-          <p>
-The `publicKeyMultibase` property of the verification method MUST be
-a public key encoded according to [[MULTICODEC]] and formatted according to
-[[MULTIBASE]]. The multicodec encoding of an Ed25519 public key is the two-byte
-prefix `0xed01` followed by the 32-byte public key data. The 34 byte
-value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
-MUST NOT be allowed.
+The `publicKeyMultibase` property represents a Multibase-encoded Multikey
+expression of an Ed25519 public key. The value starts with the two-byte prefix
+`0xed01` followed by the 32-byte Ed25519 public key data. The combined 34 byte
+value is then encoded using base58-btc (`z`) as the prefix.
           </p>
 
           <p class="advisement">
 Developers are advised to not accidentally publish a representation of a private
 key. Implementations of this specification will raise errors in the event of a
-[[MULTICODEC]] value other than `0xed01` being used in a
-`publicKeyMultibase` value.
+value other than `0xed01` being used in a `publicKeyMultibase` value.
           </p>
 
           <pre class="example nohighlight"
@@ -305,7 +291,6 @@ key. Implementations of this specification will raise errors in the event of a
 }
           </pre>
         </section>
-
 
       </section>
 
