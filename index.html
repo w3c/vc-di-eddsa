@@ -111,6 +111,10 @@ code {
   color: rgb(199, 73, 0);
   font-weight: bold;
 }
+pre.nohighlight {
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
 pre .highlight {
   font-weight: bold;
   color: green;
@@ -261,7 +265,7 @@ key. Implementations of this specification will raise errors in the event of a
 `publicKeyMultibase` value.
           </p>
 
-          <pre class="example"
+          <pre class="example nohighlight"
             title="An Ed25519 public key encoded as a Multikey">
 {
   "id": "https://example.com/issuer/123#key-0",
@@ -271,7 +275,7 @@ key. Implementations of this specification will raise errors in the event of a
 }
           </pre>
 
-          <pre class="example" title="An Ed25519 public key encoded as a
+          <pre class="example nohighlight" title="An Ed25519 public key encoded as a
             Multikey in a controller document">
 {
   "@context": [
@@ -343,8 +347,7 @@ produced according to [[RFC8032]], encoded according to [[MULTIBASE]] using
 the base58-btc base encoding.
           </p>
 
-          <pre class="example highlight" style="overflow-x:
-            auto; white-space: pre-wrap; word-wrap: break-word;"
+          <pre class="example nohighlight"
             title="An Ed25519 digital signature expressed as a
               DataIntegrityProof">
 {
@@ -1367,7 +1370,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   `publicKeyMultibase` value.
             </p>
 
-            <pre class="example" title="An Ed25519 public key encoded as an
+            <pre class="example nohighlight" title="An Ed25519 public key encoded as an
               Ed25519VerificationKey2020">
   {
     "id": "https://example.com/issuer/123#key-0",
@@ -1377,7 +1380,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   }
             </pre>
 
-            <pre class="example" title="An Ed25519 public key encoded as an
+            <pre class="example nohighlight" title="An Ed25519 public key encoded as an
               Ed25519VerificationKey2020 in a controller document.">
   {
     "@context": [
@@ -1438,8 +1441,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   the base58-btc base encoding.
             </p>
 
-            <pre class="example highlight" style="overflow-x:
-              auto; white-space: pre-wrap; word-wrap: break-word;"
+            <pre class="example nohighlight"
               title="An Ed25519 digital signature expressed as a
               Ed25519Signature2020">
   {
@@ -1451,11 +1453,9 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
     "proof": {
       "type": "Ed25519Signature2020",
       "created": "2020-11-05T19:23:24Z",
-      "verificationMethod": "https://di.example/issuer#z6MkjLrk3gKS2nnkeWcmcxi
-        ZPGskmesDpuwRBorgHxUXfxnG",
+      "verificationMethod": "https://di.example/issuer#z6MkjLrk3gKS2nnkeWcmcxiZPGskmesDpuwRBorgHxUXfxnG",
       "proofPurpose": "assertionMethod",
-      "proofValue": "z4oey5q2M3XKaxup3tmzN4DRFTLVqpLMweBrSxMY2xHX5XTYVQeVbY8nQA
-        VHMrXFkXJpmEcqdoDwLWxaqA3Q1geV6"
+      "proofValue": "z4oey5q2M3XKaxup3tmzN4DRFTLVqpLMweBrSxMY2xHX5XTYVQeVbY8nQAVHMrXFkXJpmEcqdoDwLWxaqA3Q1geV6"
     }
   }
             </pre>
@@ -1769,7 +1769,7 @@ for signing and the public key made available for verification. The
 [[MULTIBASE]]/[[MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
 and the representation for the private key, <code>ed25519-priv</code>, are shown below.
         </p>
-        <pre class="example" title="Private and Public keys for Signature">
+        <pre class="example nohighlight" title="Private and Public keys for Signature">
 {
     publicKeyMultibase: "z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     privateKeyMultibase: "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq"
@@ -1781,14 +1781,14 @@ Signing begins with a credential without an attached proof, which is converted
 to canonical form, and then hashed, as shown in the following three examples.
         </p>
 
-        <pre class="example" title="Credential without Proof" data-include="TestVectors/unsigned.json"
+        <pre class="example nohighlight" title="Credential without Proof" data-include="TestVectors/unsigned.json"
         data-include-format="text"></pre>
 
-        <pre class="example" title="Canonical Credential without Proof" data-include="TestVectors/eddsa-2022/canonDocDataInt.txt"
+        <pre class="example nohighlight" title="Canonical Credential without Proof" data-include="TestVectors/eddsa-2022/canonDocDataInt.txt"
         data-include-format="text"></pre>
 
 
-        <pre class="example" title="Hash of Canonical Credential without Proof (hex)"
+        <pre class="example nohighlight" title="Hash of Canonical Credential without Proof (hex)"
         data-include="TestVectors/eddsa-2022/docHashDataInt.txt" data-include-format="text"></pre>
 
         <p>
@@ -1796,13 +1796,13 @@ The next step is to take the proof options document, convert it to canonical for
 and obtain its hash, as shown in the next three examples.
         </p>
 
-        <pre class="example" title="Proof Options Document"
+        <pre class="example nohighlight" title="Proof Options Document"
         data-include="TestVectors/eddsa-2022/proofConfigDataInt.json" data-include-format="text"></pre>
 
-        <pre class="example" title="Canonical Proof Options Document"
+        <pre class="example nohighlight" title="Canonical Proof Options Document"
         data-include="TestVectors/eddsa-2022/proofCanonDataInt.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Hash of Canonical Proof Options Document (hex)"
+        <pre class="example nohighlight" title="Hash of Canonical Proof Options Document (hex)"
         data-include="TestVectors/eddsa-2022/proofHashDataInt.txt" data-include-format="text"></pre>
 
         <p>
@@ -1810,13 +1810,13 @@ Finally, we concatenate the hash of the proof options followed by the hash of th
 compute the Ed25519 signature, and then base58-btc encode the signature.
         </p>
 
-        <pre class="example" title="Combine hashes of Proof Options and Credential (hex)"
+        <pre class="example nohighlight" title="Combine hashes of Proof Options and Credential (hex)"
         data-include="TestVectors/eddsa-2022/combinedHashDataInt.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Signature of Combined Hashes (hex)"
+        <pre class="example nohighlight" title="Signature of Combined Hashes (hex)"
         data-include="TestVectors/eddsa-2022/sigHexDataInt.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Signature of Combined Hashes base58-btc"
+        <pre class="example nohighlight" title="Signature of Combined Hashes base58-btc"
         data-include="TestVectors/eddsa-2022/sigBTC58DataInt.txt" data-include-format="text"></pre>
 
         <p>Assemble the signed credential with the following two steps:</p>
@@ -1831,7 +1831,7 @@ option document.
           </li>
         </ol>
 
-        <pre class="example" title="Signed Credential"
+        <pre class="example nohighlight" title="Signed Credential"
         data-include="TestVectors/eddsa-2022/signedDataInt.json" data-include-format="text"></pre>
       </section>
       <section>
@@ -1842,7 +1842,7 @@ for signing and the public key made available for verification. The
 [[MULTIBASE]]/[[MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
 and the representation for the private key, <code>ed25519-priv</code>, are shown below.
         </p>
-        <pre class="example" title="Private and Public keys for Signature">
+        <pre class="example nohighlight" title="Private and Public keys for Signature">
 {
   publicKeyMultibase: "z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
   privateKeyMultibase: "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq"
@@ -1854,14 +1854,14 @@ Signing begins with a credential without an attached proof, which is converted
 to canonical form, and then hashed, as shown in the following three examples.
         </p>
 
-        <pre class="example" title="Credential without Proof" data-include="TestVectors/unsigned.json"
+        <pre class="example nohighlight" title="Credential without Proof" data-include="TestVectors/unsigned.json"
         data-include-format="text"></pre>
 
-        <pre class="example" title="Canonical Credential without Proof" data-include="TestVectors/jcs-eddsa-2022/canonDocJCS.txt"
+        <pre class="example nohighlight" title="Canonical Credential without Proof" data-include="TestVectors/jcs-eddsa-2022/canonDocJCS.txt"
         data-include-format="text"></pre>
 
 
-        <pre class="example" title="Hash of Canonical Credential without Proof (hex)"
+        <pre class="example nohighlight" title="Hash of Canonical Credential without Proof (hex)"
         data-include="TestVectors/jcs-eddsa-2022/docHashJCS.txt" data-include-format="text"></pre>
 
         <p>
@@ -1869,13 +1869,13 @@ The next step is to take the proof options document, convert it to canonical for
 and obtain its hash, as shown in the next three examples.
         </p>
 
-        <pre class="example" title="Proof Options Document"
+        <pre class="example nohighlight" title="Proof Options Document"
         data-include="TestVectors/jcs-eddsa-2022/proofConfigJCS.json" data-include-format="text"></pre>
 
-        <pre class="example" title="Canonical Proof Options Document"
+        <pre class="example nohighlight" title="Canonical Proof Options Document"
         data-include="TestVectors/jcs-eddsa-2022/proofCanonJCS.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Hash of Canonical Proof Options Document (hex)"
+        <pre class="example nohighlight" title="Hash of Canonical Proof Options Document (hex)"
         data-include="TestVectors/jcs-eddsa-2022/proofHashJCS.txt" data-include-format="text"></pre>
 
         <p>
@@ -1883,13 +1883,13 @@ Finally, we concatenate the hash of the proof options followed by the hash of th
 compute the Ed25519 signature, and then base58-btc encode the signature.
         </p>
 
-        <pre class="example" title="Combine hashes of Proof Options and Credential (hex)"
+        <pre class="example nohighlight" title="Combine hashes of Proof Options and Credential (hex)"
         data-include="TestVectors/jcs-eddsa-2022/combinedHashJCS.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Signature of Combined Hashes (hex)"
+        <pre class="example nohighlight" title="Signature of Combined Hashes (hex)"
         data-include="TestVectors/jcs-eddsa-2022/sigHexJCS.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Signature of Combined Hashes base58-btc"
+        <pre class="example nohighlight" title="Signature of Combined Hashes base58-btc"
         data-include="TestVectors/jcs-eddsa-2022/sigBTC58JCS.txt" data-include-format="text"></pre>
 
         <p>Assemble the signed credential with the following two steps:</p>
@@ -1904,7 +1904,7 @@ option document.
           </li>
         </ol>
 
-        <pre class="example" title="Signed Credential"
+        <pre class="example nohighlight" title="Signed Credential"
         data-include="TestVectors/jcs-eddsa-2022/signedJCS.json" data-include-format="text"></pre>
       </section>
       <section>
@@ -1915,7 +1915,7 @@ for signing and the public key made available for verification. The
 [[MULTIBASE]]/[[MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
 and the representation for the private key, <code>ed25519-priv</code>, are shown below.
         </p>
-        <pre class="example" title="Private and Public keys for Signature">
+        <pre class="example nohighlight" title="Private and Public keys for Signature">
 {
     publicKeyMultibase: "z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     privateKeyMultibase: "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq"
@@ -1927,14 +1927,14 @@ Signing begins with a credential without an attached proof, which is converted
 to canonical form, and then hashed, as shown in the following three examples.
         </p>
 
-        <pre class="example" title="Credential without Proof" data-include="TestVectors/unsigned.json"
+        <pre class="example nohighlight" title="Credential without Proof" data-include="TestVectors/unsigned.json"
         data-include-format="text"></pre>
 
-        <pre class="example" title="Canonical Credential without Proof" data-include="TestVectors/Ed25519Signature2020/canonDocEdSig.txt"
+        <pre class="example nohighlight" title="Canonical Credential without Proof" data-include="TestVectors/Ed25519Signature2020/canonDocEdSig.txt"
         data-include-format="text"></pre>
 
 
-        <pre class="example" title="Hash of Canonical Credential without Proof (hex)"
+        <pre class="example nohighlight" title="Hash of Canonical Credential without Proof (hex)"
         data-include="TestVectors/Ed25519Signature2020/docHashEdSig.txt" data-include-format="text"></pre>
 
         <p>
@@ -1942,13 +1942,13 @@ The next step is to take the proof options document, convert it to canonical for
 and obtain its hash, as shown in the next three examples.
         </p>
 
-        <pre class="example" title="Proof Options Document"
+        <pre class="example nohighlight" title="Proof Options Document"
         data-include="TestVectors/Ed25519Signature2020/proofConfigEdSig.json" data-include-format="text"></pre>
 
-        <pre class="example" title="Canonical Proof Options Document"
+        <pre class="example nohighlight" title="Canonical Proof Options Document"
         data-include="TestVectors/Ed25519Signature2020/proofCanonEdSig.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Hash of Canonical Proof Options Document (hex)"
+        <pre class="example nohighlight" title="Hash of Canonical Proof Options Document (hex)"
         data-include="TestVectors/Ed25519Signature2020/proofHashEdSig.txt" data-include-format="text"></pre>
 
         <p>
@@ -1956,13 +1956,13 @@ Finally, we concatenate the hash of the proof options followed by the hash of th
 compute the Ed25519 signature, and then base58-btc encode the signature.
         </p>
 
-        <pre class="example" title="Combine hashes of Proof Options and Credential (hex)"
+        <pre class="example nohighlight" title="Combine hashes of Proof Options and Credential (hex)"
         data-include="TestVectors/Ed25519Signature2020/combinedHashEdSig.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Signature of Combined Hashes (hex)"
+        <pre class="example nohighlight" title="Signature of Combined Hashes (hex)"
         data-include="TestVectors/Ed25519Signature2020/sigHexEdSig.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Signature of Combined Hashes base58-btc"
+        <pre class="example nohighlight" title="Signature of Combined Hashes base58-btc"
         data-include="TestVectors/Ed25519Signature2020/sigBTC58EdSig.txt" data-include-format="text"></pre>
 
         <p>Assemble the signed credential with the following two steps:</p>
@@ -1977,7 +1977,7 @@ option document.
             </li>
           </ol>
 
-        <pre class="example" title="Signed Credential"
+        <pre class="example nohighlight" title="Signed Credential"
         data-include="TestVectors/Ed25519Signature2020/signedEdSig.json" data-include-format="text"></pre>
       </section>
     </section>
