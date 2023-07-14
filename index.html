@@ -242,7 +242,7 @@ This cryptographic suite is used to verify Data Integrity Proofs
 [[VC-DATA-INTEGRITY]] produced using Edwards Curve cryptographic key material.
 The encoding formats for those key types are provided in this section. Lossless
 cryptographic key transformation processes that result in equivalent
-cryptographic key material MAY be utilized during the processing of digital
+cryptographic key material MAY be used for the processing of digital
 signatures.
         </p>
 
@@ -250,7 +250,7 @@ signatures.
           <h4>Multikey</h4>
 
           <p>
-The <a data-cite="VC-DATA-INTEGRITY#multikey">Multikey format</a>, as defined in
+The <a data-cite="VC-DATA-INTEGRITY#multikey">Multikey format</a>, defined in
 [[VC-DATA-INTEGRITY]], is used to express public keys for the cryptographic
 suites defined in this specification.
           </p>
@@ -258,7 +258,7 @@ suites defined in this specification.
           <p>
 The `publicKeyMultibase` property represents a Multibase-encoded Multikey
 expression of an Ed25519 public key. The value starts with the two-byte prefix
-`0xed01` followed by the 32-byte Ed25519 public key data. The combined 34 byte
+`0xed01`, followed by the 32-byte Ed25519 public key data. The combined 34-byte
 value is then encoded using base58-btc (`z`) as the prefix.
           </p>
 
