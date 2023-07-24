@@ -401,6 +401,12 @@ resulting in the production of a data integrity proof. The algorithms in this
 section also include the verification of such a data integrity proof.
         </p>
 
+        <p class="advisement">
+When the RDF Dataset Canonicalization Algorithm [[RDF-CANON]] is utilized,
+implementations MUST detect <a data-cite="RDF-CANON#dataset-poisoning">
+dataset poisoning</a> by default and abort processing.
+        </p>
+
         <section>
           <h4>Add Proof (eddsa-2022)</h4>
 
