@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>EdDSA Cryptosuite v2022</title>
+    <title>Data Integrity EdDSA Cryptosuites v1.0</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <!--
       === NOTA BENE ===
@@ -13,15 +13,16 @@
 
     <script type="text/javascript" class="remove">
       var respecConfig = {
+        subtitle: "Achieving Data Integrity using EdDSA with Edwards curves",
         // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
-        specStatus: "FPWD",
+        specStatus: "WD",
 
         // the specification's short name, as in http://www.w3.org/TR/short-name/
         shortName: "vc-di-eddsa",
         group: "vc",
 
         // if you wish the publication date to be other than today, set this
-        publishDate:  "2023-04-18",
+        //publishDate:  "2023-04-18",
 
         // if there is a previously published draft, uncomment this and set its YYYY-MM-DD date
         // and its maturity status
@@ -53,6 +54,12 @@
           company: "MIT Digital Credentials Consortium",
           companyURL: "https://digitalcredentials.mit.edu/",
           w3cid: 86708
+        }, {
+          name: "Greg Bernstein", url: "https://www.grotto-networking.com/",
+          company: "Invited Expert", w3cid: 140479
+        }, {
+          name: "Sebastian Crane", url: "https://github.com/seabass-labrax",
+          company: "Invited Expert", w3cid: 140132
         }],
 
         authors: [{
@@ -101,36 +108,75 @@
             date: "2020",
             href: "https://eprint.iacr.org/2020/823"
           }
+          Taming_EdDSAs: {
+            title: "Taming the many EdDSAs",
+            href: "https://eprint.iacr.org/2020/1244",
+            authors: ["Konstantinos Chalkias", "François Garillot", "Valeria Nikolaenko"],
+            date: "2020",
+            publisher: "Cryptology ePrint Archive, Paper 2020/1244",
+            doi: "10.1007/978-3-030-64357-7_4"
+          },
+          Provable_Ed25519: {
+            authors: ["Jacqueline Brendel", "Cas Cremers", "Dennis Jackson", "Mang Zhao"],
+            title: "The Provable Security of Ed25519: Theory and Practice",
+            publisher: "Cryptology ePrint Archive, Paper 2020/823",
+            date: "2020",
+            href: "https://eprint.iacr.org/2020/823"
+          }
         },
         lint: {"no-unused-dfns": false},
-        postProcess: [restrictRefs]
+        postProcess: [restrictRefs],
+        otherLinks: [{
+          key: "Related Specifications",
+          data: [{
+            value: "The Verifiable Credentials Data Model v2.0",
+            href: "https://www.w3.org/TR/vc-data-model-2.0/"
+          }, {
+            value: "Verifiable Credential Data Integrity v1.0",
+            href: "https://www.w3.org/TR/vc-data-integrity/"
+          }, {
+            value: "The Elliptic Curve Digital Signature Algorithm Cryptosuites v1.0",
+            href: "https://www.w3.org/TR/vc-di-ecdsa/"
+          }, {
+            value: "The BBS Digital Signature Algorithm Cryptosuites v1.0",
+            href: "https://www.w3.org/TR/vc-di-bbs/"
+          }]
+        }]
       };
     </script>
     <style>
-      pre .highlight {
-        font-weight: bold;
-        color: green;
-      }
-      pre .comment {
-        font-weight: bold;
-        color: Gray;
-      }
-      .color-text {
-        font-weight: bold;
-        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-      }
-      ol.algorithm {
-        counter-reset: numsection;
-        list-style-type: none;
-      }
-      ol.algorithm li {
-        margin: 0.5em 0;
-      }
-      ol.algorithm li:before {
-        font-weight: bold;
-        counter-increment: numsection;
-        content: counters(numsection, ".") ") ";
-      }
+code {
+  color: rgb(199, 73, 0);
+  font-weight: bold;
+}
+pre.nohighlight {
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+pre .highlight {
+  font-weight: bold;
+  color: green;
+}
+pre .comment {
+  font-weight: bold;
+  color: Gray;
+}
+.color-text {
+  font-weight: bold;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+ol.algorithm {
+  counter-reset: numsection;
+  list-style-type: none;
+}
+ol.algorithm li {
+  margin: 0.5em 0;
+}
+ol.algorithm li:before {
+  font-weight: bold;
+  counter-increment: numsection;
+  content: counters(numsection, ".") ") ";
+}
     </style>
   </head>
   <body>
@@ -205,59 +251,45 @@ JSON-LD.
 
       <p>
 The following sections outline the data model that is used by this specification
-for verification methods and signature formats.
+to express verification methods, such as cryptographic public keys, and
+data integrity proofs, such as digital signatures.
       </p>
 
       <section>
         <h3>Verification Methods</h3>
-        <p>
-The cryptographic material used to verify a linked data proof is called the
-verification method. This suite relies on public key material represented using
-[[MULTIBASE]] and [[MULTICODEC]]. This suite supports public key use for both
-digital signature generation and verification, according to [[RFC8032]].
-        </p>
 
         <p>
-This suite MAY be used to verify Data Integrity Proofs [[VC-DATA-INTEGRITY]]
-produced by Ed25519 public key material encoded as either a
-<a href="#ed25519verificationkey2020">Ed25519VerificationKey2020</a> or
-<a href="#multikey">Multikey</a>. Loss-less key transformation processes that
-result in equivalent cryptographic material MAY be utilized.
+This cryptographic suite is used to verify Data Integrity Proofs
+[[VC-DATA-INTEGRITY]] produced using Edwards Curve cryptographic key material.
+The encoding formats for those key types are provided in this section. Lossless
+cryptographic key transformation processes that result in equivalent
+cryptographic key material MAY be used for the processing of digital
+signatures.
         </p>
 
         <section>
           <h4>Multikey</h4>
 
-          <p class="issue">
-This definition should go in the Data Integrity specification and referenced
-from there.
+          <p>
+The <a data-cite="VC-DATA-INTEGRITY#multikey">Multikey format</a>, defined in
+[[VC-DATA-INTEGRITY]], is used to express public keys for the cryptographic
+suites defined in this specification.
           </p>
 
           <p>
-The `type` of the verification method MUST be `Multikey`.
-          </p>
-
-          <p>
-The `controller` of the verification method MUST be a URL.
-          </p>
-
-          <p>
-The `publicKeyMultibase` property of the verification method MUST be
-a public key encoded according to [[MULTICODEC]] and formatted according to
-[[MULTIBASE]]. The multicodec encoding of an Ed25519 public key is the two-byte
-prefix `0xed01` followed by the 32-byte public key data. The 34 byte
-value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
-MUST NOT be allowed.
+The `publicKeyMultibase` property represents a Multibase-encoded Multikey
+expression of an Ed25519 public key. The value starts with the two-byte prefix
+`0xed01`, followed by the 32-byte Ed25519 public key data. The combined 34-byte
+value is then encoded using base58-btc (`z`) as the prefix.
           </p>
 
           <p class="advisement">
 Developers are advised to not accidentally publish a representation of a private
-key. Implementations of this specification will raise errors in the event of a
-[[MULTICODEC]] value other than `0xed01` being used in a
-`publicKeyMultibase` value.
+key. Implementations of this specification will raise errors if they encounter a
+prefix value other than `0xed01` in a `publicKeyMultibase` value.
           </p>
 
-          <pre class="example"
+          <pre class="example nohighlight"
             title="An Ed25519 public key encoded as a Multikey">
 {
   "id": "https://example.com/issuer/123#key-0",
@@ -267,7 +299,7 @@ key. Implementations of this specification will raise errors in the event of a
 }
           </pre>
 
-          <pre class="example" title="An Ed25519 public key encoded as a
+          <pre class="example nohighlight" title="An Ed25519 public key encoded as a
             Multikey in a controller document">
 {
   "@context": [
@@ -296,7 +328,6 @@ key. Implementations of this specification will raise errors in the event of a
 }
           </pre>
         </section>
-
 
       </section>
 
@@ -339,8 +370,7 @@ produced according to [[RFC8032]], encoded according to [[MULTIBASE]] using
 the base58-btc base encoding.
           </p>
 
-          <pre class="example highlight" style="overflow-x:
-            auto; white-space: pre-wrap; word-wrap: break-word;"
+          <pre class="example nohighlight"
             title="An Ed25519 digital signature expressed as a
               DataIntegrityProof">
 {
@@ -732,27 +762,27 @@ mitigate the attacks.
 
       <section class="informative">
         <h3>Security Properties of Ed25519 Implementations</h3>
-        <p>There has 
-been wide adoption of Ed25519 signatures (EdDSA algorithm with edwards25519 
-curve) due to the compact size of the keys and signatures, and the speed at 
+        <p>Ed25519 signatures (EdDSA algorithm with edwards25519 curve) have
+        been widely adopted, due both to the compact size of the keys and
+        signatures and to the speed at
 which signatures can be produced and verified. Many libraries exist that can
-create and verify Ed25519 signatures. Since the publication of [[RFC8032]] 
-security properties of Ed25519 signatures have been rigorously proven 
-[[Provable_Ed25519]] and [[Taming_EdDSAs]]. However it was observed that a 
-significant number of libraries do not achieve these security properties due to 
-missing input validity checks during the signature verification process. In 
-this section we summarize the security properties achievable with Ed25519 
-signatures and indicate how one can determine if a library will support those 
-properties.
+create and verify Ed25519 signatures. Since the publication of [[RFC8032]],
+security properties of Ed25519 signatures have been rigorously proven (see
+[[Provable_Ed25519]] and [[Taming_EdDSAs]]). However, it has been observed that a
+significant number of libraries do not achieve these security levels, due to
+missing input validity checks during the signature verification process. In
+this section, we summarize the security levels achievable with Ed25519
+signatures, and indicate how one can determine whether a library will support those
+levels.
         </p>
         <section>
           <h4>Signature Security Properties</h4>
           <p>Digital signatures may exhibit a number of desirable cryptographic
 properties [[Taming_EdDSAs]] among these are:
           </p>
-          <p><strong>EUF-CMA</strong> (<em>existential unforgeability under 
-chosen message attacks</em>) is usually the minimal security property required 
-of a signature scheme. It guarantees that any efficient adversary who has the 
+          <p><strong>EUF-CMA</strong> (<em>existential unforgeability under
+chosen message attacks</em>) is usually the minimal security property required
+of a signature scheme. It guarantees that any efficient adversary who has the
 public key
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
@@ -768,7 +798,7 @@ public key
     </mrow>
   </mstyle>
 </math> of the signer and received an arbitrary number of signatures on
-messages of its choice (in an adaptive manner): 
+messages of its choice (in an adaptive manner):
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -799,8 +829,8 @@ messages of its choice (in an adaptive manner):
       </mtable>
     </mrow>
   </mstyle>
-</math>, 
-cannot output a valid signature 
+</math>,
+cannot output a valid signature
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -848,8 +878,8 @@ for a new message
       </mtable>
     </mrow>
   </mstyle>
-</math> 
-(except with negligible probability). In case the attacker outputs a valid 
+</math>
+(except with negligible probability). In case the attacker outputs a valid
 signature on a new message:
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
@@ -874,12 +904,12 @@ signature on a new message:
     </mrow>
   </mstyle>
 </math>,
-it is called an <em>existential 
+it is called an <em>existential
 forgery</em>.
           </p>
-          <p><strong>SUF-CMA</strong> (<em>strong unforgeability under chosen 
+          <p><strong>SUF-CMA</strong> (<em>strong unforgeability under chosen
 message attacks</em>) is a stronger notion than <em>EUF-CMA</em>. It guarantees
-that for any efficient adversary who has the public key 
+that for any efficient adversary who has the public key
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -894,8 +924,8 @@ that for any efficient adversary who has the public key
     </mrow>
   </mstyle>
 </math>
-of the signer and 
-received an arbitrary number of signatures on messages of its choice: 
+of the signer and
+received an arbitrary number of signatures on messages of its choice:
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -926,8 +956,8 @@ received an arbitrary number of signatures on messages of its choice:
       </mtable>
     </mrow>
   </mstyle>
-</math>, 
-it cannot output a new valid signature pair 
+</math>,
+it cannot output a new valid signature pair
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -950,8 +980,8 @@ it cannot output a new valid signature pair
       </mtable>
     </mrow>
   </mstyle>
-</math>, 
-such that 
+</math>,
+such that
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -997,11 +1027,11 @@ such that
 </math>
 (except with negligible probability). Strong unforgeability implies that an
 adversary cannot only sign new messages, but also cannot find a new signature
-on an old message. See [[Provable_Ed25519]] for a real world attack that would 
+on an old message. See [[Provable_Ed25519]] for a real world attack that would
 have been circumvented with SUF-CMA security over EUF-CMA security.
           </p>
-          <p><strong>Binding signature</strong> (BS) We say that a signature 
-scheme is <em>binding</em> if no efficient signer can output a tuple 
+          <p><strong>Binding signature</strong> (BS) We say that a signature
+scheme is <em>binding</em> if no efficient signer can output a tuple
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -1026,8 +1056,8 @@ scheme is <em>binding</em> if no efficient signer can output a tuple
       </mtable>
     </mrow>
   </mstyle>
-</math>, 
-where both 
+</math>,
+where both
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -1045,7 +1075,7 @@ where both
     </mrow>
   </mstyle>
 </math>
-and 
+and
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -1081,7 +1111,7 @@ are valid message signature pairs under the public key
     </mrow>
   </mstyle>
 </math>
-and 
+and
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -1101,13 +1131,13 @@ and
   </mstyle>
 </math>
 (except with negligible probability). A binding signature makes it impossible
-for the signer to claim later that it has signed a different message, the 
+for the signer to claim later that it has signed a different message, the
 signature <em>binds</em> the signer to the message.
           </p>
-          <p><strong>Strongly Binding signature</strong> (SBS) Certain 
-applications may require a signature to not only be binding to the message but 
-also be binding to the public key. We say that a signature scheme is 
-strongly-binding if any efficient signer can not output a tuple 
+          <p><strong>Strongly Binding signature</strong> (SBS) Certain
+applications may require a signature to not only be binding to the message but
+also be binding to the public key. We say that a signature scheme is
+strongly-binding if any efficient signer can not output a tuple
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -1138,8 +1168,8 @@ strongly-binding if any efficient signer can not output a tuple
       </mtable>
     </mrow>
   </mstyle>
-</math>, 
-where 
+</math>,
+where
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -1157,7 +1187,7 @@ where
     </mrow>
   </mstyle>
 </math>
-is a valid signature for the public key 
+is a valid signature for the public key
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -1171,8 +1201,8 @@ is a valid signature for the public key
       </mtable>
     </mrow>
   </mstyle>
-</math> 
-and 
+</math>
+and
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -1192,8 +1222,8 @@ and
       </mtable>
     </mrow>
   </mstyle>
-</math> 
-is a valid signature for the public key 
+</math>
+is a valid signature for the public key
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -1210,8 +1240,8 @@ is a valid signature for the public key
       </mtable>
     </mrow>
   </mstyle>
-</math> 
-and either 
+</math>
+and either
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -1229,8 +1259,8 @@ and either
       </mtable>
     </mrow>
   </mstyle>
-</math> 
-or 
+</math>
+or
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mstyle displaystyle="true" scriptlevel="0">
     <mrow data-mjx-texclass="ORD">
@@ -1250,7 +1280,7 @@ or
       </mtable>
     </mrow>
   </mstyle>
-</math>, 
+</math>,
 or both (except with negligible probability). See [[Provable_Ed25519]] for real
 world attacks that would have been circumvented with the SBS property.
           </p>
@@ -1260,26 +1290,26 @@ world attacks that would have been circumvented with the SBS property.
         </section>
         <section>
           <h4>Achieving Ed25519 Security Properties</h4>
-          <p>As pointed on in [[Taming_EdDSAs]] flaws in Ed25519 libraries 
-primarily occur on the signature verification side where sometimes edge cases 
-are not properly checked. An Ed25519 signature library that is in conformance 
+          <p>As pointed on in [[Taming_EdDSAs]] flaws in Ed25519 libraries
+primarily occur on the signature verification side where sometimes edge cases
+are not properly checked. An Ed25519 signature library that is in conformance
 with [[RFC8032]] or [[FIPS-186-5]], i.e., one that performs <strong>all
-</strong> specified validation checks, will have the <strong>SUF-CMA</strong> 
+</strong> specified validation checks, will have the <strong>SUF-CMA</strong>
 property in addition to <strong>EUF-CMA</strong>.
           </p>
-          <p>Reference [[Taming_EdDSAs]] achieves the <strong>BS</strong> and 
-<strong>SBS</strong> properties along with <strong>SUF-CMA</strong> in their 
-&quot;signature verification algorithm 2&quot; where an additional check is 
-performed against the public key <em>A</em> to make sure that it is not one of 
+          <p>Reference [[Taming_EdDSAs]] achieves the <strong>BS</strong> and
+<strong>SBS</strong> properties along with <strong>SUF-CMA</strong> in their
+&quot;signature verification algorithm 2&quot; where an additional check is
+performed against the public key <em>A</em> to make sure that it is not one of
 eight &quot;small order points&quot;. These additional checks incur minimal processing overhead.
           </p>
-          <p>Reference [[Taming_EdDSAs]] included a set of twelve test vectors 
-to test various Ed25519 libraries available at the time of publication. They 
-found that a significant portion missed edge cases and hence did not achieve 
-<strong>SUF-CMA</strong> (just EUF-CMA) and only two libraries out of sixteen 
-achieved all the security properties. Since the time of publication more 
+          <p>Reference [[Taming_EdDSAs]] included a set of twelve test vectors
+to test various Ed25519 libraries available at the time of publication. They
+found that a significant portion missed edge cases and hence did not achieve
+<strong>SUF-CMA</strong> (just EUF-CMA) and only two libraries out of sixteen
+achieved all the security properties. Since the time of publication more
 Ed25519 libraries have been created and some of the libraries have been updated
-to include all verification checks. Implementers are recommended to test the 
+to include all verification checks. Implementers are recommended to test the
 Ed25519 library they are using against the test vectors of [[Taming_EdDSAs]].
           </p>
         </section>
@@ -1306,7 +1336,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
 
       <p>
         `Ed25519Signature2020` is an earlier version of a cryptographic suite
-        for the usage of the EdDSA algorithm and Curve25519. While it has 
+        for the usage of the EdDSA algorithm and Curve25519. While it has
         been used in production systems, new implementations should use <a href="#eddsa-2022">`edssa-2022`</a>
         instead. It has been kept in this specification to provide a stable reference.
       </p>
@@ -1317,22 +1347,22 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
           <h3>Verification Methods</h3>
           <section>
             <h4>Ed25519VerificationKey2020</h4>
-  
+
             <p class="issue">
   We need to add documentation to note that this key format is deployed and
   widely used in production, but is deprecated. `Multikey` and `JsonWebKey2020`
   supersede it.
             </p>
-  
+
             <p>
   The `type` of the verification method MUST be
   <a href="#ed25519verificationkey2020">Ed25519VerificationKey2020</a>.
             </p>
-  
+
             <p>
   The `controller` of the verification method MUST be a URL.
             </p>
-  
+
             <p>
   The `publicKeyMultibase` property of the verification method MUST be
   a public key encoded according to [[MULTICODEC]] and formatted according to
@@ -1341,15 +1371,15 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
   MUST NOT be allowed.
             </p>
-  
+
             <p class="advisement">
   Developers are advised to not accidentally publish a representation of a private
   key. Implementations of this specification will raise errors in the event of a
   [[MULTICODEC]] value other than `0xed01` being used in a
   `publicKeyMultibase` value.
             </p>
-  
-            <pre class="example" title="An Ed25519 public key encoded as an
+
+            <pre class="example nohighlight" title="An Ed25519 public key encoded as an
               Ed25519VerificationKey2020">
   {
     "id": "https://example.com/issuer/123#key-0",
@@ -1358,8 +1388,8 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
     "publicKeyMultibase": "z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP"
   }
             </pre>
-  
-            <pre class="example" title="An Ed25519 public key encoded as an
+
+            <pre class="example nohighlight" title="An Ed25519 public key encoded as an
               Ed25519VerificationKey2020 in a controller document.">
   {
     "@context": [
@@ -1388,20 +1418,20 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   }
             </pre>
           </section>
-  
+
         </section>
         <section>
           <h3>Proof representations</h3>
           <section>
             <h4>Ed25519Signature2020</h4>
-  
+
             <p>
   The `verificationMethod` property of the proof MUST be a URL.
   Dereferencing the `verificationMethod` MUST result in an object
   containing a `type` property with the value set to
   `Ed25519VerificationKey2020`.
             </p>
-  
+
             <p>
   The `type` property of the proof MUST be `Ed25519Signature2020`.
             </p>
@@ -1419,9 +1449,8 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   produced according to [[RFC8032]], encoded according to [[MULTIBASE]] using
   the base58-btc base encoding.
             </p>
-  
-            <pre class="example highlight" style="overflow-x:
-              auto; white-space: pre-wrap; word-wrap: break-word;"
+
+            <pre class="example nohighlight"
               title="An Ed25519 digital signature expressed as a
               Ed25519Signature2020">
   {
@@ -1433,17 +1462,15 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
     "proof": {
       "type": "Ed25519Signature2020",
       "created": "2020-11-05T19:23:24Z",
-      "verificationMethod": "https://di.example/issuer#z6MkjLrk3gKS2nnkeWcmcxi
-        ZPGskmesDpuwRBorgHxUXfxnG",
+      "verificationMethod": "https://di.example/issuer#z6MkjLrk3gKS2nnkeWcmcxiZPGskmesDpuwRBorgHxUXfxnG",
       "proofPurpose": "assertionMethod",
-      "proofValue": "z4oey5q2M3XKaxup3tmzN4DRFTLVqpLMweBrSxMY2xHX5XTYVQeVbY8nQA
-        VHMrXFkXJpmEcqdoDwLWxaqA3Q1geV6"
+      "proofValue": "z4oey5q2M3XKaxup3tmzN4DRFTLVqpLMweBrSxMY2xHX5XTYVQeVbY8nQAVHMrXFkXJpmEcqdoDwLWxaqA3Q1geV6"
     }
   }
             </pre>
-  
+
           </section>
-  
+
         </section>
       </section>
 
@@ -1451,7 +1478,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
         <h3>Algorithms</h3>
         <section>
           <h3>Ed25519Signature2020</h3>
-  
+
           <p>
   The `Ed25519Signature2020` cryptographic suite takes an input document,
   canonicalizes the document using the Universal RDF Dataset Canonicalization
@@ -1459,10 +1486,10 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   resulting in the production of a data integrity proof. The algorithms in this
   section also include the verification of such a data integrity proof.
           </p>
-  
+
           <section>
             <h4>Add Proof (Ed25519Signature2020)</h4>
-  
+
             <p>
   To generate a proof, the algorithm in
   <a data-cite="vc-data-integrity#add-proof">
@@ -1480,10 +1507,10 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   <a href="#proof-serialization-ed25519signature2020"></a>.
             </p>
           </section>
-  
+
           <section>
             <h4>Verify Proof (Ed25519Signature2020)</h4>
-  
+
             <p>
   To verify a proof, the algorithm in
   <a data-cite="vc-data-integrity#verify-proof">
@@ -1501,16 +1528,16 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   <a href="#proof-verification-ed25519signature2020"></a>.
             </p>
           </section>
-  
+
           <section>
             <h4>Transformation (Ed25519Signature2020)</h4>
-  
+
             <p>
   The following algorithm specifies how to transform an unsecured input document
   into a transformed document that is ready to be provided as input to the
   hashing algorithm in Section <a href="#hashing-ed25519signature2020"></a>.
             </p>
-  
+
             <p>
   Required inputs to this algorithm are an
   <a data-cite="vc-data-integrity#dfn-unsecured-data-document">
@@ -1523,7 +1550,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
   encoding.
             </p>
-  
+
             <ol class="algorithm">
               <li>
   If <var>options</var>.<var>type</var> is not set to the string
@@ -1541,12 +1568,12 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
               </li>
             </ol>
-  
+
           </section>
-  
+
           <section>
             <h4>Hashing (Ed25519Signature2020)</h4>
-  
+
             <p>
   The following algorithm specifies how to cryptographically hash a
   <em>transformed data document</em> and <em>proof configuration</em>
@@ -1554,7 +1581,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   algorithms in Section <a href="#proof-serialization-ed25519signature2020"></a> or
   Section <a href="#proof-verification-ed25519signature2020"></a>.
             </p>
-  
+
             <p>
   The required inputs to this algorithm are a
   <em>transformed data document</em> (<var>transformedDocument</var>) and
@@ -1565,7 +1592,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   identifier (<var>cryptosuite</var>). A single <em>hash data</em> value
   represented as series of bytes is produced as output.
             </p>
-  
+
             <ol class="algorithm">
               <li>
   Let <var>transformedDocumentHash</var> be the result of applying the
@@ -1579,7 +1606,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   to the <var>canonicalProofConfig</var>. <var>proofConfigHash</var> will be
   exactly 32 bytes in size.
               </li>
-  
+
               <li>
   Let <var>hashData</var> be the result of joining <var>proofConfigHash</var> (the
   first hash) with <var>transformedDocumentHash</var> (the second hash).
@@ -1588,18 +1615,18 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   Return <var>hashData</var> as the <em>hash data</em>.
               </li>
             </ol>
-  
+
           </section>
-  
+
           <section>
             <h4>Proof Configuration (Ed25519Signature2020)</h4>
-  
+
             <p>
   The following algorithm specifies how to generate a
   <em>proof configuration</em> from a set of <em>proof options</em>
   that is used as input to the <a href="#hashing-ed25519signature2020">proof hashing algorithm</a>.
             </p>
-  
+
             <p>
   The required inputs to this algorithm are <em>proof options</em>
   (<var>options</var>). The <em>proof options</em> MUST contain a type identifier
@@ -1609,7 +1636,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   identifier (<var>cryptosuite</var>). A <em>proof configuration</em>
   object is produced as output.
             </p>
-  
+
             <ol class="algorithm">
               <li>
   Let <var>proofConfig</var> be an empty object.
@@ -1650,14 +1677,14 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
               </li>
               <li>
   Return <var>canonicalProofConfig</var>.
-              </li>  
+              </li>
             </ol>
-  
+
           </section>
-  
+
           <section>
             <h4>Proof Serialization (Ed25519Signature2020)</h4>
-  
+
             <p>
   The following algorithm specifies how to serialize a digital signature from
   a set of cryptographic hash data. This
@@ -1673,7 +1700,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   identifier (<var>cryptosuite</var>). A single <em>digital proof</em> value
   represented as series of bytes is produced as output.
             </p>
-  
+
             <ol class="algorithm">
               <li>
   Let <var>privateKeyBytes</var> be the result of retrieving the
@@ -1694,12 +1721,12 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   Return <var>proofBytes</var> as the <em>digital proof</em>.
               </li>
             </ol>
-  
+
           </section>
-  
+
           <section>
             <h4>Proof Verification (Ed25519Signature2020)</h4>
-  
+
             <p>
   The following algorithm specifies how to verify a digital signature from
   a set of cryptographic hash data. This
@@ -1712,7 +1739,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   proof options (<var>options</var>). A <em>verification result</em>
   represented as a boolean value is produced as output.
             </p>
-  
+
             <ol class="algorithm">
               <li>
   Let <var>publicKeyBytes</var> be the result of retrieving the
@@ -1734,7 +1761,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
   Return <var>verificationResult</var> as the <em>verification result</em>.
               </li>
             </ol>
-  
+
           </section>
         </section>
       </section>
@@ -1751,7 +1778,7 @@ for signing and the public key made available for verification. The
 [[MULTIBASE]]/[[MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
 and the representation for the private key, <code>ed25519-priv</code>, are shown below.
         </p>
-        <pre class="example" title="Private and Public keys for Signature">
+        <pre class="example nohighlight" title="Private and Public keys for Signature">
 {
     publicKeyMultibase: "z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     privateKeyMultibase: "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq"
@@ -1763,14 +1790,14 @@ Signing begins with a credential without an attached proof, which is converted
 to canonical form, and then hashed, as shown in the following three examples.
         </p>
 
-        <pre class="example" title="Credential without Proof" data-include="TestVectors/unsigned.json" 
+        <pre class="example nohighlight" title="Credential without Proof" data-include="TestVectors/unsigned.json"
         data-include-format="text"></pre>
 
-        <pre class="example" title="Canonical Credential without Proof" data-include="TestVectors/eddsa-2022/canonDocDataInt.txt"
+        <pre class="example nohighlight" title="Canonical Credential without Proof" data-include="TestVectors/eddsa-2022/canonDocDataInt.txt"
         data-include-format="text"></pre>
 
 
-        <pre class="example" title="Hash of Canonical Credential without Proof (hex)"
+        <pre class="example nohighlight" title="Hash of Canonical Credential without Proof (hex)"
         data-include="TestVectors/eddsa-2022/docHashDataInt.txt" data-include-format="text"></pre>
 
         <p>
@@ -1778,13 +1805,13 @@ The next step is to take the proof options document, convert it to canonical for
 and obtain its hash, as shown in the next three examples.
         </p>
 
-        <pre class="example" title="Proof Options Document" 
+        <pre class="example nohighlight" title="Proof Options Document"
         data-include="TestVectors/eddsa-2022/proofConfigDataInt.json" data-include-format="text"></pre>
 
-        <pre class="example" title="Canonical Proof Options Document"
+        <pre class="example nohighlight" title="Canonical Proof Options Document"
         data-include="TestVectors/eddsa-2022/proofCanonDataInt.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Hash of Canonical Proof Options Document (hex)"
+        <pre class="example nohighlight" title="Hash of Canonical Proof Options Document (hex)"
         data-include="TestVectors/eddsa-2022/proofHashDataInt.txt" data-include-format="text"></pre>
 
         <p>
@@ -1792,13 +1819,13 @@ Finally, we concatenate the hash of the proof options followed by the hash of th
 compute the Ed25519 signature, and then base58-btc encode the signature.
         </p>
 
-        <pre class="example" title="Combine hashes of Proof Options and Credential (hex)"
+        <pre class="example nohighlight" title="Combine hashes of Proof Options and Credential (hex)"
         data-include="TestVectors/eddsa-2022/combinedHashDataInt.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Signature of Combined Hashes (hex)"
+        <pre class="example nohighlight" title="Signature of Combined Hashes (hex)"
         data-include="TestVectors/eddsa-2022/sigHexDataInt.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Signature of Combined Hashes base58-btc"
+        <pre class="example nohighlight" title="Signature of Combined Hashes base58-btc"
         data-include="TestVectors/eddsa-2022/sigBTC58DataInt.txt" data-include-format="text"></pre>
 
         <p>Assemble the signed credential with the following two steps:</p>
@@ -1813,7 +1840,7 @@ option document.
           </li>
         </ol>
 
-        <pre class="example" title="Signed Credential"
+        <pre class="example nohighlight" title="Signed Credential"
         data-include="TestVectors/eddsa-2022/signedDataInt.json" data-include-format="text"></pre>
       </section>
       <section>
@@ -1824,7 +1851,7 @@ for signing and the public key made available for verification. The
 [[MULTIBASE]]/[[MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
 and the representation for the private key, <code>ed25519-priv</code>, are shown below.
         </p>
-        <pre class="example" title="Private and Public keys for Signature">
+        <pre class="example nohighlight" title="Private and Public keys for Signature">
 {
   publicKeyMultibase: "z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
   privateKeyMultibase: "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq"
@@ -1836,14 +1863,14 @@ Signing begins with a credential without an attached proof, which is converted
 to canonical form, and then hashed, as shown in the following three examples.
         </p>
 
-        <pre class="example" title="Credential without Proof" data-include="TestVectors/unsigned.json" 
+        <pre class="example nohighlight" title="Credential without Proof" data-include="TestVectors/unsigned.json"
         data-include-format="text"></pre>
 
-        <pre class="example" title="Canonical Credential without Proof" data-include="TestVectors/jcs-eddsa-2022/canonDocJCS.txt"
+        <pre class="example nohighlight" title="Canonical Credential without Proof" data-include="TestVectors/jcs-eddsa-2022/canonDocJCS.txt"
         data-include-format="text"></pre>
 
 
-        <pre class="example" title="Hash of Canonical Credential without Proof (hex)"
+        <pre class="example nohighlight" title="Hash of Canonical Credential without Proof (hex)"
         data-include="TestVectors/jcs-eddsa-2022/docHashJCS.txt" data-include-format="text"></pre>
 
         <p>
@@ -1851,13 +1878,13 @@ The next step is to take the proof options document, convert it to canonical for
 and obtain its hash, as shown in the next three examples.
         </p>
 
-        <pre class="example" title="Proof Options Document" 
+        <pre class="example nohighlight" title="Proof Options Document"
         data-include="TestVectors/jcs-eddsa-2022/proofConfigJCS.json" data-include-format="text"></pre>
 
-        <pre class="example" title="Canonical Proof Options Document"
+        <pre class="example nohighlight" title="Canonical Proof Options Document"
         data-include="TestVectors/jcs-eddsa-2022/proofCanonJCS.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Hash of Canonical Proof Options Document (hex)"
+        <pre class="example nohighlight" title="Hash of Canonical Proof Options Document (hex)"
         data-include="TestVectors/jcs-eddsa-2022/proofHashJCS.txt" data-include-format="text"></pre>
 
         <p>
@@ -1865,13 +1892,13 @@ Finally, we concatenate the hash of the proof options followed by the hash of th
 compute the Ed25519 signature, and then base58-btc encode the signature.
         </p>
 
-        <pre class="example" title="Combine hashes of Proof Options and Credential (hex)"
+        <pre class="example nohighlight" title="Combine hashes of Proof Options and Credential (hex)"
         data-include="TestVectors/jcs-eddsa-2022/combinedHashJCS.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Signature of Combined Hashes (hex)"
+        <pre class="example nohighlight" title="Signature of Combined Hashes (hex)"
         data-include="TestVectors/jcs-eddsa-2022/sigHexJCS.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Signature of Combined Hashes base58-btc"
+        <pre class="example nohighlight" title="Signature of Combined Hashes base58-btc"
         data-include="TestVectors/jcs-eddsa-2022/sigBTC58JCS.txt" data-include-format="text"></pre>
 
         <p>Assemble the signed credential with the following two steps:</p>
@@ -1886,9 +1913,9 @@ option document.
           </li>
         </ol>
 
-        <pre class="example" title="Signed Credential"
+        <pre class="example nohighlight" title="Signed Credential"
         data-include="TestVectors/jcs-eddsa-2022/signedJCS.json" data-include-format="text"></pre>
-      </section>    
+      </section>
       <section>
         <h3>Representation: Ed25519Signature2020</h3>
         <p>
@@ -1897,7 +1924,7 @@ for signing and the public key made available for verification. The
 [[MULTIBASE]]/[[MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
 and the representation for the private key, <code>ed25519-priv</code>, are shown below.
         </p>
-        <pre class="example" title="Private and Public keys for Signature">
+        <pre class="example nohighlight" title="Private and Public keys for Signature">
 {
     publicKeyMultibase: "z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     privateKeyMultibase: "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq"
@@ -1909,14 +1936,14 @@ Signing begins with a credential without an attached proof, which is converted
 to canonical form, and then hashed, as shown in the following three examples.
         </p>
 
-        <pre class="example" title="Credential without Proof" data-include="TestVectors/unsigned.json" 
+        <pre class="example nohighlight" title="Credential without Proof" data-include="TestVectors/unsigned.json"
         data-include-format="text"></pre>
 
-        <pre class="example" title="Canonical Credential without Proof" data-include="TestVectors/Ed25519Signature2020/canonDocEdSig.txt"
+        <pre class="example nohighlight" title="Canonical Credential without Proof" data-include="TestVectors/Ed25519Signature2020/canonDocEdSig.txt"
         data-include-format="text"></pre>
 
 
-        <pre class="example" title="Hash of Canonical Credential without Proof (hex)"
+        <pre class="example nohighlight" title="Hash of Canonical Credential without Proof (hex)"
         data-include="TestVectors/Ed25519Signature2020/docHashEdSig.txt" data-include-format="text"></pre>
 
         <p>
@@ -1924,13 +1951,13 @@ The next step is to take the proof options document, convert it to canonical for
 and obtain its hash, as shown in the next three examples.
         </p>
 
-        <pre class="example" title="Proof Options Document" 
+        <pre class="example nohighlight" title="Proof Options Document"
         data-include="TestVectors/Ed25519Signature2020/proofConfigEdSig.json" data-include-format="text"></pre>
 
-        <pre class="example" title="Canonical Proof Options Document"
+        <pre class="example nohighlight" title="Canonical Proof Options Document"
         data-include="TestVectors/Ed25519Signature2020/proofCanonEdSig.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Hash of Canonical Proof Options Document (hex)"
+        <pre class="example nohighlight" title="Hash of Canonical Proof Options Document (hex)"
         data-include="TestVectors/Ed25519Signature2020/proofHashEdSig.txt" data-include-format="text"></pre>
 
         <p>
@@ -1938,13 +1965,13 @@ Finally, we concatenate the hash of the proof options followed by the hash of th
 compute the Ed25519 signature, and then base58-btc encode the signature.
         </p>
 
-        <pre class="example" title="Combine hashes of Proof Options and Credential (hex)"
+        <pre class="example nohighlight" title="Combine hashes of Proof Options and Credential (hex)"
         data-include="TestVectors/Ed25519Signature2020/combinedHashEdSig.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Signature of Combined Hashes (hex)"
+        <pre class="example nohighlight" title="Signature of Combined Hashes (hex)"
         data-include="TestVectors/Ed25519Signature2020/sigHexEdSig.txt" data-include-format="text"></pre>
 
-        <pre class="example" title="Signature of Combined Hashes base58-btc"
+        <pre class="example nohighlight" title="Signature of Combined Hashes base58-btc"
         data-include="TestVectors/Ed25519Signature2020/sigBTC58EdSig.txt" data-include-format="text"></pre>
 
         <p>Assemble the signed credential with the following two steps:</p>
@@ -1959,7 +1986,7 @@ option document.
             </li>
           </ol>
 
-        <pre class="example" title="Signed Credential"
+        <pre class="example nohighlight" title="Signed Credential"
         data-include="TestVectors/Ed25519Signature2020/signedEdSig.json" data-include-format="text"></pre>
       </section>
     </section>
