@@ -322,7 +322,7 @@ containing a `type` property with the value set to
 The `type` property of the proof MUST be `DataIntegrityProof`.
           </p>
           <p>
-The `cryptosuite` property of the proof MUST be `eddsa-2022`.
+The `cryptosuite` property of the proof MUST be `eddsa-rdfc-2022` or `eddsa-jcs-2022`.
           </p>
           <p>
 The `created` property of the proof MUST be an [[XMLSCHEMA11-2]]
@@ -376,10 +376,10 @@ that utilize the twisted Edwards Curve Digital Signature Algorithm.
       </p>
 
       <section>
-        <h3>eddsa-2022</h3>
+        <h3>eddsa-rdfc-2022</h3>
 
         <p>
-The `eddsa-2022` cryptographic suite takes an input document, canonicalizes
+The `eddsa-rdfc-2022` cryptographic suite takes an input document, canonicalizes
 the document using the Universal RDF Dataset Canonicalization Algorithm
 [[RDF-CANON]], and then cryptographically hashes and signs the output
 resulting in the production of a data integrity proof. The algorithms in this
@@ -387,7 +387,7 @@ section also include the verification of such a data integrity proof.
         </p>
 
         <section>
-          <h4>Add Proof (eddsa-2022)</h4>
+          <h4>Add Proof (eddsa-rdfc-2022)</h4>
 
           <p>
 To generate a proof, the algorithm in
@@ -397,18 +397,18 @@ Section 4.1: Add Proof</a> in the Data Integrity
 For that algorithm, the cryptographic suite specific
 <a data-cite="vc-data-integrity#dfn-transformation-algorithm">
 transformation algorithm</a> is defined in Section
-<a href="#transformation-eddsa-2022"></a>, the
+<a href="#transformation-eddsa-rdfc-2022"></a>, the
 <a data-cite="vc-data-integrity#dfn-hashing-algorithm">
-hashing algorithm</a> is defined in Section <a href="#hashing-eddsa-2022"></a>,
+hashing algorithm</a> is defined in Section <a href="#hashing-eddsa-rdfc-2022"></a>,
 and the
 <a data-cite="vc-data-integrity#dfn-proof-serialization-algorithm">
 proof serialization algorithm</a> is defined in Section
-<a href="#proof-serialization-eddsa-2022"></a>.
+<a href="#proof-serialization-eddsa-rdfc-2022"></a>.
           </p>
         </section>
 
         <section>
-          <h4>Verify Proof (eddsa-2022)</h4>
+          <h4>Verify Proof (eddsa-rdfc-2022)</h4>
 
           <p>
 To verify a proof, the algorithm in
@@ -418,23 +418,23 @@ Section 4.2: Verify Proof</a> in the Data Integrity
 For that algorithm, the cryptographic suite specific
 <a data-cite="vc-data-integrity#dfn-transformation-algorithm">
 transformation algorithm</a> is defined in Section
-<a href="#transformation-eddsa-2022"></a>, the
+<a href="#transformation-eddsa-rdfc-2022"></a>, the
 <a data-cite="vc-data-integrity#dfn-hashing-algorithm">
-hashing algorithm</a> is defined in Section <a href="#hashing-eddsa-2022"></a>,
+hashing algorithm</a> is defined in Section <a href="#hashing-eddsa-rdfc-2022"></a>,
 and the
 <a data-cite="vc-data-integrity#dfn-proof-serialization-algorithm">
 proof verification algorithm</a> is defined in Section
-<a href="#proof-verification-eddsa-2022"></a>.
+<a href="#proof-verification-eddsa-rdfc-2022"></a>.
           </p>
         </section>
 
         <section>
-          <h4>Transformation (eddsa-2022)</h4>
+          <h4>Transformation (eddsa-rdfc-2022)</h4>
 
           <p>
 The following algorithm specifies how to transform an unsecured input document
 into a transformed document that is ready to be provided as input to the
-hashing algorithm in Section <a href="#hashing-eddsa-2022"></a>.
+hashing algorithm in Section <a href="#hashing-eddsa-rdfc-2022"></a>.
           </p>
 
           <p>
@@ -454,7 +454,7 @@ encoding.
             <li>
 If <var>options</var>.<var>type</var> is not set to the string
 `DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
-set to the string `eddsa-2022` then a `PROOF_TRANSFORMATION_ERROR` MUST be
+set to the string `eddsa-rdfc-2022` then a `PROOF_TRANSFORMATION_ERROR` MUST be
 raised.
             </li>
             <li>
@@ -469,14 +469,14 @@ Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
         </section>
 
         <section>
-          <h4>Hashing (eddsa-2022)</h4>
+          <h4>Hashing (eddsa-rdfc-2022)</h4>
 
           <p>
 The following algorithm specifies how to cryptographically hash a
 <em>transformed data document</em> and <em>proof configuration</em>
 into cryptographic hash data that is ready to be provided as input to the
-algorithms in Section <a href="#proof-serialization-eddsa-2022"></a> or
-Section <a href="#proof-verification-eddsa-2022"></a>.
+algorithms in Section <a href="#proof-serialization-eddsa-rdfc-2022"></a> or
+Section <a href="#proof-verification-eddsa-rdfc-2022"></a>.
           </p>
 
           <p>
@@ -511,12 +511,12 @@ Return <var>hashData</var> as the <em>hash data</em>.
         </section>
 
         <section>
-          <h4>Proof Configuration (eddsa-2022)</h4>
+          <h4>Proof Configuration (eddsa-rdfc-2022)</h4>
 
           <p>
 The following algorithm specifies how to generate a
 <em>proof configuration</em> from a set of <em>proof options</em>
-that is used as input to the <a href="#hashing-eddsa-2022">proof hashing algorithm</a>.
+that is used as input to the <a href="#hashing-eddsa-rdfc-2022">proof hashing algorithm</a>.
           </p>
 
           <p>
@@ -543,7 +543,7 @@ If <var>options</var>.<var>cryptosuite</var> is set, set
             </li>
             <li>
 If <var>options</var>.<var>type</var> is not set to `DataIntegrityProof` and
-<var>proofConfig</var>.<var>cryptosuite</var> is not set to `eddsa-2022`, an
+<var>proofConfig</var>.<var>cryptosuite</var> is not set to `eddsa-rdfc-2022`, an
 `INVALID_PROOF_CONFIGURATION` error MUST be raised.
             </li>
             <li>
@@ -576,7 +576,7 @@ Return <var>canonicalProofConfig</var>.
         </section>
 
         <section>
-          <h4>Proof Serialization (eddsa-2022)</h4>
+          <h4>Proof Serialization (eddsa-rdfc-2022)</h4>
 
           <p>
 The following algorithm specifies how to serialize a digital signature from
@@ -618,7 +618,7 @@ Return <var>proofBytes</var> as the <em>digital proof</em>.
         </section>
 
         <section>
-          <h4>Proof Verification (eddsa-2022)</h4>
+          <h4>Proof Verification (eddsa-rdfc-2022)</h4>
 
           <p>
 The following algorithm specifies how to verify a digital signature from
@@ -659,33 +659,19 @@ Return <var>verificationResult</var> as the <em>verification result</em>.
       </section>
 
       <section>
-        <h3>jcs-eddsa-2022</h3>
-
-          <p class="issue" title="Cryptosuite naming convention is disputed">
-The naming convention utilized by this cryptosuite is disputed. An alternative
-of `json-eddsa-2022` was originally suggested for this cryptography suite to
-convey that it is a cryptography suite for securing JSON data utilizing the
-Twisted Edwards Curve Digital Signature Algorithm. The counter-argument to
-the original proposal was that expressing the canonicalization mechanism in
-the cryptosuite string clearly conveys to a developer that the thing that
-differentiates this cryptosuite from the `eddsa-2022` one is the use of
-JSON Canonicalization Scheme [[RFC8785]]. Other options include
-`"cryptosuite": "json-sign-2022"`, and `"cryptosuite": "json-2022"`. This
-topic is <a href="https://github.com/w3c/vc-data-integrity/issues/38">
-currently being debated in the Data Integrity work item.</a>.
-          </p>
+        <h3>eddsa-jcs-2022</h3>
 
           <p>
-The `jcs-eddsa-2022` cryptographic suite takes an input document, canonicalizes
+The `eddsa-jcs-2022` cryptographic suite takes an input document, canonicalizes
 the document using the JSON Canonicalization Scheme [[RFC8785]], and then
 cryptographically hashes and signs the output resulting in the production of a
 data integrity proof. The algorithms for this cryptographic suite are the
-same as the ones in Section <a href="#eddsa-2022"></a> except for the following
+same as the ones in Section <a href="#eddsa-rdfc-2022"></a> except for the following
 modifications:
           </p>
 
           <p>
-In Section <a href="#transformation-eddsa-2022"></a>, step <strong>1)</strong>
+In Section <a href="#transformation-eddsa-rdfc-2022"></a>, step <strong>1)</strong>
 and step <strong>2)</strong> are replaced by the following text:
           </p>
 
@@ -693,7 +679,7 @@ and step <strong>2)</strong> are replaced by the following text:
             <li>
 If <var>options</var>.<var>type</var> is not set to the string
 `DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
-set to the string `jcs-eddsa-2022` then a `PROOF_TRANSFORMATION_ERROR` MUST be
+set to the string `eddsa-jcs-2022` then a `PROOF_TRANSFORMATION_ERROR` MUST be
 raised.
             </li>
             <li>
@@ -703,14 +689,14 @@ JSON Canonicalization Scheme [[RFC8785]] to the <var>unsecuredDocument</var>.
           </ol>
 
           <p>
-In Section <a href="#proof-configuration-eddsa-2022"></a>, step <strong>8)</strong> is not performed, and steps
+In Section <a href="#proof-configuration-eddsa-rdfc-2022"></a>, step <strong>8)</strong> is not performed, and steps
 <strong>4)</strong> and <strong>9)</strong> are replaced by the following text:
           </p>
 
           <p style="padding-left: 2em;">
 <strong>4)</strong> If <var>options</var>.<var>type</var> is not set to
 `DataIntegrityProof` and <var>proofConfig</var>.<var>cryptosuite</var> is not
-set to `jcs-eddsa-2022`, an `INVALID_PROOF_CONFIGURATION` error MUST be raised.
+set to `eddsa-jcs-2022`, an `INVALID_PROOF_CONFIGURATION` error MUST be raised.
           </p>
           <p style="padding-left: 2em;">
 <strong>9)</strong> Let <var>canonicalProofConfig</var> be the result of applying the
@@ -1831,7 +1817,7 @@ option document.
         data-include="TestVectors/eddsa-2022/signedDataInt.json" data-include-format="text"></pre>
       </section>
       <section>
-        <h3>Representation: jcs-eddsa-2022</h3>
+        <h3>Representation: eddsa-jcs-2022</h3>
         <p>
 The signer needs to generate a private/public key pair with the private key used
 for signing and the public key made available for verification. The
