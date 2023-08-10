@@ -18,10 +18,10 @@
   },
   "proof": {
     "type": "DataIntegrityProof",
-    "cryptosuite": "json-eddsa-2022",
+    "cryptosuite": "eddsa-rdfc-2022",
     "created": "2023-02-24T23:36:38Z",
     "verificationMethod": "https://vc.example/issuers/5678#z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     "proofPurpose": "assertionMethod",
-    "proofValue": "z2A2pvguSK5LMHAWCiP6BvW7NsdHPNKy8SbWnJhTiMMdTBEFeCXcgom1sEvg53bn9QiaWaEEaVuSbg4Hh9YCu6zZP"
+    "proofValue": "z5FeZk5LdY7e43JhL1iSnoMHDQFsUims41vu9h4T6ESpdfbGYbvkRb7D53d1f9PbL1dTnFJ42wtdBYjS66HTKFHCt"
   }
 }

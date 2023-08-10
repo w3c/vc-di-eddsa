@@ -361,18 +361,18 @@ the base58-btc base encoding.
 {
   "@context": [
     {"title": "https://schema.org/title"},
-    "https://w3id.org/security/data-integrity/v1"
+    "https://www.w3.org/ns/credentials/v2"
   ],
   "title": "Hello world!",
   "proof": {
     "type": "DataIntegrityProof",
-    "cryptosuite": "eddsa-2022",
-    "created": "2020-11-05T19:23:24Z",
-    "verificationMethod": "https://ldi.example/issuer#z6MkjLrk3gKS2nnkeWcmcxi
-      ZPGskmesDpuwRBorgHxUXfxnG",
+    "cryptosuite": "eddsa-rdfc-2022",
+    "created": "2023-02-24T23:36:38Z",
+    "verificationMethod": "https://vc.example/issuers/5678#z6MkrJVnaZkeFzdQyMZu1
+      cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     "proofPurpose": "assertionMethod",
-    "proofValue": "z4oey5q2M3XKaxup3tmzN4DRFTLVqpLMweBrSxMY2xHX5XTYVQeVbY8nQA
-      VHMrXFkXJpmEcqdoDwLWxaqA3Q1geV6"
+    "proofValue": "z5C5b1uzYJN6pDR3aWgAqUMoSB1JY29epA74qyjaie9qh4okm9DZP6y77eTNq
+      5NfYyMwNu9bpQQWUHKH5zAmEtszK"
   }
 }
           </pre>
@@ -1777,12 +1777,12 @@ to canonical form, and then hashed, as shown in the following three examples.
         <pre class="example nohighlight" title="Credential without Proof" data-include="TestVectors/unsigned.json"
         data-include-format="text"></pre>
 
-        <pre class="example nohighlight" title="Canonical Credential without Proof" data-include="TestVectors/eddsa-2022/canonDocDataInt.txt"
+        <pre class="example nohighlight" title="Canonical Credential without Proof" data-include="TestVectors/eddsa-rdfc-2022/canonDocDataInt.txt"
         data-include-format="text"></pre>
 
 
         <pre class="example nohighlight" title="Hash of Canonical Credential without Proof (hex)"
-        data-include="TestVectors/eddsa-2022/docHashDataInt.txt" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-rdfc-2022/docHashDataInt.txt" data-include-format="text"></pre>
 
         <p>
 The next step is to take the proof options document, convert it to canonical form,
@@ -1790,13 +1790,13 @@ and obtain its hash, as shown in the next three examples.
         </p>
 
         <pre class="example nohighlight" title="Proof Options Document"
-        data-include="TestVectors/eddsa-2022/proofConfigDataInt.json" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-rdfc-2022/proofConfigDataInt.json" data-include-format="text"></pre>
 
         <pre class="example nohighlight" title="Canonical Proof Options Document"
-        data-include="TestVectors/eddsa-2022/proofCanonDataInt.txt" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-rdfc-2022/proofCanonDataInt.txt" data-include-format="text"></pre>
 
         <pre class="example nohighlight" title="Hash of Canonical Proof Options Document (hex)"
-        data-include="TestVectors/eddsa-2022/proofHashDataInt.txt" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-rdfc-2022/proofHashDataInt.txt" data-include-format="text"></pre>
 
         <p>
 Finally, we concatenate the hash of the proof options followed by the hash of the credential without proof, use the private key with the combined hash to
@@ -1804,13 +1804,13 @@ compute the Ed25519 signature, and then base58-btc encode the signature.
         </p>
 
         <pre class="example nohighlight" title="Combine hashes of Proof Options and Credential (hex)"
-        data-include="TestVectors/eddsa-2022/combinedHashDataInt.txt" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-rdfc-2022/combinedHashDataInt.txt" data-include-format="text"></pre>
 
         <pre class="example nohighlight" title="Signature of Combined Hashes (hex)"
-        data-include="TestVectors/eddsa-2022/sigHexDataInt.txt" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-rdfc-2022/sigHexDataInt.txt" data-include-format="text"></pre>
 
         <pre class="example nohighlight" title="Signature of Combined Hashes base58-btc"
-        data-include="TestVectors/eddsa-2022/sigBTC58DataInt.txt" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-rdfc-2022/sigBTC58DataInt.txt" data-include-format="text"></pre>
 
         <p>Assemble the signed credential with the following two steps:</p>
         <ol>
@@ -1825,7 +1825,7 @@ option document.
         </ol>
 
         <pre class="example nohighlight" title="Signed Credential"
-        data-include="TestVectors/eddsa-2022/signedDataInt.json" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-rdfc-2022/signedDataInt.json" data-include-format="text"></pre>
       </section>
       <section>
         <h3>Representation: eddsa-jcs-2022</h3>
@@ -1850,12 +1850,12 @@ to canonical form, and then hashed, as shown in the following three examples.
         <pre class="example nohighlight" title="Credential without Proof" data-include="TestVectors/unsigned.json"
         data-include-format="text"></pre>
 
-        <pre class="example nohighlight" title="Canonical Credential without Proof" data-include="TestVectors/jcs-eddsa-2022/canonDocJCS.txt"
+        <pre class="example nohighlight" title="Canonical Credential without Proof" data-include="TestVectors/eddsa-jcs-2022/canonDocJCS.txt"
         data-include-format="text"></pre>
 
 
         <pre class="example nohighlight" title="Hash of Canonical Credential without Proof (hex)"
-        data-include="TestVectors/jcs-eddsa-2022/docHashJCS.txt" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-jcs-2022/docHashJCS.txt" data-include-format="text"></pre>
 
         <p>
 The next step is to take the proof options document, convert it to canonical form,
@@ -1863,13 +1863,13 @@ and obtain its hash, as shown in the next three examples.
         </p>
 
         <pre class="example nohighlight" title="Proof Options Document"
-        data-include="TestVectors/jcs-eddsa-2022/proofConfigJCS.json" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-jcs-2022/proofConfigJCS.json" data-include-format="text"></pre>
 
         <pre class="example nohighlight" title="Canonical Proof Options Document"
-        data-include="TestVectors/jcs-eddsa-2022/proofCanonJCS.txt" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-jcs-2022/proofCanonJCS.txt" data-include-format="text"></pre>
 
         <pre class="example nohighlight" title="Hash of Canonical Proof Options Document (hex)"
-        data-include="TestVectors/jcs-eddsa-2022/proofHashJCS.txt" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-jcs-2022/proofHashJCS.txt" data-include-format="text"></pre>
 
         <p>
 Finally, we concatenate the hash of the proof options followed by the hash of the credential without proof, use the private key with the combined hash to
@@ -1877,13 +1877,13 @@ compute the Ed25519 signature, and then base58-btc encode the signature.
         </p>
 
         <pre class="example nohighlight" title="Combine hashes of Proof Options and Credential (hex)"
-        data-include="TestVectors/jcs-eddsa-2022/combinedHashJCS.txt" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-jcs-2022/combinedHashJCS.txt" data-include-format="text"></pre>
 
         <pre class="example nohighlight" title="Signature of Combined Hashes (hex)"
-        data-include="TestVectors/jcs-eddsa-2022/sigHexJCS.txt" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-jcs-2022/sigHexJCS.txt" data-include-format="text"></pre>
 
         <pre class="example nohighlight" title="Signature of Combined Hashes base58-btc"
-        data-include="TestVectors/jcs-eddsa-2022/sigBTC58JCS.txt" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-jcs-2022/sigBTC58JCS.txt" data-include-format="text"></pre>
 
         <p>Assemble the signed credential with the following two steps:</p>
         <ol>
@@ -1898,7 +1898,7 @@ option document.
         </ol>
 
         <pre class="example nohighlight" title="Signed Credential"
-        data-include="TestVectors/jcs-eddsa-2022/signedJCS.json" data-include-format="text"></pre>
+        data-include="TestVectors/eddsa-jcs-2022/signedJCS.json" data-include-format="text"></pre>
       </section>
       <section>
         <h3>Representation: Ed25519Signature2020</h3>
