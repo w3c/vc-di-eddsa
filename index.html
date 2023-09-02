@@ -2006,5 +2006,49 @@ option document.
         data-include="TestVectors/Ed25519Signature2020/signedEdSig.json" data-include-format="text"></pre>
       </section>
     </section>
+
+    <section class="informative">
+      <h2>Revision History</h2>
+
+      <p>
+This section contains the substantive changes that have been made to this
+specification over time.
+      </p>
+
+      <p>
+Changes since the
+<a href="https://www.w3.org/TR/2023/WD-vc-di-eddsa-20230418/">
+First Public Working Draft</a>:
+      </p>
+
+      <ul>
+        <li>
+Added support for JSON Canonicalization Scheme in addition to RDF Dataset
+Canonicalization.
+        </li>
+        <li>
+Added test vectors for rdfc and jcs cryptosuites.
+        </li>
+        <li>
+Deprecated and moved Ed25519Signature2020 to appendix.
+        </li>
+        <li>
+Add Security Considerations for proper implementation of EdDSA.
+        </li>
+        <li>
+Move normative definition of Multikey to the Data Integrity specification.
+        </li>
+        <li>
+Add RDF-CANON mitigation for Dataset poisoning.
+        </li>
+        <li>
+Revise cryptographic suite names and align with other cryptosuites.
+        </li>
+        <li>
+Add secretKeyMultibase definition.
+        </li>
+      </ul>
+    </section>
+
   </body>
 </html>
