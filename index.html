@@ -337,7 +337,7 @@ prefix value other than `0xed01` in a `publicKeyMultibase` value.
 
         <p>
 This suite relies on detached digital signatures represented using [[MULTIBASE]]
-and [[MULTICODEC]].
+and [[?MULTICODEC]].
         </p>
 
         <section>
@@ -765,7 +765,7 @@ This specification relies on URDNA2015, please review
       </p>
 
       <p class="note">
-This specification relies on [[MULTIBASE]], [[MULTICODEC]] and [[RFC8032]].
+This specification relies on [[MULTIBASE]], [[?MULTICODEC]] and [[RFC8032]].
       </p>
 
       <section class="informative">
@@ -1381,7 +1381,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
 
             <p>
   The `publicKeyMultibase` property of the verification method MUST be
-  a public key encoded according to [[MULTICODEC]] and formatted according to
+  a public key encoded according to [[?MULTICODEC]] and formatted according to
   [[MULTIBASE]]. The multicodec encoding of an Ed25519 public key is the two-byte
   prefix `0xed01` followed by the 32-byte public key data. The 34 byte
   value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
@@ -1391,7 +1391,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
             <p class="advisement">
   Developers are advised to not accidentally publish a representation of a private
   key. Implementations of this specification will raise errors in the event of a
-  [[MULTICODEC]] value other than `0xed01` being used in a
+  [[?MULTICODEC]] value other than `0xed01` being used in a
   `publicKeyMultibase` value.
             </p>
 
@@ -1791,7 +1791,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
         <p>
 The signer needs to generate a private/public key pair with the private key used
 for signing and the public key made available for verification. The
-[[MULTIBASE]]/[[MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
+[[MULTIBASE]]/[[?MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
 and the representation for the private key, <code>ed25519-priv</code>, are shown below.
         </p>
         <pre class="example nohighlight" title="Private and Public keys for Signature">
@@ -1864,7 +1864,7 @@ option document.
         <p>
 The signer needs to generate a private/public key pair with the private key used
 for signing and the public key made available for verification. The
-[[MULTIBASE]]/[[MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
+[[MULTIBASE]]/[[?MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
 and the representation for the private key, <code>ed25519-priv</code>, are shown below.
         </p>
         <pre class="example nohighlight" title="Private and Public keys for Signature">
@@ -1937,7 +1937,7 @@ option document.
         <p>
 The signer needs to generate a private/public key pair with the private key used
 for signing and the public key made available for verification. The
-[[MULTIBASE]]/[[MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
+[[MULTIBASE]]/[[?MULTICODEC]] representation for the public key, <code>ed25519-pub</code>,
 and the representation for the private key, <code>ed25519-priv</code>, are shown below.
         </p>
         <pre class="example nohighlight" title="Private and Public keys for Signature">
