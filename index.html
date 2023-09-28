@@ -262,16 +262,20 @@ suites defined in this specification.
           </p>
 
           <p>
-The `publicKeyMultibase` property represents a Multibase-encoded Multikey
-expression of an Ed25519 public key. The value starts with the two-byte prefix
-`0xed01`, followed by the 32-byte Ed25519 public key data. The combined 34-byte
-value is then encoded using base58-btc (`z`) as the prefix.
+The `publicKeyMultibase` value of the verification method MUST be 35 bytes in
+length and starts with the base-58-btc prefix (`z`), as defined in the
+<a data-cite="VC-DATA-INTEGRITY#multibase-0">Multibase section</a> of
+[[VC-DATA-INTEGRITY]]. A Multibase-encoded Multikey value follows, which MUST
+consist of a binary value that starts with the two-byte prefix `0xed01`, which
+is the Multikey header for an Ed25519 public key, followed by the 32-byte public
+key data, all of which is then encoded using base-58-btc. Any other encoding
+MUST NOT be allowed.
           </p>
 
           <p class="advisement">
 Developers are advised to not accidentally publish a representation of a private
 key. Implementations of this specification will raise errors if they encounter a
-prefix value other than `0xed01` in a `publicKeyMultibase` value.
+Multikey prefix value other than `0xed01` in a `publicKeyMultibase` value.
           </p>
 
           <pre class="example nohighlight"
@@ -314,18 +318,18 @@ prefix value other than `0xed01` in a `publicKeyMultibase` value.
           </pre>
 
           <p>
-            The `secretKeyMultibase` property represents a Multibase-encoded Multikey
-            expression of an Ed25519 secret key (sometimes also referred to as a private key).
-            The value starts with the two-byte prefix `0x8026` (the varint expression of `0x1300`),
-            followed by the 32-byte Ed25519 secret key data. The combined 34-byte
-            value is then base58-btc encoded and `z` is added as the prefix on the
-            encoded value.
+The `secretKeyMultibase` property represents a Multibase-encoded Multikey
+expression of an Ed25519 secret key (sometimes also referred to as a private
+key). The value starts with the two-byte prefix `0x8026` (the varint expression
+of `0x1300`), followed by the 32-byte Ed25519 secret key data. The combined
+34-byte value is then base58-btc encoded and `z` is added as the prefix on the
+encoded value.
           </p>
 
           <p class="advisement">
-            Developers are advised to prevent accidental publication of a representation of
-            a secret key, and to not export the `secretKeyMultibase` property by default,
-            when serializing key pairs to Multikey.
+Developers are advised to prevent accidental publication of a representation of
+a secret key, and to not export the `secretKeyMultibase` property by default,
+when serializing key pairs to Multikey.
           </p>
 
         </section>
@@ -336,8 +340,8 @@ prefix value other than `0xed01` in a `publicKeyMultibase` value.
         <h3>Proof Representations</h3>
 
         <p>
-This suite relies on detached digital signatures represented using
-[[?MULTIBASE]] and [[?MULTICODEC]].
+This section details the proof representation formats that are defined by
+this specification.
         </p>
 
         <section>
@@ -367,10 +371,10 @@ match the verification relationship expressed by the verification method
           </p>
           <p>
 The `proofValue` property of the proof MUST be a detached EdDSA
-produced according to [[RFC8032]], encoded according to [[?MULTIBASE]] using
-the base-58-btc header and alphabet as described in the
-<a href="https://www.w3.org/TR/vc-data-integrity/#multibase-0">
-Multibase section</a> of [[VC-DATA-INTEGRITY]].
+produced according to [[RFC8032]], encoded using the base-58-btc header and
+alphabet as described in the
+<a data-cite="VC-DATA-INTEGRITY#multibase-0">Multibase section</a> of
+[[VC-DATA-INTEGRITY]].
           </p>
 
           <pre class="example nohighlight"
@@ -759,15 +763,6 @@ Security Considerations section of the Data Integrity specification</a>.
 The following section describes security considerations that developers
 implementing this specification should be aware of in order to create secure
 software.
-      </p>
-
-      <p class="note">
-This specification relies on URDNA2015, please review
-[[RDF-CANON]].
-      </p>
-
-      <p class="note">
-This specification relies on [[?MULTIBASE]], [[?MULTICODEC]], and [[RFC8032]].
       </p>
 
       <section class="informative">
@@ -1382,18 +1377,20 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
             </p>
 
             <p>
-  The `publicKeyMultibase` property of the verification method MUST be
-  a public key encoded according to [[?MULTICODEC]] and formatted according to
-  [[?MULTIBASE]]. The multicodec encoding of an Ed25519 public key is the
-  two-byte prefix `0xed01` followed by the 32-byte public key data. The 34 byte
-  value is then encoded using base58-btc (`z`) as the prefix. Any other encoding
+  The `publicKeyMultibase` value of the verification method MUST be 35 bytes in
+  length and starts with the base-58-btc prefix (`z`), as defined in the
+  <a data-cite="VC-DATA-INTEGRITY#multibase-0">Multibase section</a> of
+  [[VC-DATA-INTEGRITY]]. A Multibase-encoded Multikey value follows, which MUST
+  consist of a binary value that starts with the two-byte prefix `0xed01`, which
+  is the Multikey header for an Ed25519 public key, followed by the 32-byte public
+  key data, all of which is then encoded using base-58-btc. Any other encoding
   MUST NOT be allowed.
             </p>
 
             <p class="advisement">
   Developers are advised to not accidentally publish a representation of a private
   key. Implementations of this specification will raise errors in the event of a
-  [[?MULTICODEC]] value other than `0xed01` being used in a
+  Multikey header value other than `0xed01` being used in a
   `publicKeyMultibase` value.
             </p>
 
@@ -1464,7 +1461,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
             </p>
             <p>
   The `proofValue` property of the proof MUST be a detached EdDSA
-  produced according to [[RFC8032]], encoded according to [[?MULTIBASE]] using
+  produced according to [[RFC8032]], encoded using
   the base-58-btc header and alphabet as described in the
   <a href="https://www.w3.org/TR/vc-data-integrity/#multibase-0">
   Multibase section</a> of [[VC-DATA-INTEGRITY]].
@@ -1795,9 +1792,8 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
         <p>
 The signer needs to generate a private/public key pair with the private key used
 for signing and the public key made available for verification. The
-[[?MULTIBASE]]/[[?MULTICODEC]] representation of the public key,
-<code>ed25519-pub</code>, and the representation of the private key,
-<code>ed25519-priv</code>, are shown below.
+representation of the public key and the representation of the private key
+are shown below.
         </p>
         <pre class="example nohighlight" title="Private and Public keys for Signature">
 {
@@ -1869,9 +1865,8 @@ option document.
         <p>
 The signer needs to generate a private/public key pair with the private key used
 for signing and the public key made available for verification. The
-[[?MULTIBASE]]/[[?MULTICODEC]] representation of the public key,
-<code>ed25519-pub</code>, and the representation of the private key,
-<code>ed25519-priv</code>, are shown below.
+representation of the public key, and the representation of the private key
+are shown below.
         </p>
         <pre class="example nohighlight" title="Private and Public keys for Signature">
 {
@@ -1943,9 +1938,8 @@ option document.
         <p>
 The signer needs to generate a private/public key pair with the private key used
 for signing and the public key made available for verification. The
-[[?MULTIBASE]]/[[?MULTICODEC]] representation of the public key,
-<code>ed25519-pub</code>, and the representation of the private key,
-<code>ed25519-priv</code>, are shown below.
+representation of the public key, and the representation of the private key,
+are shown below.
         </p>
         <pre class="example nohighlight" title="Private and Public keys for Signature">
 {
