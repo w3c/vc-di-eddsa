@@ -320,8 +320,8 @@ Multikey prefix value other than `0xed01` in a `publicKeyMultibase` value.
           <p>
 The `secretKeyMultibase` property represents a Multibase-encoded Multikey
 expression of an Ed25519 secret key (sometimes also referred to as a private
-key). The value starts with the two-byte prefix `0x8026` (the varint expression
-of `0x1300`), followed by the 32-byte Ed25519 secret key data. The combined
+key). The value starts with the two-byte prefix `0x8026`,
+followed by the 32-byte Ed25519 secret key data. The combined
 34-byte value is then base58-btc encoded and `z` is added as the prefix on the
 encoded value.
           </p>
