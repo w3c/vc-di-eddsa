@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en" dir="ltr"><head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-<meta name="generator" content="ReSpec 34.1.6">
+<meta name="generator" content="ReSpec 34.1.8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -164,9 +164,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "specStatus": "CR",
   "shortName": "vc-di-eddsa",
   "group": "vc",
+  "publishDate": "2023-11-07",
   "edDraftURI": "https://w3c.github.io/vc-di-eddsa/",
   "implementationReportURI": "https://w3c.github.io/vc-data-integrity/implementations/",
-  "crEnd": "2023-11-30",
+  "crEnd": "2024-01-07",
   "editors": [
     {
       "name": "Manu Sporny",
@@ -216,13 +217,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "localBiblio": {
     "MULTIBASE": {
       "title": "Multibase",
-      "href": "https://datatracker.ietf.org/doc/html/draft-multiformats-multibase-01",
-      "id": "multibase"
+      "href": "https://datatracker.ietf.org/doc/html/draft-multiformats-multibase-01"
     },
     "MULTICODEC": {
       "title": "Multicodec",
-      "href": "https://github.com/multiformats/multicodec/",
-      "id": "multicodec"
+      "href": "https://github.com/multiformats/multicodec/"
     },
     "Taming_EdDSAs": {
       "title": "Taming the many EdDSAs",
@@ -280,20 +279,20 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       ]
     }
   ],
-  "publishISODate": "2023-09-02T00:00:00.000Z",
-  "generatedSubtitle": "W3C Candidate Recommendation Snapshot 02 September 2023"
+  "publishISODate": "2023-11-07T00:00:00.000Z",
+  "generatedSubtitle": "W3C Candidate Recommendation Snapshot 07 November 2023"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-CR"></head>
   <body class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Data Integrity EdDSA Cryptosuites v1.0</h1> <h2 id="subtitle" class="subtitle">Achieving Data Integrity using EdDSA with Edwards curves</h2>
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#CR">W3C Candidate Recommendation Snapshot</a> <time class="dt-published" datetime="2023-09-02">02 September 2023</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#CR">W3C Candidate Recommendation Snapshot</a> <time class="dt-published" datetime="2023-11-07">07 November 2023</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
         <dt>This version:</dt><dd>
-                <a class="u-url" href="https://www.w3.org/TR/2023/CR-vc-di-eddsa-20230902/">https://www.w3.org/TR/2023/CR-vc-di-eddsa-20230902/</a>
+                <a class="u-url" href="https://www.w3.org/TR/2023/CR-vc-di-eddsa-20231107/">https://www.w3.org/TR/2023/CR-vc-di-eddsa-20231107/</a>
               </dd>
         <dt>Latest published version:</dt><dd>
                 <a href="https://www.w3.org/TR/vc-di-eddsa/">https://www.w3.org/TR/vc-di-eddsa/</a>
@@ -389,7 +388,7 @@ not fit for production deployment.
         <a href="https://www.w3.org/Consortium/Patent-Policy/#sec-Requirements">royalty-free licensing</a>
         for implementations.</p><p>
           This Candidate Recommendation is not expected to advance to Proposed
-          Recommendation any earlier than 30 November 2023.
+          Recommendation any earlier than 07 January 2024.
         </p><p>
     
         This document was produced by a group
@@ -628,16 +627,20 @@ suites defined in this specification.
           </p>
 
           <p>
-The <code>publicKeyMultibase</code> property represents a Multibase-encoded Multikey
-expression of an Ed25519 public key. The value starts with the two-byte prefix
-<code>0xed01</code>, followed by the 32-byte Ed25519 public key data. The combined 34-byte
-value is then encoded using base58-btc (<code>z</code>) as the prefix.
+The <code>publicKeyMultibase</code> value of the verification method <em class="rfc2119">MUST</em> be 35 bytes in
+length and starts with the base-58-btc prefix (<code>z</code>), as defined in the
+<a href="https://www.w3.org/TR/vc-data-integrity/#multibase-0">Multibase section</a> of
+[<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-integrity" title="Verifiable Credential Data Integrity 1.0">VC-DATA-INTEGRITY</a></cite>]. A Multibase-encoded Multikey value follows, which <em class="rfc2119">MUST</em>
+consist of a binary value that starts with the two-byte prefix <code>0xed01</code>, which
+is the Multikey header for an Ed25519 public key, followed by the 32-byte public
+key data, all of which is then encoded using base-58-btc. Any other encoding
+<em class="rfc2119">MUST NOT</em> be allowed.
           </p>
 
           <p class="advisement">
 Developers are advised to not accidentally publish a representation of a private
 key. Implementations of this specification will raise errors if they encounter a
-prefix value other than <code>0xed01</code> in a <code>publicKeyMultibase</code> value.
+Multikey prefix value other than <code>0xed01</code> in a <code>publicKeyMultibase</code> value.
           </p>
 
           <div class="example" id="example-an-ed25519-public-key-encoded-as-a-multikey">
@@ -683,18 +686,18 @@ prefix value other than <code>0xed01</code> in a <code>publicKeyMultibase</code>
       </div>
 
           <p>
-            The <code>secretKeyMultibase</code> property represents a Multibase-encoded Multikey
-            expression of an Ed25519 secret key (sometimes also referred to as a private key).
-            The value starts with the two-byte prefix <code>0x8026</code> (the varint expression of <code>0x1300</code>),
-            followed by the 32-byte Ed25519 secret key data. The combined 34-byte
-            value is then base58-btc encoded and <code>z</code> is added as the prefix on the
-            encoded value.
+The <code>secretKeyMultibase</code> property represents a Multibase-encoded Multikey
+expression of an Ed25519 secret key (sometimes also referred to as a private
+key). The value starts with the two-byte prefix <code>0x8026</code>,
+followed by the 32-byte Ed25519 secret key data. The combined
+34-byte value is then base58-btc encoded and <code>z</code> is added as the prefix on the
+encoded value.
           </p>
 
           <p class="advisement">
-            Developers are advised to prevent accidental publication of a representation of
-            a secret key, and to not export the <code>secretKeyMultibase</code> property by default,
-            when serializing key pairs to Multikey.
+Developers are advised to prevent accidental publication of a representation of
+a secret key, and to not export the <code>secretKeyMultibase</code> property by default,
+when serializing key pairs to Multikey.
           </p>
 
         </section>
@@ -705,8 +708,8 @@ prefix value other than <code>0xed01</code> in a <code>publicKeyMultibase</code>
         
 
         <p>
-This suite relies on detached digital signatures represented using [<cite><a class="bibref" data-link-type="biblio" href="#bib-multibase" title="Multibase">MULTIBASE</a></cite>]
-and [<cite><a class="bibref" data-link-type="biblio" href="#bib-multicodec" title="Multicodec">MULTICODEC</a></cite>].
+This section details the proof representation formats that are defined by
+this specification.
         </p>
 
         <section id="dataintegrityproof"><div class="header-wrapper"><h4 id="x2-2-1-dataintegrityproof"><bdi class="secno">2.2.1 </bdi>DataIntegrityProof</h4><a class="self-link" href="#dataintegrityproof" aria-label="Permalink for Section 2.2.1"></a></div>
@@ -736,8 +739,10 @@ match the verification relationship expressed by the verification method
           </p>
           <p>
 The <code>proofValue</code> property of the proof <em class="rfc2119">MUST</em> be a detached EdDSA
-produced according to [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8032" title="Edwards-Curve Digital Signature Algorithm (EdDSA)">RFC8032</a></cite>], encoded according to [<cite><a class="bibref" data-link-type="biblio" href="#bib-multibase" title="Multibase">MULTIBASE</a></cite>] using
-the base58-btc base encoding.
+produced according to [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8032" title="Edwards-Curve Digital Signature Algorithm (EdDSA)">RFC8032</a></cite>], encoded using the base-58-btc header and
+alphabet as described in the
+<a href="https://www.w3.org/TR/vc-data-integrity/#multibase-0">Multibase section</a> of
+[<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-integrity" title="Verifiable Credential Data Integrity 1.0">VC-DATA-INTEGRITY</a></cite>].
           </p>
 
           <div class="example" id="example-an-ed25519-digital-signature-expressed-as-a-dataintegrityproof">
@@ -1128,15 +1133,6 @@ The following section describes security considerations that developers
 implementing this specification should be aware of in order to create secure
 software.
       </p>
-
-      <div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="3"><span>Note</span></div><p class="">
-This specification relies on URDNA2015, please review
-[<cite><a class="bibref" data-link-type="biblio" href="#bib-rdf-canon" title="RDF Dataset Canonicalization">RDF-CANON</a></cite>].
-      </p></div>
-
-      <div class="note" role="note" id="issue-container-generatedID-0"><div role="heading" class="note-title marker" id="h-note-0" aria-level="3"><span>Note</span></div><p class="">
-This specification relies on [<cite><a class="bibref" data-link-type="biblio" href="#bib-multibase" title="Multibase">MULTIBASE</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-multicodec" title="Multicodec">MULTICODEC</a></cite>] and [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8032" title="Edwards-Curve Digital Signature Algorithm (EdDSA)">RFC8032</a></cite>].
-      </p></div>
 
       <section class="informative" id="security-properties-of-ed25519-implementations"><div class="header-wrapper"><h3 id="x4-1-security-properties-of-ed25519-implementations"><bdi class="secno">4.1 </bdi>Security Properties of Ed25519 Implementations</h3><a class="self-link" href="#security-properties-of-ed25519-implementations" aria-label="Permalink for Section 4.1"></a></div><p><em>This section is non-normative.</em></p>
         
@@ -1750,18 +1746,20 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
             </p>
 
             <p>
-  The <code>publicKeyMultibase</code> property of the verification method <em class="rfc2119">MUST</em> be
-  a public key encoded according to [<cite><a class="bibref" data-link-type="biblio" href="#bib-multicodec" title="Multicodec">MULTICODEC</a></cite>] and formatted according to
-  [<cite><a class="bibref" data-link-type="biblio" href="#bib-multibase" title="Multibase">MULTIBASE</a></cite>]. The multicodec encoding of an Ed25519 public key is the two-byte
-  prefix <code>0xed01</code> followed by the 32-byte public key data. The 34 byte
-  value is then encoded using base58-btc (<code>z</code>) as the prefix. Any other encoding
+  The <code>publicKeyMultibase</code> value of the verification method <em class="rfc2119">MUST</em> be 35 bytes in
+  length and starts with the base-58-btc prefix (<code>z</code>), as defined in the
+  <a href="https://www.w3.org/TR/vc-data-integrity/#multibase-0">Multibase section</a> of
+  [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-integrity" title="Verifiable Credential Data Integrity 1.0">VC-DATA-INTEGRITY</a></cite>]. A Multibase-encoded Multikey value follows, which <em class="rfc2119">MUST</em>
+  consist of a binary value that starts with the two-byte prefix <code>0xed01</code>, which
+  is the Multikey header for an Ed25519 public key, followed by the 32-byte public
+  key data, all of which is then encoded using base-58-btc. Any other encoding
   <em class="rfc2119">MUST NOT</em> be allowed.
             </p>
 
             <p class="advisement">
   Developers are advised to not accidentally publish a representation of a private
   key. Implementations of this specification will raise errors in the event of a
-  [<cite><a class="bibref" data-link-type="biblio" href="#bib-multicodec" title="Multicodec">MULTICODEC</a></cite>] value other than <code>0xed01</code> being used in a
+  Multikey header value other than <code>0xed01</code> being used in a
   <code>publicKeyMultibase</code> value.
             </p>
 
@@ -1836,8 +1834,10 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
             </p>
             <p>
   The <code>proofValue</code> property of the proof <em class="rfc2119">MUST</em> be a detached EdDSA
-  produced according to [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8032" title="Edwards-Curve Digital Signature Algorithm (EdDSA)">RFC8032</a></cite>], encoded according to [<cite><a class="bibref" data-link-type="biblio" href="#bib-multibase" title="Multibase">MULTIBASE</a></cite>] using
-  the base58-btc base encoding.
+  produced according to [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8032" title="Edwards-Curve Digital Signature Algorithm (EdDSA)">RFC8032</a></cite>], encoded using
+  the base-58-btc header and alphabet as described in the
+  <a href="https://www.w3.org/TR/vc-data-integrity/#multibase-0">
+  Multibase section</a> of [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-integrity" title="Verifiable Credential Data Integrity 1.0">VC-DATA-INTEGRITY</a></cite>].
             </p>
 
             <div class="example" id="example-an-ed25519-digital-signature-expressed-as-a-ed25519signature2020">
@@ -2166,8 +2166,8 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
         <p>
 The signer needs to generate a private/public key pair with the private key used
 for signing and the public key made available for verification. The
-[<cite><a class="bibref" data-link-type="biblio" href="#bib-multibase" title="Multibase">MULTIBASE</a></cite>]/[<cite><a class="bibref" data-link-type="biblio" href="#bib-multicodec" title="Multicodec">MULTICODEC</a></cite>] representation for the public key, <code>ed25519-pub</code>,
-and the representation for the private key, <code>ed25519-priv</code>, are shown below.
+representation of the public key and the representation of the private key
+are shown below.
         </p>
         <div class="example" id="example-private-and-public-keys-for-signature">
         <div class="marker">
@@ -2333,8 +2333,8 @@ option document.
         <p>
 The signer needs to generate a private/public key pair with the private key used
 for signing and the public key made available for verification. The
-[<cite><a class="bibref" data-link-type="biblio" href="#bib-multibase" title="Multibase">MULTIBASE</a></cite>]/[<cite><a class="bibref" data-link-type="biblio" href="#bib-multicodec" title="Multicodec">MULTICODEC</a></cite>] representation for the public key, <code>ed25519-pub</code>,
-and the representation for the private key, <code>ed25519-priv</code>, are shown below.
+representation of the public key, and the representation of the private key
+are shown below.
         </p>
         <div class="example" id="example-private-and-public-keys-for-signature-0">
         <div class="marker">
@@ -2485,8 +2485,8 @@ option document.
         <p>
 The signer needs to generate a private/public key pair with the private key used
 for signing and the public key made available for verification. The
-[<cite><a class="bibref" data-link-type="biblio" href="#bib-multibase" title="Multibase">MULTIBASE</a></cite>]/[<cite><a class="bibref" data-link-type="biblio" href="#bib-multicodec" title="Multicodec">MULTICODEC</a></cite>] representation for the public key, <code>ed25519-pub</code>,
-and the representation for the private key, <code>ed25519-priv</code>, are shown below.
+representation of the public key, and the representation of the private key,
+are shown below.
         </p>
         <div class="example" id="example-private-and-public-keys-for-signature-1">
         <div class="marker">
@@ -2693,10 +2693,8 @@ Add secretKeyMultibase definition.
 
 <section id="references" class="appendix"><div class="header-wrapper"><h2 id="d-references"><bdi class="secno">D. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix D."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="d-1-normative-references"><bdi class="secno">D.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix D.1"></a></div>
     
-    <dl class="bibliography"><dt id="bib-multibase">[MULTIBASE]</dt><dd>
-      <a href="https://datatracker.ietf.org/doc/html/draft-multiformats-multibase-01"><cite>Multibase</cite></a>. URL: <a href="https://datatracker.ietf.org/doc/html/draft-multiformats-multibase-01">https://datatracker.ietf.org/doc/html/draft-multiformats-multibase-01</a>
-    </dd><dt id="bib-rdf-canon">[RDF-CANON]</dt><dd>
-      <a href="https://www.w3.org/TR/rdf-canon/"><cite>RDF Dataset Canonicalization</cite></a>. Dave Longley; Gregg Kellogg; Dan Yamamoto.  W3C. 1 September 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/rdf-canon/">https://www.w3.org/TR/rdf-canon/</a>
+    <dl class="bibliography"><dt id="bib-rdf-canon">[RDF-CANON]</dt><dd>
+      <a href="https://www.w3.org/TR/rdf-canon/"><cite>RDF Dataset Canonicalization</cite></a>. Dave Longley; Gregg Kellogg; Dan Yamamoto.  W3C. 4 October 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/rdf-canon/">https://www.w3.org/TR/rdf-canon/</a>
     </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
     </dd><dt id="bib-rfc3986">[RFC3986]</dt><dd>
@@ -2710,7 +2708,7 @@ Add secretKeyMultibase definition.
     </dd><dt id="bib-rfc8785">[RFC8785]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc8785"><cite>JSON Canonicalization Scheme (JCS)</cite></a>. A. Rundgren; B. Jordan; S. Erdtman.  IETF. June 2020. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc8785">https://www.rfc-editor.org/rfc/rfc8785</a>
     </dd><dt id="bib-vc-data-integrity">[VC-DATA-INTEGRITY]</dt><dd>
-      <a href="https://www.w3.org/TR/vc-data-integrity/"><cite>Verifiable Credential Data Integrity 1.0</cite></a>. Manu Sporny; Dave Longley; Greg Bernstein; Dmitri Zagidulin; Sebastian Crane.  W3C. 2 September 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/vc-data-integrity/">https://www.w3.org/TR/vc-data-integrity/</a>
+      <a href="https://www.w3.org/TR/vc-data-integrity/"><cite>Verifiable Credential Data Integrity 1.0</cite></a>. Manu Sporny; Dave Longley; Greg Bernstein; Dmitri Zagidulin; Sebastian Crane.  W3C. 12 October 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/vc-data-integrity/">https://www.w3.org/TR/vc-data-integrity/</a>
     </dd><dt id="bib-xmlschema11-2">[XMLSCHEMA11-2]</dt><dd>
       <a href="https://www.w3.org/TR/xmlschema11-2/"><cite>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</cite></a>. David Peterson; Sandy Gao; Ashok Malhotra; Michael Sperberg-McQueen; Henry Thompson; Paul V. Biron et al.  W3C. 5 April 2012. W3C Recommendation. URL: <a href="https://www.w3.org/TR/xmlschema11-2/">https://www.w3.org/TR/xmlschema11-2/</a>
     </dd></dl>
@@ -2720,14 +2718,12 @@ Add secretKeyMultibase definition.
       <a href="https://www.w3.org/TR/did-core/"><cite>Decentralized Identifiers (DIDs) v1.0</cite></a>. Manu Sporny; Amy Guy; Markus Sabadello; Drummond Reed.  W3C. 19 July 2022. W3C Recommendation. URL: <a href="https://www.w3.org/TR/did-core/">https://www.w3.org/TR/did-core/</a>
     </dd><dt id="bib-fips-186-5">[FIPS-186-5]</dt><dd>
       <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf"><cite>FIPS PUB 186-5: Digital Signature Standard (DSS)</cite></a>.  U.S. Department of Commerce/National Institute of Standards and Technology. 3 February 2023. National Standard. URL: <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf">https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf</a>
-    </dd><dt id="bib-multicodec">[MULTICODEC]</dt><dd>
-      <a href="https://github.com/multiformats/multicodec/"><cite>Multicodec</cite></a>. URL: <a href="https://github.com/multiformats/multicodec/">https://github.com/multiformats/multicodec/</a>
     </dd><dt id="bib-provable_ed25519">[Provable_Ed25519]</dt><dd>
       <a href="https://eprint.iacr.org/2020/823"><cite>The Provable Security of Ed25519: Theory and Practice</cite></a>. Jacqueline Brendel; Cas Cremers; Dennis Jackson; Mang Zhao.  Cryptology ePrint Archive, Paper 2020/823. 2020. URL: <a href="https://eprint.iacr.org/2020/823">https://eprint.iacr.org/2020/823</a>
     </dd><dt id="bib-taming_eddsas">[Taming_EdDSAs]</dt><dd>
       <a href="https://eprint.iacr.org/2020/1244"><cite>Taming the many EdDSAs</cite></a>. Konstantinos Chalkias; François Garillot; Valeria Nikolaenko.  Cryptology ePrint Archive, Paper 2020/1244. 2020. URL: <a href="https://eprint.iacr.org/2020/1244">https://eprint.iacr.org/2020/1244</a>
     </dd><dt id="bib-vc-data-model-2.0">[VC-DATA-MODEL-2.0]</dt><dd>
-      <a href="https://www.w3.org/TR/vc-data-model-2.0/"><cite>Verifiable Credentials Data Model v2.0</cite></a>. Manu Sporny; Orie Steele; Michael Jones; Gabe Cohen; Oliver Terbu.  W3C. 31 August 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/vc-data-model-2.0/">https://www.w3.org/TR/vc-data-model-2.0/</a>
+      <a href="https://www.w3.org/TR/vc-data-model-2.0/"><cite>Verifiable Credentials Data Model v2.0</cite></a>. Manu Sporny; Orie Steele; Michael Jones; Gabe Cohen; Oliver Terbu.  W3C. 12 October 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/vc-data-model-2.0/">https://www.w3.org/TR/vc-data-model-2.0/</a>
     </dd></dl>
   </section></section><p role="navigation" id="back-to-top">
     <a href="#title"><abbr title="Back to Top">↑</abbr></a>
