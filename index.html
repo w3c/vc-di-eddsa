@@ -389,10 +389,10 @@ alphabet as described in the
               DataIntegrityProof">
 {
   "@context": [
-    {"title": "https://schema.org/title"},
+    {"myWebsite": "https://vocabulary.example/myWebsite"},
     "https://www.w3.org/ns/credentials/v2"
   ],
-  "title": "Hello world!",
+  "myWebsite": "https://hello.world.example/",
   "proof": {
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-rdfc-2022",
@@ -1479,10 +1479,10 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
               Ed25519Signature2020">
   {
     "@context": [
-      {"title": "https://schema.org/title"},
+      {"myWebsite": "https://vocabulary.example/myWebsite"},
       "https://w3id.org/security/data-integrity/v1"
     ],
-    "title": "Hello world!",
+    "myWebsite": "https://hello.world.example/",
     "proof": {
       "type": "Ed25519Signature2020",
       "created": "2020-11-05T19:23:24Z",
