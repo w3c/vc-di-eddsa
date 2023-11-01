@@ -17,7 +17,6 @@ issues and Pull Requests in the GitHub repository, discussions also occur on the
 * Charter: [https://www.w3.org/2022/06/verifiable-credentials-wg-charter.html](https://www.w3.org/2022/06/verifiable-credentials-wg-charter.html)
 * Chairs
   * Brent Zundel - @brentzundel
-  * Kristina Yasuda - @Sakurann
 * W3C Staff Contact
   * Ivan Herman - @iherman
 
