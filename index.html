@@ -2013,6 +2013,66 @@ option document.
         <pre class="example nohighlight" title="Signed Credential"
         data-include="TestVectors/Ed25519Signature2020/signedEdSig.json" data-include-format="text"></pre>
       </section>
+      <section>
+        <h3>Proof Sets and Chains</h3>
+        <p>
+Proof sets and chains are defined in the [[VC-DATA-INTEGRITY]] specification. We
+provide test vectors showing the creation of proof sets and chains with the
+`eddsa-rdfc-2022` cryptosuite. Multiple signers are involved in the generation
+of proof sets and chains so multiple public/private key pairs are needed. These
+are shown below.
+        </p>
+        <pre class="example nohighlight" title="Public and Private Key Pairs" data-include="TestVectors/proof-set-chain/multiKeyPairs.json"
+        data-include-format="text"></pre>
+        <p>
+The original unsigned credential is shown below:
+        </p>
+        <pre class="example nohighlight" title="Unsigned Credential" data-include="TestVectors/proof-set-chain/unsigned.json"
+        data-include-format="text"></pre>
+        <section>
+          <h4>Proof Set</h4>
+          <p>
+To demonstrate creating a proof set. We start with a document containing a
+single proof and add another proof to it. The start document is shown below and
+contains a proof signed with `keyPair1`.
+          </p>
+          <pre class="example nohighlight" title="Starting Document for Proof Set" data-include="TestVectors/proof-set-chain/signedProofSet1.json"
+          data-include-format="text"></pre>
+          <p>
+The `options` input to the <a data-cite="vc-data-integrity#add-proof-set/chain">
+Section 4.4: Add Proof Set/Chain</a> in the Data Integrity [[VC-DATA-INTEGRITY]]
+is shown below. Note that it does not include a `previousProof` attribute since
+we are constructing a proof set and not a chain. In addition we will be using
+`keyPair2` for signing.
+          </p>
+          <pre class="example nohighlight" title="Proof Options for Set" data-include="TestVectors/proof-set-chain/proofSetConfig2.json"
+          data-include-format="text"></pre>
+          <p>
+Per the algorithm of <a data-cite="vc-data-integrity#add-proof-set/chain">
+Section 4.4: Add Proof Set/Chain</a> in the Data Integrity [[VC-DATA-INTEGRITY]]
+we create an array variable <var>allProofs</var> and add the proof from the
+starting document to it. Since there is no `previousProof` attribute no
+modification of `unsignedDocument` is needed prior to computing the signed proof
+in step 6 of <a data-cite="vc-data-integrity#add-proof-set/chain">
+Section 4.4: Add Proof Set/Chain</a> in the Data Integrity
+[[VC-DATA-INTEGRITY]]. The signed proof configuration is shown below.
+          </p>
+          <pre class="example nohighlight" title="Signed Proof Options" data-include="TestVectors/proof-set-chain/proofSetConfigSigned2.json"
+          data-include-format="text"></pre>
+          <p>
+The above signed proof options gets appended to the <var>allProofs</var>
+variable which then gets set as the `proof` attribute of the unsigned document
+as shown below.
+          </p>
+          <pre class="example nohighlight" title="Signed Proof Set" data-include="TestVectors/proof-set-chain/signedProofSet2.json"
+          data-include-format="text"></pre>
+        </section>
+        <section>
+          <h4>Proof Chain with Multiple Dependencies</h4>
+        </section>
+        <section>
+          <h4>Extended Proof Chain</h4>
+        </section>
     </section>
 
     <section class="informative">
