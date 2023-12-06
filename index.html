@@ -2136,12 +2136,12 @@ constructing a proof chain, however this time it is a single value.
           data-include-format="text"></pre>
           <p>
 Per the algorithm of <a data-cite="vc-data-integrity#add-proof-set/chain">
-Section 4.4: Add Proof Set/Chain</a> in [[VC-DATA-INTEGRITY]]
-we create an array variable <var>allProofs</var> and add the proofs from the
-starting document to it. Since the options contains the `previousProof`
+Section 4.4: Add Proof Set/Chain</a> in [[VC-DATA-INTEGRITY]],
+we create an array variable, <var>allProofs</var>, and add the proofs from the
+starting document to it. Since the `options` contains the `previousProof`
 attribute, we compute the <var>matchingProofs</var> variable per step 4
 of <a data-cite="vc-data-integrity#add-proof-set/chain">Section 4.4: Add Proof
-Set/Chain</a> and we set the
+Set/Chain</a>, and we set the
 <var>unsecuredDocument.proof</var> equal to the <var>matchingProofs</var>. This
 produces the document shown below.
           </p>
