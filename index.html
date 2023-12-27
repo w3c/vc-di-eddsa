@@ -269,8 +269,8 @@ suites defined in this specification.
           </p>
 
           <p>
-The `publicKeyMultibase` value of the verification method MUST be 34 bytes in
-length and start with the base-58-btc prefix (`z`), as defined in the
+The `publicKeyMultibase` value of the verification method MUST start with the
+base-58-btc prefix (`z`), as defined in the
 <a data-cite="VC-DATA-INTEGRITY#multibase-0">Multibase section</a> of
 [[VC-DATA-INTEGRITY]]. A Multibase-encoded Multikey value follows, which MUST
 consist of a binary value that starts with the two-byte prefix `0xed01`, which
@@ -1384,14 +1384,14 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
             </p>
 
             <p>
-  The `publicKeyMultibase` value of the verification method MUST be 34 bytes in
-  length and start with the base-58-btc prefix (`z`), as defined in the
+  The `publicKeyMultibase` value of the verification method MUST start with the
+  base-58-btc prefix (`z`), as defined in the
   <a data-cite="VC-DATA-INTEGRITY#multibase-0">Multibase section</a> of
   [[VC-DATA-INTEGRITY]]. A Multibase-encoded Multikey value follows, which MUST
   consist of a binary value that starts with the two-byte prefix `0xed01`, which
-  is the Multikey header for an Ed25519 public key, followed by the 32-byte public
-  key data, all of which is then encoded using base-58-btc. Any other encoding
-  MUST NOT be allowed.
+  is the Multikey header for an Ed25519 public key, followed by the 32-byte
+  public key data, all of which is then encoded using base-58-btc. Any other
+  encoding MUST NOT be allowed.
             </p>
 
             <p class="advisement">
