@@ -15,14 +15,14 @@
       var respecConfig = {
         subtitle: "Achieving Data Integrity using EdDSA with Edwards curves",
         // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
-        specStatus: "CR",
+        specStatus: "CRD",
 
         // the specification's short name, as in http://www.w3.org/TR/short-name/
         shortName: "vc-di-eddsa",
         group: "vc",
 
         // if you wish the publication date to be other than today, set this
-        publishDate:  "2023-11-14",
+        //publishDate:  "2023-11-14",
 
         // if there is a previously published draft, uncomment this and set its YYYY-MM-DD date
         // and its maturity status
@@ -110,8 +110,8 @@
             href: "https://eprint.iacr.org/2020/823"
           }
         },
+        xref: ["INFRA", "VC-DATA-MODEL-2.0", "VC-DATA-INTEGRITY"],
         lint: {"no-unused-dfns": false},
-        postProcess: [restrictRefs],
         otherLinks: [{
           key: "Related Specifications",
           data: [{
@@ -208,7 +208,11 @@ representation is then hashed and signed with a detached signature algorithm.
       <section id="terminology">
         <h3>Terminology</h3>
 
-        <div data-include="https://w3c.github.io/vc-data-integrity/terms.html"></div>
+        <p>
+Terminology used throughout this document is defined in the
+<a data-cite="VC-DATA-INTEGRITY#terminology">Terminology</a> section of the
+[[[VC-DATA-INTEGRITY]]] specification.
+        </p>
 
       </section>
 
