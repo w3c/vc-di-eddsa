@@ -451,7 +451,7 @@ Set |cryptosuite|.|createProof| to the algorithm in Section
               </li>
               <li>
 Set |cryptosuite|.|verifyProof| to the algorithm in Section
-[[[#proof-verification-eddsa-rdfc-2022]]].
+[[[#verify-proof-eddsa-rdfc-2022]]].
               </li>
             </ol>
           </li>
@@ -464,7 +464,7 @@ Set |cryptosuite|.|createProof| to the algorithm in Section
               </li>
               <li>
 Set |cryptosuite|.|verifyProof| to the algorithm in Section
-[[[#proof-verification-eddsa-jcs-2022]]].
+[[[#verify-proof-eddsa-jcs-2022]]].
               </li>
             </ol>
           </li>
@@ -844,14 +844,15 @@ Return <var>verificationResult</var> as the <em>verification result</em>.
 The `eddsa-jcs-2022` cryptographic suite takes an input document, canonicalizes
 the document using the JSON Canonicalization Scheme [[RFC8785]], and then
 cryptographically hashes and signs the output resulting in the production of a
-data integrity proof. The algorithms for this cryptographic suite are the
-same as the ones in Section <a href="#eddsa-rdfc-2022"></a> except for the following
-modifications:
+data integrity proof. The algorithms for this cryptographic suite are the same
+as the ones in Section <a href="#eddsa-rdfc-2022"></a> except for the
+following modifications:
           </p>
 
           <p>
-In Section <a href="#transformation-eddsa-rdfc-2022"></a>, step <strong>1)</strong>
-and step <strong>2)</strong> are replaced by the following text:
+In Section <a href="#transformation-eddsa-rdfc-2022"></a>, step
+<strong>1)</strong> and step <strong>2)</strong> are replaced by the following
+text:
           </p>
 
           <ol class="algorithm">
@@ -868,8 +869,9 @@ JSON Canonicalization Scheme [[RFC8785]] to the <var>unsecuredDocument</var>.
           </ol>
 
           <p>
-In Section <a href="#proof-configuration-eddsa-rdfc-2022"></a>, step <strong>8)</strong> is not performed, and steps
-<strong>4)</strong> and <strong>9)</strong> are replaced by the following text:
+In Section <a href="#proof-configuration-eddsa-rdfc-2022"></a>, step
+<strong>8)</strong> is not performed, and steps <strong>4)</strong> and
+<strong>9)</strong> are replaced by the following text:
           </p>
 
           <p style="padding-left: 2em;">
@@ -881,6 +883,52 @@ set to `eddsa-jcs-2022`, an `INVALID_PROOF_CONFIGURATION` error MUST be raised.
 <strong>9)</strong> Let <var>canonicalProofConfig</var> be the result of applying the
 JSON Canonicalization Scheme [[RFC8785]] to the <var>proofConfig</var>.
           </p>
+
+          <section>
+            <h4>Create Proof (eddsa-jcs-2022)</h4>
+
+            <p>
+The following algorithm specifies how to create a [=data integrity proof=] given
+an <a>unsecured data document</a>. Required inputs are an
+<a>unsecured data document</a> ([=map=] |unsecuredDocument|), and a set of proof
+options ([=map=] |options|). A [=data integrity proof=] ([=map=]), or an error,
+is produced as output.
+            </p>
+
+            <p>
+The algorithm is the same as the one described in Section
+[[[#create-proof-eddsa-rdfc-2022]]] with the changes outlined in
+Section [[[#eddsa-jcs-2022]]].
+            </p>
+          </section>
+
+          <section>
+            <h4>Verify Proof (eddsa-jcs-2022)</h4>
+
+          <p>
+The following algorithm specifies how to verify a [=data integrity proof=] given
+an <a>secured data document</a>. Required inputs are an
+<a>secured data document</a> ([=map=] |securedDocument|). This algorithm returns
+a [=verification result=], which is a [=struct=] whose
+[=struct/items=] are:
+          </p>
+          <dl>
+            <dt>[=verification result/verified=]</dt>
+            <dd>`true` or `false`</dd>
+            <dt>[=verification result/verifiedDocument=]</dt>
+            <dd>
+<a data-cite="INFRA#nulls">Null</a>, if [=verification result/verified=] is
+`false`; otherwise, an [=unsecured data document=]
+            </dd>
+          </dl>
+
+          <p>
+The algorithm is the same as the one described in Section
+[[[#verify-proof-eddsa-rdfc-2022]]] with the changes outlined in
+Section [[[#eddsa-jcs-2022]]].
+          </p>
+        </section>
+
       </section>
 
     </section>
