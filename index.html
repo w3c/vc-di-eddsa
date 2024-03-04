@@ -424,6 +424,58 @@ that utilize the twisted Edwards Curve Digital Signature Algorithm.
       </p>
 
       <section>
+        <h3>Instantiate Cryptosuite</h3>
+
+        <p>
+This algorithm is used to configure a cryptographic suite to be used by the
+<a data-cite="VC-DATA-INTEGRITY#add-proof">Add Proof</a> and
+<a href="VC-DATA-INTEGRITY#verify-proof">Verify Proof</a>
+functions in [[[VC-DATA-INTEGRITY]]]. The algorithm takes an options object
+([=map=] |options|) as input and returns a [=data integrity cryptographic suite
+instance|cryptosuite instance=] ([=struct=] |cryptosuite|).
+        </p>
+
+        <ol class="algorithm">
+          <li>
+Initialize |cryptosuite| to an empty [=struct=].
+          </li>
+          <li>
+If |options|.|type| does not equal `DataIntegrityProof`, return |cryptosuite|.
+          </li>
+          <li>
+If |options|.|cryptosuite| is `eddsa-rdfc-2022` then:
+            <ol class="algorithm">
+              <li>
+Set |cryptosuite|.|createProof| to the algorithm in Section
+[[[#create-proof-eddsa-rdfc-2022]]].
+              </li>
+              <li>
+Set |cryptosuite|.|verifyProof| to the algorithm in Section
+[[[#proof-verification-eddsa-rdfc-2022]]].
+              </li>
+            </ol>
+          </li>
+          <li>
+If |options|.|cryptosuite| is `eddsa-jcs-2022` then:
+            <ol class="algorithm">
+              <li>
+Set |cryptosuite|.|createProof| to the algorithm in Section
+[[[#create-proof-eddsa-jcs-2022]]].
+              </li>
+              <li>
+Set |cryptosuite|.|verifyProof| to the algorithm in Section
+[[[#proof-verification-eddsa-jcs-2022]]].
+              </li>
+            </ol>
+          </li>
+          <li>
+Return |cryptosuite|.
+          </li>
+        </ol>
+
+      </section>
+
+      <section>
         <h3>eddsa-rdfc-2022</h3>
 
         <p>
