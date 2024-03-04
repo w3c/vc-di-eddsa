@@ -493,45 +493,118 @@ dataset poisoning</a> by default, and abort processing upon such detection.
         </p>
 
         <section>
-          <h4>Add Proof (eddsa-rdfc-2022)</h4>
+          <h4>Create Proof (eddsa-rdfc-2022)</h4>
 
           <p>
-To generate a proof, the algorithm in
-<a data-cite="vc-data-integrity#add-proof">
-Section 4.1: Add Proof</a> in the Data Integrity
-[[VC-DATA-INTEGRITY]] specification MUST be executed.
-For that algorithm, the cryptographic suite specific
-<a data-cite="vc-data-integrity#dfn-transformation-algorithm">
-transformation algorithm</a> is defined in Section
-<a href="#transformation-eddsa-rdfc-2022"></a>, the
-<a data-cite="vc-data-integrity#dfn-hashing-algorithm">
-hashing algorithm</a> is defined in Section <a href="#hashing-eddsa-rdfc-2022"></a>,
-and the
-<a data-cite="vc-data-integrity#dfn-proof-serialization-algorithm">
-proof serialization algorithm</a> is defined in Section
-<a href="#proof-serialization-eddsa-rdfc-2022"></a>.
+The following algorithm specifies how to create a [=data integrity proof=] given
+an <a>unsecured data document</a>. Required inputs are an
+<a>unsecured data document</a> ([=map=] |unsecuredDocument|), and a set of proof
+options ([=map=] |options|). A [=data integrity proof=] ([=map=]), or an error,
+is produced as output.
           </p>
+
+          <ol class="algorithm">
+            <li>
+Let |proof| be a clone of the proof options, |options|.
+            </li>
+            <li>
+Let |proofConfig| be the result of running the algorithm in
+Section [[[#proof-configuration-eddsa-rdfc-2022]]] with
+|options| passed as a parameter.
+            </li>
+            <li>
+Let |transformedData| be the result of running the algorithm in Section <a
+href="#transformation-eddsa-rdfc-2022"></a> with |unsecuredDocument|,
+|proofConfig|, and |options| passed as parameters.
+            </li>
+            <li>
+Let |hashData| be the result of running the algorithm in Section
+[[[#hashing-eddsa-rdfc-2022]]] with |transformedData| and |proofConfig|
+passed as a parameters.
+            </li>
+            <li>
+Let |proofBytes| be the result of running the algorithm in Section
+[[[#proof-serialization-eddsa-rdfc-2022]]] with |hashData| and
+|options| passed as parameters.
+            </li>
+            <li>
+Let |proof|.|proofValue| be a <a data-cite="VC-DATA-INTEGRITY#multibase-0">
+base58-btc-encoded Multibase value</a> of the |proofBytes|.
+            </li>
+            <li>
+Return |proof| as the [=data integrity proof=].
+            </li>
+          </ol>
+
         </section>
 
         <section>
           <h4>Verify Proof (eddsa-rdfc-2022)</h4>
 
           <p>
-To verify a proof, the algorithm in
-<a data-cite="vc-data-integrity#verify-proof">
-Section 4.2: Verify Proof</a> in the Data Integrity
-[[VC-DATA-INTEGRITY]] specification MUST be executed.
-For that algorithm, the cryptographic suite specific
-<a data-cite="vc-data-integrity#dfn-transformation-algorithm">
-transformation algorithm</a> is defined in Section
-<a href="#transformation-eddsa-rdfc-2022"></a>, the
-<a data-cite="vc-data-integrity#dfn-hashing-algorithm">
-hashing algorithm</a> is defined in Section <a href="#hashing-eddsa-rdfc-2022"></a>,
-and the
-<a data-cite="vc-data-integrity#dfn-proof-serialization-algorithm">
-proof verification algorithm</a> is defined in Section
-<a href="#proof-verification-eddsa-rdfc-2022"></a>.
+The following algorithm specifies how to verify a [=data integrity proof=] given
+an <a>secured data document</a>. Required inputs are an
+<a>secured data document</a> ([=map=] |securedDocument|). This algorithm returns
+a <dfn>verification result</dfn>, which is a [=struct=] whose
+[=struct/items=] are:
           </p>
+          <dl>
+            <dt><dfn data-dfn-for="verification result">verified</dfn></dt>
+            <dd>`true` or `false`</dd>
+            <dt><dfn data-dfn-for="verification result">verifiedDocument</dfn></dt>
+            <dd>
+<a data-cite="INFRA#nulls">Null</a>, if [=verification result/verified=] is
+`false`; otherwise, an [=unsecured data document=]
+            </dd>
+          </dl>
+
+          <ol class="algorithm">
+          <li>
+Let |unsecuredDocument| be a copy of |securedDocument| with
+the `proof` value removed.
+          </li>
+          <li>
+Let |proofConfig| be a copy of |securedDocument|.|proof| with `proofValue`
+removed.
+          </li>
+          <li>
+Let |proofBytes| be the
+<a data-cite="VC-DATA-INTEGRITY#multibase-0">Multibase decoded base58-btc
+value</a> in |securedDocument|.|proof|.|proofValue|.
+          </li>
+          <li>
+Let |transformedData| be the result of running the algorithm in Section <a
+href="#transformation-eddsa-rdfc-2022"></a> with |unsecuredDocument| and
+|proofConfig| passed as parameters.
+          </li>
+          <li>
+Let |hashData| be the result of running the algorithm in Section
+[[[#hashing-eddsa-rdfc-2022]]] with |transformedData| and |proofConfig|
+passed as a parameters.
+          </li>
+          <li>
+Let |verified:boolean| be the result of running the algorithm in Section
+[[[#proof-verification-eddsa-rdfc-2022]]] algorithm on |hashData|,
+|proofBytes|, and |proofConfig|.
+            </li>
+            <li>
+If |proof|.|created| does not [=map/exist=],
+an error MUST be raised and SHOULD convey an error type of
+<a data-cite="VC-DATA-INTEGRITY#MALFORMED_PROOF_ERROR">
+MALFORMED_PROOF_ERROR</a>.
+            </li>
+            <li>
+Return a [=verification result=] with [=struct/items=]:
+              <dl data-link-for="verification result">
+                <dt>[=verified=]</dt>
+                <dd>|verified|</dd>
+                <dt>[=verifiedDocument=]</dt>
+                <dd>
+|unsecuredDocument| if |verified| is `true`, otherwise <a data-cite="INFRA#nulls">Null</a></dd>
+              </dl>
+            </li>
+          </ol>
+
         </section>
 
         <section>
