@@ -564,7 +564,7 @@ Let |unsecuredDocument| be a copy of |securedDocument| with
 the `proof` value removed.
           </li>
           <li>
-Let |proofConfig| be a copy of |securedDocument|.|proof| with `proofValue`
+Let |proofOptions| be the result of a copy of |securedDocument|.|proof| with `proofValue`
 removed.
           </li>
           <li>
@@ -575,8 +575,11 @@ value</a> in |securedDocument|.|proof|.|proofValue|.
           <li>
 Let |transformedData| be the result of running the algorithm in Section <a
 href="#transformation-eddsa-rdfc-2022"></a> with |unsecuredDocument| and
-|proofConfig| passed as parameters.
+|proofOptions| passed as parameters.
           </li>
+Let |proofConfig| be the result of running the algorithm in Section <a
+href="#proof-configuration-eddsa-rdfc-2022"></a> with |unsecuredDocument| and
+|proofOptions| passed as parameters.
           <li>
 Let |hashData| be the result of running the algorithm in Section
 [[[#hashing-eddsa-rdfc-2022]]] with |transformedData| and |proofConfig|
