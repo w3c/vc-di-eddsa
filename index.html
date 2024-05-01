@@ -961,21 +961,25 @@ value</a> in |securedDocument|.|proof|.|proofValue|.
             </li>
             <li>
 Perform the following checks  between the |securedDocument|.<var>@context</var> and
-the |proof|.<var>@context</var>:
+the |proofOptions|.<var>@context</var>:
               <ol class="algorithm">
                 <li>
 The |securedDocument|.<var>@context</var> MUST contain all values contained in the
-|proof|.<var>@context</var> in the same order. Otherwise set |verified| to
+|proofOptions|.<var>@context</var> in the same order. Otherwise set |verified| to
 `false` and skip to the last step.
                 </li>
                 <li>
 The |securedDocument|.<var>@context</var> MUST NOT have any values preceding the
-values contained in the |proof|.<var>@context</var> but those MAY be followed by
+values contained in the |proofOptions|.<var>@context</var> but those MAY be followed by
 additional values not contained in the |proof|.<var>@context</var>. Otherwise
 set |verified| to `false` and skip to the last step.
                 </li>
               </ol>
 
+            </li>
+            <li>
+Set |securedDocument|.<var>@context</var> equal to
+|proofOptions|.<var>@context</var>.
             </li>
             <li>
 Let |transformedData| be the result of running the algorithm in Section
