@@ -577,9 +577,11 @@ Let |transformedData| be the result of running the algorithm in Section <a
 href="#transformation-eddsa-rdfc-2022"></a> with |unsecuredDocument| and
 |proofOptions| passed as parameters.
           </li>
+          <li>
 Let |proofConfig| be the result of running the algorithm in Section <a
 href="#proof-configuration-eddsa-rdfc-2022"></a> with |unsecuredDocument| and
 |proofOptions| passed as parameters.
+          </li>
           <li>
 Let |hashData| be the result of running the algorithm in Section
 [[[#hashing-eddsa-rdfc-2022]]] with |transformedData| and |proofConfig|
@@ -2359,6 +2361,7 @@ to produce the final signed document as shown below.
           <pre class="example nohighlight" title="Signed Proof Chain (Extended)" data-include="TestVectors/proof-set-chain/signedProofChain2.json"
           data-include-format="text"></pre>
         </section>
+      </section>
     </section>
 
     <section class="informative">
