@@ -886,13 +886,13 @@ JSON Canonicalization Scheme [[RFC8785]] to the <var>proofConfig</var>.
 Let |transformedData| be the result of running the algorithm in Section
 <a href="#transformation-eddsa-rdfc-2022"></a> with |unsecuredDocument|,
 |proofConfig|, and |options| passed as parameters where step
-<strong>1)</strong> and step <strong>2)</strong> are replaced by the following
-text respectively:
+<strong>1)</strong> and step <strong>2)</strong> are respectively replaced by
+the following texts:
                 <ol class="algorithm">
                   <li>
 If <var>options</var>.<var>type</var> is not set to the string
 `DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
-set to the string `eddsa-jcs-2022` then a `PROOF_TRANSFORMATION_ERROR` MUST be
+set to the string `eddsa-jcs-2022`, then a `PROOF_TRANSFORMATION_ERROR` MUST be
 raised.
                   </li>
                   <li>
@@ -965,13 +965,13 @@ the |proofOptions|.<var>@context</var>:
               <ol class="algorithm">
                 <li>
 The |securedDocument|.<var>@context</var> MUST contain all values contained in the
-|proofOptions|.<var>@context</var> in the same order. Otherwise set |verified| to
+|proofOptions|.<var>@context</var> in the same order. Otherwise, set |verified| to
 `false` and skip to the last step.
                 </li>
                 <li>
 The |securedDocument|.<var>@context</var> MUST NOT have any values preceding the
-values contained in the |proofOptions|.<var>@context</var> but those MAY be followed by
-additional values not contained in the |proof|.<var>@context</var>. Otherwise
+values contained in the |proofOptions|.<var>@context</var>, but those MAY be followed by
+additional values not contained in the |proof|.<var>@context</var>. Otherwise,
 set |verified| to `false` and skip to the last step.
                 </li>
               </ol>
@@ -985,13 +985,13 @@ Set |securedDocument|.<var>@context</var> equal to
 Let |transformedData| be the result of running the algorithm in Section
 <a href="#transformation-eddsa-rdfc-2022"></a> with |unsecuredDocument| and
 |proofOptions| passed as parameters where step
-<strong>1)</strong> and step <strong>2)</strong> are replaced by the following
-text respectively:
+<strong>1)</strong> and step <strong>2)</strong> are respectively replaced by
+the following texts:
                 <ol class="algorithm">
                   <li>
 If <var>options</var>.<var>type</var> is not set to the string
 `DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
-set to the string `eddsa-jcs-2022` then a `PROOF_TRANSFORMATION_ERROR` MUST be
+set to the string `eddsa-jcs-2022`, then a `PROOF_TRANSFORMATION_ERROR` MUST be
 raised.
                   </li>
                   <li>
@@ -1005,7 +1005,7 @@ Let |proofConfig| be the result of running the algorithm in
 Section [[[#proof-configuration-eddsa-rdfc-2022]]] with
 |unsecuredDocument| and |proofOptions| passed as a parameters and where
 steps <strong>4)</strong> and
-<strong>9)</strong> are replaced by the following text respectively:
+<strong>9)</strong> are respectively replaced by the following texts:
                 <ol class="algorithm">
                   <li>
 If <var>options</var>.<var>type</var> is not set to
@@ -1035,7 +1035,7 @@ JSON Canonicalization Scheme [[RFC8785]] to the <var>proofConfig</var>.
                   <dd>|verified|</dd>
                   <dt>[=verifiedDocument=]</dt>
                   <dd>
-  |unsecuredDocument| if |verified| is `true`, otherwise <a data-cite="INFRA#nulls">Null</a></dd>
+  |unsecuredDocument|, if |verified| is `true`; otherwise, <a data-cite="INFRA#nulls">Null</a></dd>
                 </dl>
               </li>
             </ol>
