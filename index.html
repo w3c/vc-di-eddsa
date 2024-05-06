@@ -961,25 +961,18 @@ Let |proofBytes| be the
 value</a> in |securedDocument|.|proof|.|proofValue|.
             </li>
             <li>
-If |proofOptions|.<var>@context</var> exists, perform the following checks  between the |securedDocument|.<var>@context</var> the |proofOptions|.<var>@context</var>:
+If |proofOptions|.<var>@context</var> exists:
               <ol class="algorithm">
                 <li>
-The |securedDocument|.<var>@context</var> MUST start with all values contained in the
-|proofOptions|.<var>@context</var> in the same order. Otherwise, set |verified| to
-`false` and skip to the last step.
+Check that the |securedDocument|.<var>@context</var> starts with all values
+contained in the |proofOptions|.<var>@context</var> in the same order.
+Otherwise, set |verified| to `false` and skip to the last step.
                 </li>
                 <li>
-The |securedDocument|.<var>@context</var> MUST NOT have any values preceding the
-values contained in the |proofOptions|.<var>@context</var>, but those MAY be followed by
-additional values not contained in the |proof|.<var>@context</var>. Otherwise,
-set |verified| to `false` and skip to the last step.
+Set |unsecuredDocument|.<var>@context</var> equal to
+|proofOptions|.<var>@context</var>.
                 </li>
               </ol>
-
-            </li>
-            <li>
-Set |securedDocument|.<var>@context</var> equal to
-|proofOptions|.<var>@context</var>.
             </li>
             <li>
 Let |transformedData| be the result of running the algorithm in Section
@@ -1003,8 +996,8 @@ JSON Canonicalization Scheme [[RFC8785]] to the <var>unsecuredDocument</var>.
             <li>
 Let |proofConfig| be the result of running the algorithm in
 Section [[[#proof-configuration-eddsa-rdfc-2022]]] with
-|unsecuredDocument| and |proofOptions| passed as a parameters and where
-steps <strong>4)</strong> and
+|unsecuredDocument| and |proofOptions| passed as a parameters and where step
+<strong>8)</strong> is not performed and steps <strong>4)</strong> and
 <strong>9)</strong> are respectively replaced by the following texts:
                 <ol class="algorithm">
                   <li>
