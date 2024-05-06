@@ -874,7 +874,8 @@ steps <strong>4)</strong> and
                   <li>
 If <var>options</var>.<var>type</var> is not set to
 `DataIntegrityProof` and <var>proofConfig</var>.<var>cryptosuite</var> is not
-set to `eddsa-jcs-2022`, an `INVALID_PROOF_CONFIGURATION` error MUST be raised.
+set to `eddsa-jcs-2022`, an error MUST be raised and it SHOULD use error
+code `PROOF_GENERATION_ERROR`.
                   </li>
                   <li>
 Let <var>canonicalProofConfig</var> be the result of applying the
@@ -892,8 +893,8 @@ the following texts:
                   <li>
 If <var>options</var>.<var>type</var> is not set to the string
 `DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
-set to the string `eddsa-jcs-2022`, then a `PROOF_TRANSFORMATION_ERROR` MUST be
-raised.
+set to the string `eddsa-jcs-2022`, then an error MUST be raised and it SHOULD
+use error code `PROOF_GENERATION_ERROR`.
                   </li>
                   <li>
 Let <var>canonicalDocument</var> be the result of applying the
@@ -960,11 +961,10 @@ Let |proofBytes| be the
 value</a> in |securedDocument|.|proof|.|proofValue|.
             </li>
             <li>
-Perform the following checks  between the |securedDocument|.<var>@context</var> and
-the |proofOptions|.<var>@context</var>:
+If |proofOptions|.<var>@context</var> exists, perform the following checks  between the |securedDocument|.<var>@context</var> the |proofOptions|.<var>@context</var>:
               <ol class="algorithm">
                 <li>
-The |securedDocument|.<var>@context</var> MUST contain all values contained in the
+The |securedDocument|.<var>@context</var> MUST start with all values contained in the
 |proofOptions|.<var>@context</var> in the same order. Otherwise, set |verified| to
 `false` and skip to the last step.
                 </li>
