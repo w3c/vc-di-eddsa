@@ -1178,6 +1178,44 @@ Return <var>canonicalProofConfig</var>.
         </section>
         <section>
           <h4>Proof Serialization (eddsa-jcs-2022)</h4>
+
+          <p>
+The following algorithm specifies how to serialize a digital signature from
+a set of cryptographic hash data. This
+algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a data-cite="vc-data-integrity#algorithms">
+Section 4: Algorithms</a>. Required inputs are
+cryptographic hash data (<var>hashData</var>) and
+<em>proof options</em> (<var>options</var>). The
+<em>proof options</em> MUST contain a type identifier for the
+<a data-cite="vc-data-integrity#dfn-cryptosuite">
+cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
+identifier (<var>cryptosuite</var>). A single <em>digital proof</em> value
+represented as series of bytes is produced as output.
+          </p>
+
+          <ol class="algorithm">
+            <li>
+Let <var>privateKeyBytes</var> be the result of retrieving the
+private key bytes associated with the
+<var>options</var>.<var>verificationMethod</var> value as described in the
+Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a data-cite="vc-data-integrity#algorithms">
+Section 4: Retrieving Cryptographic Material</a>.
+            </li>
+            <li>
+Let <var>proofBytes</var> be the result of applying the Edwards-Curve Digital
+Signature Algorithm (EdDSA) [[RFC8032]], using the `Ed25519` variant
+(Pure EdDSA), with <var>hashData</var> as the data to be signed using
+the private key specified by <var>privateKeyBytes</var>.
+<var>proofBytes</var> will be exactly 64 bytes in size.
+            </li>
+            <li>
+Return <var>proofBytes</var> as the <em>digital proof</em>.
+            </li>
+          </ol>
+
         </section>
         <section>
           <h4>Proof Verification (eddsa-jcs-2022)</h4>
