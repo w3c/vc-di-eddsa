@@ -1073,6 +1073,44 @@ Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
         </section>
         <section>
           <h4>Hashing (eddsa-jcs-2022)</h4>
+
+          <p>
+The following algorithm specifies how to cryptographically hash a
+<em>transformed data document</em> and <em>proof configuration</em>
+into cryptographic hash data that is ready to be provided as input to the
+algorithms in Section <a href="#proof-serialization-eddsa-jcs-2022"></a> or
+Section <a href="#proof-verification-eddsa-jcs-2022"></a>.
+          </p>
+
+          <p>
+The required inputs to this algorithm are a <em>transformed data document</em>
+(<var>transformedDocument</var>) and <em>canonical proof configuration</em>
+(<var>canonicalProofConfig</var>). A single <em>hash data</em> value represented as
+series of bytes is produced as output.
+          </p>
+
+          <ol class="algorithm">
+            <li>
+Let <var>transformedDocumentHash</var> be the result of applying the
+SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
+to the <var>transformedDocument</var>. <var>transformedDocumentHash</var> will
+be exactly 32 bytes in size.
+            </li>
+            <li>
+Let <var>proofConfigHash</var> be the result of applying the
+SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
+to the <var>canonicalProofConfig</var>. <var>proofConfigHash</var> will be
+exactly 32 bytes in size.
+            </li>
+            <li>
+Let <var>hashData</var> be the result of joining <var>proofConfigHash</var> (the
+first hash) with <var>transformedDocumentHash</var> (the second hash).
+            </li>
+            <li>
+Return <var>hashData</var> as the <em>hash data</em>.
+            </li>
+          </ol>
+
         </section>
         <section>
           <h4>Proof Configuration (eddsa-jcs-2022)</h4>
