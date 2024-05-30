@@ -1219,6 +1219,42 @@ Return <var>proofBytes</var> as the <em>digital proof</em>.
         </section>
         <section>
           <h4>Proof Verification (eddsa-jcs-2022)</h4>
+
+          <p>
+The following algorithm specifies how to verify a digital signature from
+a set of cryptographic hash data. This
+algorithm is designed to be used in conjunction with the algorithms defined
+in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a data-cite="vc-data-integrity#algorithms">
+Section 4: Algorithms</a>. Required inputs are
+cryptographic hash data (<var>hashData</var>),
+a digital signature (<var>proofBytes</var>) and
+proof options (<var>options</var>). A <em>verification result</em>
+represented as a boolean value is produced as output.
+          </p>
+
+          <ol class="algorithm">
+            <li>
+Let <var>publicKeyBytes</var> be the result of retrieving the
+public key bytes associated with the
+<var>options</var>.<var>verificationMethod</var> value as described in the
+Data Integrity [[VC-DATA-INTEGRITY]] specification,
+<a data-cite="vc-data-integrity#algorithms">
+Section 4: Retrieving Cryptographic Material</a>.
+            </li>
+            <li>
+Let <var>verificationResult</var> be the result of applying the verification
+algorithm for the Edwards-Curve Digital Signature Algorithm (EdDSA)
+[[RFC8032]], using the `Ed25519` variant (Pure EdDSA),
+with <var>hashData</var> as the data to be verified against the
+<var>proofBytes</var> using the public key specified by
+<var>publicKeyBytes</var>.
+            </li>
+            <li>
+Return <var>verificationResult</var> as the <em>verification result</em>.
+            </li>
+          </ol>
+
         </section>
       </section>
 <!-- End of JCS section -->
