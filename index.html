@@ -1033,9 +1033,58 @@ JSON Canonicalization Scheme [[RFC8785]] to the <var>proofConfig</var>.
               </li>
             </ol>
         </section>
+        <section>
+          <h4>Transformation (eddsa-jcs-2022)</h4>
 
+          <p>
+The following algorithm specifies how to transform an unsecured input document
+into a transformed document that is ready to be provided as input to the
+hashing algorithm in Section <a href="#hashing-eddsa-jcs-2022"></a>.
+          </p>
+
+          <p>
+Required inputs to this algorithm are an
+<a data-cite="vc-data-integrity#dfn-unsecured-data-document">
+unsecured data document</a> (<var>unsecuredDocument</var>) and
+transformation options (<var>options</var>). The
+transformation options MUST contain a type identifier for the
+<a data-cite="vc-data-integrity#dfn-cryptosuite">
+cryptographic suite</a> (<var>type</var>) and a cryptosuite
+identifier (<var>cryptosuite</var>). A <em>transformed data document</em> is
+produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
+encoding.
+          </p>
+
+          <ol class="algorithm">
+            <li>
+If <var>options</var>.<var>type</var> is not set to the string
+`DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
+set to the string `eddsa-jcs-2022` then a `PROOF_TRANSFORMATION_ERROR` MUST be
+raised.
+            </li>
+            <li>
+Let <var>canonicalDocument</var> be the result of applying the
+JSON Canonicalization Scheme [[RFC8785]] to the <var>unsecuredDocument</var>.
+            </li>
+            <li>
+Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
+            </li>
+          </ol>
+        </section>
+        <section>
+          <h4>Hashing (eddsa-jcs-2022)</h4>
+        </section>
+        <section>
+          <h4>Proof Configuration (eddsa-jcs-2022)</h4>
+        </section>
+        <section>
+          <h4>Proof Serialization (eddsa-jcs-2022)</h4>
+        </section>
+        <section>
+          <h4>Proof Verification (eddsa-jcs-2022)</h4>
+        </section>
       </section>
-
+<!-- End of JCS section -->
     </section>
 
     <section>
