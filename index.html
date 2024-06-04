@@ -1082,14 +1082,6 @@ object is produced as output.
 Let <var>proofConfig</var> be a clone of the <var>options</var> object.
             </li>
             <li>
-Set <var>proofConfig</var>.<var>type</var> to
-<var>options</var>.<var>type</var>.
-            </li>
-            <li>
-If <var>options</var>.<var>cryptosuite</var> is set, set
-<var>proofConfig</var>.<var>cryptosuite</var> to its value.
-            </li>
-            <li>
 If <var>options</var>.<var>type</var> is not set to `DataIntegrityProof` and
 <var>proofConfig</var>.<var>cryptosuite</var> is not set to `eddsa-jcs-2022`, an
 `INVALID_PROOF_CONFIGURATION` error MUST be raised.
