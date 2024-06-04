@@ -1004,8 +1004,8 @@ encoding.
             <li>
 If <var>options</var>.<var>type</var> is not set to the string
 `DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
-set to the string `eddsa-jcs-2022` then a `PROOF_TRANSFORMATION_ERROR` MUST be
-raised.
+set to the string `eddsa-jcs-2022` then an error MUST be raised that
+SHOULD use the `MALFORMED_PROOF_ERROR` error code.
             </li>
             <li>
 Let <var>canonicalDocument</var> be the result of applying the
