@@ -862,11 +862,11 @@ is produced as output.
 
             <ol class="algorithm">
               <li>
-Set <var>options</var>.<var>@context</var> to
-<var>unsecuredDocument</var>.<var>@context</var>.
+Let |proof| be a clone of the proof options, |options|.
               </li>
               <li>
-Let |proof| be a clone of the proof options, |options|.
+Set <var>proof</var>.<var>@context</var> to
+<var>unsecuredDocument</var>.<var>@context</var>.
               </li>
               <li>
 Let |proofConfig| be the result of running the algorithm in
@@ -875,8 +875,8 @@ Section [[[#proof-configuration-eddsa-jcs-2022]]] with
               </li>
               <li>
 Let |transformedData| be the result of running the algorithm in Section
-<a href="#transformation-eddsa-jcs-2022"></a> with |unsecuredDocument|,
-|proofConfig|, and |options| passed as parameters.
+<a href="#transformation-eddsa-jcs-2022"></a> with |unsecuredDocument|
+and |options| passed as parameters.
               </li>
               <li>
 Let |hashData| be the result of running the algorithm in Section
