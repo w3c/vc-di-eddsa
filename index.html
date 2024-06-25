@@ -632,7 +632,7 @@ encoding.
             <li>
 If <var>options</var>.<var>type</var> is not set to the string
 `DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
-set to the string `eddsa-rdfc-2022` then an error MUST be raised and SHOULD
+set to the string `eddsa-rdfc-2022`, an error MUST be raised and SHOULD
 convey an error type of `PROOF_TRANSFORMATION_ERROR`.
             </li>
             <li>
@@ -1009,8 +1009,8 @@ encoding.
             <li>
 If <var>options</var>.<var>type</var> is not set to the string
 `DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
-set to the string `eddsa-jcs-2022` then an error MUST be raised that
-SHOULD use the `PROOF_VERIFICATION_ERROR` error code.
+set to the string `eddsa-jcs-2022`, an error MUST be raised and
+SHOULD convey an error type of `PROOF_VERIFICATION_ERROR`.
             </li>
             <li>
 Let <var>canonicalDocument</var> be the result of applying the
