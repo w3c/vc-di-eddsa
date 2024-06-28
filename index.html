@@ -633,7 +633,8 @@ encoding.
 If <var>options</var>.<var>type</var> is not set to the string
 `DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
 set to the string `eddsa-rdfc-2022` then an error MUST be raised and SHOULD
-convey an error type of `PROOF_TRANSFORMATION_ERROR`.
+convey an error type of
+<a data-cite="VC-DATA-INTEGRITY#PROOF_TRANSFORMATION_ERROR">PROOF_TRANSFORMATION_ERROR</a>.
             </li>
             <li>
 Let |canonicalDocument| be the result of converting |unsecuredDocument|
@@ -726,14 +727,14 @@ If <var>options</var>.<var>cryptosuite</var> is set, set
 If <var>options</var>.<var>type</var> is not set to `DataIntegrityProof` and
 <var>proofConfig</var>.<var>cryptosuite</var> is not set to `eddsa-rdfc-2022`,
 an error MUST be raised and SHOULD convey an error type of
-`PROOF_GENERATION_ERROR`.
+<a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
             </li>
             <li>
 Set <var>proofConfig</var>.<var>created</var> to
 <var>options</var>.<var>created</var>. If the value is not a valid
 [[XMLSCHEMA11-2]] datetime,
 an error MUST be raised and SHOULD convey an error type of
-`PROOF_GENERATION_ERROR`.
+<a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
             </li>
             <li>
 Set <var>proofConfig</var>.<var>verificationMethod</var> to
@@ -1010,7 +1011,9 @@ encoding.
 If <var>options</var>.<var>type</var> is not set to the string
 `DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
 set to the string `eddsa-jcs-2022` then an error MUST be raised that
-SHOULD use the `PROOF_VERIFICATION_ERROR` error code.
+SHOULD use the
+<a data-cite="VC-DATA-INTEGRITY#PROOF_VERIFICATION_ERROR">PROOF_VERIFICATION_ERROR</a>
+error code.
             </li>
             <li>
 Let <var>canonicalDocument</var> be the result of applying the
@@ -1091,14 +1094,14 @@ Let <var>proofConfig</var> be a clone of the <var>options</var> object.
 If <var>options</var>.<var>type</var> is not set to `DataIntegrityProof` and
 <var>proofConfig</var>.<var>cryptosuite</var> is not set to `eddsa-jcs-2022`,
 an error MUST be raised and SHOULD convey an error type of
-`PROOF_GENERATION_ERROR`.
+<a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
             </li>
             <li>
 Set <var>proofConfig</var>.<var>created</var> to
 <var>options</var>.<var>created</var>. If the value is not a valid
 [[XMLSCHEMA11-2]] datetime,
 an error MUST be raised and SHOULD convey an error type of
-`PROOF_GENERATION_ERROR`.
+<a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
             </li>
             <li>
 Set <var>proofConfig</var>.<var>verificationMethod</var> to
@@ -2025,7 +2028,8 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
               <li>
   If <var>options</var>.<var>type</var> is not set to the string
   `Ed25519Signature2020`, an error MUST be raised and SHOULD convey an error
-  type of `PROOF_TRANSFORMATION_ERROR`.
+  type of
+  <a data-cite="VC-DATA-INTEGRITY#PROOF_TRANSFORMATION_ERROR">PROOF_TRANSFORMATION_ERROR</a>.
               </li>
               <li>
   Let |canonicalDocument| be the result of converting |unsecuredDocument|
@@ -2122,13 +2126,14 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
               <li>
 If <var>options</var>.<var>type</var> is not set to `Ed25519Signature2020`,
 an error MUST be raised and SHOULD convey an error type of
-`PROOF_GENERATION_ERROR`.
+<a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
               </li>
               <li>
   Set <var>proofConfig</var>.<var>created</var> to
   <var>options</var>.<var>created</var>. If the value is not a valid
   [[XMLSCHEMA11-2]] datetime, an error MUST be raised and SHOULD convey an
-  error type of `PROOF_GENERATION_ERROR `.
+  error type of
+  <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
               </li>
               <li>
   Set <var>proofConfig</var>.<var>verificationMethod</var> to
