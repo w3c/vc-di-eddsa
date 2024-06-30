@@ -199,7 +199,7 @@ publication and meets U.S. Federal Information Processing requirements when
 using cryptography to secure digital information.
       </p>
       <p>
-The suites described in this specification use the RDF Dataset Normalization
+The suites described in this specification use the RDF Dataset Canonicalization
 Algorithm [[RDF-CANON]] or the JSON Canonicalization Scheme [[RFC8785]] to
 transform an input document into its canonical form. The canonical
 representation is then hashed and signed with a detached signature algorithm.
@@ -480,8 +480,8 @@ Return |cryptosuite|.
 
         <p>
 The `eddsa-rdfc-2022` cryptographic suite takes an input document, canonicalizes
-the document using the Universal RDF Dataset Canonicalization Algorithm
-[[RDF-CANON]], and then cryptographically hashes and signs the output
+the document using the RDF Dataset Canonicalization algorithm [[RDF-CANON]], and then 
+cryptographically hashes and signs the output
 resulting in the production of a data integrity proof. The algorithms in this
 section also include the verification of such a data integrity proof.
         </p>
@@ -639,7 +639,7 @@ convey an error type of
             <li>
 Let |canonicalDocument| be the result of converting |unsecuredDocument|
 <a data-cite="JSON-LD11-API#deserialize-json-ld-to-rdf-algorithm">
-to RDF statements</a>, applying the Universal RDF Dataset Canonicalization
+to RDF statements</a>, applying the RDF Dataset Canonicalization
 Algorithm [[RDF-CANON]] to the result, and then serializing the result to
 [[N-QUADS]].
             </li>
@@ -750,8 +750,7 @@ Set <var>proofConfig</var>.<var>@context</var> to
             </li>
             <li>
 Let <var>canonicalProofConfig</var> be the result of applying the
-Universal RDF Dataset Canonicalization Algorithm
-[[RDF-CANON]] to the <var>proofConfig</var>.
+RDF Dataset Canonicalization algorithm [[RDF-CANON]] to the <var>proofConfig</var>.
             </li>
             <li>
 Return <var>canonicalProofConfig</var>.
@@ -1954,8 +1953,8 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
 
           <p>
   The `Ed25519Signature2020` cryptographic suite takes an input document,
-  canonicalizes the document using the Universal RDF Dataset Canonicalization
-  Algorithm [[RDF-CANON]], and then cryptographically hashes and signs the output
+  canonicalizes the document using the RDF Dataset Canonicalization algorithm [[RDF-CANON]], 
+  and then cryptographically hashes and signs the output
   resulting in the production of a data integrity proof. The algorithms in this
   section also include the verification of such a data integrity proof.
           </p>
@@ -2034,8 +2033,8 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
               <li>
   Let |canonicalDocument| be the result of converting |unsecuredDocument|
   <a data-cite="JSON-LD11-API#deserialize-json-ld-to-rdf-algorithm">
-  to RDF statements</a>, applying the Universal RDF Dataset Canonicalization
-  Algorithm [[RDF-CANON]] to the result, and then serializing the result to
+  to RDF statements</a>, applying the RDF Dataset Canonicalization
+  algorithm [[RDF-CANON]] to the result, and then serializing the result to
   [[N-QUADS]].
               </li>
               <li>
@@ -2149,8 +2148,7 @@ an error MUST be raised and SHOULD convey an error type of
               </li>
               <li>
   Let <var>canonicalProofConfig</var> be the result of applying the
-  Universal RDF Dataset Canonicalization Algorithm
-  [[RDF-CANON]] to the <var>proofConfig</var>.
+  RDF Dataset Canonicalization algorithm [[RDF-CANON]] to the <var>proofConfig</var>.
               </li>
               <li>
   Return <var>canonicalProofConfig</var>.
