@@ -721,18 +721,18 @@ error MUST be raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
             </li>
             <li>
-If |proofConfig|.|created| is set and if the value is not a
+If |proofConfig|.|created| is set to a value that is not a
 valid [[XMLSCHEMA11-2]] datetime, an error MUST be
 raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
             </li>
             <li>
 Set |proofConfig|.<var>@context </var>to
-|unsecuredDocument|.<var>@contex</var>t.
+|unsecuredDocument|.<var>@context</var>.
             </li>
             <li>
 Let |canonicalProofConfig| be the result of applying the
-Universal RDF Dataset Canonicalization Algorithm
+RDF Dataset Canonicalization Algorithm
 [[RDF-CANON]] to the |proofConfig|.
             </li>
             <li>
@@ -1073,13 +1073,13 @@ object is produced as output.
 Let <var>proofConfig</var> be a clone of the <var>options</var> object.
             </li>
             <li>
-If <var>proofConfig</var>.<var>type</var> is not set to `DataIntegrityProof` and
+If <var>proofConfig</var>.<var>type</var> is not set to `DataIntegrityProof` and/or
 <var>proofConfig</var>.<var>cryptosuite</var> is not set to `eddsa-jcs-2022`,
 an error MUST be raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
             </li>
             <li>
-If |proofConfig|.|created| is set and if the value is not a
+If |proofConfig|.|created| is set to a value that is not a
 valid [[XMLSCHEMA11-2]] datetime, an error MUST be
 raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
@@ -1928,7 +1928,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
           <p>
   The `Ed25519Signature2020` cryptographic suite takes an input document,
   canonicalizes the document using the RDF Dataset Canonicalization algorithm [[RDF-CANON]],
-  and then cryptographically hashes and signs the output
+  and then cryptographically hashes and signs the output,
   resulting in the production of a data integrity proof. The algorithms in this
   section also include the verification of such a data integrity proof.
           </p>
@@ -2094,7 +2094,7 @@ an error MUST be raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
               </li>
               <li>
-If |proofConfig|.|created| is set and if the value is not a
+If |proofConfig|.|created| is set to a value that is not a
 valid [[XMLSCHEMA11-2]] datetime, an error MUST be
 raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
