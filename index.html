@@ -359,26 +359,15 @@ this specification.
           <h4>DataIntegrityProof</h4>
 
           <p>
-The `verificationMethod` property of the proof MUST be a URL.
-Dereferencing the `verificationMethod` MUST result in an object
-containing a `type` property with the value set to
-`Multikey`.
+A proof contains the attributes specified in the
+<a href="https://www.w3.org/TR/vc-data-integrity/#proofs">Proofs section</a>
+of [[VC-DATA-INTEGRITY]] with the following restrictions.
           </p>
-
           <p>
-The `type` property of the proof MUST be `DataIntegrityProof`.
+The `type` property MUST be `DataIntegrityProof`.
           </p>
           <p>
 The `cryptosuite` property of the proof MUST be `eddsa-rdfc-2022` or `eddsa-jcs-2022`.
-          </p>
-          <p>
-The `created` property of the proof MUST be an [[XMLSCHEMA11-2]]
-formatted date string.
-          </p>
-          <p>
-The `proofPurpose` property of the proof MUST be a string, and MUST
-match the verification relationship expressed by the verification method
-`controller`.
           </p>
           <p>
 The `proofValue` property of the proof MUST be a detached EdDSA
@@ -480,7 +469,7 @@ Return |cryptosuite|.
 
         <p>
 The `eddsa-rdfc-2022` cryptographic suite takes an input document, canonicalizes
-the document using the RDF Dataset Canonicalization algorithm [[RDF-CANON]], and then 
+the document using the RDF Dataset Canonicalization algorithm [[RDF-CANON]], and then
 cryptographically hashes and signs the output
 resulting in the production of a data integrity proof. The algorithms in this
 section also include the verification of such a data integrity proof.
@@ -1953,7 +1942,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
 
           <p>
   The `Ed25519Signature2020` cryptographic suite takes an input document,
-  canonicalizes the document using the RDF Dataset Canonicalization algorithm [[RDF-CANON]], 
+  canonicalizes the document using the RDF Dataset Canonicalization algorithm [[RDF-CANON]],
   and then cryptographically hashes and signs the output
   resulting in the production of a data integrity proof. The algorithms in this
   section also include the verification of such a data integrity proof.
