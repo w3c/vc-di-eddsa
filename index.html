@@ -480,7 +480,7 @@ Return |cryptosuite|.
 
         <p>
 The `eddsa-rdfc-2022` cryptographic suite takes an input document, canonicalizes
-the document using the RDF Dataset Canonicalization algorithm [[RDF-CANON]], and then 
+the document using the RDF Dataset Canonicalization algorithm [[RDF-CANON]], and then
 cryptographically hashes and signs the output
 resulting in the production of a data integrity proof. The algorithms in this
 section also include the verification of such a data integrity proof.
@@ -710,50 +710,33 @@ cryptographic suite</a> (<var>type</var>) and MUST contain a cryptosuite
 identifier (<var>cryptosuite</var>). A <em>proof configuration</em>
 object is produced as output.
           </p>
-
           <ol class="algorithm">
             <li>
-Let <var>proofConfig</var> be an empty object.
+Let |proofConfig| be a clone of the |options| object.
             </li>
             <li>
-Set <var>proofConfig</var>.<var>type</var> to
-<var>options</var>.<var>type</var>.
-            </li>
-            <li>
-If <var>options</var>.<var>cryptosuite</var> is set, set
-<var>proofConfig</var>.<var>cryptosuite</var> to its value.
-            </li>
-            <li>
-If <var>options</var>.<var>type</var> is not set to `DataIntegrityProof` and
-<var>proofConfig</var>.<var>cryptosuite</var> is not set to `eddsa-rdfc-2022`,
-an error MUST be raised and SHOULD convey an error type of
+If |proofConfig|.|type| is not set to `DataIntegrityProof` and/or
+|proofConfig|.|cryptosuite| is not set to `eddsa-rdfc-2022`, an
+error MUST be raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
             </li>
             <li>
-Set <var>proofConfig</var>.<var>created</var> to
-<var>options</var>.<var>created</var>. If the value is not a valid
-[[XMLSCHEMA11-2]] datetime,
-an error MUST be raised and SHOULD convey an error type of
+If |proofConfig|.|created| is set and if the value is not a
+valid [[XMLSCHEMA11-2]] datetime, an error MUST be
+raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
             </li>
             <li>
-Set <var>proofConfig</var>.<var>verificationMethod</var> to
-<var>options</var>.<var>verificationMethod</var>.
+Set |proofConfig|.<var>@context </var>to
+|unsecuredDocument|.<var>@contex</var>t.
             </li>
             <li>
-Set <var>proofConfig</var>.<var>proofPurpose</var> to
-<var>options</var>.<var>proofPurpose</var>.
+Let |canonicalProofConfig| be the result of applying the
+Universal RDF Dataset Canonicalization Algorithm
+[[RDF-CANON]] to the |proofConfig|.
             </li>
             <li>
-Set <var>proofConfig</var>.<var>@context</var> to
-<var>unsecuredDocument</var>.<var>@context</var>
-            </li>
-            <li>
-Let <var>canonicalProofConfig</var> be the result of applying the
-RDF Dataset Canonicalization algorithm [[RDF-CANON]] to the <var>proofConfig</var>.
-            </li>
-            <li>
-Return <var>canonicalProofConfig</var>.
+Return |canonicalProofConfig|.
             </li>
           </ol>
 
@@ -1090,25 +1073,16 @@ object is produced as output.
 Let <var>proofConfig</var> be a clone of the <var>options</var> object.
             </li>
             <li>
-If <var>options</var>.<var>type</var> is not set to `DataIntegrityProof` and
+If <var>proofConfig</var>.<var>type</var> is not set to `DataIntegrityProof` and
 <var>proofConfig</var>.<var>cryptosuite</var> is not set to `eddsa-jcs-2022`,
 an error MUST be raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
             </li>
             <li>
-Set <var>proofConfig</var>.<var>created</var> to
-<var>options</var>.<var>created</var>. If the value is not a valid
-[[XMLSCHEMA11-2]] datetime,
-an error MUST be raised and SHOULD convey an error type of
+If |proofConfig|.|created| is set and if the value is not a
+valid [[XMLSCHEMA11-2]] datetime, an error MUST be
+raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
-            </li>
-            <li>
-Set <var>proofConfig</var>.<var>verificationMethod</var> to
-<var>options</var>.<var>verificationMethod</var>.
-            </li>
-            <li>
-Set <var>proofConfig</var>.<var>proofPurpose</var> to
-<var>options</var>.<var>proofPurpose</var>.
             </li>
             <li>
 Let <var>canonicalProofConfig</var> be the result of applying the
@@ -1953,7 +1927,7 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
 
           <p>
   The `Ed25519Signature2020` cryptographic suite takes an input document,
-  canonicalizes the document using the RDF Dataset Canonicalization algorithm [[RDF-CANON]], 
+  canonicalizes the document using the RDF Dataset Canonicalization algorithm [[RDF-CANON]],
   and then cryptographically hashes and signs the output
   resulting in the production of a data integrity proof. The algorithms in this
   section also include the verification of such a data integrity proof.
@@ -2112,35 +2086,18 @@ unlinkability. If signatures are re-used, they can be used as correlatable data.
 
             <ol class="algorithm">
               <li>
-  Let <var>proofConfig</var> be an empty object.
+Let |proofConfig| be a clone of the |options| object.
               </li>
               <li>
-  Set <var>proofConfig</var>.<var>type</var> to
-  <var>options</var>.<var>type</var>.
-              </li>
-              <li>
-  If <var>options</var>.<var>cryptosuite</var> is set, set
-  <var>proofConfig</var>.<var>cryptosuite</var> to its value.
-              </li>
-              <li>
-If <var>options</var>.<var>type</var> is not set to `Ed25519Signature2020`,
+If <var>proofConfig</var>.<var>type</var> is not set to `Ed25519Signature2020`,
 an error MUST be raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
               </li>
               <li>
-  Set <var>proofConfig</var>.<var>created</var> to
-  <var>options</var>.<var>created</var>. If the value is not a valid
-  [[XMLSCHEMA11-2]] datetime, an error MUST be raised and SHOULD convey an
-  error type of
-  <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
-              </li>
-              <li>
-  Set <var>proofConfig</var>.<var>verificationMethod</var> to
-  <var>options</var>.<var>verificationMethod</var>.
-              </li>
-              <li>
-  Set <var>proofConfig</var>.<var>proofPurpose</var> to
-  <var>options</var>.<var>proofPurpose</var>.
+If |proofConfig|.|created| is set and if the value is not a
+valid [[XMLSCHEMA11-2]] datetime, an error MUST be
+raised and SHOULD convey an error type of
+<a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
               </li>
               <li>
   Set <var>proofConfig</var>.<var>@context</var> to
