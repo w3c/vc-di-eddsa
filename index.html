@@ -2031,11 +2031,12 @@ an error MUST be raised that SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_TRANSFORMATION_ERROR">PROOF_TRANSFORMATION_ERROR</a>.
               </li>
               <li>
-Let |canonicalDocument| be the result of converting |unsecuredDocument|
-<a data-cite="JSON-LD11-API#deserialize-json-ld-to-rdf-algorithm">
-to RDF statements</a>, applying the RDF Dataset Canonicalization
-algorithm [[RDF-CANON]] to the result, and then serializing the result to
-[[N-QUADS]].
+Let |canonicalDocument| be the result of converting |unsecuredDocument| to
+<a data-cite="JSON-LD11-API#expansion-algorithm">JSON-LD expanded form</a>
+and then <a data-cite="JSON-LD11-API#deserialize-json-ld-to-rdf-algorithm">
+to RDF statements</a>, applying the <a data-cite="RDF-CANON#canon-algorithm">
+Universal RDF Dataset Canonicalization Algorithm</a>, and then serializing the
+result to [[N-QUADS]].
               </li>
               <li>
 Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
