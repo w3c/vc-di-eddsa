@@ -659,16 +659,16 @@ series of bytes is produced as output.
 
           <ol class="algorithm">
             <li>
+              Let <var>proofConfigHash</var> be the result of applying the
+              SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
+              to the <var>canonicalProofConfig</var>. <var>proofConfigHash</var> will be
+              exactly 32 bytes in size.
+            </li>
+            <li>
 Let <var>transformedDocumentHash</var> be the result of applying the
 SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
 to the <var>transformedDocument</var>. <var>transformedDocumentHash</var> will
 be exactly 32 bytes in size.
-            </li>
-            <li>
-Let <var>proofConfigHash</var> be the result of applying the
-SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the <var>canonicalProofConfig</var>. <var>proofConfigHash</var> will be
-exactly 32 bytes in size.
             </li>
             <li>
 Let <var>hashData</var> be the result of joining <var>proofConfigHash</var> (the
