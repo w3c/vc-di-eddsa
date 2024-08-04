@@ -840,12 +840,12 @@ is produced as output.
 
             <ol class="algorithm">
               <li>
-If <var>unsecuredDocument</var>.<var>@context</var> is present,
-set <var>options</var>.<var>@context</var> to
-<var>unsecuredDocument</var>.<var>@context</var>.
+Let |proof| be a clone of the proof options, |options|.
               </li>
               <li>
-Let |proof| be a clone of the proof options, |options|.
+If <var>unsecuredDocument</var>.<var>@context</var> is present,
+set <var>proof</var>.<var>@context</var> to
+<var>unsecuredDocument</var>.<var>@context</var>.
               </li>
               <li>
 Let |proofConfig| be the result of running the algorithm in
