@@ -608,20 +608,20 @@ hashing algorithm in Section <a href="#hashing-eddsa-rdfc-2022"></a>.
           <p>
 Required inputs to this algorithm are an
 <a data-cite="vc-data-integrity#dfn-unsecured-data-document">
-unsecured data document</a> (<var>unsecuredDocument</var>) and
-transformation options (<var>options</var>). The
+unsecured data document</a> (`unsecuredDocument`) and
+transformation options (`options`). The
 transformation options MUST contain a type identifier for the
 <a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (<var>type</var>) and a cryptosuite
-identifier (<var>cryptosuite</var>). A <em>transformed data document</em> is
+cryptographic suite</a> (`type`) and a cryptosuite
+identifier (`cryptosuite`). A <em>transformed data document</em> is
 produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
 encoding.
           </p>
 
           <ol class="algorithm">
             <li>
-If <var>options</var>.<var>type</var> is not set to the string
-`DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
+If `options`.`type` is not set to the string
+`DataIntegrityProof` and `options`.`cryptosuite` is not
 set to the string `eddsa-rdfc-2022`,
 an error MUST be raised that SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_TRANSFORMATION_ERROR">PROOF_TRANSFORMATION_ERROR</a>.
@@ -634,7 +634,7 @@ Algorithm [[RDF-CANON]] to the result, and then serializing the result to
 [[N-QUADS]].
             </li>
             <li>
-Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
+Return `canonicalDocument` as the <em>transformed data document</em>.
             </li>
           </ol>
         </section>
@@ -652,31 +652,31 @@ Section <a href="#proof-verification-eddsa-rdfc-2022"></a>.
 
           <p>
 The required inputs to this algorithm are a <em>transformed data document</em>
-(<var>transformedDocument</var>) and <em>canonical proof configuration</em>
-(<var>canonicalProofConfig</var>). A single <em>hash data</em> value represented as
+(`transformedDocument`) and <em>canonical proof configuration</em>
+(`canonicalProofConfig`). A single <em>hash data</em> value represented as
 series of bytes is produced as output.
           </p>
 
           <ol class="algorithm">
             <li>
-Let <var>proofConfigHash</var> be the result of applying the
+Let `proofConfigHash` be the result of applying the
 SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the <var>canonicalProofConfig</var>. <var>proofConfigHash</var> will be
+to the `canonicalProofConfig`. `proofConfigHash` will be
 exactly 32 bytes in size.
             </li>
             <li>
-Let <var>transformedDocumentHash</var> be the result of applying the
+Let `transformedDocumentHash` be the result of applying the
 SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the <var>transformedDocument</var>. <var>transformedDocumentHash</var> will
+to the `transformedDocument`. `transformedDocumentHash` will
 be exactly 32 bytes in size.
             </li>
             <li>
-Let <var>hashData</var> be the result of concatenating <var>proofConfigHash</var>
-(the first hash produced above) followed by <var>transformedDocumentHash</var>
+Let `hashData` be the result of concatenating `proofConfigHash`
+(the first hash produced above) followed by `transformedDocumentHash`
 (the second hash produced above).
             </li>
             <li>
-Return <var>hashData</var> as the <em>hash data</em>.
+Return `hashData` as the <em>hash data</em>.
             </li>
           </ol>
 
@@ -694,11 +694,11 @@ that is used as input to the <a href="#hashing-eddsa-rdfc-2022">proof hashing al
           <p>
 The required inputs to this algorithm are the <em>document</em>
 (|unsecuredDocument|) and the <em>proof options</em>
-(<var>options</var>). The <em>proof options</em> MUST contain a type identifier
+(`options`). The <em>proof options</em> MUST contain a type identifier
 for the
 <a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (<var>type</var>) and MUST contain a cryptosuite
-identifier (<var>cryptosuite</var>). A <em>proof configuration</em>
+cryptographic suite</a> (`type`) and MUST contain a cryptosuite
+identifier (`cryptosuite`). A <em>proof configuration</em>
 object is produced as output.
           </p>
           <ol class="algorithm">
@@ -718,7 +718,7 @@ raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
             </li>
             <li>
-Set |proofConfig|.<var>@context </var>to
+Set |proofConfig|.`@context `to
 |unsecuredDocument|.<var>@context</var>.
             </li>
             <li>
@@ -743,33 +743,33 @@ algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a data-cite="vc-data-integrity#algorithms">
 Section 4: Algorithms</a>. Required inputs are
-cryptographic hash data (<var>hashData</var>) and
-<em>proof options</em> (<var>options</var>). The
+cryptographic hash data (`hashData`) and
+<em>proof options</em> (`options`). The
 <em>proof options</em> MUST contain a type identifier for the
 <a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-identifier (<var>cryptosuite</var>). A single <em>digital proof</em> value
+cryptographic suite</a> (`type`) and MAY contain a cryptosuite
+identifier (`cryptosuite`). A single <em>digital proof</em> value
 represented as series of bytes is produced as output.
           </p>
 
           <ol class="algorithm">
             <li>
-Let <var>privateKeyBytes</var> be the result of retrieving the
+Let `privateKeyBytes` be the result of retrieving the
 private key bytes associated with the
-<var>options</var>.<var>verificationMethod</var> value as described in the
+`options`.`verificationMethod` value as described in the
 Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a data-cite="vc-data-integrity#algorithms">
 Section 4: Retrieving Cryptographic Material</a>.
             </li>
             <li>
-Let <var>proofBytes</var> be the result of applying the Edwards-Curve Digital
+Let `proofBytes` be the result of applying the Edwards-Curve Digital
 Signature Algorithm (EdDSA) [[RFC8032]], using the `Ed25519` variant
-(Pure EdDSA), with <var>hashData</var> as the data to be signed using
-the private key specified by <var>privateKeyBytes</var>.
-<var>proofBytes</var> will be exactly 64 bytes in size.
+(Pure EdDSA), with `hashData` as the data to be signed using
+the private key specified by `privateKeyBytes`.
+`proofBytes` will be exactly 64 bytes in size.
             </li>
             <li>
-Return <var>proofBytes</var> as the <em>digital proof</em>.
+Return `proofBytes` as the <em>digital proof</em>.
             </li>
           </ol>
 
@@ -785,31 +785,31 @@ algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a data-cite="vc-data-integrity#algorithms">
 Section 4: Algorithms</a>. Required inputs are
-cryptographic hash data (<var>hashData</var>),
-a digital signature (<var>proofBytes</var>) and
-proof options (<var>options</var>). A <em>verification result</em>
+cryptographic hash data (`hashData`),
+a digital signature (`proofBytes`) and
+proof options (`options`). A <em>verification result</em>
 represented as a boolean value is produced as output.
           </p>
 
           <ol class="algorithm">
             <li>
-Let <var>publicKeyBytes</var> be the result of retrieving the
+Let `publicKeyBytes` be the result of retrieving the
 public key bytes associated with the
-<var>options</var>.<var>verificationMethod</var> value as described in the
+`options`.`verificationMethod` value as described in the
 Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a data-cite="vc-data-integrity#algorithms">
 Section 4: Retrieving Cryptographic Material</a>.
             </li>
             <li>
-Let <var>verificationResult</var> be the result of applying the verification
+Let `verificationResult` be the result of applying the verification
 algorithm for the Edwards-Curve Digital Signature Algorithm (EdDSA)
 [[RFC8032]], using the `Ed25519` variant (Pure EdDSA),
-with <var>hashData</var> as the data to be verified against the
-<var>proofBytes</var> using the public key specified by
-<var>publicKeyBytes</var>.
+with `hashData` as the data to be verified against the
+`proofBytes` using the public key specified by
+`publicKeyBytes`.
             </li>
             <li>
-Return <var>verificationResult</var> as the <em>verification result</em>.
+Return `verificationResult` as the <em>verification result</em>.
             </li>
           </ol>
 
@@ -844,9 +844,9 @@ is produced as output.
 Let |proof| be a clone of the proof options, |options|.
               </li>
               <li>
-If <var>unsecuredDocument</var>.<var>@context</var> is present,
-set <var>proof</var>.<var>@context</var> to
-<var>unsecuredDocument</var>.<var>@context</var>.
+If `unsecuredDocument`.<var>@context</var> is present,
+set `proof`.<var>@context</var> to
+`unsecuredDocument`.<var>@context</var>.
               </li>
               <li>
 Let |proofConfig| be the result of running the algorithm in
@@ -970,31 +970,31 @@ hashing algorithm in Section <a href="#hashing-eddsa-jcs-2022"></a>.
           <p>
 Required inputs to this algorithm are an
 <a data-cite="vc-data-integrity#dfn-unsecured-data-document">
-unsecured data document</a> (<var>unsecuredDocument</var>) and
-transformation options (<var>options</var>). The
+unsecured data document</a> (`unsecuredDocument`) and
+transformation options (`options`). The
 transformation options MUST contain a type identifier for the
 <a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (<var>type</var>) and a cryptosuite
-identifier (<var>cryptosuite</var>). A <em>transformed data document</em> is
+cryptographic suite</a> (`type`) and a cryptosuite
+identifier (`cryptosuite`). A <em>transformed data document</em> is
 produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
 encoding.
           </p>
 
           <ol class="algorithm">
             <li>
-If <var>options</var>.<var>type</var> is not set to the string
-`DataIntegrityProof` and <var>options</var>.<var>cryptosuite</var> is not
+If `options`.`type` is not set to the string
+`DataIntegrityProof` and `options`.`cryptosuite` is not
 set to the string `eddsa-jcs-2022`,
 an error MUST be raised that SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_VERIFICATION_ERROR">PROOF_VERIFICATION_ERROR</a>.
             </li>
             <li>
-Let <var>canonicalDocument</var> be the result of applying the
+Let `canonicalDocument` be the result of applying the
 JSON Canonicalization Scheme [[RFC8785]] to a JSON serialization of the
-<var>unsecuredDocument</var>.
+`unsecuredDocument`.
             </li>
             <li>
-Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
+Return `canonicalDocument` as the <em>transformed data document</em>.
             </li>
           </ol>
         </section>
@@ -1011,30 +1011,30 @@ Section <a href="#proof-verification-eddsa-jcs-2022"></a>.
 
           <p>
 The required inputs to this algorithm are a <em>transformed data document</em>
-(<var>transformedDocument</var>) and <em>canonical proof configuration</em>
-(<var>canonicalProofConfig</var>). A single <em>hash data</em> value represented as
+(`transformedDocument`) and <em>canonical proof configuration</em>
+(`canonicalProofConfig`). A single <em>hash data</em> value represented as
 series of bytes is produced as output.
           </p>
 
           <ol class="algorithm">
             <li>
-Let <var>transformedDocumentHash</var> be the result of applying the
+Let `transformedDocumentHash` be the result of applying the
 SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the <var>transformedDocument</var>. <var>transformedDocumentHash</var> will
+to the `transformedDocument`. `transformedDocumentHash` will
 be exactly 32 bytes in size.
             </li>
             <li>
-Let <var>proofConfigHash</var> be the result of applying the
+Let `proofConfigHash` be the result of applying the
 SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the <var>canonicalProofConfig</var>. <var>proofConfigHash</var> will be
+to the `canonicalProofConfig`. `proofConfigHash` will be
 exactly 32 bytes in size.
             </li>
             <li>
-Let <var>hashData</var> be the result of joining <var>proofConfigHash</var> (the
-first hash) with <var>transformedDocumentHash</var> (the second hash).
+Let `hashData` be the result of joining `proofConfigHash` (the
+first hash) with `transformedDocumentHash` (the second hash).
             </li>
             <li>
-Return <var>hashData</var> as the <em>hash data</em>.
+Return `hashData` as the <em>hash data</em>.
             </li>
           </ol>
 
@@ -1050,21 +1050,21 @@ that is used as input to the <a href="#hashing-eddsa-jcs-2022">proof hashing alg
 
           <p>
 The required inputs to this algorithm are <em>proof options</em>
-(<var>options</var>). The <em>proof options</em> MUST contain a type identifier
+(`options`). The <em>proof options</em> MUST contain a type identifier
 for the
 <a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (<var>type</var>) and MUST contain a cryptosuite
-identifier (<var>cryptosuite</var>). A <em>proof configuration</em>
+cryptographic suite</a> (`type`) and MUST contain a cryptosuite
+identifier (`cryptosuite`). A <em>proof configuration</em>
 object is produced as output.
           </p>
 
           <ol class="algorithm">
             <li>
-Let <var>proofConfig</var> be a clone of the <var>options</var> object.
+Let `proofConfig` be a clone of the `options` object.
             </li>
             <li>
-If <var>proofConfig</var>.<var>type</var> is not set to `DataIntegrityProof` or
-<var>proofConfig</var>.<var>cryptosuite</var> is not set to `eddsa-jcs-2022`,
+If `proofConfig`.`type` is not set to `DataIntegrityProof` or
+`proofConfig`.`cryptosuite` is not set to `eddsa-jcs-2022`,
 an error MUST be raised that SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
             </li>
@@ -1075,11 +1075,11 @@ raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
             </li>
             <li>
-Let <var>canonicalProofConfig</var> be the result of applying the
-JSON Canonicalization Scheme [[RFC8785]] to the <var>proofConfig</var>.
+Let `canonicalProofConfig` be the result of applying the
+JSON Canonicalization Scheme [[RFC8785]] to the `proofConfig`.
             </li>
             <li>
-Return <var>canonicalProofConfig</var>.
+Return `canonicalProofConfig`.
             </li>
           </ol>
 
@@ -1094,33 +1094,33 @@ algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a data-cite="vc-data-integrity#algorithms">
 Section 4: Algorithms</a>. Required inputs are
-cryptographic hash data (<var>hashData</var>) and
-<em>proof options</em> (<var>options</var>). The
+cryptographic hash data (`hashData`) and
+<em>proof options</em> (`options`). The
 <em>proof options</em> MUST contain a type identifier for the
 <a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-identifier (<var>cryptosuite</var>). A single <em>digital proof</em> value
+cryptographic suite</a> (`type`) and MAY contain a cryptosuite
+identifier (`cryptosuite`). A single <em>digital proof</em> value
 represented as series of bytes is produced as output.
           </p>
 
           <ol class="algorithm">
             <li>
-Let <var>privateKeyBytes</var> be the result of retrieving the
+Let `privateKeyBytes` be the result of retrieving the
 private key bytes associated with the
-<var>options</var>.<var>verificationMethod</var> value as described in the
+`options`.`verificationMethod` value as described in the
 Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a data-cite="vc-data-integrity#algorithms">
 Section 4: Retrieving Cryptographic Material</a>.
             </li>
             <li>
-Let <var>proofBytes</var> be the result of applying the Edwards-Curve Digital
+Let `proofBytes` be the result of applying the Edwards-Curve Digital
 Signature Algorithm (EdDSA) [[RFC8032]], using the `Ed25519` variant
-(Pure EdDSA), with <var>hashData</var> as the data to be signed using
-the private key specified by <var>privateKeyBytes</var>.
-<var>proofBytes</var> will be exactly 64 bytes in size.
+(Pure EdDSA), with `hashData` as the data to be signed using
+the private key specified by `privateKeyBytes`.
+`proofBytes` will be exactly 64 bytes in size.
             </li>
             <li>
-Return <var>proofBytes</var> as the <em>digital proof</em>.
+Return `proofBytes` as the <em>digital proof</em>.
             </li>
           </ol>
 
@@ -1135,31 +1135,31 @@ algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a data-cite="vc-data-integrity#algorithms">
 Section 4: Algorithms</a>. Required inputs are
-cryptographic hash data (<var>hashData</var>),
-a digital signature (<var>proofBytes</var>) and
-proof options (<var>options</var>). A <em>verification result</em>
+cryptographic hash data (`hashData`),
+a digital signature (`proofBytes`) and
+proof options (`options`). A <em>verification result</em>
 represented as a boolean value is produced as output.
           </p>
 
           <ol class="algorithm">
             <li>
-Let <var>publicKeyBytes</var> be the result of retrieving the
+Let `publicKeyBytes` be the result of retrieving the
 public key bytes associated with the
-<var>options</var>.<var>verificationMethod</var> value as described in the
+`options`.`verificationMethod` value as described in the
 Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a data-cite="vc-data-integrity#algorithms">
 Section 4: Retrieving Cryptographic Material</a>.
             </li>
             <li>
-Let <var>verificationResult</var> be the result of applying the verification
+Let `verificationResult` be the result of applying the verification
 algorithm for the Edwards-Curve Digital Signature Algorithm (EdDSA)
 [[RFC8032]], using the `Ed25519` variant (Pure EdDSA),
-with <var>hashData</var> as the data to be verified against the
-<var>proofBytes</var> using the public key specified by
-<var>publicKeyBytes</var>.
+with `hashData` as the data to be verified against the
+`proofBytes` using the public key specified by
+`publicKeyBytes`.
             </li>
             <li>
-Return <var>verificationResult</var> as the <em>verification result</em>.
+Return `verificationResult` as the <em>verification result</em>.
             </li>
           </ol>
 
@@ -1987,19 +1987,19 @@ hashing algorithm in Section <a href="#hashing-ed25519signature2020"></a>.
             <p>
 Required inputs to this algorithm are an
 <a data-cite="vc-data-integrity#dfn-unsecured-data-document">
-unsecured data document</a> (<var>unsecuredDocument</var>) and
-transformation options (<var>options</var>). The
+unsecured data document</a> (`unsecuredDocument`) and
+transformation options (`options`). The
 transformation options MUST contain a type identifier for the
 <a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (<var>type</var>) and a cryptosuite
-identifier (<var>cryptosuite</var>). A <em>transformed data document</em> is
+cryptographic suite</a> (`type`) and a cryptosuite
+identifier (`cryptosuite`). A <em>transformed data document</em> is
 produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
 encoding.
             </p>
 
             <ol class="algorithm">
               <li>
-If <var>options</var>.<var>type</var> is not set to the string
+If `options`.`type` is not set to the string
 `Ed25519Signature2020`,
 an error MUST be raised that SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_TRANSFORMATION_ERROR">PROOF_TRANSFORMATION_ERROR</a>.
@@ -2013,7 +2013,7 @@ Universal RDF Dataset Canonicalization Algorithm</a>, and then serializing the
 result to [[N-QUADS]].
               </li>
               <li>
-Return <var>canonicalDocument</var> as the <em>transformed data document</em>.
+Return `canonicalDocument` as the <em>transformed data document</em>.
               </li>
             </ol>
 
@@ -2032,35 +2032,35 @@ Section <a href="#proof-verification-ed25519signature2020"></a>.
 
             <p>
 The required inputs to this algorithm are a
-<em>transformed data document</em> (<var>transformedDocument</var>) and
-<em>proof configuration</em> (<var>proofConfig</var>). The
+<em>transformed data document</em> (`transformedDocument`) and
+<em>proof configuration</em> (`proofConfig`). The
 <em>proof configuration</em> MUST contain a type identifier for the
 <a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-identifier (<var>cryptosuite</var>). A single <em>hash data</em> value
+cryptographic suite</a> (`type`) and MAY contain a cryptosuite
+identifier (`cryptosuite`). A single <em>hash data</em> value
 represented as series of bytes is produced as output.
             </p>
 
             <ol class="algorithm">
               <li>
-Let <var>transformedDocumentHash</var> be the result of applying the
+Let `transformedDocumentHash` be the result of applying the
 SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the <var>transformedDocument</var>. <var>transformedDocumentHash</var> will
+to the `transformedDocument`. `transformedDocumentHash` will
 be exactly 32 bytes in size.
               </li>
               <li>
-Let <var>proofConfigHash</var> be the result of applying the
+Let `proofConfigHash` be the result of applying the
 SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the <var>canonicalProofConfig</var>. <var>proofConfigHash</var> will be
+to the `canonicalProofConfig`. `proofConfigHash` will be
 exactly 32 bytes in size.
               </li>
 
               <li>
-Let <var>hashData</var> be the result of joining <var>proofConfigHash</var> (the
-first hash) with <var>transformedDocumentHash</var> (the second hash).
+Let `hashData` be the result of joining `proofConfigHash` (the
+first hash) with `transformedDocumentHash` (the second hash).
               </li>
               <li>
-Return <var>hashData</var> as the <em>hash data</em>.
+Return `hashData` as the <em>hash data</em>.
               </li>
             </ol>
 
@@ -2077,11 +2077,11 @@ that is used as input to the <a href="#hashing-ed25519signature2020">proof hashi
 
             <p>
 The required inputs to this algorithm are <em>proof options</em>
-(<var>options</var>). The <em>proof options</em> MUST contain a type identifier
+(`options`). The <em>proof options</em> MUST contain a type identifier
 for the
 <a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-identifier (<var>cryptosuite</var>). A <em>proof configuration</em>
+cryptographic suite</a> (`type`) and MAY contain a cryptosuite
+identifier (`cryptosuite`). A <em>proof configuration</em>
 object is produced as output.
             </p>
 
@@ -2090,7 +2090,7 @@ object is produced as output.
 Let |proofConfig| be a clone of the |options| object.
               </li>
               <li>
-If <var>proofConfig</var>.<var>type</var> is not set to `Ed25519Signature2020`,
+If `proofConfig`.`type` is not set to `Ed25519Signature2020`,
 an error MUST be raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
               </li>
@@ -2101,15 +2101,15 @@ raised and SHOULD convey an error type of
 <a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
               </li>
               <li>
-Set <var>proofConfig</var>.<var>@context</var> to
-<var>unsecuredDocument</var>.<var>@context</var>
+Set `proofConfig`.<var>@context</var> to
+`unsecuredDocument`.<var>@context</var>
               </li>
               <li>
-Let <var>canonicalProofConfig</var> be the result of applying the
-RDF Dataset Canonicalization algorithm [[RDF-CANON]] to the <var>proofConfig</var>.
+Let `canonicalProofConfig` be the result of applying the
+RDF Dataset Canonicalization algorithm [[RDF-CANON]] to the `proofConfig`.
               </li>
               <li>
-Return <var>canonicalProofConfig</var>.
+Return `canonicalProofConfig`.
               </li>
             </ol>
 
@@ -2125,33 +2125,33 @@ algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a data-cite="vc-data-integrity#algorithms">
 Section 4: Algorithms</a>. Required inputs are
-cryptographic hash data (<var>hashData</var>) and
-<em>proof options</em> (<var>options</var>). The
+cryptographic hash data (`hashData`) and
+<em>proof options</em> (`options`). The
 <em>proof options</em> MUST contain a type identifier for the
 <a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (<var>type</var>) and MAY contain a cryptosuite
-identifier (<var>cryptosuite</var>). A single <em>digital proof</em> value
+cryptographic suite</a> (`type`) and MAY contain a cryptosuite
+identifier (`cryptosuite`). A single <em>digital proof</em> value
 represented as series of bytes is produced as output.
             </p>
 
             <ol class="algorithm">
               <li>
-Let <var>privateKeyBytes</var> be the result of retrieving the
+Let `privateKeyBytes` be the result of retrieving the
 private key bytes associated with the
-<var>options</var>.<var>verificationMethod</var> value as described in the
+`options`.`verificationMethod` value as described in the
 Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a data-cite="vc-data-integrity#algorithms">
 Section 4: Retrieving Cryptographic Material</a>.
               </li>
               <li>
-Let <var>proofBytes</var> be the result of applying the Edwards-Curve Digital
+Let `proofBytes` be the result of applying the Edwards-Curve Digital
 Signature Algorithm (EdDSA) [[RFC8032]], using the `Ed25519` variant
-(Pure EdDSA), with <var>hashData</var> as the data to be signed using
-the private key specified by <var>privateKeyBytes</var>.
-<var>proofBytes</var> will be exactly 64 bytes in size.
+(Pure EdDSA), with `hashData` as the data to be signed using
+the private key specified by `privateKeyBytes`.
+`proofBytes` will be exactly 64 bytes in size.
               </li>
               <li>
-Return <var>proofBytes</var> as the <em>digital proof</em>.
+Return `proofBytes` as the <em>digital proof</em>.
               </li>
             </ol>
 
@@ -2167,31 +2167,31 @@ algorithm is designed to be used in conjunction with the algorithms defined
 in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a data-cite="vc-data-integrity#algorithms">
 Section 4: Algorithms</a>. Required inputs are
-cryptographic hash data (<var>hashData</var>),
-a digital signature (<var>proofBytes</var>) and
-proof options (<var>options</var>). A <em>verification result</em>
+cryptographic hash data (`hashData`),
+a digital signature (`proofBytes`) and
+proof options (`options`). A <em>verification result</em>
 represented as a boolean value is produced as output.
             </p>
 
             <ol class="algorithm">
               <li>
-Let <var>publicKeyBytes</var> be the result of retrieving the
+Let `publicKeyBytes` be the result of retrieving the
 public key bytes associated with the
-<var>options</var>.<var>verificationMethod</var> value as described in the
+`options`.`verificationMethod` value as described in the
 Data Integrity [[VC-DATA-INTEGRITY]] specification,
 <a data-cite="vc-data-integrity#algorithms">
 Section 4: Retrieving Cryptographic Material</a>.
               </li>
               <li>
-Let <var>verificationResult</var> be the result of applying the verification
+Let `verificationResult` be the result of applying the verification
 algorithm for the Edwards-Curve Digital Signature Algorithm (EdDSA)
 [[RFC8032]], using the `Ed25519` variant (Pure EdDSA),
-with <var>hashData</var> as the data to be verified against the
-<var>proofBytes</var> using the public key specified by
-<var>publicKeyBytes</var>.
+with `hashData` as the data to be verified against the
+`proofBytes` using the public key specified by
+`publicKeyBytes`.
               </li>
               <li>
-Return <var>verificationResult</var> as the <em>verification result</em>.
+Return `verificationResult` as the <em>verification result</em>.
               </li>
             </ol>
 
@@ -2461,7 +2461,7 @@ we are constructing a proof set and not a chain. In addition, we will be using
           <p>
 Per the algorithm of <a data-cite="vc-data-integrity#add-proof-set/chain">
 Section 4.4: Add Proof Set/Chain</a> in [[VC-DATA-INTEGRITY]],
-we create an array variable, <var>allProofs</var>, and add the proof from the
+we create an array variable, `allProofs`, and add the proof from the
 starting document to it. Since there is no `previousProof` attribute, no
 modification of `unsignedDocument` is needed prior to computing the signed proof
 in step 6 of <a data-cite="vc-data-integrity#add-proof-set/chain">
@@ -2471,7 +2471,7 @@ Section 4.4: Add Proof Set/Chain</a> in
           <pre class="example nohighlight" title="Signed Proof Options" data-include="TestVectors/proof-set-chain/proofSetConfigSigned2.json"
           data-include-format="text"></pre>
           <p>
-The signed proof `options` above gets appended to the <var>allProofs</var>
+The signed proof `options` above gets appended to the `allProofs`
 variable, which then gets set as the `proof` attribute of the unsigned document
 to produce the final signed document as shown below.
           </p>
@@ -2502,12 +2502,12 @@ constructing a proof chain.
           <p>
 Per the algorithm of <a data-cite="vc-data-integrity#add-proof-set/chain">
 Section 4.4: Add Proof Set/Chain</a> in [[VC-DATA-INTEGRITY]],
-we create an array variable, <var>allProofs</var>, and add the proofs from the
+we create an array variable, `allProofs`, and add the proofs from the
 starting document to it. Since the options contains the `previousProof`
-attribute, we compute the <var>matchingProofs</var> variable per step 4
+attribute, we compute the `matchingProofs` variable per step 4
 of <a data-cite="vc-data-integrity#add-proof-set/chain">Section 4.4: Add Proof
 Set/Chain</a>, and we set the
-<var>unsecuredDocument.proof</var> equal to the <var>matchingProofs</var>. This
+`unsecuredDocument.proof` equal to the `matchingProofs`. This
 produces the document shown below.
           </p>
           <pre class="example nohighlight" title="Temporary Unsecured Document for Binding Previous Proofs" data-include="TestVectors/proof-set-chain/proofChainTempDoc1.json"
@@ -2520,7 +2520,7 @@ configuration options (proof) shown below:
           <pre class="example nohighlight" title="Signed Configuration Options (proof)" data-include="TestVectors/proof-set-chain/proofChainConfigSigned1.json"
           data-include-format="text"></pre>
           <p>
-The signed proof `options` above gets appended to the <var>allProofs</var>
+The signed proof `options` above gets appended to the `allProofs`
 variable, which then gets set as the `proof` attribute of the unsigned document
 to produce the final signed document as shown below.
           </p>
@@ -2548,12 +2548,12 @@ constructing a proof chain, however this time it is a single value.
           <p>
 Per the algorithm of <a data-cite="vc-data-integrity#add-proof-set/chain">
 Section 4.4: Add Proof Set/Chain</a> in [[VC-DATA-INTEGRITY]],
-we create an array variable, <var>allProofs</var>, and add the proofs from the
+we create an array variable, `allProofs`, and add the proofs from the
 starting document to it. Since the `options` contains the `previousProof`
-attribute, we compute the <var>matchingProofs</var> variable per step 4
+attribute, we compute the `matchingProofs` variable per step 4
 of <a data-cite="vc-data-integrity#add-proof-set/chain">Section 4.4: Add Proof
 Set/Chain</a>, and we set the
-<var>unsecuredDocument.proof</var> equal to the <var>matchingProofs</var>. This
+`unsecuredDocument.proof` equal to the `matchingProofs`. This
 produces the document shown below.
           </p>
           <pre class="example nohighlight" title="Temporary Unsecured Document for Binding Previous Proofs (Extended Chain)" data-include="TestVectors/proof-set-chain/proofChainTempDoc2.json"
@@ -2566,7 +2566,7 @@ configuration options (proof) shown below:
           <pre class="example nohighlight" title="Signed Configuration Options (Extended)" data-include="TestVectors/proof-set-chain/proofChainConfigSigned2.json"
           data-include-format="text"></pre>
           <p>
-The signed proof `options` above gets appended to the <var>allProofs</var>
+The signed proof `options` above gets appended to the `allProofs`
 variable, which then gets set as the `proof` attribute of the unsigned document
 to produce the final signed document as shown below.
           </p>
