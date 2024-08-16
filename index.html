@@ -221,7 +221,7 @@ Terminology used throughout this document is defined in the
 A <dfn>conforming proof</dfn> is any concrete expression of the data model
 that complies with the normative statements in this specification. Specifically,
 all relevant normative statements in Sections
-<a href="#data-model"></a> and <a href="#algorithms"></a>
+[[[#data-model]]] and [[[#algorithms]]]
 of this document MUST be enforced.
         </p>
 
@@ -602,7 +602,7 @@ otherwise, <a data-cite="INFRA#nulls">Null</a></dd>
           <p>
 The following algorithm specifies how to transform an unsecured input document
 into a transformed document that is ready to be provided as input to the
-hashing algorithm in Section <a href="#hashing-eddsa-rdfc-2022"></a>.
+hashing algorithm in Section [[[#hashing-eddsa-rdfc-2022]]].
           </p>
 
           <p>
@@ -646,8 +646,8 @@ Return `canonicalDocument` as the <em>transformed data document</em>.
 The following algorithm specifies how to cryptographically hash a
 <em>transformed data document</em> and <em>proof configuration</em>
 into cryptographic hash data that is ready to be provided as input to the
-algorithms in Section <a href="#proof-serialization-eddsa-rdfc-2022"></a> or
-Section <a href="#proof-verification-eddsa-rdfc-2022"></a>.
+algorithms in Section [[[#proof-serialization-eddsa-rdfc-2022]]] or
+Section [[[#proof-verification-eddsa-rdfc-2022]]].
           </p>
 
           <p>
@@ -855,7 +855,7 @@ Section [[[#proof-configuration-eddsa-jcs-2022]]] with
               </li>
               <li>
 Let |transformedData| be the result of running the algorithm in Section
-<a href="#transformation-eddsa-jcs-2022"></a> with |unsecuredDocument|
+[[[#transformation-eddsa-jcs-2022]]] with |unsecuredDocument|
 and |options| passed as parameters.
               </li>
               <li>
@@ -964,7 +964,7 @@ otherwise, <a data-cite="INFRA#nulls">Null</a></dd>
           <p>
 The following algorithm specifies how to transform an unsecured input document
 into a transformed document that is ready to be provided as input to the
-hashing algorithm in Section <a href="#hashing-eddsa-jcs-2022"></a>.
+hashing algorithm in Section [[[#hashing-eddsa-jcs-2022]]].
           </p>
 
           <p>
@@ -1005,8 +1005,8 @@ Return `canonicalDocument` as the <em>transformed data document</em>.
 The following algorithm specifies how to cryptographically hash a
 <em>transformed data document</em> and <em>proof configuration</em>
 into cryptographic hash data that is ready to be provided as input to the
-algorithms in Section <a href="#proof-serialization-eddsa-jcs-2022"></a> or
-Section <a href="#proof-verification-eddsa-jcs-2022"></a>.
+algorithms in Section [[[#proof-serialization-eddsa-jcs-2022]]] or
+Section [[[#proof-verification-eddsa-jcs-2022]]].
           </p>
 
           <p>
@@ -1944,13 +1944,13 @@ Section 4.1: Add Proof</a> in the Data Integrity
 For that algorithm, the cryptographic suite specific
 <a data-cite="vc-data-integrity#dfn-transformation-algorithm">
 transformation algorithm</a> is defined in Section
-<a href="#transformation-ed25519signature2020"></a>, the
+[[[#transformation-ed25519signature2020]]], the
 <a data-cite="vc-data-integrity#dfn-hashing-algorithm">
 hashing algorithm</a> is defined in Section
-<a href="#hashing-ed25519signature2020"></a>, and the
+[[[#hashing-ed25519signature2020]]], and the
 <a data-cite="vc-data-integrity#dfn-proof-serialization-algorithm">
 proof serialization algorithm</a> is defined in Section
-<a href="#proof-serialization-ed25519signature2020"></a>.
+[[[#proof-serialization-ed25519signature2020]]].
             </p>
           </section>
 
@@ -1965,13 +1965,13 @@ Section 4.2: Verify Proof</a> in the Data Integrity
 For that algorithm, the cryptographic suite specific
 <a data-cite="vc-data-integrity#dfn-transformation-algorithm">
 transformation algorithm</a> is defined in Section
-<a href="#transformation-ed25519signature2020"></a>, the
+[[[#transformation-ed25519signature2020]]], the
 <a data-cite="vc-data-integrity#dfn-hashing-algorithm">
-hashing algorithm</a> is defined in Section <a href="#hashing-ed25519signature2020"></a>,
+hashing algorithm</a> is defined in Section [[[#hashing-ed25519signature2020]]],
 and the
 <a data-cite="vc-data-integrity#dfn-proof-serialization-algorithm">
 proof verification algorithm</a> is defined in Section
-<a href="#proof-verification-ed25519signature2020"></a>.
+[[[#proof-verification-ed25519signature2020]]].
             </p>
           </section>
 
@@ -1981,7 +1981,7 @@ proof verification algorithm</a> is defined in Section
             <p>
 The following algorithm specifies how to transform an unsecured input document
 into a transformed document that is ready to be provided as input to the
-hashing algorithm in Section <a href="#hashing-ed25519signature2020"></a>.
+hashing algorithm in Section [[[#hashing-ed25519signature2020]]].
             </p>
 
             <p>
@@ -2026,8 +2026,8 @@ Return `canonicalDocument` as the <em>transformed data document</em>.
 The following algorithm specifies how to cryptographically hash a
 <em>transformed data document</em> and <em>proof configuration</em>
 into cryptographic hash data that is ready to be provided as input to the
-algorithms in Section <a href="#proof-serialization-ed25519signature2020"></a> or
-Section <a href="#proof-verification-ed25519signature2020"></a>.
+algorithms in Section [[[#proof-serialization-ed25519signature2020]]] or
+Section [[[#proof-verification-ed25519signature2020]]].
             </p>
 
             <p>
