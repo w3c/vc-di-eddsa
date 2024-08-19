@@ -270,16 +270,16 @@ signatures.
           <h4>Multikey</h4>
 
           <p>
-The <a data-cite="VC-DATA-INTEGRITY#multikey">Multikey format</a>, defined in
-[[VC-DATA-INTEGRITY]], is used to express public keys for the cryptographic
+The <a data-cite="controller-document#multikey">Multikey format</a>, defined in
+[[controller-document]], is used to express public keys for the cryptographic
 suites defined in this specification.
           </p>
 
           <p>
 The `publicKeyMultibase` value of the verification method MUST start with the
 base-58-btc prefix (`z`), as defined in the
-<a data-cite="VC-DATA-INTEGRITY#multibase-0">Multibase section</a> of
-[[VC-DATA-INTEGRITY]]. A Multibase-encoded Multikey value follows, which MUST
+<a data-cite="controller-document#multibase-0">Multibase section</a> of
+[[controller-document]]. A Multibase-encoded Multikey value follows, which MUST
 consist of a binary value that starts with the two-byte prefix `0xed01`, which
 is the Multikey header for an Ed25519 public key, followed by the 32-byte public
 key data, all of which is then encoded using base-58-btc. Any other encoding
@@ -373,11 +373,11 @@ The `type` property MUST be `DataIntegrityProof`.
 The `cryptosuite` property of the proof MUST be `eddsa-rdfc-2022` or `eddsa-jcs-2022`.
           </p>
           <p>
-The `proofValue` property of the proof MUST be a detached EdDSA
+The `proofValue` property of the proof MUST be a detached EdDSA signature
 produced according to [[RFC8032]], encoded using the base-58-btc header and
 alphabet as described in the
-<a data-cite="VC-DATA-INTEGRITY#multibase-0">Multibase section</a> of
-[[VC-DATA-INTEGRITY]].
+<a data-cite="controller-document#multibase-0">Multibase section</a> of
+[[controller-document]].
           </p>
 
           <pre class="example nohighlight"
