@@ -412,7 +412,7 @@ alphabet as described in the
 
       <p>
 The following section describes multiple Data Integrity cryptographic suites
-that utilize the twisted Edwards Curve Digital Signature Algorithm.
+that utilize the Edwards-Curve Digital Signature Algorithm.
       </p>
 
       <section>
@@ -421,7 +421,7 @@ that utilize the twisted Edwards Curve Digital Signature Algorithm.
         <p>
 This algorithm is used to configure a cryptographic suite to be used by the
 <a data-cite="VC-DATA-INTEGRITY#add-proof">Add Proof</a> and
-<a href="VC-DATA-INTEGRITY#verify-proof">Verify Proof</a>
+<a data-cite="VC-DATA-INTEGRITY#verify-proof">Verify Proof</a>
 functions in [[[VC-DATA-INTEGRITY]]]. The algorithm takes an options object
 ([=map=] |options|) as input and returns a [=data integrity cryptographic suite
 instance|cryptosuite instance=] ([=struct=] |cryptosuite|).
@@ -438,11 +438,11 @@ If |options|.|type| does not equal `DataIntegrityProof`, return |cryptosuite|.
 If |options|.|cryptosuite| is `eddsa-rdfc-2022`:
             <ol class="algorithm">
               <li>
-Set |cryptosuite|.|createProof| to the result of running the algorithm in Section
+Set |cryptosuite|.|createProof| to the algorithm in Section
 [[[#create-proof-eddsa-rdfc-2022]]].
               </li>
               <li>
-Set |cryptosuite|.|verifyProof| to the result of running the algorithm in Section
+Set |cryptosuite|.|verifyProof| to the algorithm in Section
 [[[#verify-proof-eddsa-rdfc-2022]]].
               </li>
             </ol>
@@ -451,11 +451,11 @@ Set |cryptosuite|.|verifyProof| to the result of running the algorithm in Sectio
 If |options|.|cryptosuite| is `eddsa-jcs-2022`:
             <ol class="algorithm">
               <li>
-Set |cryptosuite|.|createProof| to the result of running the algorithm in Section
+Set |cryptosuite|.|createProof| to the algorithm in Section
 [[[#create-proof-eddsa-jcs-2022]]].
               </li>
               <li>
-Set |cryptosuite|.|verifyProof| to the result of running the algorithm in Section
+Set |cryptosuite|.|verifyProof| to the algorithm in Section
 [[[#verify-proof-eddsa-jcs-2022]]].
               </li>
             </ol>
