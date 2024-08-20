@@ -872,7 +872,7 @@ Let |proofBytes| be the result of running the algorithm in Section
 |options| passed as parameters.
               </li>
               <li>
-Let |proof|.|proofValue| be a <a data-cite="VC-DATA-INTEGRITY#multibase-0">
+Let |proof|.|proofValue| be a <a data-cite="controller-document#multibase-0">
 base58-btc-encoded Multibase value</a> of the |proofBytes|.
               </li>
               <li>
@@ -911,7 +911,7 @@ Let |proofOptions| be the result of a copy of |securedDocument|.|proof| with
             </li>
             <li>
 Let |proofBytes| be the
-<a data-cite="VC-DATA-INTEGRITY#multibase-0">Multibase decoded base58-btc
+<a data-cite="controller-document#multibase-0">Multibase decoded base58-btc
 value</a> in |securedDocument|.|proof|.|proofValue|.
             </li>
             <li>
@@ -1811,7 +1811,7 @@ The `controller` of the verification method MUST be a URL.
             <p>
 The `publicKeyMultibase` value of the verification method MUST start with the
 base-58-btc prefix (`z`), as defined in the
-<a data-cite="VC-DATA-INTEGRITY#multibase-0">Multibase section</a> of
+<a data-cite="controller-document#multibase-0">Multibase section</a> of
 [[VC-DATA-INTEGRITY]]. A Multibase-encoded Multikey value follows, which MUST
 consist of a binary value that starts with the two-byte prefix `0xed01`, which
 is the Multikey header for an Ed25519 public key, followed by the 32-byte
