@@ -20,8 +20,8 @@
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-rdfc-2022",
     "created": "2023-02-24T23:36:38Z",
-    "verificationMethod": "https://vc.example/issuers/5678#z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+    "verificationMethod": "did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2#z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     "proofPurpose": "assertionMethod",
-    "proofValue": "z21EVs3eXERqTn4acNHT9viboqgzUaQ3kTmhPT3eA8qrVPE7CrQq78WkzctnMX5W4CrzcKnHw8V6dvy5pgWYCU5e9"
+    "proofValue": "z2YwC8z3ap7yx1nZYCg4L3j3ApHsF8kgPdSb5xoS1VR7vPG3F561B52hYnQF9iseabecm3ijx4K1FBTQsCZahKZme"
   }
 }

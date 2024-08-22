@@ -3,11 +3,11 @@
   "id": "urn:uuid:d94f792a-c546-4d06-b38a-da070ab56c23",
   "cryptosuite": "eddsa-rdfc-2022",
   "created": "2023-02-26T22:06:38Z",
-  "verificationMethod": "https://vc.example/issuers/56783#z6MkmEq87wkHCYnWnNZkigeDMGTN7oUw1upkhzd77KuXERS1",
+  "verificationMethod": "did:key:z6MkmEq87wkHCYnWnNZkigeDMGTN7oUw1upkhzd77KuXERS1#z6MkmEq87wkHCYnWnNZkigeDMGTN7oUw1upkhzd77KuXERS1",
   "proofPurpose": "assertionMethod",
   "previousProof": [
     "urn:uuid:26329423-bec9-4b2e-88cb-a7c7d9dc4544",
     "urn:uuid:8cc9022b-6b14-4cf3-8571-74972c5feb54"
   ],
-  "proofValue": "z2hcFbMaj3BJufikuLZQ36gAXVT9J3ZiwB9rqN3j7VdqyT1GaQPbMTaF1Q2gn7h75ZcJ6JpV9pvNoDumvcjtmSRAV"
+  "proofValue": "zWaPeEvBAkhQpNQj8pknuvg5STcKnt3cvM9t4kAYeJETFjvVMSXEEjadC4uxC9fKCn6JHbjt6fj2fhoaVNynBm6J"
 }
