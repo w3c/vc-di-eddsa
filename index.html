@@ -271,7 +271,7 @@ signatures.
 
           <p>
 The <a data-cite="controller-document#multikey">Multikey format</a>, defined in
-[[controller-document]], is used to express public keys for the cryptographic
+[[[controller-document]]], is used to express public keys for the cryptographic
 suites defined in this specification.
           </p>
 
@@ -279,7 +279,7 @@ suites defined in this specification.
 The `publicKeyMultibase` value of the verification method MUST start with the
 base-58-btc prefix (`z`), as defined in the
 <a data-cite="controller-document#multibase-0">Multibase section</a> of
-[[controller-document]]. A Multibase-encoded Multikey value follows, which MUST
+[[[controller-document]]]. A Multibase-encoded Multikey value follows, which MUST
 consist of a binary value that starts with the two-byte prefix `0xed01`, which
 is the Multikey header for an Ed25519 public key, followed by the 32-byte public
 key data, all of which is then encoded using base-58-btc. Any other encoding
@@ -377,7 +377,7 @@ The `proofValue` property of the proof MUST be a detached EdDSA signature
 produced according to [[RFC8032]], encoded using the base-58-btc header and
 alphabet as described in the
 <a data-cite="controller-document#multibase-0">Multibase section</a> of
-[[controller-document]].
+[[[controller-document]]].
           </p>
 
           <pre class="example nohighlight"
@@ -412,7 +412,7 @@ alphabet as described in the
 
       <p>
 The following section describes multiple Data Integrity cryptographic suites
-that utilize the Edwards-Curve Digital Signature Algorithm.
+that use the Edwards-Curve Digital Signature Algorithm.
       </p>
 
       <section>
@@ -799,7 +799,7 @@ represented as a boolean value is produced as output.
 Let `publicKeyBytes` be the result of retrieving the
 public key bytes associated with the
 `options`.`verificationMethod` value as described in the
-[[controller-document]] specification,
+[[[controller-document]]] specification,
 <a data-cite="controller-document#retrieve-verification-method">
 Section 3.3: Retrieve Verification Method</a>.
             </li>
