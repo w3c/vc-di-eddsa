@@ -1809,10 +1809,11 @@ been kept in this specification to provide a stable reference.
           <section>
             <h4>Ed25519VerificationKey2020</h4>
 
-            <p class="issue">
-We need to add documentation to note that this key format is deployed and
-widely used in production, but is deprecated. `Multikey` and `JsonWebKey`
-supersede it.
+            <p>
+The key format described in this section is provided to document a legacy
+mechanism that has been deployed to production. The key format described in
+section [[[#multikey]]] supercedes the one described in this section. New
+applications are strongly urged to use the newer key format.
             </p>
 
             <p>
@@ -1887,6 +1888,13 @@ Multikey header value other than `0xed01` being used in a
           <h3>Proof representations</h3>
           <section>
             <h4>Ed25519Signature2020</h4>
+
+            <p>
+The proof format described in this section is provided to document a legacy
+mechanism that has been deployed to production. The `DataIntegrityProof` formats
+described in section [[[#dataintegrityproof]]] supercede the one described in
+this section. New applications are strongly urged to use the newer proof format.
+            </p>
 
             <p>
 The `verificationMethod` property of the proof MUST be a URL.
