@@ -171,7 +171,7 @@ ol.algorithm li:before {
   <body>
     <section id="abstract">
       <p>
-This specification describes a Data Integrity cryptographic suite for use when
+This specification describes Data Integrity cryptographic suites for use when
 creating or verifying a digital signature using the the Ed25519 instantiation
 of the Edwards-Curve Digital Signature Algorithm (EdDSA).
       </p>
@@ -1777,10 +1777,18 @@ implementing this specification should be aware of in order to avoid violating
 privacy assumptions.
       </p>
 
-      <p class="issue">
-This cryptography suite does not provide for selective disclosure or
-unlinkability. If signatures are re-used, they can be used as correlatable data.
+    <section>
+      <h3>Selective and Unlinkable Disclosure</h3>
+
+      <p>
+The cryptographic suites described in this specification do not support
+[=selective disclosure=] or [=unlinkable disclosure=]. If
+[=selective disclosure=] is a desired feature, readers might find the
+[[[?VC-DI-ECDSA]]] specification useful. If [=unlinkable disclosure=] is of
+interest, the [[[?VC-DI-BBS]]] specification provides an unlinkable digital
+signature mechanism.
       </p>
+
     </section>
 
     <section class="appendix">
