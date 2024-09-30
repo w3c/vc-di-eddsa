@@ -287,11 +287,10 @@ suites defined in this specification.
 The `publicKeyMultibase` value of the verification method MUST start with the
 base-58-btc prefix (`z`), as defined in the
 <a data-cite="controller-document#multibase-0">Multibase section</a> of
-[[[controller-document]]]. A Multibase-encoded Multikey value follows, which MUST
-consist of a binary value that starts with the two-byte prefix `0xed01`, which
-is the Multikey header for an Ed25519 public key, followed by the 32-byte public
-key data, all of which is then encoded using base-58-btc. Any other encoding
-MUST NOT be allowed.
+[[[controller-document]]]. A Multibase-encoded Ed25519 256-bit public key value
+follows, as defined in the
+<a data-cite="controller-document#Multikey">Multikey section</a> of
+[[[controller-document]]]. Any other encoding MUST NOT be allowed.
           </p>
 
           <p class="advisement">
@@ -340,12 +339,13 @@ Multikey prefix value other than `0xed01` in a `publicKeyMultibase` value.
           </pre>
 
           <p>
-The `secretKeyMultibase` property represents a Multibase-encoded Multikey
-expression of an Ed25519 secret key (sometimes also referred to as a private
-key). The value starts with the two-byte prefix `0x8026`,
-followed by the 32-byte Ed25519 secret key data. The combined
-34-byte value is then base58-btc encoded and `z` is added as the prefix on the
-encoded value.
+The `secretKeyMultibase` value of the verification method MUST start with the
+base-58-btc prefix (`z`), as defined in the
+<a data-cite="controller-document#multibase-0">Multibase section</a> of
+[[[controller-document]]]. A Multibase-encoded Ed25519 256-bit secret key value
+follows, as defined in the
+<a data-cite="controller-document#Multikey">Multikey section</a> of
+[[[controller-document]]]. Any other encoding MUST NOT be allowed.
           </p>
 
           <p class="advisement">
