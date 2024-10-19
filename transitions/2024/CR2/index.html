@@ -417,7 +417,7 @@ removed before the transition to <abbr title="World Wide Web Consortium">W3C</ab
   </p><p>
                       This document is governed by the
                       <a id="w3c_process_revision" href="https://www.w3.org/policies/process/20231103/">03 November 2023 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
-                    </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#terminology"><bdi class="secno">1.1 </bdi>Terminology</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">1.2 </bdi>Conformance</a></li></ol></li><li class="tocline"><a class="tocxref" href="#data-model"><bdi class="secno">2. </bdi>Data Model</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#verification-methods"><bdi class="secno">2.1 </bdi>Verification Methods</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#multikey"><bdi class="secno">2.1.1 </bdi>Multikey</a></li></ol></li><li class="tocline"><a class="tocxref" href="#proof-representations"><bdi class="secno">2.2 </bdi>Proof Representations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#dataintegrityproof"><bdi class="secno">2.2.1 </bdi>DataIntegrityProof</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#algorithms"><bdi class="secno">3. </bdi>Algorithms</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#instantiate-cryptosuite"><bdi class="secno">3.1 </bdi>Instantiate Cryptosuite</a></li><li class="tocline"><a class="tocxref" href="#eddsa-rdfc-2022"><bdi class="secno">3.2 </bdi>eddsa-rdfc-2022</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#create-proof-eddsa-rdfc-2022"><bdi class="secno">3.2.1 </bdi>Create Proof (eddsa-rdfc-2022)</a></li><li class="tocline"><a class="tocxref" href="#verify-proof-eddsa-rdfc-2022"><bdi class="secno">3.2.2 </bdi>Verify Proof (eddsa-rdfc-2022)</a></li><li class="tocline"><a class="tocxref" href="#transformation-eddsa-rdfc-2022"><bdi class="secno">3.2.3 </bdi>Transformation (eddsa-rdfc-2022)</a></li><li class="tocline"><a class="tocxref" href="#hashing-eddsa-rdfc-2022"><bdi class="secno">3.2.4 </bdi>Hashing (eddsa-rdfc-2022)</a></li><li class="tocline"><a class="tocxref" href="#proof-configuration-eddsa-rdfc-2022"><bdi class="secno">3.2.5 </bdi>Proof Configuration (eddsa-rdfc-2022)</a></li><li class="tocline"><a class="tocxref" href="#proof-serialization-eddsa-rdfc-2022"><bdi class="secno">3.2.6 </bdi>Proof Serialization (eddsa-rdfc-2022)</a></li><li class="tocline"><a class="tocxref" href="#proof-verification-eddsa-rdfc-2022"><bdi class="secno">3.2.7 </bdi>Proof Verification (eddsa-rdfc-2022)</a></li></ol></li><li class="tocline"><a class="tocxref" href="#eddsa-jcs-2022"><bdi class="secno">3.3 </bdi>eddsa-jcs-2022</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#create-proof-eddsa-jcs-2022"><bdi class="secno">3.3.1 </bdi>Create Proof (eddsa-jcs-2022)</a></li><li class="tocline"><a class="tocxref" href="#verify-proof-eddsa-jcs-2022"><bdi class="secno">3.3.2 </bdi>Verify Proof (eddsa-jcs-2022)</a></li><li class="tocline"><a class="tocxref" href="#transformation-eddsa-jcs-2022"><bdi class="secno">3.3.3 </bdi>Transformation (eddsa-jcs-2022)</a></li><li class="tocline"><a class="tocxref" href="#hashing-eddsa-jcs-2022"><bdi class="secno">3.3.4 </bdi>Hashing (eddsa-jcs-2022)</a></li><li class="tocline"><a class="tocxref" href="#proof-configuration-eddsa-jcs-2022"><bdi class="secno">3.3.5 </bdi>Proof Configuration (eddsa-jcs-2022)</a></li><li class="tocline"><a class="tocxref" href="#proof-serialization-eddsa-jcs-2022"><bdi class="secno">3.3.6 </bdi>Proof Serialization (eddsa-jcs-2022)</a></li><li class="tocline"><a class="tocxref" href="#proof-verification-eddsa-jcs-2022"><bdi class="secno">3.3.7 </bdi>Proof Verification (eddsa-jcs-2022)</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#security-considerations"><bdi class="secno">4. </bdi>Security Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#security-properties-of-ed25519-implementations"><bdi class="secno">4.1 </bdi>Security Properties of Ed25519 Implementations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#signature-security-properties"><bdi class="secno">4.1.1 </bdi>Signature Security Properties</a></li><li class="tocline"><a class="tocxref" href="#achieving-ed25519-security-properties"><bdi class="secno">4.1.2 </bdi>Achieving Ed25519 Security Properties</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#privacy-considerations"><bdi class="secno">5. </bdi>Privacy Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#selective-and-unlinkable-disclosure"><bdi class="secno">5.1 </bdi>Selective and Unlinkable Disclosure</a></li></ol></li><li class="tocline"><a class="tocxref" href="#the-ed25519signature2020-suite"><bdi class="secno">A. </bdi>The Ed25519Signature2020 Suite</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#data-model-0"><bdi class="secno">A.1 </bdi>Data Model</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#verification-methods-0"><bdi class="secno">A.1.1 </bdi>Verification Methods</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ed25519verificationkey2020"><bdi class="secno">A.1.1.1 </bdi>Ed25519VerificationKey2020</a></li></ol></li><li class="tocline"><a class="tocxref" href="#proof-representations-0"><bdi class="secno">A.1.2 </bdi>Proof representations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ed25519signature2020"><bdi class="secno">A.1.2.1 </bdi>Ed25519Signature2020</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#algorithms-0"><bdi class="secno">A.2 </bdi>Algorithms</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ed25519signature2020-0"><bdi class="secno">A.2.1 </bdi>Ed25519Signature2020</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#add-proof-ed25519signature2020"><bdi class="secno">A.2.1.1 </bdi>Add Proof (Ed25519Signature2020)</a></li><li class="tocline"><a class="tocxref" href="#verify-proof-ed25519signature2020"><bdi class="secno">A.2.1.2 </bdi>Verify Proof (Ed25519Signature2020)</a></li><li class="tocline"><a class="tocxref" href="#transformation-ed25519signature2020"><bdi class="secno">A.2.1.3 </bdi>Transformation (Ed25519Signature2020)</a></li><li class="tocline"><a class="tocxref" href="#hashing-ed25519signature2020"><bdi class="secno">A.2.1.4 </bdi>Hashing (Ed25519Signature2020)</a></li><li class="tocline"><a class="tocxref" href="#proof-configuration-ed25519signature2020"><bdi class="secno">A.2.1.5 </bdi>Proof Configuration (Ed25519Signature2020)</a></li><li class="tocline"><a class="tocxref" href="#proof-serialization-ed25519signature2020"><bdi class="secno">A.2.1.6 </bdi>Proof Serialization (Ed25519Signature2020)</a></li><li class="tocline"><a class="tocxref" href="#proof-verification-ed25519signature2020"><bdi class="secno">A.2.1.7 </bdi>Proof Verification (Ed25519Signature2020)</a></li></ol></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#test-vectors"><bdi class="secno">B. </bdi>Test Vectors</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#representation-eddsa-rdfc-2022"><bdi class="secno">B.1 </bdi>Representation: eddsa-rdfc-2022</a></li><li class="tocline"><a class="tocxref" href="#representation-eddsa-jcs-2022"><bdi class="secno">B.2 </bdi>Representation: eddsa-jcs-2022</a></li><li class="tocline"><a class="tocxref" href="#representation-ed25519signature2020"><bdi class="secno">B.3 </bdi>Representation: Ed25519Signature2020</a></li><li class="tocline"><a class="tocxref" href="#proof-sets-and-chains"><bdi class="secno">B.4 </bdi>Proof Sets and Chains</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#proof-set"><bdi class="secno">B.4.1 </bdi>Proof Set</a></li><li class="tocline"><a class="tocxref" href="#proof-chain-with-multiple-dependencies"><bdi class="secno">B.4.2 </bdi>Proof Chain with Multiple Dependencies</a></li><li class="tocline"><a class="tocxref" href="#extended-proof-chain"><bdi class="secno">B.4.3 </bdi>Extended Proof Chain</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#revision-history"><bdi class="secno">C. </bdi>Revision History</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">D. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">D.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">D.2 </bdi>Informative references</a></li></ol></li></ol></nav>
+                    </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#terminology"><bdi class="secno">1.1 </bdi>Terminology</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">1.2 </bdi>Conformance</a></li></ol></li><li class="tocline"><a class="tocxref" href="#data-model"><bdi class="secno">2. </bdi>Data Model</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#verification-methods"><bdi class="secno">2.1 </bdi>Verification Methods</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#multikey"><bdi class="secno">2.1.1 </bdi>Multikey</a></li></ol></li><li class="tocline"><a class="tocxref" href="#proof-representations"><bdi class="secno">2.2 </bdi>Proof Representations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#dataintegrityproof"><bdi class="secno">2.2.1 </bdi>DataIntegrityProof</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#algorithms"><bdi class="secno">3. </bdi>Algorithms</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#instantiate-cryptosuite"><bdi class="secno">3.1 </bdi>Instantiate Cryptosuite</a></li><li class="tocline"><a class="tocxref" href="#eddsa-rdfc-2022"><bdi class="secno">3.2 </bdi>eddsa-rdfc-2022</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#create-proof-eddsa-rdfc-2022"><bdi class="secno">3.2.1 </bdi>Create Proof (eddsa-rdfc-2022)</a></li><li class="tocline"><a class="tocxref" href="#verify-proof-eddsa-rdfc-2022"><bdi class="secno">3.2.2 </bdi>Verify Proof (eddsa-rdfc-2022)</a></li><li class="tocline"><a class="tocxref" href="#transformation-eddsa-rdfc-2022"><bdi class="secno">3.2.3 </bdi>Transformation (eddsa-rdfc-2022)</a></li><li class="tocline"><a class="tocxref" href="#hashing-eddsa-rdfc-2022"><bdi class="secno">3.2.4 </bdi>Hashing (eddsa-rdfc-2022)</a></li><li class="tocline"><a class="tocxref" href="#proof-configuration-eddsa-rdfc-2022"><bdi class="secno">3.2.5 </bdi>Proof Configuration (eddsa-rdfc-2022)</a></li><li class="tocline"><a class="tocxref" href="#proof-serialization-eddsa-rdfc-2022"><bdi class="secno">3.2.6 </bdi>Proof Serialization (eddsa-rdfc-2022)</a></li><li class="tocline"><a class="tocxref" href="#proof-verification-eddsa-rdfc-2022"><bdi class="secno">3.2.7 </bdi>Proof Verification (eddsa-rdfc-2022)</a></li></ol></li><li class="tocline"><a class="tocxref" href="#eddsa-jcs-2022"><bdi class="secno">3.3 </bdi>eddsa-jcs-2022</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#create-proof-eddsa-jcs-2022"><bdi class="secno">3.3.1 </bdi>Create Proof (eddsa-jcs-2022)</a></li><li class="tocline"><a class="tocxref" href="#verify-proof-eddsa-jcs-2022"><bdi class="secno">3.3.2 </bdi>Verify Proof (eddsa-jcs-2022)</a></li><li class="tocline"><a class="tocxref" href="#transformation-eddsa-jcs-2022"><bdi class="secno">3.3.3 </bdi>Transformation (eddsa-jcs-2022)</a></li><li class="tocline"><a class="tocxref" href="#hashing-eddsa-jcs-2022"><bdi class="secno">3.3.4 </bdi>Hashing (eddsa-jcs-2022)</a></li><li class="tocline"><a class="tocxref" href="#proof-configuration-eddsa-jcs-2022"><bdi class="secno">3.3.5 </bdi>Proof Configuration (eddsa-jcs-2022)</a></li><li class="tocline"><a class="tocxref" href="#proof-serialization-eddsa-jcs-2022"><bdi class="secno">3.3.6 </bdi>Proof Serialization (eddsa-jcs-2022)</a></li><li class="tocline"><a class="tocxref" href="#proof-verification-eddsa-jcs-2022"><bdi class="secno">3.3.7 </bdi>Proof Verification (eddsa-jcs-2022)</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#security-considerations"><bdi class="secno">4. </bdi>Security Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#security-properties-of-ed25519-implementations"><bdi class="secno">4.1 </bdi>Security Properties of Ed25519 Implementations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#signature-security-properties"><bdi class="secno">4.1.1 </bdi>Signature Security Properties</a></li><li class="tocline"><a class="tocxref" href="#achieving-ed25519-security-properties"><bdi class="secno">4.1.2 </bdi>Achieving Ed25519 Security Properties</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#privacy-considerations"><bdi class="secno">5. </bdi>Privacy Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#selective-and-unlinkable-disclosure"><bdi class="secno">5.1 </bdi>Selective and Unlinkable Disclosure</a></li></ol></li><li class="tocline"><a class="tocxref" href="#the-ed25519signature2020-suite"><bdi class="secno">A. </bdi>The Ed25519Signature2020 Suite</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#data-model-0"><bdi class="secno">A.1 </bdi>Data Model</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#verification-methods-0"><bdi class="secno">A.1.1 </bdi>Verification Methods</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ed25519verificationkey2020"><bdi class="secno">A.1.1.1 </bdi>Ed25519VerificationKey2020</a></li></ol></li><li class="tocline"><a class="tocxref" href="#proof-representations-0"><bdi class="secno">A.1.2 </bdi>Proof representations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ed25519signature2020"><bdi class="secno">A.1.2.1 </bdi>Ed25519Signature2020</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#algorithms-0"><bdi class="secno">A.2 </bdi>Algorithms</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ed25519signature2020-0"><bdi class="secno">A.2.1 </bdi>Ed25519Signature2020</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#add-proof-ed25519signature2020"><bdi class="secno">A.2.1.1 </bdi>Add Proof (Ed25519Signature2020)</a></li><li class="tocline"><a class="tocxref" href="#verify-proof-ed25519signature2020"><bdi class="secno">A.2.1.2 </bdi>Verify Proof (Ed25519Signature2020)</a></li><li class="tocline"><a class="tocxref" href="#transformation-ed25519signature2020"><bdi class="secno">A.2.1.3 </bdi>Transformation (Ed25519Signature2020)</a></li><li class="tocline"><a class="tocxref" href="#hashing-ed25519signature2020"><bdi class="secno">A.2.1.4 </bdi>Hashing (Ed25519Signature2020)</a></li><li class="tocline"><a class="tocxref" href="#proof-configuration-ed25519signature2020"><bdi class="secno">A.2.1.5 </bdi>Proof Configuration (Ed25519Signature2020)</a></li><li class="tocline"><a class="tocxref" href="#proof-serialization-ed25519signature2020"><bdi class="secno">A.2.1.6 </bdi>Proof Serialization (Ed25519Signature2020)</a></li><li class="tocline"><a class="tocxref" href="#proof-verification-ed25519signature2020"><bdi class="secno">A.2.1.7 </bdi>Proof Verification (Ed25519Signature2020)</a></li></ol></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#test-vectors"><bdi class="secno">B. </bdi>Test Vectors</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#representation-eddsa-rdfc-2022"><bdi class="secno">B.1 </bdi>Representation: eddsa-rdfc-2022</a></li><li class="tocline"><a class="tocxref" href="#representation-eddsa-jcs-2022"><bdi class="secno">B.2 </bdi>Representation: eddsa-jcs-2022</a></li><li class="tocline"><a class="tocxref" href="#representation-ed25519signature2020"><bdi class="secno">B.3 </bdi>Representation: Ed25519Signature2020</a></li><li class="tocline"><a class="tocxref" href="#proof-sets-and-chains"><bdi class="secno">B.4 </bdi>Proof Sets and Chains</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#proof-set"><bdi class="secno">B.4.1 </bdi>Proof Set</a></li><li class="tocline"><a class="tocxref" href="#proof-chain-with-multiple-dependencies"><bdi class="secno">B.4.2 </bdi>Proof Chain with Multiple Dependencies</a></li><li class="tocline"><a class="tocxref" href="#extended-proof-chain"><bdi class="secno">B.4.3 </bdi>Extended Proof Chain</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#revision-history"><bdi class="secno">C. </bdi>Revision History</a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">D. </bdi>Acknowledgements</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">E. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">E.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">E.2 </bdi>Informative references</a></li></ol></li></ol></nav>
 
     <section id="introduction"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div>
       
@@ -3424,7 +3424,7 @@ constructing a proof chain, however this time it is a single value.
   "type": "DataIntegrityProof",
   "cryptosuite": "eddsa-rdfc-2022",
   "created": "2023-02-26T22:16:38Z",
-  "verificationMethod": "did:key:z6MkmEq87wkHCYnWnNZkigeDMGTN7oUw1upkhzd77KuXERS1#z6MkmEq87wkHCYnWnNZkigeDMGTN7oUw1upkhzd77KuXERS1",
+  "verificationMethod": "did:key:z6Mkm1S51iPHJvDEkJ9MRtxJmT8Pqo6wHipAFwBAjN83vntT#z6Mkm1S51iPHJvDEkJ9MRtxJmT8Pqo6wHipAFwBAjN83vntT",
   "proofPurpose": "assertionMethod",
   "previousProof": "urn:uuid:d94f792a-c546-4d06-b38a-da070ab56c23"
 }</pre>
@@ -3490,10 +3490,10 @@ configuration options (proof) shown below:
   "type": "DataIntegrityProof",
   "cryptosuite": "eddsa-rdfc-2022",
   "created": "2023-02-26T22:16:38Z",
-  "verificationMethod": "did:key:z6MkmEq87wkHCYnWnNZkigeDMGTN7oUw1upkhzd77KuXERS1#z6MkmEq87wkHCYnWnNZkigeDMGTN7oUw1upkhzd77KuXERS1",
+  "verificationMethod": "did:key:z6Mkm1S51iPHJvDEkJ9MRtxJmT8Pqo6wHipAFwBAjN83vntT#z6Mkm1S51iPHJvDEkJ9MRtxJmT8Pqo6wHipAFwBAjN83vntT",
   "proofPurpose": "assertionMethod",
   "previousProof": "urn:uuid:d94f792a-c546-4d06-b38a-da070ab56c23",
-  "proofValue": "z21Royb2jnpDY8GkvsTn3pwWxXiXRMEwNLSzrfERHb1TNtDBydnFqwtxY9Vypv2mwMPygJhuxbKs2QLyGHx9DBjmY"
+  "proofValue": "z4b5uUtxNiV4E541LiR8qLvA21xM1Vt4Hfn6nLmmDePdFvLB3jFj3HyEEJyRMbpJzv4Gfdr8ABeuRTxAvZv6KWRRh"
 }</pre>
       </div>
           <p>
@@ -3558,10 +3558,10 @@ to produce the final signed document as shown below.
       "type": "DataIntegrityProof",
       "cryptosuite": "eddsa-rdfc-2022",
       "created": "2023-02-26T22:16:38Z",
-      "verificationMethod": "did:key:z6MkmEq87wkHCYnWnNZkigeDMGTN7oUw1upkhzd77KuXERS1#z6MkmEq87wkHCYnWnNZkigeDMGTN7oUw1upkhzd77KuXERS1",
+      "verificationMethod": "did:key:z6Mkm1S51iPHJvDEkJ9MRtxJmT8Pqo6wHipAFwBAjN83vntT#z6Mkm1S51iPHJvDEkJ9MRtxJmT8Pqo6wHipAFwBAjN83vntT",
       "proofPurpose": "assertionMethod",
       "previousProof": "urn:uuid:d94f792a-c546-4d06-b38a-da070ab56c23",
-      "proofValue": "z21Royb2jnpDY8GkvsTn3pwWxXiXRMEwNLSzrfERHb1TNtDBydnFqwtxY9Vypv2mwMPygJhuxbKs2QLyGHx9DBjmY"
+      "proofValue": "z4b5uUtxNiV4E541LiR8qLvA21xM1Vt4Hfn6nLmmDePdFvLB3jFj3HyEEJyRMbpJzv4Gfdr8ABeuRTxAvZv6KWRRh"
     }
   ]
 }</pre>
@@ -3645,12 +3645,125 @@ Add secretKeyMultibase definition.
       </ul>
     </section>
 
+
+    <section class="informative" id="acknowledgements"><div class="header-wrapper"><h2 id="d-acknowledgements"><bdi class="secno">D. </bdi>Acknowledgements</h2><a class="self-link" href="#acknowledgements" aria-label="Permalink for Section D."></a></div><p><em>This section is non-normative.</em></p>
+      
+
+      <p>
+Work on this specification has been supported by the Rebooting the Web of Trust
+community facilitated by Christopher Allen, Shannon Appelcline, Kiara Robles,
+Brian Weller, Betty Dhamers, Kaliya Young, Manu Sporny, Drummond Reed, Joe
+Andrieu, Heather Vescent, Kim Hamilton Duffy, Samantha Chase, Andrew Hughes,
+Erica Connell, Shigeya Suzuki, and Zaïda Rivai. The participants in the Internet
+Identity Workshop, facilitated by Phil Windley, Kaliya Young, Doc Searls, and
+Heidi Nobantu Saul, also supported the refinement of this work through numerous
+working sessions designed to educate about, debate on, and improve this
+specification.
+      </p>
+
+      <p>
+The Working Group also thanks our Chair, Brent Zundel, our ex-Chair Kristina
+Yasuda, as well as our <abbr title="World Wide Web Consortium">W3C</abbr> Staff Contact, Ivan Herman, for their expert
+management and steady guidance of the group through the <abbr title="World Wide Web Consortium">W3C</abbr> standardization
+process.
+      </p>
+
+      <p>
+Portions of the work on this specification have been funded by the United States
+Department of Homeland Security's Science and Technology Directorate under
+contracts 70RSAT20T00000029, 70RSAT21T00000016, 70RSAT23T00000005,
+70RSAT20T00000010/P00001, 70RSAT20T00000029, 70RSAT21T00000016/P00001,
+70RSAT23T00000005, 70RSAT23C00000030, 70RSAT23R00000006, and the National
+Science Foundation through NSF 22-572. The content of this specification does
+not necessarily reflect the position or the policy of the U.S. Government and no
+official endorsement should be inferred.
+      </p>
+
+      <p>
+The Working Group would like to thank the following individuals for reviewing
+and providing feedback on the specification (in alphabetical order):
+      </p>
+
+      <p>
+Will Abramson,
+Mahmoud Alkhraishi,
+Christopher Allen,
+Joe Andrieu,
+Bohdan Andriyiv,
+Anthony,
+George Aristy,
+Hadley Beeman,
+Greg Bernstein,
+Bob420,
+Sarven Capadisli,
+Melvin Carvalho,
+David Chadwick,
+Matt Collier,
+Gabe Cohen,
+Sebastian Crane,
+Kyle Den Hartog,
+Veikko Eeva,
+Eric Elliott,
+Raphael Flechtner,
+Julien Fraichot,
+Benjamin Goering,
+Kim Hamilton Duffy,
+Joseph Heenan,
+Helge,
+Ivan Herman,
+Michael Herman,
+Anil John,
+Andrew Jones,
+Michael B. Jones,
+Rieks Joosten,
+Gregory K,
+Gregg Kellogg,
+Filip Kolarik,
+David I. Lehn,
+Charles E. Lehner,
+Christine Lemmer-Webber,
+Eric Lim,
+Dave Longley,
+Tobias Looker,
+Jer Miller,
+nightpool,
+Luis Osta,
+Nate Otto,
+George J. Padayatti,
+Addison Phillips,
+Mike Prorock,
+Brian Richter,
+Anders Rundgren,
+Eugeniu Rusu,
+Markus Sabadello,
+silverpill,
+Wesley Smith,
+Manu Sporny,
+Patrick St-Louis,
+Orie Steele,
+Henry Story,
+Oliver Terbu,
+Ted Thibodeau Jr,
+John Toohey,
+Bert Van Nuffelen,
+Mike Varley,
+Snorre Lothar von Gohren Edwin,
+Jeffrey Yasskin,
+Kristina Yasuda,
+Benjamin Young,
+Dmitri Zagidulin,
+and
+Brent Zundel.
+      </p>
+
+    </section>
+
   
 
-<section id="references" class="appendix"><div class="header-wrapper"><h2 id="d-references"><bdi class="secno">D. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix D."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="d-1-normative-references"><bdi class="secno">D.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix D.1"></a></div>
+<section id="references" class="appendix"><div class="header-wrapper"><h2 id="e-references"><bdi class="secno">E. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix E."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="e-1-normative-references"><bdi class="secno">E.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix E.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-controller-document">[controller-document]</dt><dd>
-      <a href="https://www.w3.org/TR/controller-document/"><cite>Controller Documents 1.0</cite></a>. Manu Sporny; Michael Jones.  W3C. 8 September 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/controller-document/">https://www.w3.org/TR/controller-document/</a>
+      <a href="https://www.w3.org/TR/controller-document/"><cite>Controller Documents 1.0</cite></a>. Manu Sporny; Michael Jones.  W3C. 15 October 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/controller-document/">https://www.w3.org/TR/controller-document/</a>
     </dd><dt id="bib-fips-186-5">[FIPS-186-5]</dt><dd>
       <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf"><cite>FIPS PUB 186-5: Digital Signature Standard (DSS)</cite></a>.  U.S. Department of Commerce/National Institute of Standards and Technology. 3 February 2023. National Standard. URL: <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf">https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf</a>
     </dd><dt id="bib-infra">[INFRA]</dt><dd>
@@ -3670,22 +3783,22 @@ Add secretKeyMultibase definition.
     </dd><dt id="bib-rfc8785">[RFC8785]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc8785"><cite>JSON Canonicalization Scheme (JCS)</cite></a>. A. Rundgren; B. Jordan; S. Erdtman.  IETF. June 2020. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc8785">https://www.rfc-editor.org/rfc/rfc8785</a>
     </dd><dt id="bib-vc-data-integrity">[VC-DATA-INTEGRITY]</dt><dd>
-      <a href="https://www.w3.org/TR/vc-data-integrity/"><cite>Verifiable Credential Data Integrity 1.0</cite></a>. Manu Sporny; Dave Longley; Greg Bernstein; Dmitri Zagidulin; Sebastian Crane.  W3C. 3 August 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/vc-data-integrity/">https://www.w3.org/TR/vc-data-integrity/</a>
+      <a href="https://www.w3.org/TR/vc-data-integrity/"><cite>Verifiable Credential Data Integrity 1.0</cite></a>. Manu Sporny; Dave Longley; Greg Bernstein; Dmitri Zagidulin; Sebastian Crane.  W3C. 19 October 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/vc-data-integrity/">https://www.w3.org/TR/vc-data-integrity/</a>
     </dd><dt id="bib-vc-data-model-2.0">[vc-data-model-2.0]</dt><dd>
-      <a href="https://www.w3.org/TR/vc-data-model-2.0/"><cite>Verifiable Credentials Data Model v2.0</cite></a>. Manu Sporny; Ted Thibodeau Jr; Ivan Herman; Michael Jones; Gabe Cohen.  W3C. 28 August 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/vc-data-model-2.0/">https://www.w3.org/TR/vc-data-model-2.0/</a>
+      <a href="https://www.w3.org/TR/vc-data-model-2.0/"><cite>Verifiable Credentials Data Model v2.0</cite></a>. Manu Sporny; Ted Thibodeau Jr; Ivan Herman; Michael Jones; Gabe Cohen.  W3C. 19 October 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/vc-data-model-2.0/">https://www.w3.org/TR/vc-data-model-2.0/</a>
     </dd><dt id="bib-xmlschema11-2">[XMLSCHEMA11-2]</dt><dd>
       <a href="https://www.w3.org/TR/xmlschema11-2/"><cite>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</cite></a>. David Peterson; Sandy Gao; Ashok Malhotra; Michael Sperberg-McQueen; Henry Thompson; Paul V. Biron et al.  W3C. 5 April 2012. W3C Recommendation. URL: <a href="https://www.w3.org/TR/xmlschema11-2/">https://www.w3.org/TR/xmlschema11-2/</a>
     </dd></dl>
-  </section><section id="informative-references"><div class="header-wrapper"><h3 id="d-2-informative-references"><bdi class="secno">D.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix D.2"></a></div>
+  </section><section id="informative-references"><div class="header-wrapper"><h3 id="e-2-informative-references"><bdi class="secno">E.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix E.2"></a></div>
     
     <dl class="bibliography"><dt id="bib-provable_ed25519">[Provable_Ed25519]</dt><dd>
       <a href="https://eprint.iacr.org/2020/823"><cite>The Provable Security of Ed25519: Theory and Practice</cite></a>. Jacqueline Brendel; Cas Cremers; Dennis Jackson; Mang Zhao.  Cryptology ePrint Archive, Paper 2020/823. 2020. URL: <a href="https://eprint.iacr.org/2020/823">https://eprint.iacr.org/2020/823</a>
     </dd><dt id="bib-taming_eddsas">[Taming_EdDSAs]</dt><dd>
       <a href="https://eprint.iacr.org/2020/1244"><cite>Taming the many EdDSAs</cite></a>. Konstantinos Chalkias; François Garillot; Valeria Nikolaenko.  Cryptology ePrint Archive, Paper 2020/1244. 2020. URL: <a href="https://eprint.iacr.org/2020/1244">https://eprint.iacr.org/2020/1244</a>
     </dd><dt id="bib-vc-di-bbs">[VC-DI-BBS]</dt><dd>
-      <a href="https://www.w3.org/TR/vc-di-bbs/"><cite>Data Integrity BBS Cryptosuites v1.0</cite></a>. Greg Bernstein; Manu Sporny.  W3C. 28 August 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/vc-di-bbs/">https://www.w3.org/TR/vc-di-bbs/</a>
+      <a href="https://www.w3.org/TR/vc-di-bbs/"><cite>Data Integrity BBS Cryptosuites v1.0</cite></a>. Greg Bernstein; Manu Sporny.  W3C. 15 October 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/vc-di-bbs/">https://www.w3.org/TR/vc-di-bbs/</a>
     </dd><dt id="bib-vc-di-ecdsa">[VC-DI-ECDSA]</dt><dd>
-      <a href="https://www.w3.org/TR/vc-di-ecdsa/"><cite>Data Integrity ECDSA Cryptosuites v1.0</cite></a>. Manu Sporny; Martin Reed; Greg Bernstein; Sebastian Crane.  W3C. 28 August 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/vc-di-ecdsa/">https://www.w3.org/TR/vc-di-ecdsa/</a>
+      <a href="https://www.w3.org/TR/vc-di-ecdsa/"><cite>Data Integrity ECDSA Cryptosuites v1.0</cite></a>. Manu Sporny; Martin Reed; Greg Bernstein; Sebastian Crane.  W3C. 15 October 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/vc-di-ecdsa/">https://www.w3.org/TR/vc-di-ecdsa/</a>
     </dd></dl>
   </section></section><p role="navigation" id="back-to-top">
     <a href="#title"><abbr title="Back to Top">↑</abbr></a>
