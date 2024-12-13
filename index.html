@@ -22,7 +22,8 @@
         group: "vc",
 
         // if you wish the publication date to be other than today, set this
-        publishDate:  "2024-11-05",
+        publishDate:  "2024-12-19",
+        crEnd: "2024-01-19",
 
         // if there is a previously published draft, uncomment this and set its YYYY-MM-DD date
         // and its maturity status
@@ -35,7 +36,6 @@
 
         // if this is a LCWD, uncomment and set the end of its review period
         implementationReportURI: "https://w3c.github.io/vc-di-eddsa-test-suite/",
-        crEnd: "2024-12-05",
 
         // if you want to have extra CSS, append them to this list
         // it is recommended that the respec.css stylesheet be kept
@@ -278,7 +278,7 @@ signatures.
           <h4>Multikey</h4>
 
           <p>
-The <a data-cite="controller-document#multikey">Multikey format</a>, defined in
+The <a data-cite="controller-document#Multikey">Multikey format</a>, defined in
 [[[controller-document]]], is used to express public keys for the cryptographic
 suites defined in this specification.
           </p>
@@ -1920,8 +1920,8 @@ match the verification relationship expressed by the verification method
 The `proofValue` property of the proof MUST be a detached EdDSA
 produced according to [[RFC8032]], encoded using
 the base-58-btc header and alphabet as described in the
-<a href="https://www.w3.org/TR/vc-data-integrity/#multibase-0">
-Multibase section</a> of [[VC-DATA-INTEGRITY]].
+<a data-cite="controller-document#multibase-0">
+Multibase section</a> of [[CONTROLLER-DOCUMENT]].
             </p>
 
             <pre class="example nohighlight"
@@ -2478,7 +2478,7 @@ contains a proof signed with `keyPair1`.
           <pre class="example nohighlight" title="Starting Document for Proof Set" data-include="TestVectors/proof-set-chain/signedProofSet1.json"
           data-include-format="text"></pre>
           <p>
-The `options` input to <a data-cite="vc-data-integrity#add-proof-set/chain">
+The `options` input to <a data-cite="vc-data-integrity#add-proof-set-chain">
 Section 4.4: Add Proof Set/Chain</a> in [[VC-DATA-INTEGRITY]]
 is shown below. Note that it does not include a `previousProof` attribute since
 we are constructing a proof set and not a chain. In addition, we will be using
@@ -2487,12 +2487,12 @@ we are constructing a proof set and not a chain. In addition, we will be using
           <pre class="example nohighlight" title="Proof Options for Set" data-include="TestVectors/proof-set-chain/proofSetConfig2.json"
           data-include-format="text"></pre>
           <p>
-Per the algorithm of <a data-cite="vc-data-integrity#add-proof-set/chain">
+Per the algorithm of <a data-cite="vc-data-integrity#add-proof-set-chain">
 Section 4.4: Add Proof Set/Chain</a> in [[VC-DATA-INTEGRITY]],
 we create an array variable, `allProofs`, and add the proof from the
 starting document to it. Since there is no `previousProof` attribute, no
 modification of `unsignedDocument` is needed prior to computing the signed proof
-in step 6 of <a data-cite="vc-data-integrity#add-proof-set/chain">
+in step 6 of <a data-cite="vc-data-integrity#add-proof-set-chain">
 Section 4.4: Add Proof Set/Chain</a> in
 [[VC-DATA-INTEGRITY]]. The signed proof configuration is shown below.
           </p>
@@ -2520,7 +2520,7 @@ given below.
           <pre class="example nohighlight" title="Starting Document for Proof Chain" data-include="TestVectors/proof-set-chain/signedProofSet2.json"
           data-include-format="text"></pre>
           <p>
-The `options` input to <a data-cite="vc-data-integrity#add-proof-set/chain">
+The `options` input to <a data-cite="vc-data-integrity#add-proof-set-chain">
 Section 4.4: Add Proof Set/Chain</a> in [[VC-DATA-INTEGRITY]]
 is shown below. Note that it includes a `previousProof` attribute since we are
 constructing a proof chain.
@@ -2528,12 +2528,12 @@ constructing a proof chain.
           <pre class="example nohighlight" title="Options for Proof Chain" data-include="TestVectors/proof-set-chain/proofChainConfig1.json"
           data-include-format="text"></pre>
           <p>
-Per the algorithm of <a data-cite="vc-data-integrity#add-proof-set/chain">
+Per the algorithm of <a data-cite="vc-data-integrity#add-proof-set-chain">
 Section 4.4: Add Proof Set/Chain</a> in [[VC-DATA-INTEGRITY]],
 we create an array variable, `allProofs`, and add the proofs from the
 starting document to it. Since the options contains the `previousProof`
 attribute, we compute the `matchingProofs` variable per step 4
-of <a data-cite="vc-data-integrity#add-proof-set/chain">Section 4.4: Add Proof
+of <a data-cite="vc-data-integrity#add-proof-set-chain">Section 4.4: Add Proof
 Set/Chain</a>, and we set the
 `unsecuredDocument.proof` equal to the `matchingProofs`. This
 produces the document shown below.
@@ -2566,7 +2566,7 @@ proof that is dependent on one of the existing proofs. This example uses
           <pre class="example nohighlight" title="Starting Document for Extended Proof Chain" data-include="TestVectors/proof-set-chain/signedProofChain1.json"
           data-include-format="text"></pre>
           <p>
-The `options` input to <a data-cite="vc-data-integrity#add-proof-set/chain">
+The `options` input to <a data-cite="vc-data-integrity#add-proof-set-chain">
 Section 4.4: Add Proof Set/Chain</a> in [[VC-DATA-INTEGRITY]]
 is shown below. Note that it includes a `previousProof` attribute since we are
 constructing a proof chain, however this time it is a single value.
@@ -2574,12 +2574,12 @@ constructing a proof chain, however this time it is a single value.
           <pre class="example nohighlight" title="Options for Extended Proof Chain" data-include="TestVectors/proof-set-chain/proofChainConfig2.json"
           data-include-format="text"></pre>
           <p>
-Per the algorithm of <a data-cite="vc-data-integrity#add-proof-set/chain">
+Per the algorithm of <a data-cite="vc-data-integrity#add-proof-set-chain">
 Section 4.4: Add Proof Set/Chain</a> in [[VC-DATA-INTEGRITY]],
 we create an array variable, `allProofs`, and add the proofs from the
 starting document to it. Since the `options` contains the `previousProof`
 attribute, we compute the `matchingProofs` variable per step 4
-of <a data-cite="vc-data-integrity#add-proof-set/chain">Section 4.4: Add Proof
+of <a data-cite="vc-data-integrity#add-proof-set-chain">Section 4.4: Add Proof
 Set/Chain</a>, and we set the
 `unsecuredDocument.proof` equal to the `matchingProofs`. This
 produces the document shown below.
