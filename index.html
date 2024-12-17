@@ -2305,6 +2305,80 @@ option document.
         data-include="TestVectors/eddsa-rdfc-2022/signedDataInt.json" data-include-format="text"></pre>
       </section>
       <section>
+        <h3>Enhanced Example for Representation: eddsa-rdfc-2022</h3>
+        <p>
+Here we again go through the steps of creating an `eddsa-rdfc-2022` signed
+credential but with a more complicated input document. The
+representation of the public key and the representation of the private key
+are shown below.
+        </p>
+        <pre class="example nohighlight" title="Private and Public keys for Signature">
+{
+    publicKeyMultibase: "z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+    secretKeyMultibase: "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq"
+}
+        </pre>
+
+        <p>
+Signing begins with a credential without an attached proof, which is converted
+to canonical form, and then hashed, as shown in the following three examples.
+        </p>
+
+        <pre class="example nohighlight" title="Employment Authorization Credential without Proof" data-include="TestVectors/employmentAuth.json"
+        data-include-format="text"></pre>
+
+        <pre class="example nohighlight" title="Canonical Employment Authorization Credential without Proof" data-include="TestVectors/eddsa-rdfc-2022/employ/canonDocDataInt.txt"
+        data-include-format="text"></pre>
+
+
+        <pre class="example nohighlight" title="Hash of Canonical Employment Authorization Credential without Proof (hex)"
+        data-include="TestVectors/eddsa-rdfc-2022/employ/docHashDataInt.txt" data-include-format="text"></pre>
+
+        <p>
+The next step is to take the proof options document, convert it to canonical
+form, and obtain its hash, as shown in the next three examples.
+        </p>
+
+        <pre class="example nohighlight" title="Proof Options Document"
+        data-include="TestVectors/eddsa-rdfc-2022/employ/proofConfigDataInt.json" data-include-format="text"></pre>
+
+        <pre class="example nohighlight" title="Canonical Proof Options Document"
+        data-include="TestVectors/eddsa-rdfc-2022/employ/proofCanonDataInt.txt" data-include-format="text"></pre>
+
+        <pre class="example nohighlight" title="Hash of Canonical Proof Options Document (hex)"
+        data-include="TestVectors/eddsa-rdfc-2022/employ/proofHashDataInt.txt" data-include-format="text"></pre>
+
+        <p>
+Finally, we concatenate the hash of the proof options followed by the hash of
+the credential without proof, use the private key with the combined hash to
+compute the Ed25519 signature, and then base58-btc encode the signature.
+        </p>
+
+        <pre class="example nohighlight" title="Combine hashes of Proof Options and Credential (hex)"
+        data-include="TestVectors/eddsa-rdfc-2022/employ/combinedHashDataInt.txt" data-include-format="text"></pre>
+
+        <pre class="example nohighlight" title="Signature of Combined Hashes (hex)"
+        data-include="TestVectors/eddsa-rdfc-2022/employ/sigHexDataInt.txt" data-include-format="text"></pre>
+
+        <pre class="example nohighlight" title="Signature of Combined Hashes base58-btc"
+        data-include="TestVectors/eddsa-rdfc-2022/employ/sigBTC58DataInt.txt" data-include-format="text"></pre>
+
+        <p>Assemble the signed credential with the following two steps:</p>
+        <ol>
+          <li>
+Add the <code>proofValue</code> field with the previously computed base58-btc
+value to the proof options document.
+          </li>
+          <li>
+Set the <code>proof</code> field of the credential to the augmented proof
+option document.
+          </li>
+        </ol>
+
+        <pre class="example nohighlight" title="Signed Employment Authorization Credential"
+        data-include="TestVectors/eddsa-rdfc-2022/employ/signedDataInt.json" data-include-format="text"></pre>
+      </section>
+      <section>
         <h3>Representation: eddsa-jcs-2022</h3>
         <p>
 The signer needs to generate a private/public key pair with the private key used
