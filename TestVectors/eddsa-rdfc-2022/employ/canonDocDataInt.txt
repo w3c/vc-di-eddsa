@@ -1,0 +1,24 @@
+<did:key:zDnaegE6RR3atJtHKwTRTWHsJ3kNHqFwv7n9YjTgmU7TyfU76> <https://schema.org/image> <data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2NgUPr/HwADaAIhG61j/AAAAABJRU5ErkJggg==> .
+_:c14n0 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/citizenship#EmploymentAuthorizationDocumentCredential> .
+_:c14n0 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.w3.org/2018/credentials#VerifiableCredential> .
+_:c14n0 <https://schema.org/description> "Example Country Employment Authorization Document." .
+_:c14n0 <https://schema.org/name> "Employment Authorization Document" .
+_:c14n0 <https://www.w3.org/2018/credentials#credentialSubject> _:c14n1 .
+_:c14n0 <https://www.w3.org/2018/credentials#issuer> <did:key:zDnaegE6RR3atJtHKwTRTWHsJ3kNHqFwv7n9YjTgmU7TyfU76> .
+_:c14n0 <https://www.w3.org/2018/credentials#validFrom> "2019-12-03T00:00:00Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+_:c14n0 <https://www.w3.org/2018/credentials#validUntil> "2029-12-03T00:00:00Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+_:c14n1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/Person> .
+_:c14n1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/citizenship#EmployablePerson> .
+_:c14n1 <https://schema.org/additionalName> "JACOB" .
+_:c14n1 <https://schema.org/birthDate> "1999-07-17"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+_:c14n1 <https://schema.org/familyName> "SMITH" .
+_:c14n1 <https://schema.org/gender> "Male" .
+_:c14n1 <https://schema.org/givenName> "JOHN" .
+_:c14n1 <https://schema.org/image> <data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2Ng+M/wHwAEAQH/7yMK/gAAAABJRU5ErkJggg==> .
+_:c14n1 <https://w3id.org/citizenship#birthCountry> "Bahamas" .
+_:c14n1 <https://w3id.org/citizenship#employmentAuthorizationDocument> _:c14n2 .
+_:c14n1 <https://w3id.org/citizenship#residentSince> "2015-01-01"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+_:c14n2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/citizenship#EmploymentAuthorizationDocument> .
+_:c14n2 <https://schema.org/identifier> "83627465" .
+_:c14n2 <https://w3id.org/citizenship#lprCategory> "C09" .
+_:c14n2 <https://w3id.org/citizenship#lprNumber> "999-999-999" .
