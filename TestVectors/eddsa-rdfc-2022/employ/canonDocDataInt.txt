@@ -1,7 +1,7 @@
 <did:key:zDnaegE6RR3atJtHKwTRTWHsJ3kNHqFwv7n9YjTgmU7TyfU76> <https://schema.org/image> <data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2NgUPr/HwADaAIhG61j/AAAAABJRU5ErkJggg==> .
 _:c14n0 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/citizenship#EmploymentAuthorizationDocumentCredential> .
 _:c14n0 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.w3.org/2018/credentials#VerifiableCredential> .
-_:c14n0 <https://schema.org/description> "Example Country Employment Authorization Document." .
+_:c14n0 <https://schema.org/description> "Example Employment Authorization Document." .
 _:c14n0 <https://schema.org/name> "Employment Authorization Document" .
 _:c14n0 <https://www.w3.org/2018/credentials#credentialSubject> _:c14n1 .
 _:c14n0 <https://www.w3.org/2018/credentials#issuer> <did:key:zDnaegE6RR3atJtHKwTRTWHsJ3kNHqFwv7n9YjTgmU7TyfU76> .

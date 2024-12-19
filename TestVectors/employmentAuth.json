@@ -32,7 +32,7 @@
       }
     },
     "name": "Employment Authorization Document",
-    "description": "Example Country Employment Authorization Document.",
+    "description": "Example Employment Authorization Document.",
     "validFrom": "2019-12-03T00:00:00Z",
     "validUntil": "2029-12-03T00:00:00Z"
   }
