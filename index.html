@@ -765,12 +765,10 @@ represented as series of bytes is produced as output.
 
           <ol class="algorithm">
             <li>
-Let `privateKeyBytes` be the result of retrieving the
-private key bytes associated with the
-`options`.`verificationMethod` value as described in the
-Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a data-cite="vc-data-integrity#processing-model">
-Section 4.1: Processing Model</a>.
+Let |privateKeyBytes| be the result of retrieving the
+private key bytes (or a signing interface enabling the use of the private key
+bytes) associated with the verification method identified by the
+|options|.|verificationMethod| value.
             </li>
             <li>
 Let `proofBytes` be the result of applying the Edwards-Curve Digital
@@ -804,12 +802,12 @@ represented as a boolean value is produced as output.
 
           <ol class="algorithm">
             <li>
-Let `publicKeyBytes` be the result of retrieving the
+Let |publicKeyBytes| be the result of retrieving the
 public key bytes associated with the
-`options`.`verificationMethod` value as described in the
+|options|.|verificationMethod| value as described in the
 [[[controller-document]]] specification,
 <a data-cite="controller-document#retrieve-verification-method">
-Section 3.3: Retrieve Verification Method</a>.
+Section: Retrieve Verification Method</a>.
             </li>
             <li>
 Let `verificationResult` be the result of applying the verification
@@ -1116,12 +1114,10 @@ represented as series of bytes is produced as output.
 
           <ol class="algorithm">
             <li>
-Let `privateKeyBytes` be the result of retrieving the
-private key bytes associated with the
-`options`.`verificationMethod` value as described in the
-Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a data-cite="vc-data-integrity#algorithms">
-Section 4: Retrieving Cryptographic Material</a>.
+Let |privateKeyBytes| be the result of retrieving the
+private key bytes (or a signing interface enabling the use of the private key
+bytes) associated with the verification method identified by the
+|options|.|verificationMethod| value.
             </li>
             <li>
 Let `proofBytes` be the result of applying the Edwards-Curve Digital
@@ -1153,13 +1149,13 @@ represented as a boolean value is produced as output.
           </p>
 
           <ol class="algorithm">
-            <li>
-Let `publicKeyBytes` be the result of retrieving the
+          <li>
+Let |publicKeyBytes| be the result of retrieving the
 public key bytes associated with the
-`options`.`verificationMethod` value as described in the
-Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a data-cite="vc-data-integrity#algorithms">
-Section 4: Retrieving Cryptographic Material</a>.
+|options|.|verificationMethod| value as described in the
+[[[controller-document]]] specification,
+<a data-cite="controller-document#retrieve-verification-method">
+Section: Retrieve Verification Method</a>.
             </li>
             <li>
 Let `verificationResult` be the result of applying the verification
@@ -2164,12 +2160,10 @@ represented as series of bytes is produced as output.
 
             <ol class="algorithm">
               <li>
-Let `privateKeyBytes` be the result of retrieving the
-private key bytes associated with the
-`options`.`verificationMethod` value as described in the
-Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a data-cite="vc-data-integrity#algorithms">
-Section 4: Retrieving Cryptographic Material</a>.
+Let |privateKeyBytes| be the result of retrieving the
+private key bytes (or a signing interface enabling the use of the private key
+bytes) associated with the verification method identified by the
+|options|.|verificationMethod| value.
               </li>
               <li>
 Let `proofBytes` be the result of applying the Edwards-Curve Digital
@@ -2203,12 +2197,12 @@ represented as a boolean value is produced as output.
 
             <ol class="algorithm">
               <li>
-Let `publicKeyBytes` be the result of retrieving the
+Let |publicKeyBytes| be the result of retrieving the
 public key bytes associated with the
-`options`.`verificationMethod` value as described in the
-Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a data-cite="vc-data-integrity#algorithms">
-Section 4: Retrieving Cryptographic Material</a>.
+|options|.|verificationMethod| value as described in the
+[[[controller-document]]] specification,
+<a data-cite="controller-document#retrieve-verification-method">
+Section: Retrieve Verification Method</a>.
               </li>
               <li>
 Let `verificationResult` be the result of applying the verification
