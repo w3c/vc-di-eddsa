@@ -130,7 +130,7 @@
             href: "https://www.w3.org/TR/vc-data-integrity/"
           }, {
             value: "Controller Documents v1.0",
-            href: "https://www.w3.org/TR/controller-document/"
+            href: "https://www.w3.org/TR/cid-1.0/"
           },{
             value: "Data Integrity ECDSA Cryptosuites v1.0",
             href: "https://www.w3.org/TR/vc-di-ecdsa/"
@@ -267,19 +267,19 @@ signatures.
           <h4>Multikey</h4>
 
           <p>
-The <a data-cite="controller-document#Multikey">Multikey format</a>, defined in
-[[[controller-document]]], is used to express public keys for the cryptographic
+The <a data-cite="cid-1.0#Multikey">Multikey format</a>, defined in
+[[[cid-1.0]]], is used to express public keys for the cryptographic
 suites defined in this specification.
           </p>
 
           <p>
 The `publicKeyMultibase` value of the verification method MUST start with the
 base-58-btc prefix (`z`), as defined in the
-<a data-cite="controller-document#multibase-0">Multibase section</a> of
-[[[controller-document]]]. A Multibase-encoded Ed25519 256-bit public key value
+<a data-cite="cid-1.0#multibase-0">Multibase section</a> of
+[[[cid-1.0]]]. A Multibase-encoded Ed25519 256-bit public key value
 follows, as defined in the
-<a data-cite="controller-document#Multikey">Multikey section</a> of
-[[[controller-document]]]. Any other encoding MUST NOT be allowed.
+<a data-cite="cid-1.0#Multikey">Multikey section</a> of
+[[[cid-1.0]]]. Any other encoding MUST NOT be allowed.
           </p>
 
           <p class="advisement">
@@ -330,11 +330,11 @@ Multikey prefix value other than `0xed01` in a `publicKeyMultibase` value.
           <p>
 The `secretKeyMultibase` value of the verification method MUST start with the
 base-58-btc prefix (`z`), as defined in the
-<a data-cite="controller-document#multibase-0">Multibase section</a> of
-[[[controller-document]]]. A Multibase-encoded Ed25519 256-bit secret key value
+<a data-cite="cid-1.0#multibase-0">Multibase section</a> of
+[[[cid-1.0]]]. A Multibase-encoded Ed25519 256-bit secret key value
 follows, as defined in the
-<a data-cite="controller-document#Multikey">Multikey section</a> of
-[[[controller-document]]]. Any other encoding MUST NOT be allowed.
+<a data-cite="cid-1.0#Multikey">Multikey section</a> of
+[[[cid-1.0]]]. Any other encoding MUST NOT be allowed.
           </p>
 
           <p class="advisement">
@@ -373,8 +373,8 @@ The `cryptosuite` property of the proof MUST be `eddsa-rdfc-2022` or `eddsa-jcs-
 The `proofValue` property of the proof MUST be a detached EdDSA signature
 produced according to [[RFC8032]], encoded using the base-58-btc header and
 alphabet as described in the
-<a data-cite="controller-document#multibase-0">Multibase section</a> of
-[[[controller-document]]].
+<a data-cite="cid-1.0#multibase-0">Multibase section</a> of
+[[[cid-1.0]]].
           </p>
 
           <pre class="example nohighlight"
@@ -517,7 +517,7 @@ Let |proofBytes| be the result of running the algorithm in Section
 |options| passed as parameters.
             </li>
             <li>
-Let |proof|.|proofValue| be a <a data-cite="controller-document#multibase-0">
+Let |proof|.|proofValue| be a <a data-cite="cid-1.0#multibase-0">
 base58-btc-encoded Multibase value</a> of the |proofBytes|.
             </li>
             <li>
@@ -558,7 +558,7 @@ removed.
           </li>
           <li>
 Let |proofBytes| be the
-<a data-cite="controller-document#multibase-0">Multibase decoded base58-btc
+<a data-cite="cid-1.0#multibase-0">Multibase decoded base58-btc
 value</a> in |securedDocument|.|proof|.|proofValue|.
           </li>
           <li>
@@ -794,8 +794,8 @@ represented as a boolean value is produced as output.
 Let |publicKeyBytes| be the result of retrieving the
 public key bytes associated with the
 |options|.|verificationMethod| value as described in the
-<a data-cite="controller-document#retrieve-verification-method">Retrieve
-Verification Method</a> section of the [[[controller-document]]] specification.
+<a data-cite="CID#retrieve-verification-method">Retrieve
+Verification Method</a> section of the [[[CID]]] specification.
             </li>
             <li>
 Let `verificationResult` be the result of applying the verification
@@ -866,7 +866,7 @@ Let |proofBytes| be the result of running the algorithm in Section
 |options| passed as parameters.
               </li>
               <li>
-Let |proof|.|proofValue| be a <a data-cite="controller-document#multibase-0">
+Let |proof|.|proofValue| be a <a data-cite="cid-1.0#multibase-0">
 base58-btc-encoded Multibase value</a> of the |proofBytes|.
               </li>
               <li>
@@ -905,7 +905,7 @@ Let |proofOptions| be the result of a copy of |securedDocument|.|proof| with
             </li>
             <li>
 Let |proofBytes| be the
-<a data-cite="controller-document#multibase-0">Multibase decoded base58-btc
+<a data-cite="cid-1.0#multibase-0">Multibase decoded base58-btc
 value</a> in |securedDocument|.|proof|.|proofValue|.
             </li>
             <li>
@@ -1812,7 +1812,7 @@ The `controller` of the verification method MUST be a URL.
             <p>
 The `publicKeyMultibase` value of the verification method MUST start with the
 base-58-btc prefix (`z`), as defined in the
-<a data-cite="controller-document#multibase-0">Multibase section</a> of
+<a data-cite="cid-1.0#multibase-0">Multibase section</a> of
 [[VC-DATA-INTEGRITY]]. A Multibase-encoded Multikey value follows, which MUST
 consist of a binary value that starts with the two-byte prefix `0xed01`, which
 is the Multikey header for an Ed25519 public key, followed by the 32-byte
@@ -1903,8 +1903,8 @@ match the verification relationship expressed by the verification method
 The `proofValue` property of the proof MUST be a detached EdDSA
 produced according to [[RFC8032]], encoded using
 the base-58-btc header and alphabet as described in the
-<a data-cite="controller-document#multibase-0">
-Multibase section</a> of [[CONTROLLER-DOCUMENT]].
+<a data-cite="cid-1.0#multibase-0">
+Multibase section</a> of [[cid-1.0]].
             </p>
 
             <pre class="example nohighlight"
