@@ -10,6 +10,19 @@ div.illegal-example p{color:#000}
 aside.example div.example{border-left-width:.1em;border-color:#999;background:#fff}
 </style>
 <style>
+.issue-label{text-transform:initial}
+.warning>p:first-child{margin-top:0}
+.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+span.warning{padding:.1em .5em .15em}
+.issue.closed span.issue-number{text-decoration:line-through}
+.issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
+.warning{border-color:#f11;border-color:var(--warning-border,#f11);border-width:.2em;border-style:solid;background:#fbe9e9;background:var(--warning-bg,#fbe9e9);color:#000;color:var(--text,#000)}
+.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+li.task-list-item{list-style:none}
+input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+</style>
+<style>
 dfn{cursor:pointer}
 .dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;background:var(--indextable-hover-bg,#fff);color:#000;color:var(--text,#000);box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);box-shadow:0 1em 3em -.4em var(--tocsidebar-shadow,rgba(0,0,0,.3)),0 0 1px 1px var(--tocsidebar-shadow,rgba(0,0,0,.05));border-radius:2px}
 .dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
@@ -1002,9 +1015,9 @@ represented as a boolean value is produced as output.
 
           <ol class="algorithm">
             <li>
-Let <var>publicKeyBytes</var> be the result of retrieving the
+Let <code>publicKeyBytes</code> be the result of retrieving the
 public key bytes associated with the
-<var>options</var>.<var>verificationMethod</var> value as described in the
+<code>options</code>.<code>verificationMethod</code> value as described in the
 <a href="https://www.w3.org/TR/cid-1.0/#retrieve-verification-method">Retrieve
 Verification Method</a> section of the <cite><a data-matched-text="[[[CID]]]" href="https://www.w3.org/TR/cid-1.0/">Controlled Identifiers v1.0</a></cite> specification.
             </li>
@@ -1084,6 +1097,16 @@ base58-btc-encoded Multibase value</a> of the <var>proofBytes</var>.
 Return <var>proof</var> as the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-integrity/#dfn-data-integrity-proof">data integrity proof</a>.
               </li>
             </ol>
+
+            <div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="5"><span>Note</span><span class="issue-label">: Not implementing step 2 can lead to interoperability failures</span></div><p class="">
+Implementers are warned that while step 2 is not strictly necessary when
+generating proofs that will not be included in a proof set or a proof chain,
+that it is not always possible to be certain of where generated proofs will be
+used, or how they might be combined with other proofs at the application layer.
+It is strongly advised to always implement step 2, though some implementers have
+signaled that their software might not always implement step 2.
+            </p></div>
+
           </section>
 
           <section id="verify-proof-eddsa-jcs-2022"><div class="header-wrapper"><h4 id="x3-3-2-verify-proof-eddsa-jcs-2022"><bdi class="secno">3.3.2 </bdi>Verify Proof (eddsa-jcs-2022)</h4><a class="self-link" href="#verify-proof-eddsa-jcs-2022" aria-label="Permalink for Section 3.3.2"></a></div>
@@ -1348,12 +1371,12 @@ represented as a boolean value is produced as output.
           </p>
 
           <ol class="algorithm">
-          <li>
-Let <var>publicKeyBytes</var> be the result of retrieving the
+            <li>
+Let <code>publicKeyBytes</code> be the result of retrieving the
 public key bytes associated with the
-<var>options</var>.<var>verificationMethod</var> value as described in the
+<code>options</code>.<code>verificationMethod</code> value as described in the
 <a href="https://www.w3.org/TR/cid-1.0/#retrieve-verification-method">Retrieve
-Verification Method</a> section of the <cite><a data-matched-text="[[[controller-document]]]" href="https://www.w3.org/TR/cid-1.0/">Controlled Identifiers v1.0</a></cite> specification.
+Verification Method</a> section of the <cite><a data-matched-text="[[[CID]]]" href="https://www.w3.org/TR/cid-1.0/">Controlled Identifiers v1.0</a></cite> specification.
             </li>
             <li>
 Let <code>verificationResult</code> be the result of applying the verification
@@ -2404,7 +2427,7 @@ Let <var>publicKeyBytes</var> be the result of retrieving the
 public key bytes associated with the
 <var>options</var>.<var>verificationMethod</var> value as described in the
 <a href="https://www.w3.org/TR/cid-1.0/#retrieve-verification-method">Retrieve
-Verification Method</a> section of the <cite><a data-matched-text="[[[controller-document]]]" href="https://www.w3.org/TR/cid-1.0/">Controlled Identifiers v1.0</a></cite> specification.
+Verification Method</a> section of the <cite><a data-matched-text="[[[CID]]]" href="https://www.w3.org/TR/cid-1.0/">Controlled Identifiers v1.0</a></cite> specification.
               </li>
               <li>
 Let <code>verificationResult</code> be the result of applying the verification
@@ -3936,7 +3959,7 @@ Dmitri Zagidulin.
 <section id="references" class="appendix"><div class="header-wrapper"><h2 id="e-references"><bdi class="secno">E. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix E."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="e-1-normative-references"><bdi class="secno">E.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix E.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-cid">[CID]</dt><dd>
-      <a href="https://www.w3.org/TR/cid-1.0/"><cite>Controlled Identifiers v1.0</cite></a>. Manu Sporny; Michael Jones.  W3C. 9 February 2025. CRD. URL: <a href="https://www.w3.org/TR/cid-1.0/">https://www.w3.org/TR/cid-1.0/</a>
+      <a href="https://www.w3.org/TR/cid-1.0/"><cite>Controlled Identifiers v1.0</cite></a>. Manu Sporny; Michael Jones.  W3C. 18 February 2025. CRD. URL: <a href="https://www.w3.org/TR/cid-1.0/">https://www.w3.org/TR/cid-1.0/</a>
     </dd><dt id="bib-fips-186-5">[FIPS-186-5]</dt><dd>
       <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf"><cite>FIPS PUB 186-5: Digital Signature Standard (DSS)</cite></a>.  U.S. Department of Commerce/National Institute of Standards and Technology. 3 February 2023. National Standard. URL: <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf">https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf</a>
     </dd><dt id="bib-infra">[INFRA]</dt><dd>
@@ -3956,9 +3979,9 @@ Dmitri Zagidulin.
     </dd><dt id="bib-rfc8785">[RFC8785]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc8785"><cite>JSON Canonicalization Scheme (JCS)</cite></a>. A. Rundgren; B. Jordan; S. Erdtman.  IETF. June 2020. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc8785">https://www.rfc-editor.org/rfc/rfc8785</a>
     </dd><dt id="bib-vc-data-integrity">[VC-DATA-INTEGRITY]</dt><dd>
-      <a href="https://www.w3.org/TR/vc-data-integrity/"><cite>Verifiable Credential Data Integrity 1.0</cite></a>. Manu Sporny; Ted Thibodeau Jr; Ivan Herman; Dave Longley; Greg Bernstein.  W3C. 10 February 2025. CRD. URL: <a href="https://www.w3.org/TR/vc-data-integrity/">https://www.w3.org/TR/vc-data-integrity/</a>
+      <a href="https://www.w3.org/TR/vc-data-integrity/"><cite>Verifiable Credential Data Integrity 1.0</cite></a>. Manu Sporny; Ted Thibodeau Jr; Ivan Herman; Dave Longley; Greg Bernstein.  W3C. 23 February 2025. CRD. URL: <a href="https://www.w3.org/TR/vc-data-integrity/">https://www.w3.org/TR/vc-data-integrity/</a>
     </dd><dt id="bib-vc-data-model-2.0">[vc-data-model-2.0]</dt><dd>
-      <a href="https://www.w3.org/TR/vc-data-model-2.0/"><cite>Verifiable Credentials Data Model v2.0</cite></a>. Manu Sporny; Ted Thibodeau Jr; Ivan Herman; Gabe Cohen; Michael Jones.  W3C. 27 January 2025. CRD. URL: <a href="https://www.w3.org/TR/vc-data-model-2.0/">https://www.w3.org/TR/vc-data-model-2.0/</a>
+      <a href="https://www.w3.org/TR/vc-data-model-2.0/"><cite>Verifiable Credentials Data Model v2.0</cite></a>. Manu Sporny; Ted Thibodeau Jr; Ivan Herman; Gabe Cohen; Michael Jones.  W3C. 23 February 2025. CRD. URL: <a href="https://www.w3.org/TR/vc-data-model-2.0/">https://www.w3.org/TR/vc-data-model-2.0/</a>
     </dd><dt id="bib-xmlschema11-2">[XMLSCHEMA11-2]</dt><dd>
       <a href="https://www.w3.org/TR/xmlschema11-2/"><cite>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</cite></a>. David Peterson; Sandy Gao; Ashok Malhotra; Michael Sperberg-McQueen; Henry Thompson; Paul V. Biron et al.  W3C. 5 April 2012. W3C Recommendation. URL: <a href="https://www.w3.org/TR/xmlschema11-2/">https://www.w3.org/TR/xmlschema11-2/</a>
     </dd></dl>
@@ -3969,9 +3992,9 @@ Dmitri Zagidulin.
     </dd><dt id="bib-taming_eddsas">[Taming_EdDSAs]</dt><dd>
       <a href="https://eprint.iacr.org/2020/1244"><cite>Taming the many EdDSAs</cite></a>. Konstantinos Chalkias; François Garillot; Valeria Nikolaenko.  Cryptology ePrint Archive, Paper 2020/1244. 2020. URL: <a href="https://eprint.iacr.org/2020/1244">https://eprint.iacr.org/2020/1244</a>
     </dd><dt id="bib-vc-di-bbs">[VC-DI-BBS]</dt><dd>
-      <a href="https://www.w3.org/TR/vc-di-bbs/"><cite>Data Integrity BBS Cryptosuites v1.0</cite></a>. Greg Bernstein; Manu Sporny.  W3C. 30 January 2025. CRD. URL: <a href="https://www.w3.org/TR/vc-di-bbs/">https://www.w3.org/TR/vc-di-bbs/</a>
+      <a href="https://www.w3.org/TR/vc-di-bbs/"><cite>Data Integrity BBS Cryptosuites v1.0</cite></a>. Greg Bernstein; Manu Sporny.  W3C. 18 February 2025. CRD. URL: <a href="https://www.w3.org/TR/vc-di-bbs/">https://www.w3.org/TR/vc-di-bbs/</a>
     </dd><dt id="bib-vc-di-ecdsa">[VC-DI-ECDSA]</dt><dd>
-      <a href="https://www.w3.org/TR/vc-di-ecdsa/"><cite>Data Integrity ECDSA Cryptosuites v1.0</cite></a>. Manu Sporny; Dave Longley; Greg Bernstein.  W3C. 2 February 2025. CRD. URL: <a href="https://www.w3.org/TR/vc-di-ecdsa/">https://www.w3.org/TR/vc-di-ecdsa/</a>
+      <a href="https://www.w3.org/TR/vc-di-ecdsa/"><cite>Data Integrity ECDSA Cryptosuites v1.0</cite></a>. Manu Sporny; Dave Longley; Greg Bernstein.  W3C. 23 February 2025. CRD. URL: <a href="https://www.w3.org/TR/vc-di-ecdsa/">https://www.w3.org/TR/vc-di-ecdsa/</a>
     </dd></dl>
   </section></section><p role="navigation" id="back-to-top">
     <a href="#title"><abbr title="Back to Top">↑</abbr></a>
