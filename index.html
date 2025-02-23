@@ -864,6 +864,16 @@ base58-btc-encoded Multibase value</a> of the |proofBytes|.
 Return |proof| as the [=data integrity proof=].
               </li>
             </ol>
+
+            <p class="note" title="Not implementing step 2 can lead to interoperability failures">
+Implementers are warned that while step 2 is not strictly necessary when
+generating proofs that will not be included in a proof set or a proof chain,
+that it is not always possible to be certain of where generated proofs will be
+used, or how they might be combined with other proofs at the application layer.
+It is strongly advised to always implement step 2, though some implementers have
+signaled that their software might not always implement step 2.
+            </p>
+
           </section>
 
           <section>
