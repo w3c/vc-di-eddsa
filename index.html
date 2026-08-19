@@ -416,7 +416,10 @@ that use the Edwards-Curve Digital Signature Algorithm.
 
       <section>
         <h3>Instantiate Cryptosuite</h3>
-
+        <p class="ednote">
+TODO: Update this section to call the "Create Proof" and  "Verify Proof" algorithms
+of VC-Data-Integrity 1.1.
+        </p>
         <p>
 This algorithm is used to configure a cryptographic suite to be used by the
 <a data-cite="VC-DATA-INTEGRITY#add-proof">Add Proof</a> and
@@ -465,10 +468,20 @@ Return |cryptosuite|.
         </ol>
 
       </section>
+      <section id="EdDSA-Cryptosuites">
+        <h3>EdDSA Cryptosuites</h3>
+        <p class="ednote">
+Here we will define the EdDSA cryptosuites. First the basic signature and  verification
+algorithm and the corresponding hash. Then the cryptosuite names with canonicalization,
+hashName, and proofEncoding.
+        </p>
+      </section>
 
       <section>
         <h3>eddsa-rdfc-2022</h3>
-
+        <p class="ednote">
+To be removed.
+        </p>
         <p>
 The `eddsa-rdfc-2022` cryptographic suite takes an input document, canonicalizes
 the document using the RDF Dataset Canonicalization algorithm [[RDF-CANON]], and then
@@ -817,7 +830,9 @@ Return `verificationResult` as the <em>verification result</em>.
 
       <section>
         <h3>eddsa-jcs-2022</h3>
-
+        <p class="ednote">
+To be removed.
+        </p>
           <p>
 The `eddsa-jcs-2022` cryptographic suite takes an input document, canonicalizes
 the document using the JSON Canonicalization Scheme [[RFC8785]], and then
