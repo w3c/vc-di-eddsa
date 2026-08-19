@@ -110,7 +110,7 @@
             href: "https://eprint.iacr.org/2020/823"
           }
         },
-        xref: ["INFRA", "VC-DATA-MODEL-2.0", "VC-DATA-INTEGRITY"],
+        xref: ["INFRA", "VC-DATA-MODEL-2.0", "VC-DATA-INTEGRITY-1.1"],
         lint: {"informative-dfn": false},
         otherLinks: [{
           key: "Related Specifications",
@@ -414,12 +414,78 @@ The following section describes multiple Data Integrity cryptographic suites
 that use the Edwards-Curve Digital Signature Algorithm.
       </p>
 
+
+
+      <section id="EdDSA-Cryptosuites">
+        <h3>EdDSA Cryptosuites</h3>
+
+        <p>
+The EdDSA cryptosuites defined in this specification make use of 
+[[[VC-DATA-INTEGRITY-1.1#CryptosuiteCommonAlgorithms]]] from the 
+[[!VC-DATA-INTEGRITY-1.1]] specification. All EdDSA cryptosuites make use of the 
+Edwards-Curve Digital Signature Algorithm (EdDSA) [[RFC8032]], using the 
+`Ed25519` variant (Pure EdDSA) and the corresponding verification algorithm for 
+the Edwards-Curve Digital Signature Algorithm (EdDSA) [[RFC8032]], using the 
+`Ed25519` variant (Pure EdDSA).
+        </p>
+        <p>
+All EdDSA cryptosuites defined in this specification utilize the SHA-256 (SHA-2 
+with 256-bit output) cryptographic hashing algorithm [[RFC6234]]. This 
+corresponds to  a |hashName| parameterr of `SHA-256` for use in  
+[[[VC-DATA-INTEGRITY-1.1#CryptosuiteCommonAlgorithms]]]. Furthermore all EdDSA
+cryptosuites utilize <a data-cite="CID#multibase-0">
+base58-btc-encoded Multibase value</a>  for their proof, hence |proofEncoding| 
+parameter is set to `base58` in 
+[[[VC-DATA-INTEGRITY-1.1#CryptosuiteCommonAlgorithms]]].
+        </p>
+        <p  class="note">
+The above cryptographic hash function is specifically different from that used
+internally by the `Ed25519` signature scheme, which is SHA-512. This choice was
+dictated by the overall security strength of the signature algorithm and does
+not change the hash used by the signature scheme internally.
+
+        </p>
+        <p class="note">
+The raw private key size for this algorithm is 32 bytes, the raw public key 
+size is 32 bytes, and the length of the raw signature is 64 bytes.
+        </p>
+        <p>
+Supporting both Universal RDF Dataset Canonicalization Algorithm [[RDF-CANON]],
+"`rdfc`", and JSON Canonicalization Scheme [[RFC8785]], "`jcs`",  leads to the
+family of EdDSA cryptosuites given in [[[#EdDSASuiteTable]]].
+        </p>
+        <table id="EdDSASuiteTable" class="data numbered">
+          <caption><em>Supported EdDSA Cryptosuites.</em> </caption>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Canonizalization</th>
+              <th>Signature/Verification</th>
+              <th>Hash</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>`eddsa-rdfc-2022`</td>
+              <td>RDFC</td>
+              <td>Edwards-Curve Digital Signature Algorithm (EdDSA) [[RFC8032]], using the 
+`Ed25519` variant (Pure EdDSA)</td>
+              <td>SHA-256</td>
+            </tr>
+            <tr>
+              <td>`eddsa-jcs-2022`</td>
+              <td>JCS</td>
+              <td>Edwards-Curve Digital Signature Algorithm (EdDSA) [[RFC8032]], using the 
+`Ed25519` variant (Pure EdDSA)s</td>
+              <td>SHA-256</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </section>
+
       <section>
         <h3>Instantiate Cryptosuite</h3>
-        <p class="ednote">
-TODO: Update this section to call the "Create Proof" and  "Verify Proof" algorithms
-of VC-Data-Integrity 1.1.
-        </p>
         <p>
 This algorithm is used to configure a cryptographic suite to be used by the
 <a data-cite="VC-DATA-INTEGRITY#add-proof">Add Proof</a> and
@@ -437,28 +503,20 @@ Initialize |cryptosuite| to an empty [=struct=].
 If |options|.|type| does not equal `DataIntegrityProof`, return |cryptosuite|.
           </li>
           <li>
-If |options|.|cryptosuite| is `eddsa-rdfc-2022`:
+If |options|.|cryptosuite| is `eddsa-rdfc-2022` or `eddsa-jcs-2022` then:
             <ol class="algorithm">
               <li>
+Set the values of the parameters `canonScheme`, `hashName`, `sigFunc`, 
+`verifyFunc`, and `proofEncoding` as indicated in [[[#EdDSA-Cryptosuites]]] and
+[[[#EdDSASuiteTable]]].
+              </li>
+              <li>
 Set |cryptosuite|.|createProof| to the algorithm in Section
-[[[#create-proof-eddsa-rdfc-2022]]].
+[[[VC-DATA-INTEGRITY-1.1#create-proof]]] passing in the above parameters.
               </li>
               <li>
 Set |cryptosuite|.|verifyProof| to the algorithm in Section
-[[[#verify-proof-eddsa-rdfc-2022]]].
-              </li>
-            </ol>
-          </li>
-          <li>
-If |options|.|cryptosuite| is `eddsa-jcs-2022`:
-            <ol class="algorithm">
-              <li>
-Set |cryptosuite|.|createProof| to the algorithm in Section
-[[[#create-proof-eddsa-jcs-2022]]].
-              </li>
-              <li>
-Set |cryptosuite|.|verifyProof| to the algorithm in Section
-[[[#verify-proof-eddsa-jcs-2022]]].
+[[[VC-DATA-INTEGRITY-1.1#verify-proof-0]]] passing in the above parameters.
               </li>
             </ol>
           </li>
@@ -466,725 +524,6 @@ Set |cryptosuite|.|verifyProof| to the algorithm in Section
 Return |cryptosuite|.
           </li>
         </ol>
-
-      </section>
-      <section id="EdDSA-Cryptosuites">
-        <h3>EdDSA Cryptosuites</h3>
-        <p class="ednote">
-Here we will define the EdDSA cryptosuites. First the basic signature and  verification
-algorithm and the corresponding hash. Then the cryptosuite names with canonicalization,
-hashName, and proofEncoding.
-        </p>
-      </section>
-
-      <section>
-        <h3>eddsa-rdfc-2022</h3>
-        <p class="ednote">
-To be removed.
-        </p>
-        <p>
-The `eddsa-rdfc-2022` cryptographic suite takes an input document, canonicalizes
-the document using the RDF Dataset Canonicalization algorithm [[RDF-CANON]], and then
-cryptographically hashes and signs the output
-resulting in the production of a data integrity proof. The algorithms in this
-section also include the verification of such a data integrity proof.
-        </p>
-
-        <p class="advisement">
-When the RDF Dataset Canonicalization Algorithm [[RDF-CANON]] is used,
-implementations will detect <a data-cite="RDF-CANON#dataset-poisoning">
-dataset poisoning</a> by default, and abort processing upon such detection.
-        </p>
-
-        <section>
-          <h4>Create Proof (eddsa-rdfc-2022)</h4>
-
-          <p>
-The following algorithm specifies how to create a [=data integrity proof=] given
-an <a>unsecured data document</a>. Required inputs are an
-<a>unsecured data document</a> ([=map=] |unsecuredDocument|), and a set of proof
-options ([=map=] |options|). A [=data integrity proof=] ([=map=]), or an error,
-is produced as output.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-Let |proof| be a clone of the proof options, |options|.
-            </li>
-            <li>
-Let |proofConfig| be the result of running the algorithm in
-Section [[[#proof-configuration-eddsa-rdfc-2022]]] with
-|options| passed as a parameter.
-            </li>
-            <li>
-Let |transformedData| be the result of running the algorithm in Section <a
-href="#transformation-eddsa-rdfc-2022"></a> with |unsecuredDocument|,
-|proofConfig|, and |options| passed as parameters.
-            </li>
-            <li>
-Let |hashData| be the result of running the algorithm in Section
-[[[#hashing-eddsa-rdfc-2022]]] with |transformedData| and |proofConfig|
-passed as a parameters.
-            </li>
-            <li>
-Let |proofBytes| be the result of running the algorithm in Section
-[[[#proof-serialization-eddsa-rdfc-2022]]] with |hashData| and
-|options| passed as parameters.
-            </li>
-            <li>
-Let |proof|.|proofValue| be a <a data-cite="CID#multibase-0">
-base58-btc-encoded Multibase value</a> of the |proofBytes|.
-            </li>
-            <li>
-Return |proof| as the [=data integrity proof=].
-            </li>
-          </ol>
-
-        </section>
-
-        <section>
-          <h4>Verify Proof (eddsa-rdfc-2022)</h4>
-
-          <p>
-The following algorithm specifies how to verify a [=data integrity proof=] given
-an <a>secured data document</a>. Required inputs are an
-<a>secured data document</a> ([=map=] |securedDocument|). This algorithm returns
-a <dfn>verification result</dfn>, which is a [=struct=] whose
-[=struct/items=] are:
-          </p>
-          <dl>
-            <dt><dfn data-dfn-for="verification result">verified</dfn></dt>
-            <dd>`true` or `false`</dd>
-            <dt><dfn data-dfn-for="verification result">verifiedDocument</dfn></dt>
-            <dd>
-if [=verification result/verified=] is `false`, <a data-cite="INFRA#nulls">Null</a>;
-otherwise, an [=unsecured data document=]
-            </dd>
-          </dl>
-
-          <ol class="algorithm">
-          <li>
-Let |unsecuredDocument| be a copy of |securedDocument| with
-the `proof` value removed.
-          </li>
-          <li>
-Let |proofOptions| be the result of a copy of |securedDocument|.|proof| with `proofValue`
-removed.
-          </li>
-          <li>
-Let |proofBytes| be the
-<a data-cite="CID#multibase-0">Multibase decoded base58-btc
-value</a> in |securedDocument|.|proof|.|proofValue|.
-          </li>
-          <li>
-Let |transformedData| be the result of running the algorithm in Section <a
-href="#transformation-eddsa-rdfc-2022"></a> with |unsecuredDocument| and
-|proofOptions| passed as parameters.
-          </li>
-          <li>
-Let |proofConfig| be the result of running the algorithm in Section <a
-href="#proof-configuration-eddsa-rdfc-2022"></a> with |unsecuredDocument| and
-|proofOptions| passed as parameters.
-          </li>
-          <li>
-Let |hashData| be the result of running the algorithm in Section
-[[[#hashing-eddsa-rdfc-2022]]] with |transformedData| and |proofConfig|
-passed as a parameters.
-          </li>
-          <li>
-Let |verified:boolean| be the result of running the algorithm in Section
-[[[#proof-verification-eddsa-rdfc-2022]]] algorithm on |hashData|,
-|proofBytes|, and |proofConfig|.
-            </li>
-            <li>
-Return a [=verification result=] with [=struct/items=]:
-              <dl data-link-for="verification result">
-                <dt>[=verified=]</dt>
-                <dd>|verified|</dd>
-                <dt>[=verifiedDocument=]</dt>
-                <dd>
-if |verified| is `true`, |unsecuredDocument|;
-otherwise, <a data-cite="INFRA#nulls">Null</a></dd>
-              </dl>
-            </li>
-          </ol>
-
-        </section>
-
-        <section>
-          <h4>Transformation (eddsa-rdfc-2022)</h4>
-
-          <p>
-The following algorithm specifies how to transform an unsecured input document
-into a transformed document that is ready to be provided as input to the
-hashing algorithm in Section [[[#hashing-eddsa-rdfc-2022]]].
-          </p>
-
-          <p>
-Required inputs to this algorithm are an
-<a data-cite="vc-data-integrity#dfn-unsecured-data-document">
-unsecured data document</a> (`unsecuredDocument`) and
-transformation options (`options`). The
-transformation options MUST contain a type identifier for the
-<a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (`type`) and a cryptosuite
-identifier (`cryptosuite`). A <em>transformed data document</em> is
-produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
-encoding.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-If `options`.`type` is not set to the string
-`DataIntegrityProof` and `options`.`cryptosuite` is not
-set to the string `eddsa-rdfc-2022`,
-an error MUST be raised that SHOULD convey an error type of
-<a data-cite="VC-DATA-INTEGRITY#PROOF_TRANSFORMATION_ERROR">PROOF_TRANSFORMATION_ERROR</a>.
-            </li>
-            <li>
-Let |canonicalDocument| be the result of converting |unsecuredDocument|
-<a data-cite="JSON-LD11-API#deserialize-json-ld-to-rdf-algorithm">
-to RDF statements</a>, applying the <a data-cite="RDF-CANON#canon-algorithm">RDF Dataset Canonicalization
-Algorithm</a> [[RDF-CANON]] to the result, and then serializing the result to a
-<a data-cite="RDF-CANON#dfn-serialized-canonical-form">serialized canonical form</a> [[RDF-CANON]].
-            </li>
-            <li>
-Return `canonicalDocument` as the <em>transformed data document</em>.
-            </li>
-          </ol>
-        </section>
-
-        <section>
-          <h4>Hashing (eddsa-rdfc-2022)</h4>
-
-          <p>
-The following algorithm specifies how to cryptographically hash a
-<em>transformed data document</em> and <em>proof configuration</em>
-into cryptographic hash data that is ready to be provided as input to the
-algorithms in Section [[[#proof-serialization-eddsa-rdfc-2022]]] or
-Section [[[#proof-verification-eddsa-rdfc-2022]]].
-          </p>
-
-          <p>
-The required inputs to this algorithm are a <em>transformed data document</em>
-(`transformedDocument`) and <em>canonical proof configuration</em>
-(`canonicalProofConfig`). A single <em>hash data</em> value represented as
-series of bytes is produced as output.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-Let `proofConfigHash` be the result of applying the
-SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the `canonicalProofConfig`. `proofConfigHash` will be
-exactly 32 bytes in size.
-            </li>
-            <li>
-Let `transformedDocumentHash` be the result of applying the
-SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the `transformedDocument`. `transformedDocumentHash` will
-be exactly 32 bytes in size.
-            </li>
-            <li>
-Let `hashData` be the result of concatenating `proofConfigHash`
-(the first hash produced above) followed by `transformedDocumentHash`
-(the second hash produced above).
-            </li>
-            <li>
-Return `hashData` as the <em>hash data</em>.
-            </li>
-          </ol>
-
-        </section>
-
-        <section>
-          <h4>Proof Configuration (eddsa-rdfc-2022)</h4>
-
-          <p>
-The following algorithm specifies how to generate a
-<em>proof configuration</em> from a set of <em>proof options</em>
-that is used as input to the <a href="#hashing-eddsa-rdfc-2022">proof hashing algorithm</a>.
-          </p>
-
-          <p>
-The required inputs to this algorithm are the <em>document</em>
-(|unsecuredDocument|) and the <em>proof options</em>
-(`options`). The <em>proof options</em> MUST contain a type identifier
-for the
-<a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (`type`) and MUST contain a cryptosuite
-identifier (`cryptosuite`). A <em>proof configuration</em>
-object is produced as output.
-          </p>
-          <ol class="algorithm">
-            <li>
-Let |proofConfig| be a clone of the |options| object.
-            </li>
-            <li>
-If |proofConfig|.|type| is not set to `DataIntegrityProof` and/or
-|proofConfig|.|cryptosuite| is not set to `eddsa-rdfc-2022`, an
-error MUST be raised and SHOULD convey an error type of
-<a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
-            </li>
-            <li>
-If |proofConfig|.|created| is present and set to a value that is not a
-valid [[XMLSCHEMA11-2]] datetime, an error MUST be
-raised and SHOULD convey an error type of
-<a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
-            </li>
-            <li>
-Set |proofConfig|.`@context `to
-|unsecuredDocument|.<var>@context</var>.
-            </li>
-            <li>
-Let |canonicalProofConfig| be the result of applying the
-RDF Dataset Canonicalization Algorithm
-[[RDF-CANON]] to the |proofConfig|.
-            </li>
-            <li>
-Return |canonicalProofConfig|.
-            </li>
-          </ol>
-
-        </section>
-
-        <section>
-          <h4>Proof Serialization (eddsa-rdfc-2022)</h4>
-
-          <p>
-The following algorithm specifies how to serialize a digital signature from
-a set of cryptographic hash data. This
-algorithm is designed to be used in conjunction with the algorithms defined
-in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a data-cite="vc-data-integrity#algorithms">
-Section 4: Algorithms</a>. Required inputs are
-cryptographic hash data (`hashData`) and
-<em>proof options</em> (`options`). The
-<em>proof options</em> MUST contain a type identifier for the
-<a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (`type`) and MAY contain a cryptosuite
-identifier (`cryptosuite`). A single <em>digital proof</em> value
-represented as series of bytes is produced as output.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-Let |privateKeyBytes| be the result of retrieving the
-private key bytes (or a signing interface enabling the use of the private key
-bytes) associated with the verification method identified by the
-|options|.|verificationMethod| value.
-            </li>
-            <li>
-Let `proofBytes` be the result of applying the Edwards-Curve Digital
-Signature Algorithm (EdDSA) [[RFC8032]], using the `Ed25519` variant
-(Pure EdDSA), with `hashData` as the data to be signed using
-the private key specified by `privateKeyBytes`.
-`proofBytes` will be exactly 64 bytes in size.
-            </li>
-            <li>
-Return `proofBytes` as the <em>digital proof</em>.
-            </li>
-          </ol>
-
-        </section>
-
-        <section>
-          <h4>Proof Verification (eddsa-rdfc-2022)</h4>
-
-          <p>
-The following algorithm specifies how to verify a digital signature from
-a set of cryptographic hash data. This
-algorithm is designed to be used in conjunction with the algorithms defined
-in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a data-cite="vc-data-integrity#algorithms">
-Section 4: Algorithms</a>. Required inputs are
-cryptographic hash data (`hashData`),
-a digital signature (`proofBytes`) and
-proof options (`options`). A <em>verification result</em>
-represented as a boolean value is produced as output.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-Let `publicKeyBytes` be the result of retrieving the
-public key bytes associated with the
-`options`.`verificationMethod` value as described in the
-<a data-cite="CID#retrieve-verification-method">Retrieve
-Verification Method</a> section of the [[[CID]]] specification.
-            </li>
-            <li>
-Let `verificationResult` be the result of applying the verification
-algorithm for the Edwards-Curve Digital Signature Algorithm (EdDSA)
-[[RFC8032]], using the `Ed25519` variant (Pure EdDSA),
-with `hashData` as the data to be verified against the
-`proofBytes` using the public key specified by
-`publicKeyBytes`.
-            </li>
-            <li>
-Return `verificationResult` as the <em>verification result</em>.
-            </li>
-          </ol>
-
-        </section>
-      </section>
-
-      <section>
-        <h3>eddsa-jcs-2022</h3>
-        <p class="ednote">
-To be removed.
-        </p>
-          <p>
-The `eddsa-jcs-2022` cryptographic suite takes an input document, canonicalizes
-the document using the JSON Canonicalization Scheme [[RFC8785]], and then
-cryptographically hashes and signs the output resulting in the production of a
-data integrity proof.
-          </p>
-
-
-
-          <section>
-            <h4>Create Proof (eddsa-jcs-2022)</h4>
-
-            <p>
-The following algorithm specifies how to create a [=data integrity proof=] given
-an <a>unsecured data document</a>. Required inputs are an
-<a>unsecured data document</a> ([=map=] |unsecuredDocument|), and a set of proof
-options ([=map=] |options|). A [=data integrity proof=] ([=map=]), or an error,
-is produced as output.
-            </p>
-
-            <ol class="algorithm">
-              <li>
-Let |proof| be a clone of the proof options, |options|.
-              </li>
-              <li>
-If `unsecuredDocument`.<var>@context</var> is present,
-set `proof`.<var>@context</var> to
-`unsecuredDocument`.<var>@context</var>.
-              </li>
-              <li>
-Let |proofConfig| be the result of running the algorithm in
-Section [[[#proof-configuration-eddsa-jcs-2022]]] with
-|proof| passed as the <em>proof options</em> parameter.
-              </li>
-              <li>
-Let |transformedData| be the result of running the algorithm in Section
-[[[#transformation-eddsa-jcs-2022]]] with |unsecuredDocument|
-and |options| passed as parameters.
-              </li>
-              <li>
-Let |hashData| be the result of running the algorithm in Section
-[[[#hashing-eddsa-jcs-2022]]] with |transformedData| and |proofConfig|
-passed as a parameters.
-              </li>
-              <li>
-Let |proofBytes| be the result of running the algorithm in Section
-[[[#proof-serialization-eddsa-jcs-2022]]] with |hashData| and
-|options| passed as parameters.
-              </li>
-              <li>
-Let |proof|.|proofValue| be a <a data-cite="CID#multibase-0">
-base58-btc-encoded Multibase value</a> of the |proofBytes|.
-              </li>
-              <li>
-Return |proof| as the [=data integrity proof=].
-              </li>
-            </ol>
-
-            <p class="note" title="Not implementing step 2 can lead to interoperability failures">
-Implementers are warned that while step 2 is not strictly necessary when
-generating proofs that will not be included in a proof set or a proof chain,
-that it is not always possible to be certain of where generated proofs will be
-used, or how they might be combined with other proofs at the application layer.
-It is strongly advised to always implement step 2, though some implementers have
-signaled that their software might not always implement step 2.
-            </p>
-
-          </section>
-
-          <section>
-            <h4>Verify Proof (eddsa-jcs-2022)</h4>
-
-          <p>
-The following algorithm specifies how to verify a [=data integrity proof=] given
-an <a>secured data document</a>. Required inputs are an
-<a>secured data document</a> ([=map=] |securedDocument|). This algorithm returns
-a [=verification result=], which is a [=struct=] whose [=struct/items=] are:
-          </p>
-          <dl>
-            <dt>[=verification result/verified=]</dt>
-            <dd>`true` or `false`</dd>
-            <dt>[=verification result/verifiedDocument=]</dt>
-            <dd>
-if [=verification result/verified=] is `true`, an [=unsecured data document=];
-otherwise <a data-cite="INFRA#nulls">Null</a>
-            </dd>
-          </dl>
-
-          <ol class="algorithm">
-            <li>
-Let |unsecuredDocument| be a copy of |securedDocument| with the `proof` value
-removed.
-            </li>
-            <li>
-Let |proofOptions| be the result of a copy of |securedDocument|.|proof| with
-`proofValue` removed.
-            </li>
-            <li>
-Let |proofBytes| be the
-<a data-cite="CID#multibase-0">Multibase decoded base58-btc
-value</a> in |securedDocument|.|proof|.|proofValue|.
-            </li>
-            <li>
-If |proofOptions|.<var>@context</var> exists:
-              <ol class="algorithm">
-                <li>
-Check that the |securedDocument|.<var>@context</var> starts with all values
-contained in the |proofOptions|.<var>@context</var> in the same order.
-Otherwise, set |verified| to `false` and skip to the last step.
-                </li>
-                <li>
-Set |unsecuredDocument|.<var>@context</var> equal to
-|proofOptions|.<var>@context</var>.
-                </li>
-              </ol>
-            </li>
-            <li>
-Let |transformedData| be the result of running the algorithm in Section
-[[[#transformation-eddsa-jcs-2022]]] with |unsecuredDocument| and
-|proofOptions| passed as parameters.
-              </li>
-            <li>
-Let |proofConfig| be the result of running the algorithm in Section
-[[[#proof-configuration-eddsa-jcs-2022]]] with |proofOptions| passed
-as the parameter.
-            </li>
-            <li>
-Let |hashData| be the result of running the algorithm in Section
-[[[#hashing-eddsa-jcs-2022]]] with |transformedData| and |proofConfig| passed as
-a parameters.
-            </li>
-            <li>
-Let |verified:boolean| be the result of running the algorithm in Section
-[[[#proof-verification-eddsa-jcs-2022]]] on |hashData|, |proofBytes|,
-and |proofConfig|.
-              </li>
-              <li>
-Return a [=verification result=] with [=struct/items=]:
-                <dl data-link-for="verification result">
-                  <dt>[=verified=]</dt>
-                  <dd>|verified|</dd>
-                  <dt>[=verifiedDocument=]</dt>
-                  <dd>
-if |verified| is `true`, |unsecuredDocument|;
-otherwise, <a data-cite="INFRA#nulls">Null</a></dd>
-                </dl>
-              </li>
-            </ol>
-        </section>
-        <section>
-          <h4>Transformation (eddsa-jcs-2022)</h4>
-
-          <p>
-The following algorithm specifies how to transform an unsecured input document
-into a transformed document that is ready to be provided as input to the
-hashing algorithm in Section [[[#hashing-eddsa-jcs-2022]]].
-          </p>
-
-          <p>
-Required inputs to this algorithm are an
-<a data-cite="vc-data-integrity#dfn-unsecured-data-document">
-unsecured data document</a> (`unsecuredDocument`) and
-transformation options (`options`). The
-transformation options MUST contain a type identifier for the
-<a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (`type`) and a cryptosuite
-identifier (`cryptosuite`). A <em>transformed data document</em> is
-produced as output. Whenever this algorithm encodes strings, it MUST use UTF-8
-encoding.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-If `options`.`type` is not set to the string
-`DataIntegrityProof` and `options`.`cryptosuite` is not
-set to the string `eddsa-jcs-2022`,
-an error MUST be raised that SHOULD convey an error type of
-<a data-cite="VC-DATA-INTEGRITY#PROOF_VERIFICATION_ERROR">PROOF_VERIFICATION_ERROR</a>.
-            </li>
-            <li>
-Let `canonicalDocument` be the result of applying the
-JSON Canonicalization Scheme [[RFC8785]] to a JSON serialization of the
-`unsecuredDocument`.
-            </li>
-            <li>
-Return `canonicalDocument` as the <em>transformed data document</em>.
-            </li>
-          </ol>
-        </section>
-        <section>
-          <h4>Hashing (eddsa-jcs-2022)</h4>
-
-          <p>
-The following algorithm specifies how to cryptographically hash a
-<em>transformed data document</em> and <em>proof configuration</em>
-into cryptographic hash data that is ready to be provided as input to the
-algorithms in Section [[[#proof-serialization-eddsa-jcs-2022]]] or
-Section [[[#proof-verification-eddsa-jcs-2022]]].
-          </p>
-
-          <p>
-The required inputs to this algorithm are a <em>transformed data document</em>
-(`transformedDocument`) and <em>canonical proof configuration</em>
-(`canonicalProofConfig`). A single <em>hash data</em> value represented as
-series of bytes is produced as output.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-Let `transformedDocumentHash` be the result of applying the
-SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the `transformedDocument`. `transformedDocumentHash` will
-be exactly 32 bytes in size.
-            </li>
-            <li>
-Let `proofConfigHash` be the result of applying the
-SHA-256 (SHA-2 with 256-bit output) cryptographic hashing algorithm [[RFC6234]]
-to the `canonicalProofConfig`. `proofConfigHash` will be
-exactly 32 bytes in size.
-            </li>
-            <li>
-Let `hashData` be the result of joining `proofConfigHash` (the
-first hash) with `transformedDocumentHash` (the second hash).
-            </li>
-            <li>
-Return `hashData` as the <em>hash data</em>.
-            </li>
-          </ol>
-
-        </section>
-        <section>
-          <h4>Proof Configuration (eddsa-jcs-2022)</h4>
-
-          <p>
-The following algorithm specifies how to generate a
-<em>proof configuration</em> from a set of <em>proof options</em>
-that is used as input to the <a href="#hashing-eddsa-jcs-2022">proof hashing algorithm</a>.
-          </p>
-
-          <p>
-The required inputs to this algorithm are <em>proof options</em>
-(`options`). The <em>proof options</em> MUST contain a type identifier
-for the
-<a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (`type`) and MUST contain a cryptosuite
-identifier (`cryptosuite`). A <em>proof configuration</em>
-object is produced as output.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-Let `proofConfig` be a clone of the `options` object.
-            </li>
-            <li>
-If `proofConfig`.`type` is not set to `DataIntegrityProof` or
-`proofConfig`.`cryptosuite` is not set to `eddsa-jcs-2022`,
-an error MUST be raised that SHOULD convey an error type of
-<a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
-            </li>
-            <li>
-If |proofConfig|.|created| is set to a value that is not a
-valid [[XMLSCHEMA11-2]] datetime, an error MUST be
-raised and SHOULD convey an error type of
-<a data-cite="VC-DATA-INTEGRITY#PROOF_GENERATION_ERROR">PROOF_GENERATION_ERROR</a>.
-            </li>
-            <li>
-Let `canonicalProofConfig` be the result of applying the
-JSON Canonicalization Scheme [[RFC8785]] to the `proofConfig`.
-            </li>
-            <li>
-Return `canonicalProofConfig`.
-            </li>
-          </ol>
-
-        </section>
-        <section>
-          <h4>Proof Serialization (eddsa-jcs-2022)</h4>
-
-          <p>
-The following algorithm specifies how to serialize a digital signature from
-a set of cryptographic hash data. This
-algorithm is designed to be used in conjunction with the algorithms defined
-in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a data-cite="vc-data-integrity#algorithms">
-Section 4: Algorithms</a>. Required inputs are
-cryptographic hash data (`hashData`) and
-<em>proof options</em> (`options`). The
-<em>proof options</em> MUST contain a type identifier for the
-<a data-cite="vc-data-integrity#dfn-cryptosuite">
-cryptographic suite</a> (`type`) and MAY contain a cryptosuite
-identifier (`cryptosuite`). A single <em>digital proof</em> value
-represented as series of bytes is produced as output.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-Let |privateKeyBytes| be the result of retrieving the
-private key bytes (or a signing interface enabling the use of the private key
-bytes) associated with the verification method identified by the
-|options|.|verificationMethod| value.
-            </li>
-            <li>
-Let `proofBytes` be the result of applying the Edwards-Curve Digital
-Signature Algorithm (EdDSA) [[RFC8032]], using the `Ed25519` variant
-(Pure EdDSA), with `hashData` as the data to be signed using
-the private key specified by `privateKeyBytes`.
-`proofBytes` will be exactly 64 bytes in size.
-            </li>
-            <li>
-Return `proofBytes` as the <em>digital proof</em>.
-            </li>
-          </ol>
-
-        </section>
-        <section>
-          <h4>Proof Verification (eddsa-jcs-2022)</h4>
-
-          <p>
-The following algorithm specifies how to verify a digital signature from
-a set of cryptographic hash data. This
-algorithm is designed to be used in conjunction with the algorithms defined
-in the Data Integrity [[VC-DATA-INTEGRITY]] specification,
-<a data-cite="vc-data-integrity#algorithms">
-Section 4: Algorithms</a>. Required inputs are
-cryptographic hash data (`hashData`),
-a digital signature (`proofBytes`) and
-proof options (`options`). A <em>verification result</em>
-represented as a boolean value is produced as output.
-          </p>
-
-          <ol class="algorithm">
-            <li>
-Let `publicKeyBytes` be the result of retrieving the
-public key bytes associated with the
-`options`.`verificationMethod` value as described in the
-<a data-cite="CID#retrieve-verification-method">Retrieve
-Verification Method</a> section of the [[[CID]]] specification.
-            </li>
-            <li>
-Let `verificationResult` be the result of applying the verification
-algorithm for the Edwards-Curve Digital Signature Algorithm (EdDSA)
-[[RFC8032]], using the `Ed25519` variant (Pure EdDSA),
-with `hashData` as the data to be verified against the
-`proofBytes` using the public key specified by
-`publicKeyBytes`.
-            </li>
-            <li>
-Return `verificationResult` as the <em>verification result</em>.
-            </li>
-          </ol>
-
-        </section>
       </section>
 
     </section>
